@@ -1,0 +1,9 @@
+C:\Users\Collen\AppData\Local\Temporary Projects\StatsTesting\bin\Debug\StatsTesting.exe.config
+C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe.config
+C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe
+C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\bin\Debug\StatsTesting.pdb
+C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\obj\Debug\StatsTesting.csprojResolveAssemblyReference.cache
+C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\obj\Debug\StatsTesting.Properties.Resources.resources
+C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\obj\Debug\StatsTesting.csproj.GenerateResource.Cache
+C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\obj\Debug\StatsTesting.exe
+C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\obj\Debug\StatsTesting.pdb
