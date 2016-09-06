@@ -1,4 +1,6 @@
-﻿namespace ActorNS {
+﻿using System.Collections.Generic;
+
+namespace ActorNS {
 
     // Actor is the class from which all characters will inherit
     public class Actor {
@@ -53,12 +55,7 @@
         public Resource mana;
         public Resource stamina;
 
-        // stats - all subject to change
-        public int strength  = 1; // melee damage
-        public int intellect = 1; // magic damage
-        public int dexterity = 1; // range damage
-        public int cunning   = 1; // crit / dodge chance
-        public int charisma  = 1; // buy / sell prices
+        public Dictionary<string, Stat> stats = new Dictionary<string, Stat>();
 
         #endregion
 
@@ -72,11 +69,11 @@
         /// <param name="resources">
         /// Array of Resources corresponding to health, mana, stamina
         /// </param>
-        /// <param name="stats">
+        /// <param name="statArray">
         /// Array of ints corresponding to the Actor's stats in order:
         /// strength, intellect, dexterity, cunning, charisma
         /// </param>
-        public Actor(string name, int level, Title title = null, Resource[] resources = null, int[] stats = null) {
+        public Actor(string name, int level, Title title = null, Resource[] resources = null, int[] statArray = null) {
             _name = name;
             _level = level;
 
@@ -97,8 +94,16 @@
                 stamina = new Resource(resourceModifier);
             }
 
-            if (stats != null) { // stats specified
-                setStats(stats);
+            // setting up the default stats
+            stats.Add("strength",  new Stat(1, 0));
+            stats.Add("intellect", new Stat(1, 0));
+            stats.Add("dexterity", new Stat(1, 0));
+            stats.Add("cunning",   new Stat(1, 0));
+            stats.Add("charisma",  new Stat(1, 0));
+            // do we add armor?
+
+            if (statArray != null) { // stats specified
+                setStatLevels(statArray);
             }
         }
 
@@ -131,24 +136,22 @@
         /// Array of ints corresponding to the Actor's stats in order:
         /// strength, intellect, dexterity, cunning, charisma 
         /// </param>
-        public void setStats(int[] stats) {
-            strength  = stats[0];
-            intellect = stats[1];
-            dexterity = stats[2];
-            cunning   = stats[3];
-            charisma  = stats[4];
+        public void setStatLevels(int[] newStats) {
+            int x = 0;
+            foreach (KeyValuePair<string, Stat> stat in stats) {
+                stat.Value.setLevel(newStats[++x]);
+            }
+            
         }
 
         /// <summary>
         /// Sets all stats to the specified value
         /// </summary>
-        /// <param name="stats">int to set ALL stat values to</param>
-        public void setStats(int stats) {
-            strength  = stats;
-            intellect = stats;
-            dexterity = stats;
-            cunning   = stats;
-            charisma  = stats;
+        /// <param name="newStats">int to set ALL stat values to</param>
+        public void setStatsLevels(int newStats) {
+            foreach (KeyValuePair<string, Stat> stat in stats) {
+                stat.Value.setLevel(newStats);
+            }
         }
 
         /// <summary>
@@ -174,6 +177,40 @@
             stamina.setValue(0);
 
             _isAlive = false;
+
+            // TODO: whatever we want to do on death goes here
+        }
+
+        // TODO: finish this method
+        public void damage(double damageAmount) {
+            // dodge roll here?
+            // armor reduction here?
+
+            health.subtract(damageAmount);
+        }
+
+        /// <summary>
+        /// Heals the Actor by the specified amount
+        /// </summary>
+        /// <param name="healAmount">Amount to heal</param>
+        public void heal(double healAmount) {
+            health.add(healAmount);
+        }
+
+        /// <summary>
+        /// Drains the specified amount of mana
+        /// </summary>
+        /// <param name="amount">Amount of mana to drain</param>
+        public void drainMana(double amount) {
+            mana.subtract(amount);
+        }
+
+        /// <summary>
+        /// Drains the specified amount of stamina
+        /// </summary>
+        /// <param name="amount">Amount of stamina to drain</param>
+        public void drainStamina(double amount) {
+            stamina.subtract(amount);
         }
 
         #endregion
