@@ -9,7 +9,7 @@ namespace ActorNS {
         #region Private Vars
 
         private int _level;
-        private int _virtualLevel;
+        private int _effectiveLevel;
         private int _gearLevel;
         private int _buffLevel;
         private int _debuffLevel;
@@ -39,9 +39,9 @@ namespace ActorNS {
         }
 
         // total value including buffs from gear (can go over maxvalue), and debuffs
-        public int virtualLevel {
+        public int effectiveLevel {
             get {
-                return _virtualLevel;
+                return _effectiveLevel;
             }
         }
 
@@ -79,10 +79,10 @@ namespace ActorNS {
             setLevel(level);
             _gearLevel = gearlevel;
 
-            calculateVirtualLevel();
+            calcEffectiveLevel();
         }
 
-        private void calculateVirtualLevel() {
+        private void calcEffectiveLevel() {
             _buffLevel = 0;
             _debuffLevel = 0;
 
@@ -99,7 +99,7 @@ namespace ActorNS {
             int total = level + gearLevel + buffLevel - debuffLevel;
 
             // don't go below minLevel (can go above maxLevel though)
-            _virtualLevel = (total > minLevel) ? total : minLevel;
+            _effectiveLevel = (total > minLevel) ? total : minLevel;
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace ActorNS {
         public void setGearLevel(int newGearLevel) {
             _gearLevel = newGearLevel;
 
-            calculateVirtualLevel();
+            calcEffectiveLevel();
         }
 
         #endregion
