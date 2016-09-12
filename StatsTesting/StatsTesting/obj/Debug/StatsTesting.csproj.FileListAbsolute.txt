@@ -7,3 +7,27 @@ C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\
 C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\obj\Debug\StatsTesting.csproj.GenerateResource.Cache
 C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\obj\Debug\StatsTesting.exe
 C:\Users\Collen\Documents\Visual Studio 2015\Projects\StatsTesting\StatsTesting\obj\Debug\StatsTesting.pdb
+E:\School2016.2\Prog\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe.config
+E:\School2016.2\Prog\StatsTesting\StatsTesting\obj\Debug\StatsTesting.exe
+E:\School2016.2\Prog\StatsTesting\StatsTesting\obj\Debug\StatsTesting.pdb
+C:\Users\irwicj\Desktop\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe.config
+C:\Users\irwicj\Desktop\StatsTesting\StatsTesting\obj\Debug\StatsTesting.exe
+C:\Users\irwicj\Desktop\StatsTesting\StatsTesting\obj\Debug\StatsTesting.pdb
+E:\School2016.2\Prog\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe
+E:\School2016.2\Prog\StatsTesting\StatsTesting\bin\Debug\StatsTesting.pdb
+E:\School2016.2\Prog\StatsTesting\StatsTesting\obj\Debug\StatsTesting.csprojResolveAssemblyReference.cache
+E:\School2016.2\Prog\StatsTesting\StatsTesting\obj\Debug\StatsTesting.Properties.Resources.resources
+E:\School2016.2\Prog\StatsTesting\StatsTesting\obj\Debug\StatsTesting.csproj.GenerateResource.Cache
+E:\School2016.2\Prog\StatsTesting\StatsTesting\obj\Debug\StatsTesting.Form1.resources
+F:\School2016.2\Prog\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe.config
+F:\School2016.2\Prog\StatsTesting\StatsTesting\obj\Debug\StatsTesting.exe
+F:\School2016.2\Prog\StatsTesting\StatsTesting\obj\Debug\StatsTesting.pdb
+E:\StatsTestingV\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe.config
+E:\StatsTestingV\StatsTesting\StatsTesting\obj\Debug\StatsTesting.exe
+E:\StatsTestingV\StatsTesting\StatsTesting\obj\Debug\StatsTesting.pdb
+E:\StatsTestingV\StatsTesting\StatsTesting\obj\Debug\StatsTesting.csprojResolveAssemblyReference.cache
+E:\StatsTestingV\StatsTesting\StatsTesting\obj\Debug\StatsTesting.Form1.resources
+E:\StatsTestingV\StatsTesting\StatsTesting\obj\Debug\StatsTesting.Properties.Resources.resources
+E:\StatsTestingV\StatsTesting\StatsTesting\obj\Debug\StatsTesting.csproj.GenerateResource.Cache
+E:\StatsTestingV\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe
+E:\StatsTestingV\StatsTesting\StatsTesting\bin\Debug\StatsTesting.pdb

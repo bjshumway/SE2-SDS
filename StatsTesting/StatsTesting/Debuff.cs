@@ -10,7 +10,8 @@
 
         public Debuff(string statName, int value, int turnsLeft, bool dispellable, string description = "")
             : base(statName, value, turnsLeft, description) {
-                _dispellable = dispellable;
+
+            _dispellable = dispellable;
         }
 
         public void dispell() {

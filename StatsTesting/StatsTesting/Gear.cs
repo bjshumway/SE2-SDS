@@ -11,8 +11,8 @@
             }
         }
 
-        public Gear(string name, double weight, bool tradable, int level, string toolTip = "")
-            : base(name, weight, tradable, toolTip) {
+        public Gear(string name, decimal weight, bool tradable, decimal value, int level, string toolTip = "")
+            : base(name, weight, tradable, value, toolTip) {
 
             _level = level;
         }

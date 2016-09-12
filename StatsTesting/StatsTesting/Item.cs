@@ -5,8 +5,9 @@
     public class Item {
         private string _name;
         private string _toolTip;
-        private double _weight;
+        private decimal _weight;
         private bool _tradable;
+        private decimal _value;
 
         public string name {
             get {
@@ -20,9 +21,9 @@
             }
         }
 
-        public double weight {
+        public decimal weight {
             get {
-                return weight;
+                return _weight;
             }
         }
 
@@ -32,11 +33,22 @@
             }
         }
 
-        public Item(string name, double weight, bool tradable, string toolTip = "") {
+        public decimal value { // gold value of the item
+            get {
+                return _value;
+            }
+        }
+
+        public Item(string name, decimal weight, bool tradable, decimal value = 1, string toolTip = "") {
             _name     = name;
             _weight   = weight;
             _tradable = tradable;
+            _value    = value;
             _toolTip  = toolTip;
+        }
+
+        public override string ToString() {
+            return name;
         }
     }
 }

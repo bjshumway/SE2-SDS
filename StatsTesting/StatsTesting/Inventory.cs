@@ -8,9 +8,10 @@ namespace ActorNS {
 
         #region Private Vars
 
-        private string _name; 
-        private double _weightCap;
-        private double _weight;
+        private Player _player;
+        private string _name;
+        private decimal _weightCap;
+        private decimal _weight = 0;
 
         #endregion
 
@@ -22,15 +23,21 @@ namespace ActorNS {
             }
         }
 
-        public double weightCap { // how much it can hold
+        public decimal weightCap { // how much it can hold
             get {
                 return _weightCap;
             }
         }
 
-        public double weight { // current weight
+        public decimal weight { // current weight
             get {
                 return _weight;
+            }
+        }
+
+        public Player player {
+            get {
+                return _player;
             }
         }
 
@@ -41,13 +48,15 @@ namespace ActorNS {
 
         #region Constructors & Methods
 
-        public Inventory(string name, double weightCap) {
-            _name = name;
+        public Inventory(Player player, string name, decimal weightCap) {
+            _player = player;
+            _name   = name;
             _weightCap = weightCap;
         }
 
-        public Inventory(string name, double weightCap, List<Item> items) {
-            _name = name;
+        public Inventory(Player player, string name, decimal weightCap, List<Item> items) {
+            _player = player;
+            _name   = name;
             _weightCap = weightCap;
             this.items = items;
 
@@ -69,9 +78,9 @@ namespace ActorNS {
         /// <returns>True if there is room to add the item</returns>
         /// <remarks>USE THIS METHOD OVER Inventory.items.Add(Item)!!!</remarks>
         public bool addItem(Item item) {
-            double newWeight = weight + item.weight;
+            decimal newWeight = weight + item.weight;
 
-            if (newWeight > weight) { // too heavy
+            if (newWeight > weightCap) { // too heavy
                 return false; // don't add it
             } else { // there's room
                 items.Add(item); // add it
@@ -88,6 +97,15 @@ namespace ActorNS {
         public void deleteItem(Item item) {
             _weight -= item.weight;
             items.Remove(item);
+        }
+
+        /// <summary>
+        /// Sells an Item, updating the player's gold amount
+        /// </summary>
+        /// <param name="item">Item to sell</param>
+        public void sellItem(Item item) {
+            player.gold += item.value;
+            deleteItem(item);
         }
 
         #endregion

@@ -36,7 +36,9 @@
         }
 
         public Buff(string statName, int value, int turnsLeft, string description = "") {
-            _value = value;
+            _statName  = statName;
+            _value     = value;
+            _turnsLeft = turnsLeft;
 
             if (description == "") { // no desc, go default
                 _description = "+1 " + statName; // +1 strength

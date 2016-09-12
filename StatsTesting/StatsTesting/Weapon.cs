@@ -1,19 +1,19 @@
 ﻿namespace ActorNS {
 
-    // base class for ranged, melee, and magic weapons
+    // parent class for ranged, melee, and magic weapons
+    // TODO: add.. sprite?
     public class Weapon : Gear {
-        private double _damage;
-        private double _accuracy;
+        private decimal _damage;
+        private decimal _accuracy;
         private All.weaponType _type;
-        
 
-        public double damage {
+        public decimal damage {
             get {
                 return _damage;
             }
         }
 
-        public double accuracy {
+        public decimal accuracy {
             get {
                 return _accuracy;
             }
@@ -25,8 +25,8 @@
             }
         }
 
-        public Weapon(string name, double weight, bool tradable, int level, All.weaponType type, string toolTip = "")
-            : base(name, weight, tradable, level, toolTip) {
+        public Weapon(string name, decimal weight, bool tradable, decimal value, int level, All.weaponType type, string toolTip = "")
+            : base(name, weight, tradable, value, level, toolTip) {
 
             _type = type;
             calcStats();
@@ -34,14 +34,14 @@
 
         private void calcStats() { // formula not final of course
             if (type == All.weaponType.highDamage) {
-                _damage   = level * 0.7;
-                _accuracy = level * 0.3;
+                _damage   = level * 0.7m;
+                _accuracy = level * 0.3m;
             } else if (type == All.weaponType.highAccuracy) {
-                _damage   = level * 0.3;
-                _accuracy = level * 0.7;
+                _damage   = level * 0.3m;
+                _accuracy = level * 0.7m;
             } else if (type == All.weaponType.balanced) {
-                _damage   = level * 0.5;
-                _accuracy = level * 0.5;
+                _damage   = level * 0.5m;
+                _accuracy = level * 0.5m;
             }
         }
     }
