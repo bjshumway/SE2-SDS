@@ -10,7 +10,7 @@ public class GameMaster : MonoBehaviour {
         characterConfiguration
     };
 
-    public static playerStates playerState = playerStates.wondering;
+    public static playerStates playerState = playerStates.outsideBattle;
 
     public ActorNS.Player thePlayer;
     public Map theMap;
@@ -18,7 +18,7 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         thePlayer = new ActorNS.Player("Monkey", 7, 7, null, null, null);
-        theMap = new Map(1);
+        //theMap = new Map
     }
 	
 	// Update is called once per frame
