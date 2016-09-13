@@ -1,0 +1,218 @@
+﻿using System.Collections.Generic;
+
+namespace ActorNS {
+
+    // Actor is the class from which all characters will inherit
+    public class Actor {
+
+        #region Private Vars
+
+
+        private string _name;
+        private string _fullName;
+        private Title _title;
+
+        private bool _isAlive = true;
+        private int _level = 1;
+
+        #endregion
+
+        #region Public Vars
+
+        public string name {
+            get {
+                return _name;
+            }
+        }
+
+        // name + title or title + name
+        public string fullName {
+            get {
+                return _fullName;
+            }
+        }
+
+        public bool isAlive {
+            get {
+                return _isAlive;
+            }
+        }
+
+        public int level {
+            get {
+                return _level;
+            }
+        }
+
+        // went with a skyrim-type system here
+        public Resource health;
+        public Resource mana;
+        public Resource stamina;
+
+        public Dictionary<string, Stat> stats = new Dictionary<string, Stat>();
+
+        #endregion
+
+        #region Constructor & Methods
+
+        /// <summary>
+        /// Constructor for Actor
+        /// </summary>
+        /// <param name="name">Name of the Actor</param>
+        /// <param name="title">Title for the Actor, if any</param>
+        /// <param name="resources">
+        /// Array of Resources corresponding to health, mana, stamina
+        /// </param>
+        /// <param name="statArray">
+        /// Array of ints corresponding to the Actor's stats in order:
+        /// strength, intellect, dexterity, cunning, charisma
+        /// </param>
+        public Actor(string name, int level, Title title = null, Resource[] resources = null, int[] statArray = null) {
+            _name = name;
+            _level = level;
+
+            if (title != null) { // title
+                setTitle(title);
+            } else { // no title
+                _fullName = name;
+            }
+
+            if (resources != null) { // h/m/s specified
+                health  = resources[0];
+                mana    = resources[1];
+                stamina = resources[2];
+            } else { // h/m/s not specified - go by this formula
+                int resourceModifier = 100 + (level * 7); // no idea if this formula will be good
+                health  = new Resource(resourceModifier);
+                mana    = new Resource(resourceModifier);
+                stamina = new Resource(resourceModifier);
+            }
+
+            // setting up the default stats
+            stats.Add("strength",  new Stat(1, 0));
+            stats.Add("intellect", new Stat(1, 0));
+            stats.Add("dexterity", new Stat(1, 0));
+            stats.Add("cunning",   new Stat(1, 0));
+            stats.Add("charisma",  new Stat(1, 0));
+            // do we add armor?
+
+            if (statArray != null) { // stats specified
+                setStatLevels(statArray);
+            }
+        }
+
+        /// <summary>
+        /// Sets Actor.title with the specified Title, and applies the title to Actor.fullName
+        /// </summary>
+        /// <param name="newTitle">Title to apply</param>
+        public void setTitle(Title newTitle)
+        {
+            _title = newTitle;
+
+            if (_title.beforeName)
+            {
+                _fullName = _title.text + " " + name;
+            }
+            else
+            {
+                _fullName = name + " " + title.text;
+            }
+        }
+
+
+        /// <summary>
+        /// Clears the current title, setting Actor.title to null, and Actor.fullName to Actor.name
+        /// </summary>
+        public void clearTitle()
+        {
+            _title = null;
+            _fullName = name;
+        }
+
+        /// <summary>
+        /// Sets all stats to the specified values
+        /// </summary>
+        /// <param name="stats">
+        /// Array of ints corresponding to the Actor's stats in order:
+        /// strength, intellect, dexterity, cunning, charisma 
+        /// </param>
+        public void setStatLevels(int[] newStats) {
+            int x = 0;
+            foreach (KeyValuePair<string, Stat> stat in stats) {
+                stat.Value.setLevel(newStats[++x]);
+            }
+            
+        }
+
+        /// <summary>
+        /// Sets all stats to the specified value
+        /// </summary>
+        /// <param name="newStats">int to set ALL stat values to</param>
+        public void setStatsLevels(int newStats) {
+            foreach (KeyValuePair<string, Stat> stat in stats) {
+                stat.Value.setLevel(newStats);
+            }
+        }
+
+        /// <summary>
+        /// Brings the actor back to life with specified percentage of resources
+        /// </summary>
+        /// <param name="percentResources">
+        /// Percentage of health/mana/stamina Actor is res'd with (1.0 for 100%)
+        /// </param>
+        public void resurrect(double percentResources) {
+            health.setValue(health.maxValue * percentResources);
+            mana.setValue(mana.maxValue * percentResources);
+            stamina.setValue(stamina.maxValue * percentResources);
+
+            _isAlive = true;
+        }
+
+        /// <summary>
+        /// Kills the Actor, setting all resources to 0
+        /// </summary>
+        public void kill() {
+            health.setValue(0);
+            mana.setValue(0);
+            stamina.setValue(0);
+
+            _isAlive = false;
+
+            // TODO: whatever we want to do on death goes here
+        }
+
+        // TODO: finish this method
+        public void damage(double damageAmount) {
+            // dodge roll here?
+            // armor reduction here?
+
+            health.subtract(damageAmount);
+        }
+
+        /// <summary>
+        /// Heals the Actor by the specified amount
+        /// </summary>
+        /// <param name="healAmount">Amount to heal</param>
+        public void heal(double healAmount) {
+            health.add(healAmount);
+        }
+
+        /// <summary>
+        /// Drains the specified amount of mana
+        /// </summary>
+        /// <param name="amount">Amount of mana to drain</param>
+        public void drainMana(double amount) {
+            mana.subtract(amount);
+        }
+
+        /// <summary>
+        /// Drains the specified amount of stamina
+        /// </summary>
+        /// <param name="amount">Amount of stamina to drain</param>
+        public void drainStamina(double amount) {
+            stamina.subtract(amount);
+        }
+
+        #endregion
+    }
+}
