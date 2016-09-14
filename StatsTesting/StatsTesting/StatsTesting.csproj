@@ -47,8 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ability.cs" />
     <Compile Include="Actor.cs" />
     <Compile Include="All.cs" />
+    <Compile Include="Equips.cs" />
+    <Compile Include="Follower.cs" />
     <Compile Include="MagicWeapon.cs" />
     <Compile Include="MeleeWeapon.cs" />
     <Compile Include="Player.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Resource.cs" />
     <Compile Include="Stat.cs" />
     <Compile Include="Title.cs" />
+    <Compile Include="UserControllable.cs" />
     <Compile Include="Weapon.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

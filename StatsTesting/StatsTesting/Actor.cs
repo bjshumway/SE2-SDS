@@ -2,6 +2,7 @@
 
 namespace ActorNS {
 
+    // TODO:? Make resources (h/m/s) scale from level? Eliminate mana/stamina?
     // Actor is the class from which all characters will inherit
     public class Actor {
 

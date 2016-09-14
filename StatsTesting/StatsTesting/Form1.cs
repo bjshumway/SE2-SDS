@@ -22,7 +22,7 @@ namespace StatsTesting {
             Item junk2 = new Item("Dusty Metal Scraps", 12, true, 37, "Whatever this once was, it's no longer useful.");
             Item junk3 = new Item("Partially Singed Note", 0.1m, true, 1, "\"Danger ahead! Don't\" - is all you can make out.");
 
-            MeleeWeapon sword = new MeleeWeapon("Blunt Sword", 3, true, 30, 25, All.weaponType.highAccuracy, "A dull sword. It's seen better days.");
+            MeleeWeapon sword = new MeleeWeapon("Blunt Sword", 3, true, 30, 25, Weapon.weaponType.highAccuracy, "A dull sword. It's seen better days.");
             
             // add the items to inventory
             inventory.addItem(key);
