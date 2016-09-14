@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Actor.cs" />
     <Compile Include="Assets\Scripts\All.cs" />
+    <Compile Include="Assets\Scripts\BattleRoom.cs" />
     <Compile Include="Assets\Scripts\Buff.cs" />
     <Compile Include="Assets\Scripts\Debuff.cs" />
     <Compile Include="Assets\Scripts\GameMaster.cs" />
@@ -75,9 +76,11 @@
     <Compile Include="Assets\Scripts\MagicWeapon.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\MeleeWeapon.cs" />
+    <Compile Include="Assets\Scripts\Monster.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\RangedWeapon.cs" />
     <Compile Include="Assets\Scripts\Resource.cs" />
+    <Compile Include="Assets\Scripts\Room.cs" />
     <Compile Include="Assets\Scripts\Stat.cs" />
     <Compile Include="Assets\Scripts\Title.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />

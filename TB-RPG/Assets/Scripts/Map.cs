@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Map {
     private static int _level;
-    private static room[][] rooms;
+    private static Room[,] rooms;
 
     private static int MAP_HEIGHT = 11;
     private static int MAP_WIDTH = 11;
@@ -24,7 +24,7 @@ public class Map {
 
     public static void generateMapByLevel(int level)    {
         _level = level;
-        rooms = room[MAP_WIDTH][MAP_HEIGHT]; //10 by
+        rooms = new Room[MAP_WIDTH, MAP_HEIGHT]; //10 by
 
         int numRooms = LevelSpecs.getNumberOfRooms(_level);
         string[] specRooms = LevelSpecs.getSpecialRooms(_level);
@@ -32,8 +32,8 @@ public class Map {
         numBattleRooms = numRooms - specRooms.Length;
         numBattleRoomsPlaced = 0;
         //First place down battle rooms, starting at the center of the map
-        int currX = Mathf.floor(MAP_WIDTH / 2);
-        int currY = Mathf.floor(MAP_HEIGHT / 2);
+        int currX = (int)Mathf.Floor(MAP_WIDTH / 2);
+        int currY = (int)Mathf.Floor(MAP_HEIGHT / 2);
 
         initBattleRooms(currX, currY);
         
@@ -49,7 +49,7 @@ public class Map {
 
         //check for right
         if ((x + 1) < MAP_WIDTH) {
-            if (rooms[x + 1][y] == null)
+            if (rooms[x + 1, y] == null)
             {
                 possibleDirs[0] = 1;
             } else
@@ -64,7 +64,7 @@ public class Map {
 
         //check for left
         if (x - 1 >= 0) {
-            if (rooms[x - 1][y] == null)
+            if (rooms[x - 1, y] == null)
             {
                 possibleDirs[1] = 1;
             }
@@ -80,7 +80,7 @@ public class Map {
         //check for up
         if (y - 1 >= 0)
         {
-            if (rooms[x][y - 1] == null)
+            if (rooms[x, y - 1] == null)
             {
                 possibleDirs[3] = 1;
             }
@@ -97,7 +97,7 @@ public class Map {
         //check for down
         if (y + 1 < MAP_HEIGHT)
         {
-            if (rooms[x][y + 1] == null)
+            if (rooms[x, y + 1] == null)
             {
                 possibleDirs[4] = 1;
             }
@@ -112,13 +112,13 @@ public class Map {
         }
 
         //rule out 4-block cases for possibleDirs here
-        possibleDirs = ruleOut4BlockCases(possibleDirs);
+        possibleDirs = ruleOut4BlockCases(possibleDirs, x, y);
 
         if (possibleDirs[0] == 0 && possibleDirs[1] == 0 && possibleDirs[2] == 0 && possibleDirs[3] ==0)
         {
             //Go back a space;
             orderOfRoomPlacings.RemoveAt(orderOfRoomPlacings.Count - 1);
-            int[][] priorRoom = orderOfRoomPlacings(orderOfRoomPlacings.Count - 1);
+            int[] priorRoom = (int[]) orderOfRoomPlacings[orderOfRoomPlacings.Count - 1];
             initBattleRooms(priorRoom[0], priorRoom[1]);
         } else
         {
@@ -148,7 +148,9 @@ public class Map {
                     break;
             }
 
-            rooms[x][y] = new BattleRoom();
+            //Todo: make this new battleroom, not new room.
+            rooms[x,y] = new Room();
+
             orderOfRoomPlacings.Add(new int[x,y]);
             initBattleRooms(x, y);
         }
@@ -157,7 +159,7 @@ public class Map {
 
     //Rules out building into a direction that creates a 4-block
     //Assumption: moving in that direction will not be out-of-bounds for the map
-    private static int[] ruleOut4Block(int[] possibleDirs,int x,int y)
+    private static int[] ruleOut4BlockCases(int[] possibleDirs,int x,int y)
     {
         //right
         if(possibleDirs[0] == 1)
@@ -165,7 +167,7 @@ public class Map {
             //Check top right block
             if(y > 0)
             {
-                if(rooms[x+1][y - 1] != null && rooms[x][y-1] != null)
+                if(rooms[x+1, y - 1] != null && rooms[x, y-1] != null)
                 {
                     possibleDirs[0] = 0;
                 }
@@ -174,7 +176,7 @@ public class Map {
             //Check for bottom right block
             if (y < MAP_HEIGHT - 1)
             {
-                if (rooms[x + 1][y + 1] != null && rooms[x][y + 1] != null)
+                if (rooms[x + 1, y + 1] != null && rooms[x, y + 1] != null)
                 {
                     possibleDirs[0] = 0;
                 }
@@ -187,7 +189,7 @@ public class Map {
             //Check top left block
             if (y > 0)
             {
-                if (rooms[x - 1][y - 1] != null && rooms[x][y - 1] != null)
+                if (rooms[x - 1, y - 1] != null && rooms[x, y - 1] != null)
                 {
                     possibleDirs[0] = 0;
                 }
@@ -196,7 +198,7 @@ public class Map {
             //Check for bottom left block
             if (y < MAP_HEIGHT - 1)
             {
-                if (rooms[x - 1][y + 1] != null && rooms[x][y + 1] != null)
+                if (rooms[x - 1, y + 1] != null && rooms[x, y + 1] != null)
                 {
                     possibleDirs[0] = 0;
                 }
@@ -210,7 +212,7 @@ public class Map {
             //Check top left block
             if (x > 0)
             {
-                if (rooms[x - 1][y - 1] != null && rooms[x - 1][y] != null)
+                if (rooms[x - 1, y - 1] != null && rooms[x - 1, y] != null)
                 {
                     possibleDirs[2] = 0;
                 }
@@ -219,7 +221,7 @@ public class Map {
             //Check for top right block
             if (x < MAP_WIDTH - 1)
             {
-                if (rooms[x + 1][y - 1] != null && rooms[x + 1][y] != null)
+                if (rooms[x + 1, y - 1] != null && rooms[x + 1, y] != null)
                 {
                     possibleDirs[2] = 0;
                 }
@@ -232,7 +234,7 @@ public class Map {
             //Check bottom left block
             if (x > 0)
             {
-                if (rooms[x - 1][y + 1] != null && rooms[x - 1][y] != null)
+                if (rooms[x - 1, y + 1] != null && rooms[x - 1, y] != null)
                 {
                     possibleDirs[3] = 0;
                 }
@@ -241,7 +243,7 @@ public class Map {
             //Check for bottom right block
             if (x < MAP_HEIGHT - 1)
             {
-                if (rooms[x + 1][y + 1] != null && rooms[x + 1][y] != null)
+                if (rooms[x + 1, y + 1] != null && rooms[x + 1, y] != null)
                 {
                     possibleDirs[3] = 0;
                 }
