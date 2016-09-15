@@ -1,7 +1,6 @@
 ﻿namespace ActorNS {
 
-    // TODO: add talent point system
-    public class Player : Actor {
+    public class Player : UserControllable {
         public decimal gold;
 
         // I'm thinking now that the constructor for Actor needs to be redone.
@@ -10,6 +9,5 @@
 
             this.gold = gold;
         }
-
     }
 }
