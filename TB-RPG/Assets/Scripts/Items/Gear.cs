@@ -1,7 +1,7 @@
 ﻿namespace ActorNS {
 
     // any Item that can be equipped 
-    public class Gear : Item {
+    public abstract class Gear : Item {
         private int _level;
 
         // item level (not for an equip constraint, just as a way to show how good the item is)
