@@ -63,27 +63,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Actor.cs" />
-    <Compile Include="Assets\Scripts\All.cs" />
-    <Compile Include="Assets\Scripts\BattleRoom.cs" />
-    <Compile Include="Assets\Scripts\Buff.cs" />
-    <Compile Include="Assets\Scripts\Debuff.cs" />
+    <Compile Include="Assets\Scripts\Actors\Actor.cs" />
+    <Compile Include="Assets\Scripts\Actors\Buff.cs" />
+    <Compile Include="Assets\Scripts\Actors\Debuff.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster.cs" />
+    <Compile Include="Assets\Scripts\Actors\Player.cs" />
+    <Compile Include="Assets\Scripts\Actors\Resource.cs" />
+    <Compile Include="Assets\Scripts\Actors\Stat.cs" />
+    <Compile Include="Assets\Scripts\Actors\Title.cs" />
     <Compile Include="Assets\Scripts\GameMaster.cs" />
-    <Compile Include="Assets\Scripts\Gear.cs" />
-    <Compile Include="Assets\Scripts\Inventory.cs" />
-    <Compile Include="Assets\Scripts\Item.cs" />
-    <Compile Include="Assets\Scripts\LevelSpecs.cs" />
-    <Compile Include="Assets\Scripts\MagicWeapon.cs" />
-    <Compile Include="Assets\Scripts\Map.cs" />
-    <Compile Include="Assets\Scripts\MeleeWeapon.cs" />
-    <Compile Include="Assets\Scripts\Monster.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\RangedWeapon.cs" />
-    <Compile Include="Assets\Scripts\Resource.cs" />
-    <Compile Include="Assets\Scripts\Room.cs" />
-    <Compile Include="Assets\Scripts\Stat.cs" />
-    <Compile Include="Assets\Scripts\Title.cs" />
-    <Compile Include="Assets\Scripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Items\Gear.cs" />
+    <Compile Include="Assets\Scripts\Items\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Items\Item.cs" />
+    <Compile Include="Assets\Scripts\Items\MagicWeapon.cs" />
+    <Compile Include="Assets\Scripts\Items\MeleeWeapon.cs" />
+    <Compile Include="Assets\Scripts\Items\RangedWeapon.cs" />
+    <Compile Include="Assets\Scripts\Items\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Rooms and Map\BattleRoom.cs" />
+    <Compile Include="Assets\Scripts\Rooms and Map\LevelSpecs.cs" />
+    <Compile Include="Assets\Scripts\Rooms and Map\Map.cs" />
+    <Compile Include="Assets\Scripts\Rooms and Map\Room.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
