@@ -1,0 +1,9 @@
+C:\Users\Collen\AppData\Local\Temporary Projects\StripNameSpace\bin\Debug\StripNameSpace.exe.config
+C:\Users\Collen\AppData\Local\Temporary Projects\StripNameSpace\bin\Debug\StripNameSpace.exe
+C:\Users\Collen\AppData\Local\Temporary Projects\StripNameSpace\bin\Debug\StripNameSpace.pdb
+C:\Users\Collen\AppData\Local\Temporary Projects\StripNameSpace\obj\Debug\StripNameSpace.csprojResolveAssemblyReference.cache
+C:\Users\Collen\AppData\Local\Temporary Projects\StripNameSpace\obj\Debug\StripNameSpace.Form1.resources
+C:\Users\Collen\AppData\Local\Temporary Projects\StripNameSpace\obj\Debug\StripNameSpace.Properties.Resources.resources
+C:\Users\Collen\AppData\Local\Temporary Projects\StripNameSpace\obj\Debug\StripNameSpace.csproj.GenerateResource.Cache
+C:\Users\Collen\AppData\Local\Temporary Projects\StripNameSpace\obj\Debug\StripNameSpace.exe
+C:\Users\Collen\AppData\Local\Temporary Projects\StripNameSpace\obj\Debug\StripNameSpace.pdb
