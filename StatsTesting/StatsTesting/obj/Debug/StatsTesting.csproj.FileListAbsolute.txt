@@ -31,3 +31,6 @@ E:\StatsTestingV\StatsTesting\StatsTesting\obj\Debug\StatsTesting.Properties.Res
 E:\StatsTestingV\StatsTesting\StatsTesting\obj\Debug\StatsTesting.csproj.GenerateResource.Cache
 E:\StatsTestingV\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe
 E:\StatsTestingV\StatsTesting\StatsTesting\bin\Debug\StatsTesting.pdb
+E:\School2016.2\Prog\SE2-SDS\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe.config
+E:\School2016.2\Prog\SE2-SDS\StatsTesting\StatsTesting\obj\Debug\StatsTesting.exe
+E:\School2016.2\Prog\SE2-SDS\StatsTesting\StatsTesting\obj\Debug\StatsTesting.pdb
