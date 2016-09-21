@@ -2,10 +2,10 @@
 
 public static class Gen {
 
-    private Random ran = new Random();
+    private static Random ran = new Random();
 
     // TODO: add more of these
-    private string[] adjectives = {
+    private static string[] adjectives = {
         "Doom",
         "Annihilation",
         "Terror",
@@ -22,13 +22,13 @@ public static class Gen {
         "Intellect"
     };
 
-    public string adjective() {
+    public static string adjective() {
         return adjectives[ran.Next(adjectives.Length)];
     }
 
     // TODO:? group all weapons into a single class with a property destinguishing them?
     // it would avoid code duplicates here, and I don't see a downside at the moment
-    public MeleeWeapon meleeWeapon(int level) {
+    public static MeleeWeapon meleeWeapon(int level) {
         string name = adjective();
         decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
         bool tradable = true;
@@ -52,7 +52,7 @@ public static class Gen {
         );
     }
 
-    public MagicWeapon magicWeapon(int level) {
+    public static MagicWeapon magicWeapon(int level) {
         string name = adjective();
         decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
         bool tradable = true;
@@ -76,7 +76,7 @@ public static class Gen {
         );
     }
 
-    public RangedWeapon rangedWeapon(int level) {
+    public static RangedWeapon rangedWeapon(int level) {
         string name = adjective();
         decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
         bool tradable = true;
