@@ -27,7 +27,7 @@ public class LevelSpecs  {
     //Returns the monsters types attributed to this level
     //Assumption: Monster contains a static function called monsterTypesByLevel
     public static string[] getMonsterTypes(int level) {
-        return ActorNS.Monster.monsterTypesByLevel(level);
+        return Monster.monsterTypesByLevel(level);
     }
 
     //Returns the room types attributed to this level

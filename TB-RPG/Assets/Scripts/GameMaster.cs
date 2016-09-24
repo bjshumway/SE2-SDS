@@ -12,12 +12,13 @@ public class GameMaster : MonoBehaviour {
 
     public static playerStates playerState = playerStates.outsideBattle;
 
-    public ActorNS.Player thePlayer;
+    public Player thePlayer;
     public Map theMap;
 
 	// Use this for initialization
 	void Start () {
-        thePlayer = new ActorNS.Player("Monkey", 7, 7, null, null, null);
+        thePlayer = new Player("Monkey", 7, 7, null, null, null);
+        Debug.Log("no hands!");
         //theMap = new Map
     }
 	
@@ -25,4 +26,12 @@ public class GameMaster : MonoBehaviour {
 	void Update () {
 	    
 	}
+
+
+    //Switches to the new camera
+    //
+    public void switchCamera(string sceneName)
+    {
+
+    }
 }
