@@ -22,6 +22,7 @@ public class CharacterCreationMenu : MonoBehaviour {
         //GameObject.FindWithTag("head").GetComponent<Image>().sprite = Heads[0];
 
         currHeadColorNum = 0;
+        currHeadNum = 0;
         GameObject.FindWithTag("head").GetComponent<Image>().color = new Color32((byte)colors[0,0],
                                                                                  (byte)colors[0,1],
                                                                                  (byte)colors[0,2],
@@ -29,11 +30,14 @@ public class CharacterCreationMenu : MonoBehaviour {
 
     }
 
-    public void cycleBodyPart(string bodyPartAndDirection)
+    public void cycleBodyPart2(string bodyPartAndDirection)
     {
+        Debug.Log("Inside cycleBodyPart");
+        /*
         string[] bodyPartAndDir = bodyPartAndDirection.Split();
         Debug.Log(bodyPartAndDir[0]);
         Debug.Log(bodyPartAndDir[1]);
+        Debug.Log("Inside cycleBodyPart");
 
         if(bodyPartAndDir[1] == "right")
         {
@@ -52,7 +56,7 @@ public class CharacterCreationMenu : MonoBehaviour {
             currHeadNum = 0;
         }
 
-        GameObject.FindWithTag("head").GetComponent<Image>().sprite = heads[currHeadNum];
+        GameObject.FindWithTag("head").GetComponent<Image>().sprite = heads[currHeadNum];*/
 
     }
 
@@ -85,12 +89,6 @@ public class CharacterCreationMenu : MonoBehaviour {
                                                                                  (byte)colors[currHeadColorNum, 2],
                                                                                  (byte)colors[currHeadColorNum, 3]);
             
-         }
-
-
-    public void cycleBodyPartTEST(string direction)
-    {
-        Debug.Log(direction);
     }
 
 }

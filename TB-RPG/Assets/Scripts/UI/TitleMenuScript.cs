@@ -4,12 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class TitleMenuScript : MonoBehaviour {
 
-    public void LoadScene(string sceneToLoad)
+    public void LoadScene(string cameraNum)
     {
-        Camera.
-        //Application.LoadLevel(sceneToLoad);
-        //SceneManager.LoadScene(sceneToLoad);
-
+        GameMaster.instance.switchCamera(cameraNum);
     }
 
     //Loads the scene based on argument
