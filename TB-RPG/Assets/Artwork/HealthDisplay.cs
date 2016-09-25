@@ -19,5 +19,8 @@ public class HealthDisplay : MonoBehaviour {
         if (gameObject.name == "EnemyHP")
             GetComponent<TextMesh>().text = "Player HP " + Combat.enemyHP;
 
+        if (gameObject.name == "WinMessage" && Combat.Battle == true)
+            GetComponent<TextMesh>().text = "Congratulations You Win!!!";
+
     }
 }

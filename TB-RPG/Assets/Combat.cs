@@ -6,6 +6,8 @@ public class Combat : MonoBehaviour {
 
     //We'll use this variable to keep track of whose turn it is
     public static bool PlayerTurn = true;
+    //Battle will end when this variable is true
+    public static bool Battle = false;
 
     public static int playerHP = 200; 
     public static int playerAttack = 25;
@@ -39,7 +41,13 @@ public class Combat : MonoBehaviour {
                 enemyHP = 0;
 
             Debug.Log("EnemyHP: " + enemyHP);
-            Combat.PlayerTurn = false;
+            if (enemyHP > 0)
+                Combat.PlayerTurn = false;
+            else
+            {
+                Destroy(DemonSkull);
+                Battle = true;
+            }    
         }
 	    //activates when player releases key assigned to variable item
         if (Input.GetKeyUp(item) & Combat.PlayerTurn == true)
