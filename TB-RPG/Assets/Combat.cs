@@ -33,6 +33,11 @@ public class Combat : MonoBehaviour {
         if (Input.GetKeyUp(attack) && Combat.PlayerTurn == true)
         {
             Combat.enemyHP -= playerAttack;
+
+            //keeps enemy health from going below zero
+            if (Combat.enemyHP < 0)
+                enemyHP = 0;
+
             Debug.Log("EnemyHP: " + enemyHP);
             Combat.PlayerTurn = false;
         }
@@ -40,7 +45,13 @@ public class Combat : MonoBehaviour {
         if (Input.GetKeyUp(item) & Combat.PlayerTurn == true)
         {
             Combat.playerHP += potion;
+
+            //makes sure player cannot go past full health
+            if (Combat.playerHP > 200)
+                playerHP = 200;
+
             Debug.Log("Player health: " + playerHP);
+
             Combat.PlayerTurn = false;
         }
         
