@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class Combat : MonoBehaviour {
+public class BattleScript : MonoBehaviour {
     public bool combatOcurring;
 
     public GameObject DemonSkull;
@@ -12,7 +12,7 @@ public class Combat : MonoBehaviour {
     public KeyCode item;
 
     //Combat.cs is a singleton (static class). Use Combat.instance to get access to it.
-    private static Combat s_Instance = null;
+    private static BattleScript s_Instance = null;
 
     // Use this for initialization
     void Start () {  
@@ -104,40 +104,12 @@ public class Combat : MonoBehaviour {
                   }
             }
         }
-
-        //activates when player releases key assigned to variable attack
-        if (Input.GetKeyUp(attack) && Combat.PlayerTurn == true)
-        {
-            Combat.enemyHP -= playerAttack;
-            Debug.Log("EnemyHP: " + enemyHP);
-            Combat.PlayerTurn = false;
-        }
-	    //activates when player releases key assigned to variable item
-        if (Input.GetKeyUp(item) & Combat.PlayerTurn == true)
-        {
-            Combat.playerHP += potion;
-            Debug.Log("Player health: " + playerHP);
-            Combat.PlayerTurn = false;
-        }
         
-        //enemies turn
-        if (PlayerTurn == false)
-        {
-            if (enemyHP < 50)
-                enemyAttack = 30;
-            else
-                enemyAttack = 10;
-
-            Combat.playerHP -= enemyAttack;
-            Combat.PlayerTurn = true;
-
-            Debug.Log("PlayerHP: " + Combat.playerHP);
-        }
 	}
 
     // This defines a static instance property that attempts to find the manager object in the scene and
     // returns it to the caller.
-    public static Combat instance
+    public static BattleScript instance
     {
         get
         {
@@ -145,15 +117,15 @@ public class Combat : MonoBehaviour {
             {
                 // This is where the magic happens.
                 //  FindObjectOfType(...) returns the first GameMaster object in the scene.
-                s_Instance = FindObjectOfType(typeof(Combat)) as Combat;
+                s_Instance = FindObjectOfType(typeof(BattleScript)) as BattleScript;
             }
 
             // If it is still null, create a new instance
             if (s_Instance == null)
             {
-                GameObject obj = new GameObject("GameMaster");
-                s_Instance = obj.AddComponent(typeof(Combat)) as Combat;
-                Debug.Log("Could not locate an GameMaster object. GameMaster was Generated Automaticly.");
+                GameObject obj = new GameObject("BattleScript");
+                s_Instance = obj.AddComponent(typeof(BattleScript)) as BattleScript;
+                Debug.Log("Could not locate an BattleScript object. BattleScript was Generated Automaticly.");
             }
 
             return s_Instance;

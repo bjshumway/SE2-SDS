@@ -97,7 +97,8 @@ public class CharacterCreationMenu : MonoBehaviour {
 
 
         GameMaster.instance.switchCamera(2);
-        Combat.instance.refreshUCSprites();
+        BattleScript.instance.refreshUCSprites();
+
     }
 
 }

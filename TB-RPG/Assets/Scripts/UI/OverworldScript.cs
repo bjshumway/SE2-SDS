@@ -11,7 +11,7 @@ public class OverworldScript : MonoBehaviour {
     //Switches to the battle scene
     public void startBattle()
     {
-        Combat.instance.beginCombat();
+        BattleScript.instance.beginCombat();
         GameMaster.instance.switchCamera(5);
     }
 }

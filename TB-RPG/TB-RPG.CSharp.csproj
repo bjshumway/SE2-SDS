@@ -63,11 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
     <Compile Include="Assets\Combat.cs" />
->>>>>>> origin/master
     <Compile Include="Assets\Scripts\Actors\Ability.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
@@ -94,8 +91,8 @@
     <Compile Include="Assets\Scripts\Rooms and Map\Map.cs" />
     <Compile Include="Assets\Scripts\Rooms and Map\Room.cs" />
     <Compile Include="Assets\Scripts\UI\AbilitySelectionScript.cs" />
+    <Compile Include="Assets\Scripts\UI\BattleScript.cs" />
     <Compile Include="Assets\Scripts\UI\CharacterCreationMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\Combat.cs" />
     <Compile Include="Assets\Scripts\UI\OverworldScript.cs" />
     <Compile Include="Assets\Scripts\UI\SkillSelectionScript.cs" />
     <Compile Include="Assets\Scripts\UI\TitleMenuScript.cs" />
