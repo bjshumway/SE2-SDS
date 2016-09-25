@@ -6,7 +6,7 @@ public class TitleMenuScript : MonoBehaviour {
 
     public void LoadScene(string cameraNum)
     {
-        GameMaster.instance.switchCamera(cameraNum);
+        GameMaster.instance.switchCamera(int.Parse(cameraNum) );
     }
 
     //Loads the scene based on argument

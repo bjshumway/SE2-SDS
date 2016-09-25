@@ -4,6 +4,7 @@ using System.Collections;
 public class GameMaster : MonoBehaviour {
 
     public Camera[] theCameras;
+    public Canvas[] theCanvases;
 
 
     // s_Instance is used to cache the instance found in the scene so we don't have to look it up every time.
@@ -18,7 +19,7 @@ public class GameMaster : MonoBehaviour {
             if (s_Instance == null)
             {
                 // This is where the magic happens.
-                //  FindObjectOfType(...) returns the first AManager object in the scene.
+                //  FindObjectOfType(...) returns the first GameMaster object in the scene.
                 s_Instance = FindObjectOfType(typeof(GameMaster)) as GameMaster;
             }
 
@@ -55,26 +56,41 @@ public class GameMaster : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        thePlayer = new Player("Monkey", 7, 7, null, null, null);
+        thePlayer = new Player();
         Debug.Log("no hands!");
         //theMap = new Map
+
+        for (int i = 1; i < theCameras.Length; i++)
+        {
+            theCameras[i].enabled = false;
+            theCanvases[i].enabled = false;
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    
-	}
+
+        //f key to toggle full-screen
+        if (Input.GetKeyDown(KeyCode.F))
+            Screen.fullScreen = !Screen.fullScreen;
+    }
 
 
     //Switches to the new camera
-    public void switchCamera(string cameraNumber)
+    public void switchCamera(int camNum)
     {
-        int camNum = int.Parse(cameraNumber);
-        for(int i = 0; i < theCameras.Length; i++)
+        for (int i = 0; i < theCameras.Length; i++)
         {
             theCameras[i].enabled = false;
+            theCanvases[i].enabled = false;
         }
         theCameras[camNum].enabled = true;
+        theCanvases[camNum].enabled = true;
+    }
+
+    public void initBattle()
+    {
+        //Set the character portraits
 
     }
 }

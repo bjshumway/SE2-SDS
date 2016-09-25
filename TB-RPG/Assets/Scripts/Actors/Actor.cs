@@ -1,5 +1,7 @@
 using System.Collections.Generic;
-
+using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
 
 // TODO:? Make resources (h/m/s) scale from level? Eliminate mana/stamina?
 // Actor is the class from which all characters will inherit
@@ -18,8 +20,10 @@ public class Actor {
 
     #region Public Vars
 
-    public string name {
-        get {
+    public new string name
+    {
+        get
+        {
             return _name;
         }
     }
@@ -60,6 +64,13 @@ public class Actor {
     #endregion
 
     #region Constructor & Methods
+
+
+    //Simple constructor
+    public Actor()
+    {
+
+    }
 
     /// <summary>
     /// Constructor for Actor
