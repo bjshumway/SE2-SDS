@@ -22,7 +22,6 @@ public class CharacterCreationMenu : MonoBehaviour {
                                                                                  (byte)UserControllableLookConfig.instance.colors[0,1],
                                                                                  (byte)UserControllableLookConfig.instance.colors[0,2],
                                                                                  (byte)UserControllableLookConfig.instance.colors[0,3]);
-        //GameMaster.instance.thePlayer.headType = UserControllableLookConfig.instance.heads[0];
 
     }
 
@@ -52,8 +51,6 @@ public class CharacterCreationMenu : MonoBehaviour {
         }
 
         GameObject.FindWithTag("head").GetComponent<Image>().sprite = UserControllableLookConfig.instance.heads[currHeadNum];
-        GameMaster.instance.thePlayer.headType = UserControllableLookConfig.instance.heads[currHeadNum];
-
     }
 
     //Cycles the color of a particular body part
@@ -87,12 +84,20 @@ public class CharacterCreationMenu : MonoBehaviour {
                                                                                  (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 3]);
 
         GameObject.FindWithTag("head").GetComponent<Image>().color = newColor;
-        GameMaster.instance.thePlayer.headColor = newColor;
     }
 
     public void goToNextScene()
     {
+        GameMaster.instance.thePlayer.headType = UserControllableLookConfig.instance.heads[0];
+        Color32 newColor = new Color32((byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 0],
+                                                                                 (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 1],
+                                                                                 (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 2],
+                                                                                 (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 3]);
+        GameMaster.instance.thePlayer.headColor = newColor;
+
+
         GameMaster.instance.switchCamera(2);
+        Combat.instance.refreshUCSprites();
     }
 
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-// TODO:? Make resources (h/m/s) scale from level? Eliminate mana/stamina?
+// TODO:? Make resources (h/m/s) scale from level?
 // Actor is the class from which all characters will inherit
 public class Actor {
 
@@ -56,7 +56,6 @@ public class Actor {
 
     // went with a skyrim-type system here
     public Resource health;
-    public Resource mana;
     public Resource stamina;
 
     public Dictionary<string, Stat> stats = new Dictionary<string, Stat>();
@@ -69,6 +68,19 @@ public class Actor {
     //Simple constructor
     public Actor()
     {
+        double resourceModifier = 10; // no idea if this formula will be good
+        health = new Resource(resourceModifier);
+        stamina = new Resource(resourceModifier, 0);
+
+        Debug.Log("maxsamina in player is " + stamina.maxValue);
+
+
+        // setting up the default stats
+        stats.Add("strength", new Stat(1, 0));
+        stats.Add("intellect", new Stat(1, 0));
+        stats.Add("dexterity", new Stat(1, 0));
+        stats.Add("cunning", new Stat(1, 0));
+        stats.Add("charisma", new Stat(1, 0));
 
     }
 
@@ -78,7 +90,7 @@ public class Actor {
     /// <param name="name">Name of the Actor</param>
     /// <param name="title">Title for the Actor, if any</param>
     /// <param name="resources">
-    /// Array of Resources corresponding to health, mana, stamina
+    /// Array of Resources corresponding to health, stamina
     /// </param>
     /// <param name="statArray">
     /// Array of ints corresponding to the Actor's stats in order:
@@ -96,12 +108,10 @@ public class Actor {
 
         if (resources != null) { // h/m/s specified
             health  = resources[0];
-            mana    = resources[1];
             stamina = resources[2];
         } else { // h/m/s not specified - go by this formula
             int resourceModifier = 100 + (level * 7); // no idea if this formula will be good
             health  = new Resource(resourceModifier);
-            mana    = new Resource(resourceModifier);
             stamina = new Resource(resourceModifier);
         }
 
@@ -169,11 +179,10 @@ public class Actor {
     /// Brings the actor back to life with specified percentage of resources
     /// </summary>
     /// <param name="percentResources">
-    /// Percentage of health/mana/stamina Actor is res'd with (1.0 for 100%)
+    /// Percentage of health/stamina Actor is res'd with (1.0 for 100%)
     /// </param>
     public void resurrect(double percentResources) {
         health.setValue(health.maxValue * percentResources);
-        mana.setValue(mana.maxValue * percentResources);
         stamina.setValue(stamina.maxValue * percentResources);
 
         _isAlive = true;
@@ -184,7 +193,6 @@ public class Actor {
     /// </summary>
     public void kill() {
         health.setValue(0);
-        mana.setValue(0);
         stamina.setValue(0);
 
         _isAlive = false;
@@ -208,14 +216,7 @@ public class Actor {
         health.add(healAmount);
     }
 
-    /// <summary>
-    /// Drains the specified amount of mana
-    /// </summary>
-    /// <param name="amount">Amount of mana to drain</param>
-    public void drainMana(double amount) {
-        mana.subtract(amount);
-    }
-
+    
     /// <summary>
     /// Drains the specified amount of stamina
     /// </summary>

@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
 
 // Resource is designed to be a nice way to manage health/mana/stamina
 // It has methods for safely adding/subtracting as well as a max value
@@ -6,14 +10,23 @@ public class Resource {
     private double _maxValue;
     
     public double value { // current value the resource is at
-        get {
+        get
+        {
             return _value;
+        }
+        set { 
+            _value = value;
         }
     }
 
     public double maxValue { // max value the resource can be
-        get {
+        get
+        {
             return _maxValue;
+        }
+        set
+        {
+            _maxValue = value;
         }
     }
 
@@ -25,6 +38,7 @@ public class Resource {
     public Resource(double maxValue, double value = -1) {
         _maxValue = maxValue;
         _value = (value == -1) ? maxValue : value;
+        Debug.Log(_maxValue);
     }
 
     /// <summary>

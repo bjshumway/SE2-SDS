@@ -12,7 +12,12 @@ public abstract class UserControllable : Actor
 
     private Sprite _headType;
     private Color32 _headColor;
+    private bool _imageIsInBattleScreen;
 
+    public bool imageIsInBattleScreen
+    {
+        get;set;
+    }
 
     public int talentPoints {
         get {
