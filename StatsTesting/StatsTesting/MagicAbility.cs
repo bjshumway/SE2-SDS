@@ -1,12 +1,10 @@
 ﻿public class MagicAbility : Ability {
-    public MagicWeapon weapon;
 
-    public MagicAbility(string name, string toolTip, MagicWeapon weapon)
-        : base(name, toolTip) {
-            this.weapon = weapon;
+    public MagicAbility(string name, string toolTip, decimal stamina)
+        : base(name, toolTip, stamina) {
     }
 
     public override decimal cast() {
-        return weapon.damage * 0.75m;
+        return 0.75m;
     }
 }

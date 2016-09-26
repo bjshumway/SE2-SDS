@@ -34,3 +34,12 @@ E:\StatsTestingV\StatsTesting\StatsTesting\bin\Debug\StatsTesting.pdb
 E:\School2016.2\Prog\SE2-SDS\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe.config
 E:\School2016.2\Prog\SE2-SDS\StatsTesting\StatsTesting\obj\Debug\StatsTesting.exe
 E:\School2016.2\Prog\SE2-SDS\StatsTesting\StatsTesting\obj\Debug\StatsTesting.pdb
+E:\git\SE2-SDS\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe.config
+E:\git\SE2-SDS\StatsTesting\StatsTesting\obj\Debug\StatsTesting.exe
+E:\git\SE2-SDS\StatsTesting\StatsTesting\obj\Debug\StatsTesting.pdb
+E:\git\SE2-SDS\StatsTesting\StatsTesting\obj\Debug\StatsTesting.csprojResolveAssemblyReference.cache
+E:\git\SE2-SDS\StatsTesting\StatsTesting\obj\Debug\StatsTesting.Form1.resources
+E:\git\SE2-SDS\StatsTesting\StatsTesting\obj\Debug\StatsTesting.Properties.Resources.resources
+E:\git\SE2-SDS\StatsTesting\StatsTesting\obj\Debug\StatsTesting.csproj.GenerateResource.Cache
+E:\git\SE2-SDS\StatsTesting\StatsTesting\bin\Debug\StatsTesting.exe
+E:\git\SE2-SDS\StatsTesting\StatsTesting\bin\Debug\StatsTesting.pdb

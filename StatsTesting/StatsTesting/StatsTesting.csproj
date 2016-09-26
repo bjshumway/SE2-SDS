@@ -48,13 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ability.cs" />
+    <Compile Include="AbilityBar.cs" />
     <Compile Include="Actor.cs" />
     <Compile Include="All.cs" />
     <Compile Include="Equips.cs" />
     <Compile Include="Follower.cs" />
+    <Compile Include="Gen.cs" />
+    <Compile Include="MagicAbility.cs" />
     <Compile Include="MagicWeapon.cs" />
+    <Compile Include="MeleeAbility.cs" />
     <Compile Include="MeleeWeapon.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="RangedAbility.cs" />
     <Compile Include="RangedWeapon.cs" />
     <Compile Include="Buff.cs" />
     <Compile Include="Debuff.cs" />
