@@ -1,0 +1,8 @@
+Goals for Week of September 26th:
+
+	Our first goal is getting our menus cleaned up and looking nicer. We plan to do this by adding some artwork to make the background scenes look less plain as well as creating a nice friendly user interface that's not too cluttered and easy for any user to understand by looking at it. Our second goal is to get a functional combat system set up. We want to have at least one character programmed to attack the enemy on screen. We also want to have the enemy programmed to fight back. We'll also try to implement some different abilities to showcase the variety of choices a user has when trying to attack the enemy.
+
+
+What we accomplished the past week:
+
+	We have revision control set up in git hub and everyone is able to commit their changes. We have a functional start menu that will take players to the sample character creation screen where they can name a character and create different heads shapes and colors. We also wrote some sample classes base our code off of when we start writing scripts in unity. There is also some artwork that was added to the repository.
