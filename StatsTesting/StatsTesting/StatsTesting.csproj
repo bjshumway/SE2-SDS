@@ -58,6 +58,7 @@
     <Compile Include="MagicWeapon.cs" />
     <Compile Include="MeleeAbility.cs" />
     <Compile Include="MeleeWeapon.cs" />
+    <Compile Include="Monster.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="RangedAbility.cs" />
     <Compile Include="RangedWeapon.cs" />

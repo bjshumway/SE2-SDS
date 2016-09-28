@@ -13,6 +13,8 @@ public class Stat {
     private int _buffLevel;
     private int _debuffLevel;
 
+    private decimal _modifier;
+
     #endregion
 
     #region Public Vars
@@ -64,6 +66,12 @@ public class Stat {
         }
     }
 
+    public decimal modifier {
+        get {
+            return _modifier;
+        }
+    }
+
     // list of all active buffs
     public List<Buff> buffs = new List<Buff>();
 
@@ -99,6 +107,8 @@ public class Stat {
 
         // don't go below minLevel (can go above maxLevel though)
         _effectiveLevel = (total > minLevel) ? total : minLevel;
+
+        _modifier = 1.0m + (((decimal)_effectiveLevel) / 100m);
     }
 
     /// <summary>
@@ -124,7 +134,10 @@ public class Stat {
     /// </summary>
     /// <returns>True if successful, false if the Stat is already capped</returns>
     public bool levelUp() {
-        return setLevel(level + 1);
+        var ret = setLevel(level + 1);
+        calcEffectiveLevel();
+
+        return ret;
     }
 
     /// <summary>
