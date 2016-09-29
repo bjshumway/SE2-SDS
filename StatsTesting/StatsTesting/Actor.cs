@@ -50,9 +50,9 @@ public class Actor {
         }
     }
 
-    // went with a skyrim-type system here
+    public Weapon weapon;
+
     public Resource health;
-    public Resource mana;
     public Resource stamina;
 
     public Dictionary<string, Stat> stats = new Dictionary<string, Stat>();
@@ -85,12 +85,10 @@ public class Actor {
 
         if (resources != null) { // h/m/s specified
             health  = resources[0];
-            mana    = resources[1];
-            stamina = resources[2];
+            stamina = resources[1];
         } else { // h/m/s not specified - go by this formula
             int resourceModifier = 100 + (level * 7); // no idea if this formula will be good
             health  = new Resource(resourceModifier);
-            mana    = new Resource(resourceModifier);
             stamina = new Resource(resourceModifier);
         }
 
@@ -100,7 +98,6 @@ public class Actor {
         stats.Add("dexterity", new Stat(1, 0));
         stats.Add("cunning",   new Stat(1, 0));
         stats.Add("charisma",  new Stat(1, 0));
-        // do we add armor?
 
         if (statArray != null) { // stats specified
             setStatLevels(statArray);
@@ -162,7 +159,6 @@ public class Actor {
     /// </param>
     public void resurrect(decimal percentResources) {
         health.setValue(health.maxValue * percentResources);
-        mana.setValue(mana.maxValue * percentResources);
         stamina.setValue(stamina.maxValue * percentResources);
 
         _isAlive = true;
@@ -173,7 +169,6 @@ public class Actor {
     /// </summary>
     public virtual void kill() {
         health.setValue(0);
-        mana.setValue(0);
         stamina.setValue(0);
 
         _isAlive = false;
@@ -207,14 +202,6 @@ public class Actor {
     /// <param name="healAmount">Amount to heal</param>
     public void heal(decimal healAmount) {
         health.add(healAmount);
-    }
-
-    /// <summary>
-    /// Drains the specified amount of mana
-    /// </summary>
-    /// <param name="amount">Amount of mana to drain</param>
-    public void drainMana(decimal amount) {
-        mana.subtract(amount);
     }
 
     /// <summary>

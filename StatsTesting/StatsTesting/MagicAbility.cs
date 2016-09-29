@@ -6,6 +6,6 @@
 
     public override void cast(Actor caster, Actor reciever) {
         base.cast(caster, reciever);
-        reciever.damage(caster.stats["intellect"].modifier * modifier);
+        reciever.damage(caster.weapon.damage * caster.stats["intellect"].modifier * modifier);
     }
 }
