@@ -66,12 +66,16 @@
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
     <Compile Include="Assets\Combat.cs" />
     <Compile Include="Assets\Scripts\Actors\Ability.cs" />
+    <Compile Include="Assets\Scripts\Actors\AbilityBar.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
     <Compile Include="Assets\Scripts\Actors\Debuff.cs" />
     <Compile Include="Assets\Scripts\Actors\Follower.cs" />
+    <Compile Include="Assets\Scripts\Actors\MagicAbility.cs" />
+    <Compile Include="Assets\Scripts\Actors\MeleeAbility.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster.cs" />
     <Compile Include="Assets\Scripts\Actors\Player.cs" />
+    <Compile Include="Assets\Scripts\Actors\RangedAbility.cs" />
     <Compile Include="Assets\Scripts\Actors\Resource.cs" />
     <Compile Include="Assets\Scripts\Actors\Stat.cs" />
     <Compile Include="Assets\Scripts\Actors\Title.cs" />
@@ -80,6 +84,7 @@
     <Compile Include="Assets\Scripts\GameMaster.cs" />
     <Compile Include="Assets\Scripts\Items\Equips.cs" />
     <Compile Include="Assets\Scripts\Items\Gear.cs" />
+    <Compile Include="Assets\Scripts\Items\Gen.cs" />
     <Compile Include="Assets\Scripts\Items\Inventory.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Items\MagicWeapon.cs" />
