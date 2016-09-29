@@ -4,6 +4,7 @@ public abstract class Ability {
     private string _name;
     private string _toolTip;
     private decimal _stamina;
+    private decimal _modifier;
 
     public string name {
         get {
@@ -23,13 +24,20 @@ public abstract class Ability {
         }
     }
 
-    public Ability(string name, string toolTip, decimal stamina) {
-        _name = name;
-        _toolTip = toolTip;
-        _stamina = stamina;
+    public decimal modifier {
+        get {
+            return _modifier;
+        }
     }
 
-    public virtual decimal cast() {
-        return 0.0m;
+    public Ability(string name, string toolTip, decimal stamina, decimal modifier) {
+        _name = name;
+        _toolTip  = toolTip;
+        _stamina  = stamina;
+        _modifier = modifier;
+    }
+
+    public virtual void cast(Actor caster, Actor reciever) {
+        caster.stamina.subtract(stamina);
     }
 }
