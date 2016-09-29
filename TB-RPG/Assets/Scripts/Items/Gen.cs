@@ -48,8 +48,38 @@ public static class Gen {
         "Sling"
     };
 
+    private static Item[] junkItems = {
+        new Item("Bottle of Goo", 2, true, 10, "Slimey substance in a bottle."),
+        new Item("Crumpled Paper", 0.1m, true, 5, "There's nothing written on it."),
+        new Item("Metal Scraps", 10, true, 45, "Scrap metal. Could be valuable."),
+        new Item("Melted Candle", 0.5m, true, 15, "An old candle."),
+        new Item("Dusty Old Lentern", 4, true, 20, "I wonder if it works."),
+        new Item("Slightly Damp Rag", 0.3m, true, 7, "Why did I pick this up?"),
+        new Item("Oily Boot", 1.2m, true, 10, "Only one.")
+    };
+
+    private static Item[] valuableItems = {
+        new Item("Golden Chalice", 4, true, 150, "A heavy gilded cup."),
+        new Item("Ruby", 0.1m, true, 75, "A red gem."),
+        new Item("Emerald", 0.1m, true, 100, "A green gem."),
+        new Item("Diamond", 0.1m, true, 300, "A clear gem."),
+        new Item("Huge Platinum Throne", 50, true, 550, "What a chair! Bloody heavy, though.")
+    };
+
     public static string adjective() {
         return adjectives[ran.Next(adjectives.Length)];
+    }
+
+    public static Item drop(int level) {
+        int roll = ran.Next(100);
+
+        if (roll < 25) { // weapon
+            return weapon(level);
+        } else if (roll < 90) { // junk
+            return junkItems[ran.Next(valuableItems.Length)];
+        } else { // valuable
+            return valuableItems[ran.Next(valuableItems.Length)];
+        }
     }
 
     public static Weapon weapon(int level) {
