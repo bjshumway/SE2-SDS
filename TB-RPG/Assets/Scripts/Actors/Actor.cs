@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 // TODO:? Make resources (h/m/s) scale from level? Eliminate mana/stamina?
 // Actor is the class from which all characters will inherit
@@ -59,6 +60,26 @@ public class Actor {
 
     #endregion
 
+    
+    //Simple constructor
+    public Actor()
+    {
+        decimal resourceModifier = 10; // no idea if this formula will be good
+        health = new Resource(resourceModifier);
+        stamina = new Resource(resourceModifier, 0);
+
+        Debug.Log("maxsamina in player is " + stamina.maxValue);
+
+
+        // setting up the default stats
+        stats.Add("strength", new Stat(1, 0));
+        stats.Add("intellect", new Stat(1, 0));
+        stats.Add("dexterity", new Stat(1, 0));
+        stats.Add("cunning", new Stat(1, 0));
+        stats.Add("charisma", new Stat(1, 0));
+
+    }
+
     #region Constructor & Methods
 
     /// <summary>
@@ -67,7 +88,7 @@ public class Actor {
     /// <param name="name">Name of the Actor</param>
     /// <param name="title">Title for the Actor, if any</param>
     /// <param name="resources">
-    /// Array of Resources corresponding to health, mana, stamina
+    /// Array of Resources corresponding to health, stamina
     /// </param>
     /// <param name="statArray">
     /// Array of ints corresponding to the Actor's stats in order:
@@ -180,7 +201,7 @@ public class Actor {
     /// <param name="damageAmount">amount to damage</param>
     /// <returns>true if damaged, false if actor dodged</returns>
     public bool damage(decimal damageAmount) {
-        Random ran = new Random();
+        System.Random ran = new System.Random();
         decimal dodgeRoll = ran.Next(0, 100) / 100m;
 
         if (stats["cunning"].modifier * 0.5m < dodgeRoll) {

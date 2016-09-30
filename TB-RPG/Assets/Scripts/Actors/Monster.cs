@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
+//Commented this out since it wasn't compiling, Ben Shum
+//using System.Threading.Tasks;
 
 public class Monster : Actor {
     private Item _drop;
@@ -11,6 +13,31 @@ public class Monster : Actor {
         get {
             return _drop;
         }
+    }
+
+    
+    public static string[] monsterTypesByLevel(int level)
+    {
+        switch(level)
+        {
+            case 1:
+                return new string[] { "spider" };
+            case 2:
+                return new string[] { "lich" };
+            case 3:
+                return new string[] { "dragon" };
+            case 4:
+                return new string[] { "god" };
+        }
+
+        System.Console.WriteLine("level out of bounds for function monsterTypesByLevel");
+        return null;
+    }
+
+
+    public Monster() : base()
+    {
+
     }
 
     public Monster(string name, int level, Title title = null)

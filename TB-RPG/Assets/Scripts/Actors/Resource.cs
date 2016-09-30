@@ -9,11 +9,17 @@ public class Resource {
         get {
             return _value;
         }
+        set { 
+            _value = value;
+        }
     }
 
     public decimal maxValue { // max value the resource can be
         get {
             return _maxValue;
+        }
+        set { 
+            _maxValue = value;
         }
     }
 
