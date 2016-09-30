@@ -26,8 +26,7 @@ public class BattleScript : MonoBehaviour {
         GameObject.Find("UserControllable 3 HeadType").GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         GameObject.Find("UserControllable 3 HealthBar").GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         GameObject.Find("UserControllable 3 StaminaBar").GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-
-
+        
     }
 
     public void refreshUCSprites()
@@ -62,7 +61,6 @@ public class BattleScript : MonoBehaviour {
         {
             if(theParty[i] == null)
                 break;
-            
 
             //Make any UC that isn't on the screen, gets drawn on the screen
             if (!theParty[i].imageIsInBattleScreen)
@@ -94,7 +92,7 @@ public class BattleScript : MonoBehaviour {
                 ///Debug.Log(stamina.maxValue);
                   if (stamina.value < stamina.maxValue)
                   {
-                    stamina.value = stamina.value + uCArr[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 3.5;
+                    stamina.add((decimal)((float)uCArr[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 3.5));
                     Debug.Log(stamina.value);
                     RectTransform rt = GameObject.Find("UserControllable 1 StaminaBar").GetComponent<RectTransform>();
                     rt.sizeDelta =  rt.sizeDelta + new Vector2((float)stamina.value / (float)3.5, 0);
