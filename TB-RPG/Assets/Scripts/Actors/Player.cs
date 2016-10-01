@@ -12,8 +12,9 @@ public class Player : UserControllable {
         this.theParty = new UserControllable[3];
         this.theParty[0] = this;
         //Debug.Log("stamina: " + this.stamina.maxValue + ", " + this.stamina.value);
+
     }
-    
+
     public Player(string name, int level, decimal gold, Title title = null, Resource[] resources = null, int[] statArray = null)
         : base(name, level, title, resources, statArray) {
 

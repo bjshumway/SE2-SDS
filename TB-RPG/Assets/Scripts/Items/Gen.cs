@@ -5,14 +5,43 @@ public static class Gen {
     private static Random ran = new Random();
 
     // TODO: add more of these
+    // Ben: We may want to steer away from adjectives that suggests it buffs stats
+    //      since this may confuse the player. Choosing between staff of Intellect and Staff of Terror
+    //      where staff of Intellect is lower level, the user might actually choose staff of intellect thinking it buffs intellect
+    //      Would could at some point consider should probably make adjectives a double-array so that it's tiered.
+    //      After all "Clumsiness" could be tier 1, and represent levels 1 to 
+    //                "Convenience" could be tier 2, and represent levels 6 to 10
+    //                "Doom" could be tier 3, representing levels 11 or higher
     private static string[] adjectives = {
-        "Doom",
+        "Doom",  
         "Annihilation",
         "Terror",
         "Maelstrom",
         "Blood",
         "Divinity",
         "Power",
+        "Awesome",
+        "Beauty",
+        "Beginner's Luck",
+        "Crudeness",
+        "Clumsiness",
+        "Danger",
+        "Devastation",
+        "Excellence",
+        "Fate",
+        "Greatness",
+        "Importance",
+        "Offensiveness",
+        "Peculiarity",
+        "Potencey",
+        "Sacredness",
+        "Superiority",
+        "Truth",
+        "Justice",
+        "Questing",
+        "Ultimacy",
+
+
         "Knowledge",
         "Wisdom",
         "Strength",

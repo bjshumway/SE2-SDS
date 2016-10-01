@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class GameMaster : MonoBehaviour {
 
     public Camera[] theCameras;
@@ -25,9 +26,11 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         thePlayer = new Player();
-        Debug.Log("no hands!");
-        //theMap = new Map
+        thePlayer.abilities.abilities[0] = new Attack(thePlayer);
+        thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
 
+        //Debug.Log("thePlayer Created");
+        //disable all cameras but the one one at 0
         for (int i = 1; i < theCameras.Length; i++)
         {
             theCameras[i].enabled = false;

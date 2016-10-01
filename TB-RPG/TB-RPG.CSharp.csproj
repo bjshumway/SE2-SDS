@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -65,17 +67,17 @@
   <ItemGroup>
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
     <Compile Include="Assets\Combat.cs" />
-    <Compile Include="Assets\Scripts\Actors\Ability.cs" />
-    <Compile Include="Assets\Scripts\Actors\AbilityBar.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\Ability.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\AbilityBar.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\MonsterAbilities\MonsterAttack.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Attack.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
     <Compile Include="Assets\Scripts\Actors\Debuff.cs" />
     <Compile Include="Assets\Scripts\Actors\Follower.cs" />
-    <Compile Include="Assets\Scripts\Actors\MagicAbility.cs" />
-    <Compile Include="Assets\Scripts\Actors\MeleeAbility.cs" />
-    <Compile Include="Assets\Scripts\Actors\Monster.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\Monster.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\genericBenchmarkMonster.cs" />
     <Compile Include="Assets\Scripts\Actors\Player.cs" />
-    <Compile Include="Assets\Scripts\Actors\RangedAbility.cs" />
     <Compile Include="Assets\Scripts\Actors\Resource.cs" />
     <Compile Include="Assets\Scripts\Actors\Stat.cs" />
     <Compile Include="Assets\Scripts\Actors\Title.cs" />

@@ -24,11 +24,6 @@ public class LevelSpecs  {
     }
 
 
-    //Returns the monsters types attributed to this level
-    //Assumption: Monster contains a static function called monsterTypesByLevel
-    public static string[] getMonsterTypes(int level) {
-        return Monster.monsterTypesByLevel(level);
-    }
 
     //Returns the room types attributed to this level
     //Assumption: room contains a static function called specialRooms by level
@@ -36,6 +31,7 @@ public class LevelSpecs  {
         return Room.specialRoomsByLevel(level);
     }
 
+    //Gets the theme of the level
     public static string getTheme(int level)
     {
         return LEVEL_THEMES[level];

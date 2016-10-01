@@ -4,7 +4,11 @@ using System.Collections;
 // TODO: add talent system; don't know how to flesh out talentPoints yet
 public abstract class UserControllable : Actor {
     private int _talentPoints;
-    
+
+    //Assigns the id to each UserControllable
+    protected static int id_increment = 1;
+    public AbilityBar abilities;
+
 
     private Sprite _headType;
     private Color32 _headColor;
@@ -34,6 +38,14 @@ public abstract class UserControllable : Actor {
 
     public UserControllable() : base()
     {
+
+        abilities = new AbilityBar(this);
+
+        this.id = id_increment;
+        id_increment++;
+
+        isUserControllable = true;
+
 
     }
 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 // TODO:? Make resources (h/m/s) scale from level? Eliminate mana/stamina?
 // Actor is the class from which all characters will inherit
@@ -15,11 +17,17 @@ public class Actor {
     private bool _isAlive = true;
     private int  _level = 1;
 
+
+    public int id; //unique across all monsters and actors
+    public bool isUserControllable;
+
+    public RawImage HealthBarSlider;
+    public RawImage StaminaBarSlider;
     #endregion
 
     #region Public Vars
 
-    public string name {
+    public new string name {
         get {
             return _name;
         }
@@ -68,7 +76,7 @@ public class Actor {
         health = new Resource(resourceModifier);
         stamina = new Resource(resourceModifier, 0);
 
-        Debug.Log("maxsamina in player is " + stamina.maxValue);
+        Debug.Log("max stamina in player is " + stamina.maxValue);
 
 
         // setting up the default stats
@@ -108,9 +116,9 @@ public class Actor {
             health  = resources[0];
             stamina = resources[1];
         } else { // h/m/s not specified - go by this formula
-            int resourceModifier = 100 + (level * 7); // no idea if this formula will be good
+            int resourceModifier = 10 * level; // no idea if this formula will be good
             health  = new Resource(resourceModifier);
-            stamina = new Resource(resourceModifier);
+            stamina = new Resource(100); //Stamina should alway max out at 100.
         }
 
         // setting up the default stats
@@ -157,7 +165,8 @@ public class Actor {
     public void setStatLevels(int[] newStats) {
         int x = 0;
         foreach (KeyValuePair<string, Stat> stat in stats) {
-            stat.Value.setLevel(newStats[++x]);
+            stat.Value.setLevel(newStats[x]);
+            x += 1;
         }
         
     }

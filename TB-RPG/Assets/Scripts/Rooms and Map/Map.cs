@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Map {
-    private static int _level;
+    public static int tier;
     private static Room[,] rooms;
 
     private static int MAP_HEIGHT = 11;
@@ -13,21 +13,18 @@ public class Map {
     private static int numBattleRoomsPlaced;
     private static ArrayList orderOfRoomPlacings;
 
-
-    //Put getters / setters here
-
+    
     public enum levelThemes {
         CritterWorld,
         HauntedWorld,
         EvilWorld
     }
 
-    public static void generateMapByLevel(int level)    {
-        _level = level;
+    public static void generateMapByTeir()    {
         rooms = new Room[MAP_WIDTH, MAP_HEIGHT]; //10 by
 
-        int numRooms = LevelSpecs.getNumberOfRooms(_level);
-        string[] specRooms = LevelSpecs.getSpecialRooms(_level);
+        int numRooms = LevelSpecs.getNumberOfRooms(tier);
+        string[] specRooms = LevelSpecs.getSpecialRooms(tier);
 
         numBattleRooms = numRooms - specRooms.Length;
         numBattleRoomsPlaced = 0;
