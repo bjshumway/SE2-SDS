@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\Rooms and Map\Map.cs" />
     <Compile Include="Assets\Scripts\Rooms and Map\Room.cs" />
     <Compile Include="Assets\Scripts\UI\AbilitySelectionScript.cs" />
+    <Compile Include="Assets\Scripts\UI\AbilityTextScript.cs" />
     <Compile Include="Assets\Scripts\UI\BattleScript.cs" />
     <Compile Include="Assets\Scripts\UI\CharacterCreationMenu.cs" />
     <Compile Include="Assets\Scripts\UI\OverworldScript.cs" />
