@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 //This ability is used when a userControllable attacks a monster
 //see monsterAttack for when a monster attacks a userControllable
-public class Attack : SingleTargetDamageAbility {
+public class Slice : SingleTargetDamageAbility {
 
     public override void showAttackAnimation(Monster m)
     {
@@ -11,8 +11,8 @@ public class Attack : SingleTargetDamageAbility {
         //Also each monster will contain a reference to its image, to make things easier
     }
 
-    public Attack(Actor Owner) : base("ATTACK", "Deals 100% damage",
-        "strength", 1.0m, 10, Owner)
+    public Slice(Actor Owner) : base("SLAM", "Deals 150% damage",
+        "strength", 1.5m, 5, Owner)
     {
 
     }

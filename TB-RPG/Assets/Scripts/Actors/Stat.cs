@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 
-
 // Stat is specifically for the 5 stats - strength, intellect, dexterity, cunning, charisma
 // we will likely also need handling here for buffs/debuffs when they expire/are dispelled
 public class Stat {

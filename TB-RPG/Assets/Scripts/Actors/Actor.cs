@@ -68,26 +68,6 @@ public class Actor {
 
     #endregion
 
-    
-    //Simple constructor
-    public Actor()
-    {
-        decimal resourceModifier = 10; // no idea if this formula will be good
-        health = new Resource(resourceModifier);
-        stamina = new Resource(resourceModifier, 0);
-
-        Debug.Log("max stamina in player is " + stamina.maxValue);
-
-
-        // setting up the default stats
-        stats.Add("strength", new Stat(1, 0));
-        stats.Add("intellect", new Stat(1, 0));
-        stats.Add("dexterity", new Stat(1, 0));
-        stats.Add("cunning", new Stat(1, 0));
-        stats.Add("charisma", new Stat(1, 0));
-
-    }
-
     #region Constructor & Methods
 
     /// <summary>
@@ -131,6 +111,24 @@ public class Actor {
         if (statArray != null) { // stats specified
             setStatLevels(statArray);
         }
+    }
+
+    // Simple constructor
+    public Actor() {
+        decimal resourceModifier = 10; // no idea if this formula will be good
+        health = new Resource(resourceModifier);
+        stamina = new Resource(resourceModifier, 0);
+
+        Debug.Log("max stamina in player is " + stamina.maxValue);
+
+
+        // setting up the default stats
+        stats.Add("strength", new Stat(1, 0));
+        stats.Add("intellect", new Stat(1, 0));
+        stats.Add("dexterity", new Stat(1, 0));
+        stats.Add("cunning", new Stat(1, 0));
+        stats.Add("charisma", new Stat(1, 0));
+
     }
 
     /// <summary>
