@@ -4,15 +4,20 @@ public static class Gen {
 
     private static Random ran = new Random();
 
-    // TODO: add more of these
-    // Ben: We may want to steer away from adjectives that suggests it buffs stats
-    //      since this may confuse the player. Choosing between staff of Intellect and Staff of Terror
-    //      where staff of Intellect is lower level, the user might actually choose staff of intellect thinking it buffs intellect
-    //      Would could at some point consider should probably make adjectives a double-array so that it's tiered.
-    //      After all "Clumsiness" could be tier 1, and represent levels 1 to 
-    //                "Convenience" could be tier 2, and represent levels 6 to 10
-    //                "Doom" could be tier 3, representing levels 11 or higher
-    private static string[] adjectives = {
+    // TODO: add more of these?
+    private static string[] weakAdjectives = {
+        "Beginner's Luck",
+        "Crudeness",
+        "Clumsiness",
+        "Questing",
+        "Danger",
+        "Offensiveness",
+        "Peculiarity",
+        "Potencey",
+        "Beauty",
+    }
+    
+    private static string[] strongAdjectives = {
         "Doom",  
         "Annihilation",
         "Terror",
@@ -20,35 +25,16 @@ public static class Gen {
         "Blood",
         "Divinity",
         "Power",
-        "Awesome",
-        "Beauty",
-        "Beginner's Luck",
-        "Crudeness",
-        "Clumsiness",
-        "Danger",
         "Devastation",
         "Excellence",
         "Fate",
         "Greatness",
         "Importance",
-        "Offensiveness",
-        "Peculiarity",
-        "Potencey",
         "Sacredness",
         "Superiority",
         "Truth",
         "Justice",
-        "Questing",
-        "Ultimacy",
-
-
-        "Knowledge",
-        "Wisdom",
-        "Strength",
-        "Vitality",
-        "Dexterity",
-        "Cunning",
-        "Intellect"
+        "Ultimacy"
     };
 
     private static string[] meleeWeaponTypes = {
@@ -95,10 +81,15 @@ public static class Gen {
         new Item("Huge Platinum Throne", 50, true, 550, "What a chair! Bloody heavy, though.")
     };
 
-    public static string adjective() {
-        return adjectives[ran.Next(adjectives.Length)];
+    public static string weakAdjective() {
+        return weakAdjectives[ran.Next(weakAdjectives.Length)];
     }
 
+   public static string strongAdjective() {
+        return strongAdjectives[ran.Next(strongAdjectives.Length)];
+    }
+
+    
     public static Item drop(int level) {
         int roll = ran.Next(100);
 
@@ -112,7 +103,7 @@ public static class Gen {
     }
 
     public static Weapon weapon(int level) {
-        int type = ran.Next(0, 2);
+        int type = ran.Next(0, 3);
 
         if (type == 0) {
             return meleeWeapon(level);
