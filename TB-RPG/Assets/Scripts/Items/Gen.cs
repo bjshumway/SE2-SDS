@@ -85,7 +85,7 @@ public static class Gen {
         return weakAdjectives[ran.Next(weakAdjectives.Length)];
     }
 
-   public static string strongAdjective() {
+    public static string strongAdjective() {
         return strongAdjectives[ran.Next(strongAdjectives.Length)];
     }
 
@@ -103,7 +103,7 @@ public static class Gen {
     }
 
     public static Weapon weapon(int level) {
-        int type = ran.Next(0, 3);
+        int type = ran.Next(3);
 
         if (type == 0) {
             return meleeWeapon(level);
@@ -121,7 +121,7 @@ public static class Gen {
         decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
         bool tradable = true;
         decimal value = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
-        Weapon.weaponType type = (Weapon.weaponType)ran.Next(0, 3);
+        Weapon.weaponType type = (Weapon.weaponType)ran.Next(3);
 
         return new MeleeWeapon(
             name, 
@@ -146,7 +146,7 @@ public static class Gen {
         decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
         bool tradable = true;
         decimal value = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
-        Weapon.weaponType type = (Weapon.weaponType)ran.Next(0, 3);
+        Weapon.weaponType type = (Weapon.weaponType)ran.Next(3);
 
         return new MagicWeapon(
             name,
@@ -171,7 +171,7 @@ public static class Gen {
         decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
         bool tradable = true;
         decimal value = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
-        Weapon.weaponType type = (Weapon.weaponType)ran.Next(0, 3);
+        Weapon.weaponType type = (Weapon.weaponType)ran.Next(3);
 
         return new RangedWeapon(
             name,
