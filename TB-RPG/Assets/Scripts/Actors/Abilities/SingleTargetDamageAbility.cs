@@ -3,10 +3,17 @@ using UnityEngine;
 public abstract class SingleTargetDamageAbility : Ability {
 
     private decimal _modifier;
+    private string _stat;
 
     public decimal modifier {
         get {
             return _modifier;
+        }
+    }
+
+    public string stat {
+        get {
+            return _stat;
         }
     }
 

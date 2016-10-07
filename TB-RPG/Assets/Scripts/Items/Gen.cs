@@ -117,7 +117,7 @@ public static class Gen {
     // TODO:? group all weapons into a single class with a property destinguishing them?
     // it would avoid code duplicates here, and I don't see a downside at the moment
     public static MeleeWeapon meleeWeapon(int level) {
-        string name = meleeWeaponTypes[ran.Next(meleeWeaponTypes.Length)] + " of " + adjective();
+        string name = meleeWeaponTypes[ran.Next(meleeWeaponTypes.Length)] + " of " + ((level > 9) ? strongAdjective() : weakAdjective());
         decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
         bool tradable = true;
         decimal value = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
@@ -142,7 +142,7 @@ public static class Gen {
     }
 
     public static MagicWeapon magicWeapon(int level) {
-        string name = magicWeaponTypes[ran.Next(magicWeaponTypes.Length)] + " of " + adjective();
+        string name = magicWeaponTypes[ran.Next(magicWeaponTypes.Length)] + " of " + ((level > 9) ? strongAdjective() : weakAdjective());
         decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
         bool tradable = true;
         decimal value = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
@@ -167,7 +167,7 @@ public static class Gen {
     }
 
     public static RangedWeapon rangedWeapon(int level) {
-        string name = rangedWeaponTypes[ran.Next(rangedWeaponTypes.Length)] + " of " + adjective();
+        string name = rangedWeaponTypes[ran.Next(rangedWeaponTypes.Length)] + " of " + ((level > 9) ? strongAdjective() : weakAdjective());
         decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
         bool tradable = true;
         decimal value = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));

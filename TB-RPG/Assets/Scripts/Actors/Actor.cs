@@ -27,7 +27,7 @@ public class Actor {
 
     #region Public Vars
 
-    public new string name {
+    public string name {
         get {
             return _name;
         }
