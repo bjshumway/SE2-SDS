@@ -15,7 +15,7 @@ public static class Gen {
         "Peculiarity",
         "Potencey",
         "Beauty",
-    }
+    };
     
     private static string[] strongAdjectives = {
         "Doom",  
