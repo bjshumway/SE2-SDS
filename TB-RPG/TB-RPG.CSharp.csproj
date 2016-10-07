@@ -70,7 +70,10 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\AbilityBar.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\MonsterAbilities\MonsterAttack.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\SingleTargetDamageAbility.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Attack.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Slam.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Slash.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
     <Compile Include="Assets\Scripts\Actors\Debuff.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Assets\Scripts\Rooms and Map\Map.cs" />
     <Compile Include="Assets\Scripts\Rooms and Map\Room.cs" />
     <Compile Include="Assets\Scripts\UI\AbilitySelectionScript.cs" />
+    <Compile Include="Assets\Scripts\UI\AbilityTextScript.cs" />
     <Compile Include="Assets\Scripts\UI\BattleScript.cs" />
     <Compile Include="Assets\Scripts\UI\CharacterCreationMenu.cs" />
     <Compile Include="Assets\Scripts\UI\OverworldScript.cs" />
@@ -105,6 +109,9 @@
     <Compile Include="Assets\Scripts\UI\StatChange.cs" />
     <Compile Include="Assets\Scripts\UI\Statincrement.cs" />
     <Compile Include="Assets\Scripts\UI\TitleMenuScript.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Audio\license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

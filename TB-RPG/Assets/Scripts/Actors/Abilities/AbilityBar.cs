@@ -37,7 +37,7 @@
     /// Sets an ability at a specified index of the abilities array
     /// </summary>
     /// <param name="ability">Ability to set</param>
-    /// <param name="index">where the ability is going</param>
+    /// <param name="index">Where the ability is going</param>
     public void setAbility(Ability ability, int index) {
         abilities[index] = ability;
         calcLowestStam();

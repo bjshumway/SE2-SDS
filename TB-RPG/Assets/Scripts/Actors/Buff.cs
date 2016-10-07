@@ -1,7 +1,6 @@
 
 // Stat Buff
 // TODO: add image (don't know how Unity will want this)
-// TODO: add turn event handler?? - to decrement turnsLeft
 public class Buff {
     private int _value;
     private int _turnsLeft;

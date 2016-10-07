@@ -1,11 +1,7 @@
-// TODO: add image
-
 public abstract class Ability {
     private string _name;
     private string _toolTip;
     private decimal _stamina;
-    public Actor owner;
-
 
     public string name {
         get {
@@ -25,6 +21,7 @@ public abstract class Ability {
         }
     }
 
+    public Actor owner;
 
     public Ability(string name, string toolTip, decimal stamina, Actor ownerOfAbility) {
         _name = name;
@@ -34,6 +31,6 @@ public abstract class Ability {
     }
 
     public virtual void cast() {
-        owner.stamina.subtract(stamina);
+
     }
 }
