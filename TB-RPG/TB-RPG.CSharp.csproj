@@ -109,6 +109,8 @@
     <Compile Include="Assets\Scripts\UI\StatChange.cs" />
     <Compile Include="Assets\Scripts\UI\Statincrement.cs" />
     <Compile Include="Assets\Scripts\UI\TitleMenuScript.cs" />
+    <Compile Include="Assets\ability_test.cs" />
+    <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Audio\license.txt" />
