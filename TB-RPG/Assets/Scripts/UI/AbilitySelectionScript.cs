@@ -45,19 +45,19 @@ public class AbilitySelectionScript : MonoBehaviour
     {
         if (count == 0)
         {
-            ability1 = "Ability 2";
+            ability1 = "Slash";
             count++;
         }
 
         else if (count == 1)
         {
-            ability2 = "Ability 2";
+            ability2 = "Slash";
             count++;
         }
 
         else if (count == 2)
         {
-            ability3 = "Ability 2";
+            ability3 = "Slash";
             count++;
         }
 
@@ -67,19 +67,19 @@ public class AbilitySelectionScript : MonoBehaviour
     {
         if (count == 0)
         {
-            ability1 = "Ability 3";
+            ability1 = "Slam";
             count++;
         }
 
         else if (count == 1)
         {
-            ability2 = "Ability 3";
+            ability2 = "Slam";
             count++;
         }
 
         else if (count == 2)
         {
-            ability3 = "Ability 3";
+            ability3 = "Slam";
             count++;
         }
 
@@ -89,19 +89,19 @@ public class AbilitySelectionScript : MonoBehaviour
     {
         if (count == 0)
         {
-            ability1 = "Ability 4";
+            ability1 = "Attack";
             count++;
         }
 
         else if (count == 1)
         {
-            ability2 = "Ability 4";
+            ability2 = "Attack";
             count++;
         }
 
         else if (count == 2)
         {
-            ability3 = "Ability 4";
+            ability3 = "Attack";
             count++;
         }
 
