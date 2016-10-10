@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class Combat : MonoBehaviour {
     public GameObject DemonSkull;
 
@@ -21,8 +22,8 @@ public class Combat : MonoBehaviour {
     public KeyCode ability1;
     public KeyCode ability2;
     public KeyCode ability3;
-    public KeyCode item;  
-
+    public KeyCode item;
+    Random random = new Random();
 
 	// Use this for initialization
 	void Start () {
@@ -36,9 +37,16 @@ public class Combat : MonoBehaviour {
         //activates when player releases key assigned to variable attack
         if (Input.GetKeyUp(ability1) && Combat.PlayerTurn == true)
         {
-            playerAttack = TestSlash.attack;
-            Combat.enemyHP -= playerAttack;
+            //generates random number in unity
+            int Rng = Random.Range(1, 100);
+            Debug.Log(Rng);
 
+            //used for accuracy if random number less than ability accuracy than player will land attack
+            if (Rng <= playerAbility1.abl1Accuracy)
+            { 
+            playerAttack = playerAbility1.abl1Damage;
+            Combat.enemyHP -= playerAttack;
+            }
             //keeps enemy health from going below zero
             if (Combat.enemyHP < 0)
                 enemyHP = 0;
@@ -55,9 +63,13 @@ public class Combat : MonoBehaviour {
 
         if (Input.GetKeyUp(ability2) && Combat.PlayerTurn == true)
         {
-            playerAttack = testSlam.attack;
-            Combat.enemyHP -= playerAttack;
-
+            int Rng = Random.Range(1, 100);
+            Debug.Log(Rng);
+            if (Rng <= playerAbility2.abl2Accuracy)
+            {
+                playerAttack = playerAbility2.abl2Damage;
+                Combat.enemyHP -= playerAttack;
+            }
             //keeps enemy health from going below zero
             if (Combat.enemyHP < 0)
                 enemyHP = 0;
@@ -74,9 +86,13 @@ public class Combat : MonoBehaviour {
 
         if (Input.GetKeyUp(ability3) && Combat.PlayerTurn == true)
         {
-            playerAttack = testAttack.attack;
-            Combat.enemyHP -= playerAttack;
-
+            int Rng = Random.Range(1, 100);
+            Debug.Log(Rng);
+            if (Rng <= playerAbility3.abl3Accuracy)
+            {
+                playerAttack = playerAbility3.abl3Damage;
+                Combat.enemyHP -= playerAttack;
+            }
             //keeps enemy health from going below zero
             if (Combat.enemyHP < 0)
                 enemyHP = 0;
