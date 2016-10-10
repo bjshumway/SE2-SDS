@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class AbilityTextScript : MonoBehaviour {
-
+    public Text ability1;
+    public Text ability2;
+    public Text ability3;
 	// Use this for initialization
 	void Start () {
-        GetComponent<Renderer>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (gameObject.name == "abl1")
-            //gets text mesh component in object and changes text displayed
-            GetComponent<TextMesh>().text = AbilitySelectionScript.ability1;
+        ability1.text = AbilitySelectionScript.ability1;
+        ability2.text = AbilitySelectionScript.ability2;
+        ability3.text = AbilitySelectionScript.ability3;
 
-        if (gameObject.name == "abl2")
-            GetComponent<TextMesh>().text = AbilitySelectionScript.ability2;
-
-        if (gameObject.name == "abl3")
-            GetComponent<TextMesh>().text = AbilitySelectionScript.ability3;
     }
+
+    // Update is called once per frame
+    void Update () {
+        ability1.text = AbilitySelectionScript.ability1;
+        ability2.text = AbilitySelectionScript.ability2;
+        ability3.text = AbilitySelectionScript.ability3;    }
 }
