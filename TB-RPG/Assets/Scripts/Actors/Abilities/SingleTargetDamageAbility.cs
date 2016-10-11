@@ -21,12 +21,13 @@ public abstract class SingleTargetDamageAbility : Ability {
     public SingleTargetDamageAbility(string name, string toolTip, string stat, decimal modifier, decimal stamina, Actor ownerOfAbility)
 		: base(name, toolTip, stamina, ownerOfAbility) {
             _modifier = modifier;
+        _stat = stat;
     }
 
     //arg is a string of the format "typeOfThingClickedOn index"
     //e.g. "Monster 1" or "UserControllable 2" or "AbilityBar 1"
     public void selectEnemy(string arg) {
-        Debug.Log("Ran in SelectEnemy, arg: " + arg);
+        //Debug.Log("Ran in SelectEnemy, arg: " + arg);
         //   check to see what was clicked on is a monster
         //   if it's not a monster do nothing
         string[] args = arg.Split();
@@ -45,7 +46,7 @@ public abstract class SingleTargetDamageAbility : Ability {
 
     }
 
-    public override void cast() {
+    public override void cast(Actor act = null) {
         BattleScript bs = BattleScript.instance;
 
         if (bs.monsters.Length > 1) {
@@ -64,13 +65,15 @@ public abstract class SingleTargetDamageAbility : Ability {
     public void dealDamage(Monster m) {
         BattleScript bs = BattleScript.instance;
         
-        m.damage(owner.stats[stat].effectiveLevel * owner.weapon.damage * modifier);
+        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier);
 
         owner.stamina.subtract(stamina);
         bs.refreshStatDisplay(owner, "stamina");
-
         bs.refreshStatDisplay(m, "health");
+
+        //Debug.Log("m.battleHealthBar.value: " + m.battleHealthBar.value + ", m.health.value" + m.health.value);
+
+
         showAttackAnimation(m);
-        bs.refreshStatDisplay(m, "health"); //refreshes showing all the stats of enemy monster and characters
     }
 }

@@ -47,7 +47,7 @@ public class Resource {
     /// </summary>
     /// <param name="valueToSubtract">Number to subtract from Resource.value</param>
     public void subtract(decimal valueToSubtract) {
-        add(-valueToSubtract);
+        add(-1 * valueToSubtract);
     }
 
     /// <summary>

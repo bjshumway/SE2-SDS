@@ -10,8 +10,10 @@ using UnityEngine.UI;
 
 public class Monster : Actor {
 
-    public GameObject image;
+    public GameObject monsterPrefab;
     protected static int id_increment = 1;
+
+    public Ability[] abilities;
 
     private Item _drop;
 
@@ -25,6 +27,64 @@ public class Monster : Actor {
             return _drop;
         }
     }
+
+
+    public Monster(string name, String prefabName, int level, int diffInLevel, Title title = null, Resource[] resources = null, int[] stats = null)
+        : base(name, level, title, resources, stats) {
+
+        difficultyInLevel = diffInLevel;
+        this.id = id_increment;
+        id_increment++;
+        
+
+        GameObject imagePrefab = Resources.Load(prefabName) as GameObject;
+        monsterPrefab = GameObject.Instantiate(imagePrefab, imagePrefab.transform.position, imagePrefab.transform.rotation) as GameObject;
+        monsterPrefab.transform.SetParent(GameObject.Find("BattleCanvas").transform, false);
+        //Debug.Log(monsterPrefab);
+
+
+        battleHealthBar = GameObject.Find("Monster HealthBar").GetComponent<Slider>();
+        battleHealthBar.name = "Monster " + id + " HealthBar";
+
+        battleHealthBar.onValueChanged.AddListener(
+            delegate {
+                BattleScript.instance.updateResourceBarText("Monster " + id + " HealthBar");
+            }
+        );
+
+        battleHealthBar.maxValue = (float)health.maxValue;
+        battleHealthBar.value = battleHealthBar.maxValue;
+
+
+
+        battleStaminaBar = GameObject.Find("Monster StaminaBar").GetComponent<Slider>();
+        battleStaminaBar.name = "Monster " + id + " StaminaBar";
+        battleStaminaBar.onValueChanged.AddListener(
+            delegate {
+                //Debug.Log("Inside delegate");
+                BattleScript.instance.updateResourceBarText("Monster " + id + " StaminaBar");
+            });
+
+
+
+        battleStaminaBar.maxValue = (float)stamina.maxValue;
+
+    }
+
+    //This function is the AI that the monster takes during battle
+    //This constantly gets called in the Update function of BattleScript
+    //By default it selects at random and tries to cast it.
+    //This function can be overridden for any enemy that has a more complicated AI
+    public void doBattleAI()
+    {
+        System.Random ran = new System.Random();
+        int choice = ran.Next(abilities.Length-1);
+        if(abilities[choice].stamina <= stamina.value)
+        {
+            abilities[choice].cast();
+        }
+    }
+
 
     //Generates a single random number based on the mapTier
     public static Monster getRandomMonsterByLevel(int mapTier)
@@ -42,9 +102,10 @@ public class Monster : Actor {
             case 1:
                 numMonsterTypes = 1;
                 monsterIndex = randNum.Next(numMonsterTypes);
-                switch (monsterIndex) { 
+                switch (monsterIndex)
+                {
                     case 0:
-                    return new genericBenchmarkMonster();
+                        return new genericBenchmarkMonster();
                 }
                 break;
         }
@@ -55,15 +116,18 @@ public class Monster : Actor {
         return null;
     }
 
+
+
     //Randomly creates 1 to 4 Monsters that correspond to the mapLevel
     //Their combined difficultyInLevel should be 4
     public static Monster[] genMonstersByLevel(int mapTier)
     {
-        Debug.Log("Inside genMonstersByLevel");
+        //Debug.Log("Inside genMonstersByLevel");
         int sumDifficulty = 0;
 
         List<Monster> monsters = new List<Monster>();
-        while (sumDifficulty != 4) {
+        while (sumDifficulty != 4)
+        {
             Monster m = getRandomMonsterByLevel(mapTier);
             if ((sumDifficulty + m.difficultyInLevel) <= 4)
             {
@@ -73,20 +137,6 @@ public class Monster : Actor {
         }
 
         return monsters.ToArray();
-    }
-
-
-    public Monster() : base()
-    {
-
-    }
-
-    public Monster(string name, int level, int diffInLevel, Title title = null, Resource[] resources = null, int[] stats = null)
-        : base(name, level, title, resources, stats) {
-
-        difficultyInLevel = diffInLevel;
-        this.id = id_increment;
-        id_increment++;
     }
 
     public override void kill() {

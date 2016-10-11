@@ -12,7 +12,7 @@ public class CharacterCreationMenu : MonoBehaviour {
 
     public void Start()
     {
-        Debug.Log("Inside start of CharacterCreationMenu");
+        //Debug.Log("Inside start of CharacterCreationMenu");
         //GameObject.FindWithTag("head").GetComponent<Image>().sprite = Heads[0];
 
 
@@ -29,9 +29,9 @@ public class CharacterCreationMenu : MonoBehaviour {
     public void cycleBodyPart2(string bodyPartAndDirection)
     {
         string[] bodyPartAndDir = bodyPartAndDirection.Split();
-        Debug.Log(bodyPartAndDir[0]);
-        Debug.Log(bodyPartAndDir[1]);
-        Debug.Log("Inside cycleBodyPart");
+        //Debug.Log(bodyPartAndDir[0]);
+        //Debug.Log(bodyPartAndDir[1]);
+        //Debug.Log("Inside cycleBodyPart");
 
         if(bodyPartAndDir[1] == "right")
         {
@@ -57,9 +57,9 @@ public class CharacterCreationMenu : MonoBehaviour {
     public void cycleBodyPartColor(string bodyPartAndDirection)
     {
         string[] bodyPartAndDir = bodyPartAndDirection.Split();
-        Debug.Log(bodyPartAndDir[0]);
-        Debug.Log(bodyPartAndDir[1]);
-        Debug.Log(UserControllableLookConfig.instance.colors.Length);
+        //Debug.Log(bodyPartAndDir[0]);
+        //Debug.Log(bodyPartAndDir[1]);
+        //Debug.Log(UserControllableLookConfig.instance.colors.Length);
         if (bodyPartAndDir[1] == "right")
         {
             currHeadColorNum++;
@@ -88,17 +88,31 @@ public class CharacterCreationMenu : MonoBehaviour {
 
     public void goToNextScene()
     {
-        GameMaster.instance.thePlayer.headType = UserControllableLookConfig.instance.heads[0];
+        UserControllable uC = GameMaster.instance.thePlayer;
+        uC.headType = UserControllableLookConfig.instance.heads[0];
         Color32 newColor = new Color32((byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 0],
                                                                                  (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 1],
                                                                                  (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 2],
                                                                                  (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 3]);
-        GameMaster.instance.thePlayer.headColor = newColor;
+        uC.headColor = newColor;
+        uC.battleHead.enabled = true;
+        uC.battleHealthBar.enabled = true;
+        uC.battleStaminaBar.enabled = true;
+
+        GameObject.Find("Battle UC " + uC.id + " HealthBar").SetActive(true);
+        GameObject.Find("Battle UC " + uC.id + " StaminaBar").SetActive(true);
+
+
+        uC.battleHead.sprite = uC.headType;
+        uC.battleHead.color = uC.headColor;
 
 
         GameMaster.instance.switchCamera(2);
-        BattleScript.instance.refreshUCSprites();
 
+
+        UserControllable[] theParty = GameMaster.instance.thePlayer.theParty;
+        //Debug.Log(theParty.ToString());
+        
     }
 
 }

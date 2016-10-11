@@ -67,6 +67,7 @@
     <Compile Include="Assets\Combat.cs" />
     <Compile Include="Assets\EnemyHP.cs" />
     <Compile Include="Assets\HeathControl.cs" />
+    <Compile Include="Assets\SaveScriptsOnStartup.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\AbilityBar.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\MonsterAbilities\MonsterAttack.cs" />

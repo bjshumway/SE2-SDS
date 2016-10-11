@@ -21,8 +21,9 @@ public class Actor {
     public int id; //unique across all monsters and actors
     public bool isUserControllable;
 
-    public RawImage HealthBarSlider;
-    public RawImage StaminaBarSlider;
+    public Slider battleHealthBar;
+    public Slider battleStaminaBar;
+
     #endregion
 
     #region Public Vars
@@ -70,21 +71,12 @@ public class Actor {
 
     #region Constructor & Methods
 
-    /// <summary>
-    /// Constructor for Actor
-    /// </summary>
-    /// <param name="name">Name of the Actor</param>
-    /// <param name="title">Title for the Actor, if any</param>
-    /// <param name="resources">
-    /// Array of Resources corresponding to health, stamina
-    /// </param>
-    /// <param name="statArray">
-    /// Array of ints corresponding to the Actor's stats in order:
-    /// strength, intellect, dexterity, cunning, charisma
-    /// </param>
+    //simple constructor, used primarilly by Monsters
     public Actor(string name, int level, Title title = null, Resource[] resources = null, int[] statArray = null) {
         _name = name;
         _level = level;
+
+        _isAlive = true;
 
         if (title != null) { // title
             setTitle(title);
@@ -113,14 +105,15 @@ public class Actor {
         }
     }
 
-    // Simple constructor
+    // Simple constructor (used primarilly by userControllables)
     public Actor() {
         decimal resourceModifier = 10; // no idea if this formula will be good
-        health = new Resource(resourceModifier);
-        stamina = new Resource(resourceModifier, 0);
+        health = new Resource(resourceModifier, -1);
+        stamina = new Resource(100,-1);
 
-        Debug.Log("max stamina in player is " + stamina.maxValue);
+        //Debug.Log("max stamina in player is " + stamina.maxValue);
 
+        _isAlive = true;
 
         // setting up the default stats
         stats.Add("strength", new Stat(1, 0));
@@ -159,14 +152,15 @@ public class Actor {
     /// <param name="stats">
     /// Array of ints corresponding to the Actor's stats in order:
     /// strength, intellect, dexterity, cunning, charisma 
+    /// The order of stats is in alphabetical order:  charisma, cunning, dexterity, intellect, strength
     /// </param>
+
     public void setStatLevels(int[] newStats) {
-        int x = 0;
-        foreach (KeyValuePair<string, Stat> stat in stats) {
-            stat.Value.setLevel(newStats[x]);
-            x += 1;
-        }
-        
+        stats["charisma"].setLevel(newStats[0]);
+        stats["cunning"].setLevel(newStats[1]);
+        stats["dexterity"].setLevel(newStats[2]);
+        stats["intellect"].setLevel(newStats[3]);
+        stats["strength"].setLevel(newStats[4]);        
     }
 
     /// <summary>
@@ -200,6 +194,21 @@ public class Actor {
         stamina.setValue(0);
 
         _isAlive = false;
+        if(isUserControllable)
+        {
+            Actor[] party = GameMaster.instance.thePlayer.theParty;
+            bool everyoneDied = true;
+            for(int i = 0; i < party.Length; i++)
+            {
+                if(party[i] != null && party[i].isAlive == true) {
+                    everyoneDied = false;
+                }
+            }
+            if(everyoneDied)
+            {
+                GameMaster.instance.thePlayer.partyIsDead = true;
+            }
+        }
     }
 
     /// <summary>

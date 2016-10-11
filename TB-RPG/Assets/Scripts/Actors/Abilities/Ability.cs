@@ -30,7 +30,9 @@ public abstract class Ability {
         owner = ownerOfAbility;
     }
 
-    public virtual void cast() {
+    //This function casts the ability
+    //The Actor is typically reserved for whether the AI of the Monster wants to specify it.
+    public virtual void cast(Actor act = null) {
 
     }
 }
