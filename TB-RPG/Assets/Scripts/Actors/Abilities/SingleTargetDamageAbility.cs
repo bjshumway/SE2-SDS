@@ -68,10 +68,6 @@ public abstract class SingleTargetDamageAbility : Ability {
         m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier);
 
         owner.stamina.subtract(stamina);
-        bs.refreshStatDisplay(owner, "stamina");
-        bs.refreshStatDisplay(m, "health");
-
-        //Debug.Log("m.battleHealthBar.value: " + m.battleHealthBar.value + ", m.health.value" + m.health.value);
 
 
         showAttackAnimation(m);

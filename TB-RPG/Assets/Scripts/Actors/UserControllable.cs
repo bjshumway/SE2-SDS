@@ -42,25 +42,13 @@ public abstract class UserControllable : Actor {
         id_increment++;
 
         battleHealthBar = GameObject.Find("Battle UC " + id + " HealthBar").GetComponent<Slider>();
-        battleStaminaBar = GameObject.Find("Battle UC " + id + " StaminaBar").GetComponent<Slider>();
-
-        battleHealthBar.onValueChanged.AddListener(
-        delegate {
-            //Debug.Log("change noticed in healthbar: "+ "Battle UC " + id + " HealthBar");
-            BattleScript.instance.updateResourceBarText("Battle UC " + id + " HealthBar");
-        });
-
         battleHealthBar.maxValue = (float)health.maxValue;
         battleHealthBar.value = (float)battleHealthBar.maxValue;
+        health.sliders = new Slider[] { battleHealthBar };
 
-
-
+        battleStaminaBar = GameObject.Find("Battle UC " + id + " StaminaBar").GetComponent<Slider>();
         battleStaminaBar.maxValue = (float)stamina.maxValue;
-
-        battleStaminaBar.onValueChanged.AddListener(
-        delegate {
-            BattleScript.instance.updateResourceBarText("Battle UC " + id + " StaminaBar");
-        });
+        stamina.sliders = new Slider[] { battleStaminaBar };
 
 
         battleHead = GameObject.Find("Battle UC " + this.id + " HeadType").GetComponent<Image>();

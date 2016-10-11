@@ -40,22 +40,7 @@ public class MonsterAttack : Ability {
 
         act.damage(owner.stats["strength"].effectiveLevel);
         owner.stamina.subtract(stamina);
-        //Debug.Log("MonsterAttacks, remaining health: " +  act.health.value);
-        //showAttackAnimation
-        //Debug.Log("b4 act.health: " + act.health.value + ", b4 act.stamina: " + act.stamina.value);
 
-        BattleScript.instance.refreshStatDisplay(act, "health");
-        BattleScript.instance.refreshStatDisplay(act, "stamina");
-
-        BattleScript.instance.refreshStatDisplay(owner, "stamina");
-       
-
-
-
-        //Debug.Log("act.health: " + act.health.value + ", act.stamina: " + act.stamina.value);
-        //Debug.Log("mon.health: " + owner.health.value + ", mon.stamina: " + owner.stamina.value);
-
-        //owner.stamina.subtract(stamina);
 
     }
 

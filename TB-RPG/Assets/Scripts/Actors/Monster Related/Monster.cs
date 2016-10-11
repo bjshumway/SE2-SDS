@@ -45,29 +45,16 @@ public class Monster : Actor {
 
         battleHealthBar = GameObject.Find("Monster HealthBar").GetComponent<Slider>();
         battleHealthBar.name = "Monster " + id + " HealthBar";
-
-        battleHealthBar.onValueChanged.AddListener(
-            delegate {
-                BattleScript.instance.updateResourceBarText("Monster " + id + " HealthBar");
-            }
-        );
-
         battleHealthBar.maxValue = (float)health.maxValue;
         battleHealthBar.value = battleHealthBar.maxValue;
-
+        health.sliders = new Slider[] { battleHealthBar };
 
 
         battleStaminaBar = GameObject.Find("Monster StaminaBar").GetComponent<Slider>();
         battleStaminaBar.name = "Monster " + id + " StaminaBar";
-        battleStaminaBar.onValueChanged.AddListener(
-            delegate {
-                //Debug.Log("Inside delegate");
-                BattleScript.instance.updateResourceBarText("Monster " + id + " StaminaBar");
-            });
-
-
-
         battleStaminaBar.maxValue = (float)stamina.maxValue;
+        stamina.sliders = new Slider[] { battleStaminaBar };
+
 
     }
 

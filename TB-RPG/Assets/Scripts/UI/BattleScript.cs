@@ -44,69 +44,7 @@ public class BattleScript : MonoBehaviour {
 
 
 
-    //Refreshes the stats displayed for an actor,
-    //Possible values for r are: health,stamina,all
-    //If actor is null, then refresh it for all actors
-    public void refreshStatDisplay(Actor a = null, string r = "all")
-    {
-        if(a != null)
-        {
-            if(r == "health" || r == "all")
-            {
-                //Debug.Log("health alter showing for actor a with val = " + (int)a.health.value);
-                float newHealth = (float)a.health.value; 
-                a.battleHealthBar.value = newHealth;
-                //Debug.Log("resulting healthbar value, " + a.battleHealthBar.value);
 
-
-            }
-
-            if (r == "stamina" || r == "all")
-            {
-                float newStamina = (float)a.stamina.value;
-
-                a.battleStaminaBar.value = newStamina;
-            }
-        }
-        else //a == null, so update everyone
-        {
-            foreach (UserControllable uC in GameMaster.instance.thePlayer.theParty)
-            {
-                if (r == "health" || r == "all")
-                {
-                    uC.battleHealthBar.value = (float)a.health.value;
-                }
-
-                if (r == "stamina" || r == "all")
-                {
-                    uC.battleStaminaBar.value = (float)a.stamina.value;
-                }
-            }
-            foreach (Monster m in monsters)
-            {
-                if (r == "health" || r == "all")
-                {
-                    m.battleHealthBar.value = (float)m.health.value;
-                }
-
-                if (r == "stamina" || r == "all")
-                {
-                    m.battleStaminaBar.value = (float)m.stamina.value;
-                }
-            }
-        }
-    }
-
-
-    //updates a player or enemy resource bar's text (e.g. to 10/10)
-    //E.g. "Battle UC 1 StaminaBar" or "Monster 2 StaminaBar"
-    public void updateResourceBarText(String identifier)
-    {
-        GameObject bar = GameObject.Find(identifier);
-        Slider s = bar.GetComponent<Slider>();
-        //Debug.Log("updating: " + identifier + ", s: " +s);
-        bar.GetComponentInChildren<Text>().text = "" + (int)s.value + "/" + (int)s.maxValue;
-    }
 
 
     //Todo: update this function so that it takes an array of monsters as an argument
@@ -241,7 +179,6 @@ public class BattleScript : MonoBehaviour {
             {
                 Resource stamina = uCArr[i].stamina;
                 stamina.add((decimal)((float)uCArr[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10 ));
-                uCArr[i].battleStaminaBar.value = (float)stamina.value;
             }
         }
 
@@ -252,7 +189,6 @@ public class BattleScript : MonoBehaviour {
             {
                 Resource stamina = monsters[i].stamina;
                 stamina.add((decimal)((float)monsters[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10));
-                monsters[i].battleStaminaBar.value = (float)stamina.value;
             }
         }
 
