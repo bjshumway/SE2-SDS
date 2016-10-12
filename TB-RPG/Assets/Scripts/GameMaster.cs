@@ -29,6 +29,7 @@ public class GameMaster : MonoBehaviour {
         thePlayer.abilities.abilities[0] = new Attack(thePlayer);
         thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
 
+
         //Debug.Log("thePlayer Created");
         //disable all cameras but the one one at 0
         for (int i = 1; i < theCameras.Length; i++)

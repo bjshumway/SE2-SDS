@@ -5,16 +5,15 @@ using UnityEngine.UI;
 
 public class CharacterCreationMenu : MonoBehaviour {
 
-    public int currHeadNum;
-    public int currHeadColorNum;
-
+    public static int currHeadNum;
+    public static int currHeadColorNum;
+    public static UserControllable currentUC;
 
 
     public void Start()
     {
         //Debug.Log("Inside start of CharacterCreationMenu");
         //GameObject.FindWithTag("head").GetComponent<Image>().sprite = Heads[0];
-
 
         currHeadColorNum = 0;
         currHeadNum = 0;
@@ -24,6 +23,16 @@ public class CharacterCreationMenu : MonoBehaviour {
                                                                                  (byte)UserControllableLookConfig.instance.colors[0,3]);
 
     }
+
+
+    //Switches the camera to this scene
+    //Populates the Image and Name on the canvas so that we know which uC is here
+    public static void load(UserControllable uC)
+    {
+        currentUC = uC;
+        GameMaster.instance.switchCamera(1);
+    }
+
 
     //Cycles a body part, e.g. head, eyes, hair
     public void cycleBodyPart2(string bodyPartAndDirection)
@@ -50,7 +59,7 @@ public class CharacterCreationMenu : MonoBehaviour {
             currHeadNum = 0;
         }
 
-        GameObject.FindWithTag("head").GetComponent<Image>().sprite = UserControllableLookConfig.instance.heads[currHeadNum];
+        GameObject.Find("CharCreationHead").GetComponent<Image>().sprite = UserControllableLookConfig.instance.heads[currHeadNum];
     }
 
     //Cycles the color of a particular body part
@@ -83,13 +92,14 @@ public class CharacterCreationMenu : MonoBehaviour {
                                                                                  (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 2],
                                                                                  (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 3]);
 
-        GameObject.FindWithTag("head").GetComponent<Image>().color = newColor;
+        GameObject.Find("CharCreationHead").GetComponent<Image>().color = newColor;
     }
 
     public void goToNextScene()
     {
-        UserControllable uC = GameMaster.instance.thePlayer;
-        uC.headType = UserControllableLookConfig.instance.heads[0];
+        UserControllable uC = currentUC;
+        Sprite newHead = UserControllableLookConfig.instance.heads[currHeadNum];
+        uC.headType = newHead;
         Color32 newColor = new Color32((byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 0],
                                                                                  (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 1],
                                                                                  (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 2],
@@ -102,19 +112,17 @@ public class CharacterCreationMenu : MonoBehaviour {
         uC.battleHealthBar.enabled = true;
         uC.battleStaminaBar.enabled = true;
 
+        uC.name = GameObject.Find("NamePlayerInput").GetComponent<InputField>().text;
+
         GameObject.Find("Battle UC " + uC.id + " HealthBar").SetActive(true);
         GameObject.Find("Battle UC " + uC.id + " StaminaBar").SetActive(true);
 
 
-  
+
+        //Pass in a reference to the current character, so that it knows which character to load
+        AbilitySelectionScript.load(uC);
 
 
-        GameMaster.instance.switchCamera(2);
-
-
-        UserControllable[] theParty = GameMaster.instance.thePlayer.theParty;
-        //Debug.Log(theParty.ToString());
-        
     }
 
 }

@@ -32,6 +32,10 @@ public class Actor {
         get {
             return _name;
         }
+        set
+        {
+            _name = value;
+        }
     }
 
     // name + title or title + name
