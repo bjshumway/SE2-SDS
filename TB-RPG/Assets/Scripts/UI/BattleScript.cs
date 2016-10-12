@@ -204,6 +204,26 @@ public class BattleScript : MonoBehaviour {
             }
         }
 
+        if(GameMaster.instance.thePlayer.partyIsDead == true)
+        {
+            this.combatOcurring = false;
+            GameMaster.instance.switchCamera(8);
+        }
+        bool monstersDied = true;
+        foreach(Monster mon in monsters)
+        {
+            if(mon.isAlive)
+            {
+                monstersDied = false;
+            }
+        }
+        if(monstersDied)
+        {
+            this.combatOcurring = false;
+            monsters = null;
+            GameMaster.instance.switchCamera(7);
+        }
+
     }
 
     // This defines a static instance property that attempts to find the manager object in the scene and

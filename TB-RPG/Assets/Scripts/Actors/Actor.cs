@@ -186,12 +186,24 @@ public class Actor {
         _isAlive = true;
     }
 
+    //Shows the animation for the monster / player dying
+    //Todo: make _isAlive false After the animation is finished
+    public void showDeathAnimation()
+    {
+
+    }
+
     /// <summary>
     /// Kills the Actor, setting all resources to 0
+    /// It also calls showDeathAnimation
+    /// It also checks to see if the party is dead,
+    /// if the party is dead it updates partyIsDead variable in player
     /// </summary>
     public virtual void kill() {
         health.setValue(0);
         stamina.setValue(0);
+
+        showDeathAnimation();
 
         _isAlive = false;
         if(isUserControllable)

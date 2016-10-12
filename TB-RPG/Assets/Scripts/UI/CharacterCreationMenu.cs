@@ -95,6 +95,9 @@ public class CharacterCreationMenu : MonoBehaviour {
                                                                                  (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 2],
                                                                                  (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 3]);
         uC.headColor = newColor;
+
+        uC.battleHead.sprite = uC.headType;
+        uC.battleHead.color = uC.headColor;
         uC.battleHead.enabled = true;
         uC.battleHealthBar.enabled = true;
         uC.battleStaminaBar.enabled = true;
@@ -103,8 +106,7 @@ public class CharacterCreationMenu : MonoBehaviour {
         GameObject.Find("Battle UC " + uC.id + " StaminaBar").SetActive(true);
 
 
-        uC.battleHead.sprite = uC.headType;
-        uC.battleHead.color = uC.headColor;
+  
 
 
         GameMaster.instance.switchCamera(2);

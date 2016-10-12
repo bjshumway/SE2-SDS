@@ -17,6 +17,7 @@ public class SkillSelectionScript : MonoBehaviour {
 
     public void goToNextScene()
     {
+        Debug.Log("go to next scene in skillselection script");
         GameMaster.instance.thePlayer.setStatLevels(new int[] { charisma, cunning, dexterity, intellect, strength });
         GameMaster.instance.switchCamera(4);
     }
