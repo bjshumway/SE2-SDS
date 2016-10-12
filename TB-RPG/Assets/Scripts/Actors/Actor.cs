@@ -221,7 +221,8 @@ public class Actor {
     /// Attempts to damage the actor by the specified amount
     /// </summary>
     /// <param name="damageAmount">amount to damage</param>
-    /// <returns>true if damaged, false if actor dodged</returns>
+    /// <param name="damager">Actor who is dealing the damage</param>
+    /// <returns>hitType.hit, hitType.crit, or hitType.miss</returns>
     public hitType damage(decimal damageAmount, Actor damager) {
         System.Random ran = new System.Random();
 
