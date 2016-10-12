@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +26,12 @@ public class Actor {
     #endregion
 
     #region Public Vars
+
+    public static enum hitType {
+        hit,
+        crit,
+        miss
+    }
 
     public string name {
         get {
@@ -120,11 +125,11 @@ public class Actor {
         _isAlive = true;
 
         // setting up the default stats
-        stats.Add("strength", new Stat(1, 0));
+        stats.Add("strength",  new Stat(1, 0));
         stats.Add("intellect", new Stat(1, 0));
         stats.Add("dexterity", new Stat(1, 0));
-        stats.Add("cunning", new Stat(1, 0));
-        stats.Add("charisma", new Stat(1, 0));
+        stats.Add("cunning",   new Stat(1, 0));
+        stats.Add("charisma",  new Stat(1, 0));
 
     }
 
@@ -164,7 +169,7 @@ public class Actor {
         stats["cunning"].setLevel(newStats[1]);
         stats["dexterity"].setLevel(newStats[2]);
         stats["intellect"].setLevel(newStats[3]);
-        stats["strength"].setLevel(newStats[4]);        
+        stats["strength"].setLevel(newStats[4]);
     }
 
     /// <summary>
@@ -210,21 +215,6 @@ public class Actor {
         showDeathAnimation();
 
         _isAlive = false;
-        if(isUserControllable)
-        {
-            Actor[] party = GameMaster.instance.thePlayer.theParty;
-            bool everyoneDied = true;
-            for(int i = 0; i < party.Length; i++)
-            {
-                if(party[i] != null && party[i].isAlive == true) {
-                    everyoneDied = false;
-                }
-            }
-            if(everyoneDied)
-            {
-                GameMaster.instance.thePlayer.partyIsDead = true;
-            }
-        }
     }
 
     /// <summary>
@@ -232,21 +222,33 @@ public class Actor {
     /// </summary>
     /// <param name="damageAmount">amount to damage</param>
     /// <returns>true if damaged, false if actor dodged</returns>
-    public bool damage(decimal damageAmount) {
+    public hitType damage(decimal damageAmount, Actor damager) {
         System.Random ran = new System.Random();
-        decimal dodgeRoll = ran.Next(0, 100) / 100m;
 
-        if (stats["cunning"].modifier * 0.5m < dodgeRoll) {
+        // temporary formula - needs balance testing
+        decimal dodgeRoll = ((ran.Next(0, 100) + (damager.weapon.accuracy * 0.5m)) / 100m);
+
+        if ((stats["cunning"].modifier * 0.5m) < dodgeRoll) {
+            hitType ht = hitType.hit;
+
+            decimal critRoll = (ran.Next(0, 100) / 100m);
+
+            // crit
+            if ((damager.stats["cunning"].modifier * 0.5m) > critRoll) {
+                damageAmount *= 3;
+                ht = hitType.crit;
+            }
+
             health.subtract(damageAmount); // ouch
 
             if (health.value == 0) {
                 kill(); // yo dead
             }
 
-            return true;
+            return ht;
         }
 
-        return false; // dodged
+        return hitType.miss; // dodged
     }
 
     /// <summary>

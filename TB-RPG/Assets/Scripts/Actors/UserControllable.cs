@@ -57,7 +57,22 @@ public abstract class UserControllable : Actor {
 
 
         isUserControllable = true;
+    }
 
+    public override void kill() {
+        base.kill();
 
+        Actor[] party = GameMaster.instance.thePlayer.theParty;
+        bool everyoneDied = true;
+        for(int i = 0; i < party.Length; i++)
+        {
+            if(party[i] != null && party[i].isAlive == true) {
+                everyoneDied = false;
+            }
+        }
+        if(everyoneDied)
+        {
+            GameMaster.instance.thePlayer.partyIsDead = true;
+        }
     }
 }
