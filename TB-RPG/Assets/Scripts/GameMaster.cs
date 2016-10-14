@@ -27,7 +27,7 @@ public class GameMaster : MonoBehaviour {
 	void Start () {
         thePlayer = new Player();
         thePlayer.abilities.abilities[0] = new Attack(thePlayer);
-        thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
+        thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
 
 
         //Debug.Log("thePlayer Created");

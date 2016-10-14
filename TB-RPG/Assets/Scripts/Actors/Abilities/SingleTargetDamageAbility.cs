@@ -65,7 +65,7 @@ public abstract class SingleTargetDamageAbility : Ability {
     public void dealDamage(Monster m) {
         BattleScript bs = BattleScript.instance;
         
-        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier);
+        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier, owner);
 
         owner.stamina.subtract(stamina);
 

@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 // TODO: add more of everything: adjectives, weapontypes, items
 public static class Gen {
 
@@ -119,12 +120,12 @@ public static class Gen {
     private static Weapon initWeapon(int level, Weapon.weaponClass classType) {
         string name = "";
 
-        if (classType = Weapon.weaponClass.Magic) {
-            magicWeaponTypes[ran.Next(magicWeaponTypes.Length)];
-        } else if (classType = Weapon.weaponClass.Melee) {
-            meleeWeaponTypes[ran.Next(meleeWeaponTypes.Length)];
+        if (classType == Weapon.weaponClass.Magic) {
+            name = magicWeaponTypes[ran.Next(magicWeaponTypes.Length)] ;
+        } else if (classType == Weapon.weaponClass.Melee) {
+            name = meleeWeaponTypes[ran.Next(meleeWeaponTypes.Length)];
         } else {
-            rangedWeaponTypes[ran.Next(rangedWeaponTypes.Length)];
+            name = rangedWeaponTypes[ran.Next(rangedWeaponTypes.Length)];
         }
 
         name += " of " + ((level > 9) ? strongAdjective() : weakAdjective());
@@ -140,11 +141,12 @@ public static class Gen {
             tradable,
             value,
             level,
+            classType,
             type,
 
             /* Tooltip Text */
             name + "\r\n" +
-            Enum.GetName(TypeOf(Weapon.weaponClass), (int)classType) + " Weapon" + "\r\n" +
+             Enum.GetName(typeof(Weapon.weaponClass), (int)classType) + " Weapon" + "\r\n" +
             "Weight: "   + weight.ToString() + "\r\n" +
             "Tradable: " + ((tradable) ? "Yes" : "No") + "\r\n" +
             "Value: "    + value.ToString() + "\r\n" +

@@ -22,6 +22,8 @@ public class Monster : Actor {
     //A monster of difficulty 
     public int difficultyInLevel;
 
+    public decimal hitAccuracy;
+
     public Item drop {
         get {
             return _drop;
@@ -29,9 +31,10 @@ public class Monster : Actor {
     }
 
 
-    public Monster(string name, String prefabName, int level, int diffInLevel, Title title = null, Resource[] resources = null, int[] stats = null)
+    public Monster(string name, String prefabName, int level, int diffInLevel, int hitAcc, Title title = null, Resource[] resources = null, int[] stats = null)
         : base(name, level, title, resources, stats) {
 
+        hitAccuracy = hitAcc;
         difficultyInLevel = diffInLevel;
         this.id = id_increment;
         id_increment++;

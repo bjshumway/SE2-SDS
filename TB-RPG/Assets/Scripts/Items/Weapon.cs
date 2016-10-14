@@ -8,14 +8,14 @@ public class Weapon : Gear {
     private decimal _special;
     private weaponType _type;
 
-    public static enum weaponClass {
+    public enum weaponClass {
         Magic,
         Melee,
         Ranged
     };
 
     // this is how weapon damage / accuracy will be calculated
-    public static enum weaponType {
+    public enum weaponType {
         highDamage,
         highAccuracy,
         balanced

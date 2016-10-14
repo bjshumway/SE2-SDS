@@ -7,8 +7,8 @@ public class MagicWeapon : Weapon {
         }
     }
 
-    public MagicWeapon(string name, decimal weight, bool tradable, decimal value, int level, weaponType type, string toolTip = "")
-        : base(name, weight, tradable, value, level, type, toolTip) {
+    public MagicWeapon(string name, decimal weight, bool tradable, decimal value, int level, weaponClass classType, weaponType type, string toolTip = "")
+        : base(name, weight, tradable, value, level, classType, type, toolTip) {
 
             _critModifier = level * 0.1m;
     }

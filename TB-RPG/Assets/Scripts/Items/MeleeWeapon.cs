@@ -7,8 +7,8 @@ public class MeleeWeapon : Weapon {
         }
     }
 
-    public MeleeWeapon(string name, decimal weight, bool tradable, decimal value, int level, weaponType type, string toolTip = "")
-        : base(name, weight, tradable, value, level, type, toolTip) {
+    public MeleeWeapon(string name, decimal weight, bool tradable, decimal value, int level, weaponClass classType, weaponType type, string toolTip = "")
+        : base(name, weight, tradable, value, level, classType, type, toolTip) {
 
             _parryChance = level * 0.1m;
     }

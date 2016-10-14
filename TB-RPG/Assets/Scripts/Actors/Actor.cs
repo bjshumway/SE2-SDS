@@ -27,7 +27,7 @@ public class Actor {
 
     #region Public Vars
 
-    public static enum hitType {
+    public enum hitType {
         hit,
         crit,
         miss
@@ -227,7 +227,16 @@ public class Actor {
         System.Random ran = new System.Random();
 
         // temporary formula - needs balance testing
-        decimal dodgeRoll = ((ran.Next(0, 100) + (damager.weapon.accuracy * 0.5m)) / 100m);
+        decimal dodgeRoll = (decimal) (ran.Next(0, 100));
+
+        //Dodge roll for uC is based on weapon accuracy, for Monster is based on hitAccuracy
+        if (damager.isUserControllable)
+        {
+            dodgeRoll = dodgeRoll + (decimal)(damager.weapon.accuracy * 0.5m) / 100m;
+        } else
+        {
+            dodgeRoll = dodgeRoll + ((Monster)damager).hitAccuracy * .05m / 100m;
+        }
 
         if ((stats["cunning"].modifier * 0.5m) < dodgeRoll) {
             hitType ht = hitType.hit;

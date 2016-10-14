@@ -3,6 +3,8 @@ public abstract class Ability {
     private string _toolTip;
     private decimal _stamina;
 
+    public Actor owner;
+
     public string name {
         get {
             return _name;
@@ -20,8 +22,6 @@ public abstract class Ability {
             return _stamina;
         }
     }
-
-    public Actor owner;
 
     public Ability(string name, string toolTip, decimal stamina, Actor ownerOfAbility) {
         _name = name;
