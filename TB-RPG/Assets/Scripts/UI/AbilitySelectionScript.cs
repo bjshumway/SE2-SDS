@@ -27,6 +27,7 @@ public class AbilitySelectionScript : MonoBehaviour
 
     //Switches the camera to this scene
     //Populates the Image and Name on the canvas so that we know which uC is here
+    //Todo: the abilities to choose from should be based on the uC's class, and what the uC has already chosen.
     public static void load(UserControllable uC)
     {
         currentUC = uC;

@@ -37,6 +37,7 @@ public class Monster : Actor {
         hitAccuracy = hitAcc;
         difficultyInLevel = diffInLevel;
         this.id = id_increment;
+        //Debug.Log("Creating Monster with id" + this.id);
         id_increment++;
         
 
@@ -59,6 +60,10 @@ public class Monster : Actor {
         stamina.sliders = new Slider[] { battleStaminaBar };
 
 
+        MonsterClick mc = (MonsterClick)monsterPrefab.GetComponent<MonoBehaviour>();
+        mc.id = this.id;
+        
+        
     }
 
     //This function is the AI that the monster takes during battle

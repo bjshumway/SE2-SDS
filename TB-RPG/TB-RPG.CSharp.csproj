@@ -70,6 +70,7 @@
     <Compile Include="Assets\GameOverScript.cs" />
     <Compile Include="Assets\HeathControl.cs" />
     <Compile Include="Assets\MenuScript.cs" />
+    <Compile Include="Assets\MonsterClick.cs" />
     <Compile Include="Assets\SaveScriptsOnStartup.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\AbilityBar.cs" />

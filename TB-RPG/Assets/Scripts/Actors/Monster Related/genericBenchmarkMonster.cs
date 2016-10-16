@@ -5,12 +5,12 @@ using UnityEngine.UI;
 public class genericBenchmarkMonster : Monster {
 
     public genericBenchmarkMonster()
-        : base("Generic", "demonSkull", 1, 4, 0, null,
+        : base("Generic", "demonSkull", 1, 2, 0, null,
                 new Resource[] {
                     new Resource(3),
                     new Resource(100)
                 },
-                new int[] { 3, 3, 3, 3, 3 }
+                new int[] { 1, 1, 1, 1, 1 }
                 )
     {
         Debug.Log("this inside constructor of genericBenchmarkMonster" + this.ToString());

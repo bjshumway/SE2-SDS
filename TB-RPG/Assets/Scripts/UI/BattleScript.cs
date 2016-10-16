@@ -53,7 +53,28 @@ public class BattleScript : MonoBehaviour {
         this.combatOcurring = true;
         this.monsters = monsters;
 
-        //place each monster's GUI related stuff onto the battle field
+        //Make the monsters be located correctly on the battlefield
+        switch(monsters.Length)
+        {
+            case 1:
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(185, 206, 0);
+                break;
+            case 2:
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20, 93,0);
+                monsters[1].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350, 93, 100);
+                break;
+            case 3:
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(185, -15, 0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20, 206, 0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350, 206, 0);
+                break;
+            case 4:
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20,206,0);
+                monsters[1].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350,206,0);
+                monsters[2].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20,-15,0);
+                monsters[3].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350,-15,0);
+                break;
+        }
 
         //Set all players and monster's stamina's to a random amount
         UserControllable[] theParty = GameMaster.instance.thePlayer.theParty;
@@ -130,10 +151,21 @@ public class BattleScript : MonoBehaviour {
 
         int abNum = int.Parse(arg.Split()[1]);
         Ability ab = activeCharacter.abilities.abilities[abNum];
-        if(ab != null && ab.stamina <= activeCharacter.stamina.value)
+        if(ab != null && (activeCharacter.stamina.value == 100) || (ab.stamina == 0))
         {
             ab.cast();
         }
+    }
+
+    //Transfers clicking on a mosnter into pipeInputFunc
+    public void monsterClick(string arg)
+    {
+        if (pipeInputFunc != null)
+        {
+            pipeInputFunc(arg);
+            return;
+        }
+
     }
 
     //Calls arg.split()
