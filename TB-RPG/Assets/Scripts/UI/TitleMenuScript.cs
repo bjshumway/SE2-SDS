@@ -9,7 +9,7 @@ public class TitleMenuScript : MonoBehaviour
 
     public void LoadScene(string cameraNum)
     {
-        GameMaster.instance.switchCamera(int.Parse(cameraNum));
+        CharacterCreationMenu.load(GameMaster.instance.thePlayer);
     }
 
     public void Start()

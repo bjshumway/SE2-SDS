@@ -8,6 +8,11 @@ public class AbilitySelectionScript : MonoBehaviour
     public static string ability1;
     public static string ability2;
     public static string ability3;
+    
+    public static UserControllable currentUC;
+    public static GameObject headImage;
+    public static GameObject nameOfUc;
+
     //creates text object for the script
     public Text abl1;
     public Text abl2;
@@ -16,12 +21,26 @@ public class AbilitySelectionScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        headImage = GameObject.Find("HeadAbSelect");
+        nameOfUc = GameObject.Find("NameAbSelect");
+    }
 
+    //Switches the camera to this scene
+    //Populates the Image and Name on the canvas so that we know which uC is here
+    //Todo: the abilities to choose from should be based on the uC's class, and what the uC has already chosen.
+    public static void load(UserControllable uC)
+    {
+        currentUC = uC;
+        headImage.GetComponent<Image>().sprite = uC.headType;
+        headImage.GetComponent<Image>().color = uC.headColor;
+        nameOfUc.GetComponent<Text>().text = uC.name;
+
+        GameMaster.instance.switchCamera(2);
     }
 
     public void goToNextScene()
     {
-        GameMaster.instance.switchCamera(3);
+        SkillSelectionScript.load(currentUC);
     }
 
     public void abil1()

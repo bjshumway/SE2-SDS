@@ -7,12 +7,19 @@ public class EnemyHP : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        EnemyHp.maxValue = Combat.enemyHP;
-        EnemyHp.value = Combat.enemyHP;
+        //ben
+        //commented out for compiling
+
+        //EnemyHp.maxValue = Combat.enemyHP;
+        //EnemyHp.value = Combat.enemyHP;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        EnemyHp.value = Combat.enemyHP;
+        //ben
+        //no longer used
+        //commented out for compiling
+
+        //EnemyHp.value = Combat.enemyHP;
 	}
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,15 +20,26 @@ public class Actor {
     public int id; //unique across all monsters and actors
     public bool isUserControllable;
 
-    public RawImage HealthBarSlider;
-    public RawImage StaminaBarSlider;
+    public Slider battleHealthBar;
+    public Slider battleStaminaBar;
+
     #endregion
 
     #region Public Vars
 
+    public enum hitType {
+        hit,
+        crit,
+        miss
+    }
+
     public string name {
         get {
             return _name;
+        }
+        set
+        {
+            _name = value;
         }
     }
 
@@ -70,21 +80,12 @@ public class Actor {
 
     #region Constructor & Methods
 
-    /// <summary>
-    /// Constructor for Actor
-    /// </summary>
-    /// <param name="name">Name of the Actor</param>
-    /// <param name="title">Title for the Actor, if any</param>
-    /// <param name="resources">
-    /// Array of Resources corresponding to health, stamina
-    /// </param>
-    /// <param name="statArray">
-    /// Array of ints corresponding to the Actor's stats in order:
-    /// strength, intellect, dexterity, cunning, charisma
-    /// </param>
+    //simple constructor, used primarilly by Monsters
     public Actor(string name, int level, Title title = null, Resource[] resources = null, int[] statArray = null) {
         _name = name;
         _level = level;
+
+        _isAlive = true;
 
         if (title != null) { // title
             setTitle(title);
@@ -113,21 +114,22 @@ public class Actor {
         }
     }
 
-    // Simple constructor
+    // Simple constructor (used primarilly by userControllables)
     public Actor() {
         decimal resourceModifier = 10; // no idea if this formula will be good
-        health = new Resource(resourceModifier);
-        stamina = new Resource(resourceModifier, 0);
+        health = new Resource(resourceModifier, -1);
+        stamina = new Resource(100,-1);
 
-        Debug.Log("max stamina in player is " + stamina.maxValue);
+        //Debug.Log("max stamina in player is " + stamina.maxValue);
 
+        _isAlive = true;
 
         // setting up the default stats
-        stats.Add("strength", new Stat(1, 0));
+        stats.Add("strength",  new Stat(1, 0));
         stats.Add("intellect", new Stat(1, 0));
         stats.Add("dexterity", new Stat(1, 0));
-        stats.Add("cunning", new Stat(1, 0));
-        stats.Add("charisma", new Stat(1, 0));
+        stats.Add("cunning",   new Stat(1, 0));
+        stats.Add("charisma",  new Stat(1, 0));
 
     }
 
@@ -159,14 +161,15 @@ public class Actor {
     /// <param name="stats">
     /// Array of ints corresponding to the Actor's stats in order:
     /// strength, intellect, dexterity, cunning, charisma 
+    /// The order of stats is in alphabetical order:  charisma, cunning, dexterity, intellect, strength
     /// </param>
+
     public void setStatLevels(int[] newStats) {
-        int x = 0;
-        foreach (KeyValuePair<string, Stat> stat in stats) {
-            stat.Value.setLevel(newStats[x]);
-            x += 1;
-        }
-        
+        stats["charisma"].setLevel(newStats[0]);
+        stats["cunning"].setLevel(newStats[1]);
+        stats["dexterity"].setLevel(newStats[2]);
+        stats["intellect"].setLevel(newStats[3]);
+        stats["strength"].setLevel(newStats[4]);
     }
 
     /// <summary>
@@ -192,12 +195,24 @@ public class Actor {
         _isAlive = true;
     }
 
+    //Shows the animation for the monster / player dying
+    //Todo: make _isAlive false After the animation is finished
+    public void showDeathAnimation()
+    {
+
+    }
+
     /// <summary>
     /// Kills the Actor, setting all resources to 0
+    /// It also calls showDeathAnimation
+    /// It also checks to see if the party is dead,
+    /// if the party is dead it updates partyIsDead variable in player
     /// </summary>
     public virtual void kill() {
         health.setValue(0);
         stamina.setValue(0);
+
+        showDeathAnimation();
 
         _isAlive = false;
     }
@@ -206,22 +221,44 @@ public class Actor {
     /// Attempts to damage the actor by the specified amount
     /// </summary>
     /// <param name="damageAmount">amount to damage</param>
-    /// <returns>true if damaged, false if actor dodged</returns>
-    public bool damage(decimal damageAmount) {
+    /// <param name="damager">Actor who is dealing the damage</param>
+    /// <returns>hitType.hit, hitType.crit, or hitType.miss</returns>
+    public hitType damage(decimal damageAmount, Actor damager) {
         System.Random ran = new System.Random();
-        decimal dodgeRoll = ran.Next(0, 100) / 100m;
 
-        if (stats["cunning"].modifier * 0.5m < dodgeRoll) {
+        // temporary formula - needs balance testing
+        decimal dodgeRoll = (decimal) (ran.Next(0, 100));
+
+        //Dodge roll for uC is based on weapon accuracy, for Monster is based on hitAccuracy
+        if (damager.isUserControllable)
+        {
+            dodgeRoll = dodgeRoll + (decimal)(damager.weapon.accuracy * 0.5m) / 100m;
+        } else
+        {
+            dodgeRoll = dodgeRoll + ((Monster)damager).hitAccuracy * .05m / 100m;
+        }
+
+        if ((stats["cunning"].modifier * 0.5m) < dodgeRoll) {
+            hitType ht = hitType.hit;
+
+            decimal critRoll = (ran.Next(0, 100) / 100m);
+
+            // crit
+            if ((damager.stats["cunning"].modifier * 0.5m) > critRoll) {
+                damageAmount *= 3;
+                ht = hitType.crit;
+            }
+
             health.subtract(damageAmount); // ouch
 
             if (health.value == 0) {
                 kill(); // yo dead
             }
 
-            return true;
+            return ht;
         }
 
-        return false; // dodged
+        return hitType.miss; // dodged
     }
 
     /// <summary>

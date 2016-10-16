@@ -12,7 +12,7 @@ public class Attack : SingleTargetDamageAbility {
     }
 
     public Attack(Actor Owner) : base("ATTACK", "Deals 100% damage",
-        "strength", 1.0m, 10, Owner)
+        "strength", 1.0m, 75, Owner)
     {
 
     }

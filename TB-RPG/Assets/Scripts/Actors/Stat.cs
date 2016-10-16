@@ -118,14 +118,19 @@ public class Stat {
     public bool setLevel(int newLevel) {
         if (newLevel > maxLevel) {
             _level = maxLevel;
+            calcEffectiveLevel();
             return false;
         } else if (newLevel < minLevel) {
             _level = minLevel;
+            calcEffectiveLevel();
+
             return false;
         } else {
             _level = newLevel;
+            calcEffectiveLevel();
             return true;
         }
+
     }
 
     /// <summary>

@@ -21,12 +21,15 @@ public abstract class SingleTargetDamageAbility : Ability {
     public SingleTargetDamageAbility(string name, string toolTip, string stat, decimal modifier, decimal stamina, Actor ownerOfAbility)
 		: base(name, toolTip, stamina, ownerOfAbility) {
             _modifier = modifier;
+        _stat = stat;
     }
 
     //arg is a string of the format "typeOfThingClickedOn index"
     //e.g. "Monster 1" or "UserControllable 2" or "AbilityBar 1"
     public void selectEnemy(string arg) {
+
         Debug.Log("Ran in SelectEnemy, arg: " + arg);
+        
         //   check to see what was clicked on is a monster
         //   if it's not a monster do nothing
         string[] args = arg.Split();
@@ -35,9 +38,11 @@ public abstract class SingleTargetDamageAbility : Ability {
             return;
         } else {
             BattleScript bs = BattleScript.instance;
-            Monster m = bs.monsters[int.Parse(args[1])];
+            Monster m = bs.monsters[int.Parse(args[1]) -1];
             dealDamage(m);
             bs.pipeInputFunc = null;
+            //Uncomment below if we want to change the mouse back to regular
+            //Cursor.SetCursor(GameMaster.instance.cursor1, new Vector2(0, 0), CursorMode.Auto);
         }
     }
 
@@ -45,11 +50,12 @@ public abstract class SingleTargetDamageAbility : Ability {
 
     }
 
-    public override void cast() {
+    public override void cast(Actor act = null) {
         BattleScript bs = BattleScript.instance;
 
         if (bs.monsters.Length > 1) {
-            //todo: add bs.changeMouseIconToSelectPointer()
+            //I tried changing the mouse icon, but couldn't find one I liked. - Ben
+            //Cursor.SetCursor(GameMaster.instance.cursor2, new Vector2(0, 0), CursorMode.Auto);
             bs.pipeInputFunc = this.selectEnemy;
         } else {
             Monster m = bs.monsters[0];
@@ -64,13 +70,11 @@ public abstract class SingleTargetDamageAbility : Ability {
     public void dealDamage(Monster m) {
         BattleScript bs = BattleScript.instance;
         
-        m.damage(owner.stats[stat].effectiveLevel * owner.weapon.damage * modifier);
+        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier, owner);
 
         owner.stamina.subtract(stamina);
-        bs.refreshStatDisplay(owner, "stamina");
 
-        bs.refreshStatDisplay(m, "health");
+
         showAttackAnimation(m);
-        bs.refreshStatDisplay(m, "health"); //refreshes showing all the stats of enemy monster and characters
     }
 }

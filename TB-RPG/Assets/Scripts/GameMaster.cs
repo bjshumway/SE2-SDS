@@ -23,11 +23,21 @@ public class GameMaster : MonoBehaviour {
     public Player thePlayer;
     public Map theMap;
 
+    public Texture2D cursor1;
+    public Texture2D cursor2;
+
 	// Use this for initialization
 	void Start () {
         thePlayer = new Player();
         thePlayer.abilities.abilities[0] = new Attack(thePlayer);
-        thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
+        thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
+
+
+
+        cursor1 = (Texture2D)Resources.Load("mouse1");
+        cursor2 = (Texture2D)Resources.Load("mouse2");
+        Cursor.SetCursor(cursor1, new Vector2(0, 0), CursorMode.Auto);
+
 
         //Debug.Log("thePlayer Created");
         //disable all cameras but the one one at 0

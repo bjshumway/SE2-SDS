@@ -16,8 +16,8 @@ public class OverworldScript : MonoBehaviour {
     {
         Monster[] monsters = Monster.genMonstersByLevel(Map.tier);
         BattleScript.instance.beginCombat(monsters);
+        BattleScript.instance.monsters[0].monsterPrefab.transform.SetParent(GameObject.Find("BattleCanvas").transform, false);
         GameMaster.instance.switchCamera(5);
-        Debug.Log(BattleScript.instance.monsters.Length);
-        BattleScript.instance.monsters[0].image.transform.SetParent(GameObject.Find("BattleCanvas").transform, false);
+        //Debug.Log(BattleScript.instance.monsters.Length);
     }
 }

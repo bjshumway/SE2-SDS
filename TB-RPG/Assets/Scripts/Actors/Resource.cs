@@ -1,10 +1,27 @@
+using UnityEngine.UI;
 
 // Resource is designed to be a nice way to manage health/mana/stamina
 // It has methods for safely adding/subtracting as well as a max value
 public class Resource {
     private decimal _value;
     private decimal _maxValue;
+    private Slider[] _sliders;
 
+    public Slider[] sliders
+    {
+        get
+        {
+            return _sliders;
+        }
+        set
+        {
+            _sliders = value;
+            foreach (Slider s in _sliders) {
+                s.GetComponentInChildren<Text>().text = "" + (int)s.value + "/" + (int)s.maxValue;
+            }
+        }
+    }
+    
     public decimal value { // current value the resource is at
         get {
             return _value;
@@ -28,6 +45,7 @@ public class Resource {
     /// </summary>
     /// <param name="maxValue">The maximum value for the Resource</param>
     /// <param name="value">The current value for the resource (leave at -1 for full)</param>
+    /// <param name="value">The sliders associated with this resource</param>
     public Resource(decimal maxValue, decimal value = -1) {
         _maxValue = maxValue;
         _value = (value == -1) ? maxValue : value;
@@ -47,7 +65,7 @@ public class Resource {
     /// </summary>
     /// <param name="valueToSubtract">Number to subtract from Resource.value</param>
     public void subtract(decimal valueToSubtract) {
-        add(-valueToSubtract);
+        add(-1 * valueToSubtract);
     }
 
     /// <summary>
@@ -62,6 +80,12 @@ public class Resource {
         } else { // within range
             _value = newValue; // just add it
         }
+
+        foreach(Slider s in _sliders)
+        {
+            s.value = (float) _value;
+            s.GetComponentInChildren<Text>().text = "" + (int)s.value + "/" + (int)s.maxValue;
+        }
     }
 
     /// <summary>
@@ -75,6 +99,19 @@ public class Resource {
         // if we want to reset, or if the current value is greater than the new max
         if (resetValue || value > maxValue) {
             _value = maxValue; // set the current value to the new max
+            foreach (Slider s in _sliders)
+            {
+                s.value = (float)_value;
+                s.GetComponentInChildren<Text>().text = "" + (int)s.value + "/" + (int)s.maxValue;
+            }
+
         }
+
+        foreach (Slider s in _sliders)
+        {
+            s.maxValue = (float)_maxValue;
+            s.GetComponentInChildren<Text>().text = "" + (int)s.value + "/" + (int)s.maxValue;
+        }
+
     }
 }

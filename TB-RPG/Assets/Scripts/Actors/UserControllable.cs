@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 // TODO: add talent system; don't know how to flesh out talentPoints yet
 public abstract class UserControllable : Actor {
@@ -10,15 +11,11 @@ public abstract class UserControllable : Actor {
     public AbilityBar abilities;
 
 
-    private Sprite _headType;
-    private Color32 _headColor;
-    //This keeps track of whether the image is loaded in the battle screen
-    private bool _imageIsInBattleScreen;
+    public Sprite _headType;
+    public Color32 _headColor;
 
-    public bool imageIsInBattleScreen
-    {
-        get;set;
-    }
+    public Image battleHead;
+    
 
     public int talentPoints {
         get {
@@ -44,14 +41,38 @@ public abstract class UserControllable : Actor {
         this.id = id_increment;
         id_increment++;
 
+        battleHealthBar = GameObject.Find("Battle UC " + id + " HealthBar").GetComponent<Slider>();
+        battleHealthBar.maxValue = (float)health.maxValue;
+        battleHealthBar.value = (float)battleHealthBar.maxValue;
+        health.sliders = new Slider[] { battleHealthBar };
+
+        battleStaminaBar = GameObject.Find("Battle UC " + id + " StaminaBar").GetComponent<Slider>();
+        battleStaminaBar.maxValue = (float)stamina.maxValue;
+        stamina.sliders = new Slider[] { battleStaminaBar };
+
+
+        battleHead = GameObject.Find("Battle UC " + this.id + " HeadType").GetComponent<Image>();
+
+        
+
+
         isUserControllable = true;
-
-
     }
 
+    public override void kill() {
+        base.kill();
 
-    public UserControllable(string name, int level, Title title = null, Resource[] resources = null, int[] statArray = null)
-        : base(name, level, title, resources, statArray) {
-
+        Actor[] party = GameMaster.instance.thePlayer.theParty;
+        bool everyoneDied = true;
+        for(int i = 0; i < party.Length; i++)
+        {
+            if(party[i] != null && party[i].isAlive == true) {
+                everyoneDied = false;
+            }
+        }
+        if(everyoneDied)
+        {
+            GameMaster.instance.thePlayer.partyIsDead = true;
+        }
     }
 }

@@ -13,6 +13,8 @@ public class BattleScript : MonoBehaviour {
 
     public UserControllable activeCharacter;
 
+    public System.Random random;
+
     //This function is used when a class (e.g. ability) wants to intercept all mouse / keyboard input
     //When it is null, mouse/keyboard input does its default thing
     public Action<string> pipeInputFunc;
@@ -26,103 +28,23 @@ public class BattleScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {  
-        Debug.Log("inside combat start");
+        //Debug.Log("inside combat start");
+        random = new System.Random();
 
 
-        GameObject.Find("UserControllable 2 HeadType").GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-        GameObject.Find("UserControllable 2 HealthBar").GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-        GameObject.Find("UserControllable 2 StaminaBar").GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+        GameObject.Find("Battle UC 2 HeadType").GetComponent<Image>().enabled = false;
+        GameObject.Find("Battle UC 2 HealthBar").SetActive(false);// = false;
+        GameObject.Find("Battle UC 2 StaminaBar").SetActive(false);
 
-        GameObject.Find("UserControllable 3 HeadType").GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-        GameObject.Find("UserControllable 3 HealthBar").GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-        GameObject.Find("UserControllable 3 StaminaBar").GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+        GameObject.Find("Battle UC 3 HeadType").GetComponent<Image>().enabled = false;
+        GameObject.Find("Battle UC 3 HealthBar").SetActive(false);
+        GameObject.Find("Battle UC 3 StaminaBar").SetActive(false);
 
     }
 
-    //Refreshes the stats displayed for an actor,
-    //Possible values for r are: health,stamina,all
-    //If actor is null, then refresh it for all actors
-    public void refreshStatDisplay(Actor a = null, string r = "all")
-    {
-        if(a != null)
-        {
-            if(r == "health" || r == "all")
-            {
-                RectTransform rt;
-                if (a.isUserControllable)
-                {
-                    //replace this with changing the slider
-                    GameObject.Find("UserControllable " + a.id + " HealthBar").GetComponent<Image>().color = new Color32(0, 0, 0, 0);
-                } else
-                {
-                    //replace this with changing the slider
-                    GameObject.Find("Monster " + a.id + " HealthBar").GetComponent<Image>().color = new Color32(0, 0, 0, 0);
-                    
-                    //.GetComponent<Image>().rectTransform.Translate(new Vector3(1, 1, 1));
-                    //= new Color32(0, 0, 255, 255);
-
-                    //rt = GameObject.Find("asdf").GetComponent<RectTransform>();
-                }
-
-                //rt.sizeDelta = new Vector2((float).1, (float).1);
-            }
-
-            if(r == "stamina" || r == "all")
-            {
-                //Todo: implement update stamina
-            }
-        }
-        else //a == null, so update everyone
-        {
-            foreach (UserControllable uC in GameMaster.instance.thePlayer.theParty)
-            {
-                if (r == "health" || r == "all")
-                {
-                    //change slider here
-                }
-
-                if (r == "stamina" || r == "all")
-                {
-                    //change slider here
-                }
-            }
-            foreach (Monster m in monsters)
-            {
-                if (r == "health" || r == "all")
-                {
-                    GameObject.Find("demonSkull").GetComponent<SpriteRenderer>().color = new Color32(0, 0, 0, 0);
-                }
-
-                if (r == "stamina" || r == "all")
-                {
-                    //Update stamina
-                }
-            }
-        }
-    }
-
-    //Refreshes the user controllable sprites
-    public void refreshUCSprites()
-    {
-        UserControllable[] theParty = GameMaster.instance.thePlayer.theParty;
-        Debug.Log(theParty.ToString());
 
 
 
-        for (int i = 0; i < theParty.Length; i++)
-        {
-            if (theParty[i] == null)
-                break;
-
-            //Make any UC that isn't on the screen, gets drawn on the screen
-            if (!theParty[i].imageIsInBattleScreen)
-            {
-                theParty[i].imageIsInBattleScreen = true;
-                GameObject.Find("UserControllable " + (i+1) + " HeadType").GetComponent<Image>().sprite = theParty[i].headType;
-                GameObject.Find("UserControllable " + (i+1) + " HeadType").GetComponent<Image>().color = theParty[i].headColor;
-            }
-        }
-    }
 
 
     //Todo: update this function so that it takes an array of monsters as an argument
@@ -131,37 +53,54 @@ public class BattleScript : MonoBehaviour {
         this.combatOcurring = true;
         this.monsters = monsters;
 
-        //place each monster's GUI related stuff onto the battle field
+        //Make the monsters be located correctly on the battlefield
+        switch(monsters.Length)
+        {
+            case 1:
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(185, 206, 0);
+                break;
+            case 2:
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20, 93,0);
+                monsters[1].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350, 93, 100);
+                break;
+            case 3:
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(185, -15, 0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20, 206, 0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350, 206, 0);
+                break;
+            case 4:
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20,206,0);
+                monsters[1].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350,206,0);
+                monsters[2].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20,-15,0);
+                monsters[3].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350,-15,0);
+                break;
+        }
 
         //Set all players and monster's stamina's to a random amount
-        //then call refreshStatDisplay
-        GameObject.Find("UserControllable 1 StaminaBar").GetComponent<RectTransform>().sizeDelta = new Vector2(0,14);
-
-
-        //Loop through the characters and set their health and stamina bars
-        //Set stamina to a random initial state
         UserControllable[] theParty = GameMaster.instance.thePlayer.theParty;
         for (int i = 0; i < theParty.Length; i++)
         {
-            if(theParty[i] == null)
-                break;
-
-            //Make any UC that isn't on the screen, gets drawn on the screen
-            if (!theParty[i].imageIsInBattleScreen)
+            if(theParty[i] != null)
             {
-                theParty[i].imageIsInBattleScreen = true;
-                GameObject.Find("UserControllable " + (i + 1)+ " HeadType").GetComponent<Image>().sprite = theParty[i].headType;
-                GameObject.Find("UserControllable " + (i + 1)+ " HeadType").GetComponent<Image>().color = theParty[i].headColor;
+                Resource stamina = theParty[i].stamina;
+                stamina.setValue(random.Next((int)stamina.value));
+                theParty[i].battleStaminaBar.value = (float)stamina.value;
+            }
+        }
+        for(int i = 0; i < monsters.Length; i++)
+        {
+            if (monsters[i] != null)
+            {
+                Resource stamina = monsters[i].stamina;
+                stamina.setValue(random.Next((int)stamina.value));
+                monsters[i].battleStaminaBar.value = (float)stamina.value;
+
             }
         }
 
+
         //Set thePlayer as the initial player that's active.
         setActiveUC("UserControllable 0");
-
-
-       
-
-
     }
 
     //Sets the active UC and populates the menu bar
@@ -180,6 +119,8 @@ public class BattleScript : MonoBehaviour {
             return;
         }
         activeCharacter = uC;
+        //uC.damage(1);
+        //uC.battleHealthBar.value = (float) uC.health.value;
         
         //populate the menu bar
         AbilityBar abs = activeCharacter.abilities;
@@ -207,12 +148,24 @@ public class BattleScript : MonoBehaviour {
             pipeInputFunc(arg);
             return;
         }
+
         int abNum = int.Parse(arg.Split()[1]);
         Ability ab = activeCharacter.abilities.abilities[abNum];
-        if(ab != null)
+        if(ab != null && (activeCharacter.stamina.value == 100) || (ab.stamina == 0))
         {
             ab.cast();
         }
+    }
+
+    //Transfers clicking on a mosnter into pipeInputFunc
+    public void monsterClick(string arg)
+    {
+        if (pipeInputFunc != null)
+        {
+            pipeInputFunc(arg);
+            return;
+        }
+
     }
 
     //Calls arg.split()
@@ -254,23 +207,56 @@ public class BattleScript : MonoBehaviour {
 
         //update each player's stamina
         for (int i = 0; i < uCArr.Length; i++) {
-            if(uCArr[i] != null)
+            if(uCArr[i] != null && uCArr[i].isAlive)
             {
                 Resource stamina = uCArr[i].stamina;
-
-                ///Debug.Log(stamina.maxValue);
-                  if (stamina.value < stamina.maxValue)
-                  {
-                    stamina.add((decimal)((float)uCArr[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 3.5));
-                    //Debug.Log(stamina.value);
-                    //Todo: use a slider instead of an image
-                    RectTransform rt = GameObject.Find("UserControllable 1 StaminaBar").GetComponent<RectTransform>();
-                    rt.sizeDelta =  rt.sizeDelta + new Vector2((float)stamina.value / (float)3.5, 0);
-                    //Time.deltaTime * uCArr[i].stats["dexterity"].effectiveLevel * 10;
-                  }
+                stamina.add((decimal)((float)uCArr[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10 ));
             }
-        }    
-	}
+        }
+
+        //update each monster's stamina
+        for(int i = 0; i < monsters.Length;i++)
+        {
+            if (monsters[i] != null && monsters[i].isAlive)
+            {
+                Resource stamina = monsters[i].stamina;
+                stamina.add((decimal)((float)monsters[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10));
+            }
+        }
+
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            //If the party isn't dead, do the next Monster's AI
+            if (GameMaster.instance.thePlayer.partyIsDead == false)
+            {
+                if (monsters[i] != null)
+                {
+                    monsters[i].doBattleAI();
+                }
+            }
+        }
+
+        if(GameMaster.instance.thePlayer.partyIsDead == true)
+        {
+            this.combatOcurring = false;
+            GameMaster.instance.switchCamera(8);
+        }
+        bool monstersDied = true;
+        foreach(Monster mon in monsters)
+        {
+            if(mon.isAlive)
+            {
+                monstersDied = false;
+            }
+        }
+        if(monstersDied)
+        {
+            this.combatOcurring = false;
+            monsters = null;
+            GameMaster.instance.switchCamera(7);
+        }
+
+    }
 
     // This defines a static instance property that attempts to find the manager object in the scene and
     // returns it to the caller.
@@ -290,7 +276,7 @@ public class BattleScript : MonoBehaviour {
             {
                 GameObject obj = new GameObject("BattleScript");
                 s_Instance = obj.AddComponent(typeof(BattleScript)) as BattleScript;
-                Debug.Log("Could not locate an BattleScript object. BattleScript was Generated Automaticly.");
+                //Debug.Log("Could not locate an BattleScript object. BattleScript was Generated Automaticly.");
             }
 
             return s_Instance;

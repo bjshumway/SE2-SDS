@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class SkillSelectionScript : MonoBehaviour {
@@ -10,13 +11,32 @@ public class SkillSelectionScript : MonoBehaviour {
     public static int cunning = 0;
     public static int charisma = 0;
 
+    public static UserControllable currentUC;
+    public static GameObject headImage;
+    public static GameObject nameOfUc;
+
     // Use this for initialization
     void Start () {
-	
+        headImage = GameObject.Find("HeadSkillSelect");
+        nameOfUc = GameObject.Find("NameStatSelect");
 	}
+
+    //Switches the camera to this scene
+    //Populates the Image and Name on the canvas so that we know which uC is here
+    public static void load(UserControllable uC)
+    {
+        currentUC = uC;
+        headImage.GetComponent<Image>().sprite = uC.headType;
+        headImage.GetComponent<Image>().color = uC.headColor;
+        nameOfUc.GetComponent<Text>().text = uC.name;
+
+        GameMaster.instance.switchCamera(3);
+    }
 
     public void goToNextScene()
     {
+        Debug.Log("go to next scene in skillselection script");
+        currentUC.setStatLevels(new int[] { charisma, cunning, dexterity, intellect, strength });
         GameMaster.instance.switchCamera(4);
     }
 

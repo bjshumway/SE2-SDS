@@ -5,22 +5,19 @@ using UnityEngine.UI;
 public class genericBenchmarkMonster : Monster {
 
     public genericBenchmarkMonster()
-        : base("Generic", 1, 4, null, 
+        : base("Generic", "demonSkull", 1, 2, 0, null,
                 new Resource[] {
-                    new Resource(10),
+                    new Resource(3),
                     new Resource(100)
                 },
-                new int[] { 5,5,5,5,5 })
+                new int[] { 1, 1, 1, 1, 1 }
+                )
     {
-
-
-        GameObject imagePrefab = Resources.Load("demonSkull") as GameObject;
-        image = GameObject.Instantiate(imagePrefab, imagePrefab.transform.position, imagePrefab.transform.rotation) as GameObject;
-        image.transform.SetParent(GameObject.Find("BattleCanvas").transform, false);
-        Debug.Log(image);
-        
-
+        Debug.Log("this inside constructor of genericBenchmarkMonster" + this.ToString());
+        abilities = new Ability[] { new MonsterAttack(this) };
 
     }
+
+
 
 }

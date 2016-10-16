@@ -1,10 +1,10 @@
 ﻿using System;
 
+// TODO: add more of everything: adjectives, weapontypes, items
 public static class Gen {
 
-    private static Random ran = new Random();
+    private static System.Random ran = new System.Random();
 
-    // TODO: add more of these?
     private static string[] weakAdjectives = {
         "Beginner's Luck",
         "Crudeness",
@@ -14,7 +14,7 @@ public static class Gen {
         "Offensiveness",
         "Peculiarity",
         "Potencey",
-        "Beauty",
+        "Beauty"
     };
     
     private static string[] strongAdjectives = {
@@ -70,7 +70,9 @@ public static class Gen {
         new Item("Melted Candle", 0.5m, true, 15, "An old candle."),
         new Item("Dusty Old Lentern", 4, true, 20, "I wonder if it works."),
         new Item("Slightly Damp Rag", 0.3m, true, 7, "Why did I pick this up?"),
-        new Item("Oily Boot", 1.2m, true, 10, "Only one.")
+        new Item("Oily Boot", 1.2m, true, 10, "Only one."),
+        new Item("Bag of Marbles", 5, true, 50, "Something to do, I suppose."),
+        new Item("Small Potted Plant", 4, true, 25, "How lovely.")
     };
 
     private static Item[] valuableItems = {
@@ -78,7 +80,8 @@ public static class Gen {
         new Item("Ruby", 0.1m, true, 75, "A red gem."),
         new Item("Emerald", 0.1m, true, 100, "A green gem."),
         new Item("Diamond", 0.1m, true, 300, "A clear gem."),
-        new Item("Huge Platinum Throne", 50, true, 550, "What a chair! Bloody heavy, though.")
+        new Item("Huge Platinum Throne", 50, true, 550, "What a chair! Bloody heavy, though."),
+        new Item("Jeweled Crown", 2.5m, true, 175, "Perhaps it belonged to a king.")
     };
 
     public static string weakAdjective() {
@@ -106,88 +109,60 @@ public static class Gen {
         int type = ran.Next(3);
 
         if (type == 0) {
-            return meleeWeapon(level);
-        } else if (type == 1) {
             return magicWeapon(level);
+        } else if (type == 1) {
+            return meleeWeapon(level);
         } else {
             return rangedWeapon(level);
         }
     }
 
-    // TODO:? group all weapons into a single class with a property destinguishing them?
-    // it would avoid code duplicates here, and I don't see a downside at the moment
-    public static MeleeWeapon meleeWeapon(int level) {
-        string name = meleeWeaponTypes[ran.Next(meleeWeaponTypes.Length)] + " of " + ((level > 9) ? strongAdjective() : weakAdjective());
+    private static Weapon initWeapon(int level, Weapon.weaponClass classType) {
+        string name = "";
+
+        if (classType == Weapon.weaponClass.Magic) {
+            name = magicWeaponTypes[ran.Next(magicWeaponTypes.Length)] ;
+        } else if (classType == Weapon.weaponClass.Melee) {
+            name = meleeWeaponTypes[ran.Next(meleeWeaponTypes.Length)];
+        } else {
+            name = rangedWeaponTypes[ran.Next(rangedWeaponTypes.Length)];
+        }
+
+        name += " of " + ((level > 9) ? strongAdjective() : weakAdjective());
+
         decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
-        bool tradable = true;
-        decimal value = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
+        bool tradable  = true;
+        decimal value  = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
         Weapon.weaponType type = (Weapon.weaponType)ran.Next(3);
 
-        return new MeleeWeapon(
-            name, 
-            weight, 
-            tradable,
-            value,
-            level,
-            type,
-
-            /* Tooltip Text */
-            name + "\r\n" +
-            "Melee Weapon" + "\r\n" +
-            "Weight: " + weight.ToString() + "\r\n" +
-            "Tradable: " + ((tradable) ? "Yes" : "No") + "\r\n" +
-            "Value: " + value.ToString() + "\r\n" +
-            "Level: " + level.ToString()
-        );
-    }
-
-    public static MagicWeapon magicWeapon(int level) {
-        string name = magicWeaponTypes[ran.Next(magicWeaponTypes.Length)] + " of " + ((level > 9) ? strongAdjective() : weakAdjective());
-        decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
-        bool tradable = true;
-        decimal value = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
-        Weapon.weaponType type = (Weapon.weaponType)ran.Next(3);
-
-        return new MagicWeapon(
+        return new Weapon(
             name,
             weight,
             tradable,
             value,
             level,
+            classType,
             type,
 
             /* Tooltip Text */
             name + "\r\n" +
-            "Magic Weapon" + "\r\n" +
-            "Weight: " + weight.ToString() + "\r\n" +
+             Enum.GetName(typeof(Weapon.weaponClass), (int)classType) + " Weapon" + "\r\n" +
+            "Weight: "   + weight.ToString() + "\r\n" +
             "Tradable: " + ((tradable) ? "Yes" : "No") + "\r\n" +
-            "Value: " + value.ToString() + "\r\n" +
-            "Level: " + level.ToString()
+            "Value: "    + value.ToString() + "\r\n" +
+            "Level: "    + level.ToString()
         );
     }
 
-    public static RangedWeapon rangedWeapon(int level) {
-        string name = rangedWeaponTypes[ran.Next(rangedWeaponTypes.Length)] + " of " + ((level > 9) ? strongAdjective() : weakAdjective());
-        decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
-        bool tradable = true;
-        decimal value = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
-        Weapon.weaponType type = (Weapon.weaponType)ran.Next(3);
+    public static Weapon magicWeapon(int level) {
+        return initWeapon(level, Weapon.weaponClass.Magic);
+    }
 
-        return new RangedWeapon(
-            name,
-            weight,
-            tradable,
-            value,
-            level,
-            type,
+    public static Weapon meleeWeapon(int level) {
+        return initWeapon(level, Weapon.weaponClass.Melee);
+    }
 
-            /* Tooltip Text */
-            name + "\r\n" +
-            "Ranged Weapon" + "\r\n" +
-            "Weight: " + weight.ToString() + "\r\n" +
-            "Tradable: " + ((tradable) ? "Yes" : "No") + "\r\n" +
-            "Value: " + value.ToString() + "\r\n" +
-            "Level: " + level.ToString()
-        );
+    public static Weapon rangedWeapon(int level) {
+        return initWeapon(level, Weapon.weaponClass.Ranged);
     }
 }
