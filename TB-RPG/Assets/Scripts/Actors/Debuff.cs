@@ -7,8 +7,8 @@ public class Debuff : Buff {
         }
     }
 
-    public Debuff(string statName, int value, int turnsLeft, bool dispellable, string description = "")
-        : base(statName, value, turnsLeft, description) {
+    public Debuff(string name, decimal value, bool dispellable, string description = "")
+        : base(name, value, description) {
 
         _dispellable = dispellable;
     }

@@ -5,6 +5,16 @@ public abstract class Ability {
 
     public Actor owner;
 
+    public enum damageType
+    {
+        melee,
+        ranged,
+        fire,
+        water,
+        ground,
+        lightning
+    }
+
     public string name {
         get {
             return _name;
@@ -33,6 +43,13 @@ public abstract class Ability {
     //This function casts the ability
     //The Actor is typically reserved for whether the AI of the Monster wants to specify it.
     public virtual void cast(Actor act = null) {
+
+    }
+
+    //Shows the animation of the ability
+    //Based on the hitType, which is hit, crit, miss. (we may add more)
+    public virtual void showAnimation(Actor.hitType hitType)
+    {
 
     }
 }

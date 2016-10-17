@@ -76,18 +76,21 @@ public class BattleScript : MonoBehaviour {
                 break;
         }
 
-        //Set all players and monster's stamina's to a random amount
+        //Party members stamina starts at full
         UserControllable[] theParty = GameMaster.instance.thePlayer.theParty;
         for (int i = 0; i < theParty.Length; i++)
         {
             if(theParty[i] != null)
             {
                 Resource stamina = theParty[i].stamina;
+                //stamina.setValue(random.Next((int)stamina.value));
+                //theParty[i].battleStaminaBar.value = (float)stamina.value;
                 stamina.setValue(random.Next((int)stamina.value));
-                theParty[i].battleStaminaBar.value = (float)stamina.value;
             }
         }
-        for(int i = 0; i < monsters.Length; i++)
+
+        //Set  monster's stamina's to a random amount
+        for (int i = 0; i < monsters.Length; i++)
         {
             if (monsters[i] != null)
             {
