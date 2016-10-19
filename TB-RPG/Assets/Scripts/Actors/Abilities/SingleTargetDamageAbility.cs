@@ -53,10 +53,28 @@ public abstract class SingleTargetDamageAbility : Ability {
     public override void cast(Actor act = null) {
         BattleScript bs = BattleScript.instance;
 
+
         if (bs.monsters.Length > 1) {
-            //I tried changing the mouse icon, but couldn't find one I liked. - Ben
-            //Cursor.SetCursor(GameMaster.instance.cursor2, new Vector2(0, 0), CursorMode.Auto);
-            bs.pipeInputFunc = this.selectEnemy;
+            int aliveCount = 0;
+            Monster aliveMonster = null;
+            for(int i = 0; i < bs.monsters.Length; i++)
+            {
+                if(bs.monsters[i].isAlive)
+                {
+                    aliveCount++;
+                    aliveMonster = bs.monsters[i];
+                }
+            }
+            if (aliveCount > 1)
+            {
+                //I tried changing the mouse icon, but couldn't find one I liked. - Ben
+                //Cursor.SetCursor(GameMaster.instance.cursor2, new Vector2(0, 0), CursorMode.Auto);
+                bs.pipeInputFunc = this.selectEnemy;
+                return;
+            } else
+            {
+                dealDamage(aliveMonster);
+            }
         } else {
             Monster m = bs.monsters[0];
             dealDamage(m);
@@ -70,7 +88,7 @@ public abstract class SingleTargetDamageAbility : Ability {
     public void dealDamage(Monster m) {
         BattleScript bs = BattleScript.instance;
         
-        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier, owner);
+        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier, owner, Ability.damageType.melee);
 
         owner.stamina.subtract(stamina);
 

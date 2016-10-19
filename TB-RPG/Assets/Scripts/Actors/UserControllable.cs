@@ -10,6 +10,8 @@ public abstract class UserControllable : Actor {
     protected static int id_increment = 1;
     public AbilityBar abilities;
 
+    public int remainingStatPoints;
+    public int remainingResourcePoints;
 
     public Sprite _headType;
     public Color32 _headColor;
@@ -53,10 +55,20 @@ public abstract class UserControllable : Actor {
 
         battleHead = GameObject.Find("Battle UC " + this.id + " HeadType").GetComponent<Image>();
 
-        
+        remainingStatPoints = 10;
+        remainingResourcePoints = 1;
+
 
 
         isUserControllable = true;
+    }
+
+    //Add 3 to remaining stat points
+    //Add 1 to remaining resource points
+    public void levelUp()
+    {
+        remainingStatPoints += 3;
+        remainingResourcePoints += 1;
     }
 
     public override void kill() {

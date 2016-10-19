@@ -39,7 +39,7 @@ public class MonsterAttack : Ability {
         }
 
         Debug.Log("Owner before act.damage(owner.stats[strength].effectiveLevel, owner);" + owner);
-        act.damage(owner.stats["strength"].effectiveLevel, owner);
+        act.damage(owner.stats["strength"].effectiveLevel, owner, Ability.damageType.melee);
         owner.stamina.subtract(stamina);
 
 

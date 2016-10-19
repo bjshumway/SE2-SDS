@@ -16,6 +16,7 @@ public class Actor {
     private bool _isAlive = true;
     private int  _level = 1;
 
+    public List<Ability> passiveAbilities = new List<Ability>();
 
     public int id; //unique across all monsters and actors
     public bool isUserControllable;
@@ -163,7 +164,6 @@ public class Actor {
     /// strength, intellect, dexterity, cunning, charisma 
     /// The order of stats is in alphabetical order:  charisma, cunning, dexterity, intellect, strength
     /// </param>
-
     public void setStatLevels(int[] newStats) {
         stats["charisma"].setLevel(newStats[0]);
         stats["cunning"].setLevel(newStats[1]);
@@ -223,7 +223,7 @@ public class Actor {
     /// <param name="damageAmount">amount to damage</param>
     /// <param name="damager">Actor who is dealing the damage</param>
     /// <returns>hitType.hit, hitType.crit, or hitType.miss</returns>
-    public hitType damage(decimal damageAmount, Actor damager) {
+    public hitType damage(decimal damageAmount, Actor damager,  Ability.damageType damageType) {
         System.Random ran = new System.Random();
 
         // temporary formula - needs balance testing
@@ -253,6 +253,20 @@ public class Actor {
 
             if (health.value == 0) {
                 kill(); // yo dead
+            } else
+            {
+                //Logic for counter-attack
+                if (damageType == Ability.damageType.melee)
+                {
+                    foreach (Ability ab in passiveAbilities)
+                    {
+                        if (ab.name == "Counter Attack")
+                        {
+                            damager.damage(damageAmount * .5m, this, Ability.damageType.melee);
+                            //Todo: show animation for physical attack occurring on the target
+                        }
+                    }
+                }
             }
 
             return ht;

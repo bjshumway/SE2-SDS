@@ -88,17 +88,44 @@ public class Stat {
         calcEffectiveLevel();
     }
 
+    public void addBuff(Buff b)
+    {
+        buffs.Add(b);
+        calcEffectiveLevel();
+    }
+
+
+    public int countBuff(string buffName)
+    {
+        int count = 0;
+        for(int i = 0; i < buffs.Count; i++)
+        {
+            if (buffs[i].name == buffName)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public void clearBuffs()
+    {
+        buffs.Clear();
+        calcEffectiveLevel();
+    }
+
+
     private void calcEffectiveLevel() {
         _buffLevel = 0;
         _debuffLevel = 0;
 
         for (int x = 0; x < buffs.Count; x++) {
-            _buffLevel += buffs[x].value;
+            _buffLevel += (int) buffs[x].value;
         }
 
         // count up debuffs
         for (int x = 0; x < debuffs.Count; x++) {
-            _debuffLevel += debuffs[x].value;
+            _debuffLevel += (int) debuffs[x].value;
         }
 
         // add everything up

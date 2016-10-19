@@ -2,28 +2,23 @@
 // Stat Buff
 // TODO: add image (don't know how Unity will want this)
 public class Buff {
-    private int _value;
-    private int _turnsLeft;
-    private string _statName;
+    private decimal _value;
+    private string _name;
     private string _description;
+    
 
     // stat buff value
-    public int value {
+    public decimal value {
         get {
             return _value;
         }
     }
 
-    public int turnsLeft {
-        get {
-            return _turnsLeft;
-        }
-    }
 
     // strength, intellect, dexterity, cunning, charisma
-    public string statName {
+    public string name {
         get {
-            return _statName;
+            return _name;
         }
     }
 
@@ -33,15 +28,9 @@ public class Buff {
         }
     }
 
-    public Buff(string statName, int value, int turnsLeft, string description = "") {
-        _statName  = statName;
+    public Buff(string name, decimal value, string description) {
+        _name = name;
         _value     = value;
-        _turnsLeft = turnsLeft;
-
-        if (description == "") { // no desc, go default
-            _description = "+1 " + statName; // +1 strength
-        } else {
-            _description = description;
-        }
+        _description = description;
     }
 }

@@ -77,8 +77,11 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\MonsterAbilities\MonsterAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\SingleTargetDamageAbility.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Attack.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ChargeStrength.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\CounterAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Slam.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Slash.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SwordFlurry.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
     <Compile Include="Assets\Scripts\Actors\Debuff.cs" />

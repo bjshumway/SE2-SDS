@@ -11,6 +11,9 @@ public class SkillSelectionScript : MonoBehaviour {
     public static int cunning = 0;
     public static int charisma = 0;
 
+
+
+
     public static UserControllable currentUC;
     public static GameObject headImage;
     public static GameObject nameOfUc;
@@ -30,6 +33,14 @@ public class SkillSelectionScript : MonoBehaviour {
         headImage.GetComponent<Image>().color = uC.headColor;
         nameOfUc.GetComponent<Text>().text = uC.name;
 
+
+        cunning = uC.stats["cunning"].level;
+        dexterity = uC.stats["dexterity"].level;
+        charisma = uC.stats["charisma"].level;
+        strength = uC.stats["strength"].level;
+        intellect = uC.stats["intellect"].level;
+
+
         GameMaster.instance.switchCamera(3);
     }
 
@@ -42,7 +53,7 @@ public class SkillSelectionScript : MonoBehaviour {
 
     public void StrDec()
     {
-       if (statTotal < 10 && strength > 0)
+       if (statTotal < 10 &&  strength > currentUC.stats["strength"].level)
         {
             statTotal++;
             strength--;
@@ -52,7 +63,7 @@ public class SkillSelectionScript : MonoBehaviour {
 
     public void IntDec()
     {
-        if (statTotal < 10 && intellect > 0)
+        if (statTotal < 10 && intellect > currentUC.stats["intellect"].level)
         {
             statTotal++;
             intellect--;
@@ -61,7 +72,7 @@ public class SkillSelectionScript : MonoBehaviour {
 
     public void DexDec()
     {
-        if (statTotal < 10 && dexterity > 0)
+        if (statTotal < 10 && dexterity > currentUC.stats["dexterity"].level)
         {
             statTotal++;
             dexterity--;
@@ -70,7 +81,7 @@ public class SkillSelectionScript : MonoBehaviour {
 
     public void CunDec()
     {
-        if (statTotal < 10 && cunning > 0)
+        if (statTotal < 10 && cunning > currentUC.stats["cunning"].level)
         {
             statTotal++;
             cunning--;
@@ -79,7 +90,7 @@ public class SkillSelectionScript : MonoBehaviour {
 
     public void CharDec()
     {
-        if (statTotal < 10 && charisma > 0)
+        if (statTotal < 10 && charisma > currentUC.stats["charisma"].level)
         {
             statTotal++;
             charisma--;
