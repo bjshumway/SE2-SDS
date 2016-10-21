@@ -2,9 +2,9 @@ using UnityEngine;
 
 //This ability is used when a userControllable attacks a monster
 //see monsterAttack for when a monster attacks a userControllable
-public class Slice : SingleTargetDamageAbility {
+public class Slice : SingleTargetAbility {
 
-    public override void showAttackAnimation(Monster m)
+    public override void showAnimation(Monster m)
     {
         //Program animation here
         //We might have a static class of generic animations that this can refer to

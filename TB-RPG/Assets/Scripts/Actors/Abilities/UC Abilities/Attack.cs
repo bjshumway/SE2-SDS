@@ -2,9 +2,9 @@
 
 //This ability is used when a userControllable attacks a monster
 //see monsterAttack for when a monster attacks a userControllable
-public class Attack : SingleTargetDamageAbility {
+public class Attack : SingleTargetAbility {
 
-    public override void showAttackAnimation(Monster m)
+    public override void showAnimation(Monster m)
     {
         //Program animation here
         //We might have a static class of generic animations that this can refer to

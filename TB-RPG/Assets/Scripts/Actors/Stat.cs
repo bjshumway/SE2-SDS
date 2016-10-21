@@ -134,7 +134,7 @@ public class Stat {
         // don't go below minLevel (can go above maxLevel though)
         _effectiveLevel = (total > minLevel) ? total : minLevel;
 
-        _modifier = 1.0m + (((decimal)_effectiveLevel) / 100m);
+        _modifier = (((decimal)_effectiveLevel) / 100m);
     }
 
     /// <summary>

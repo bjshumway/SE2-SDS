@@ -21,6 +21,8 @@ public class Actor {
     public int id; //unique across all monsters and actors
     public bool isUserControllable;
 
+    public Dictionary<string, bool> statusEffects = new Dictionary<string, bool>();
+
     public Slider battleHealthBar;
     public Slider battleStaminaBar;
 
@@ -113,6 +115,9 @@ public class Actor {
         if (statArray != null) { // stats specified
             setStatLevels(statArray);
         }
+
+        initStatusEffects();
+
     }
 
     // Simple constructor (used primarilly by userControllables)
@@ -132,6 +137,19 @@ public class Actor {
         stats.Add("cunning",   new Stat(1, 0));
         stats.Add("charisma",  new Stat(1, 0));
 
+        initStatusEffects();
+    }
+
+    //Initializes the dictionary of status effects, sets them all to False
+    public void initStatusEffects()
+    {
+        statusEffects.Add("pin", false);
+        statusEffects.Add("shield", false);
+        statusEffects.Add("regen", false);
+        statusEffects.Add("confuse", false);
+        statusEffects.Add("slow", false);
+        statusEffects.Add("poison", false);
+        statusEffects.Add("float", false);
     }
 
     /// <summary>
@@ -213,7 +231,7 @@ public class Actor {
         stamina.setValue(0);
 
         showDeathAnimation();
-
+        
         _isAlive = false;
     }
 
@@ -225,22 +243,24 @@ public class Actor {
     /// <returns>hitType.hit, hitType.crit, or hitType.miss</returns>
     public hitType damage(decimal damageAmount, Actor damager,  Ability.damageType damageType) {
         System.Random ran = new System.Random();
+        hitType ht;
 
         // temporary formula - needs balance testing
-        decimal dodgeRoll = (decimal) (ran.Next(0, 100));
+        decimal dodgeRoll = (decimal)(ran.Next(0, 100)) / 100m;
 
         //Dodge roll for uC is based on weapon accuracy, for Monster is based on hitAccuracy
         if (damager.isUserControllable)
         {
             dodgeRoll = dodgeRoll + (decimal)(damager.weapon.accuracy * 0.5m) / 100m;
-        } else
+        }
+        else
         {
             dodgeRoll = dodgeRoll + ((Monster)damager).hitAccuracy * .05m / 100m;
         }
 
-        if ((stats["cunning"].modifier * 0.5m) < dodgeRoll) {
-            hitType ht = hitType.hit;
 
+        if ((stats["cunning"].modifier) < dodgeRoll || statusEffects["pin"]) {
+            ht = hitType.hit;
             decimal critRoll = (ran.Next(0, 100) / 100m);
 
             // crit

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class SwordFlurry : SingleTargetDamageAbility
+public class SwordFlurry : SingleTargetAbility
 {
 
-    public override void showAttackAnimation(Monster m)
+    public override void showAnimation(Monster m)
     {
         //Program animation here
         //We might have a static class of generic animations that this can refer to
