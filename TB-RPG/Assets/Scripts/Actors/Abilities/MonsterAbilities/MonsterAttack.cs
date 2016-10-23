@@ -5,7 +5,7 @@ public class MonsterAttack : Ability {
 
     public MonsterAttack(Actor Owner) : 
                    base(null, null,
-                        100, Owner)
+                        100, false, Owner)
     {
 
     }

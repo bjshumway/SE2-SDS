@@ -73,7 +73,11 @@ public class Resource {
     /// </summary>
     /// <param name="newValue">New value for Resource.value</param>
     public void setValue(decimal newValue) {
-        if (newValue > maxValue) { // too high
+        if (newValue == value)
+        {
+            return;
+        }
+        else if (newValue > maxValue) { // too high
             _value = maxValue; // set to max
         } else if (newValue < 0) { // below 0
             _value = 0; // set to 0

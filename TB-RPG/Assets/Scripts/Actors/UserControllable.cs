@@ -17,7 +17,15 @@ public abstract class UserControllable : Actor {
     public Color32 _headColor;
 
     public Image battleHead;
-    
+
+    public enum classTypes {
+        fighter,
+        mage,
+        rogue
+    };
+
+    public classTypes classType;
+
 
     public int talentPoints {
         get {
@@ -27,12 +35,12 @@ public abstract class UserControllable : Actor {
 
     public Sprite headType
     {
-        get;set;
+        get; set;
     }
 
     public Color32 headColor
     {
-        get;set;
+        get; set;
     }
 
     public UserControllable() : base()
@@ -61,6 +69,61 @@ public abstract class UserControllable : Actor {
 
 
         isUserControllable = true;
+    }
+
+
+    //This function learns a given ability
+    //Sets the owner to this, and isLearned to true
+    //Note that UserControllable abilities are already auto-created
+    public void learnAbility(Ability ab)
+    {
+        ab.owner = this;
+        ab.isLearned = true;
+
+        if (!ab.isPassive)
+        {
+            Ability[] abs = this.abilities.abilities;
+            for (int i = 0; i < abs.Length; i++)
+            {
+                if(abs[i] == null)
+                {
+                    abs[i] = ab;
+                    break;
+                }
+            }
+        } else
+        {
+            passiveAbilities.Add(ab);
+        }
+        Text t = ab.learnButton.GetComponentInChildren<Text>();
+        t.text= ab.name + "\n" + "LEARNED";
+    }
+
+    //This function learns a given ability
+    //Sets the owner to null, and isLearned to false
+    //Note that UserControllable abilities are already auto-created
+    public void unlearnAbility(Ability ab)
+    {
+        ab.owner = null;
+        ab.isLearned = false;
+
+        if (!ab.isPassive)
+        {
+            Ability[] abs = this.abilities.abilities;
+            for (int i = 0; i < abs.Length; i++)
+            {
+                if (abs[i] == ab)
+                {
+                    abs[i] = null;
+                }
+            }
+        }
+        else
+        {
+            passiveAbilities.Remove(ab);
+        }
+
+        ab.learnButton.GetComponent<Text>().text = ab.name;
     }
 
     //Add 3 to remaining stat points

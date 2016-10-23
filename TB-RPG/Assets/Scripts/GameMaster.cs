@@ -10,15 +10,6 @@ public class GameMaster : MonoBehaviour {
 
     // s_Instance is used to cache the instance found in the scene so we don't have to look it up every time.
     private static GameMaster s_Instance = null;
-    
-    public enum playerStates {
-        menuScreen,
-        doingBattle,
-        outsideBattle,
-        characterConfiguration
-    };
-
-    public static playerStates playerState = playerStates.outsideBattle;
 
     public Player thePlayer;
     public Map theMap;
@@ -29,15 +20,8 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         thePlayer = new Player();
-        thePlayer.abilities.abilities[0] = new Attack(thePlayer);
-        thePlayer.abilities.abilities[1] = new ChargeStrength(thePlayer);
-        //thePlayer.abilities.abilities[2] = new SwordFlurry(thePlayer);
-        thePlayer.abilities.abilities[2] = new Pin(thePlayer);
-
 
         //thePlayer.passiveAbilities.Add(new CounterAttack(thePlayer));
-
-
         thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
 
 

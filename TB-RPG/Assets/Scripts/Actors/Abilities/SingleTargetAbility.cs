@@ -18,8 +18,8 @@ public abstract class SingleTargetAbility : Ability {
     }
 
 
-    public SingleTargetAbility(string name, string toolTip, string stat, decimal modifier, decimal stamina, Actor ownerOfAbility)
-		: base(name, toolTip, stamina, ownerOfAbility) {
+    public SingleTargetAbility(string name, string toolTip, string stat, decimal modifier, decimal stamina, bool isPassiveAbility, Actor ownerOfAbility)
+		: base(name, toolTip, stamina, isPassiveAbility, ownerOfAbility) {
             _modifier = modifier;
         _stat = stat;
     }
