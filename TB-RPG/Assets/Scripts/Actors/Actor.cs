@@ -220,9 +220,13 @@ public class Actor {
 
     //Shows the animation for the monster / player dying
     //Todo: make _isAlive false After the animation is finished
+
     public void showDeathAnimation()
     {
-
+        if (!this.isUserControllable)
+        {
+            Object.Destroy(((Monster)this).monsterPrefab);
+        }
     }
 
     /// <summary>
@@ -237,6 +241,8 @@ public class Actor {
 
         showDeathAnimation();
         
+
+
         _isAlive = false;
     }
 
