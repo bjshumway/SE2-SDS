@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Monster : Actor {
 
     public GameObject monsterPrefab;
-    protected static int id_increment = 1;
+    public static int id_increment = 1;
 
     public Ability[] abilities;
 

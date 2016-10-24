@@ -15,6 +15,12 @@ public class BattleScript : MonoBehaviour {
 
     public System.Random random;
 
+    public bool justRecentlyDisabledAbilities;
+
+    public GameObject AbilitiesInBattleFogger;
+
+    public GameObject victoryText;
+
     //This function is used when a class (e.g. ability) wants to intercept all mouse / keyboard input
     //When it is null, mouse/keyboard input does its default thing
     public Action<string> pipeInputFunc;
@@ -57,22 +63,22 @@ public class BattleScript : MonoBehaviour {
         switch(monsters.Length)
         {
             case 1:
-                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(185, 206, 0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-1, 180, 0);
                 break;
             case 2:
-                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20, 93,0);
-                monsters[1].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350, 93, 100);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-128, 180, 0);
+                monsters[1].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(168, 180, 100);
                 break;
             case 3:
-                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(185, -15, 0);
-                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20, 206, 0);
-                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350, 206, 0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-330, 180, 0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(0, 180, 0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(330, 180, 0);
                 break;
             case 4:
-                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20,206,0);
-                monsters[1].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350,206,0);
-                monsters[2].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(20,-15,0);
-                monsters[3].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(350,-15,0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-345, 180, 0);
+                monsters[1].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-113, 180, 0);
+                monsters[2].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(113, 180, 0);
+                monsters[3].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(345, 180, 0);
                 break;
         }
 
@@ -202,9 +208,44 @@ public class BattleScript : MonoBehaviour {
     }
 
     // Update is called once per frame
+    //TODO: simplify update by placing each block of code into it's own function, and call them from update. 
     void Update () {
         if (!this.combatOcurring || this.isPaused)
             return;
+
+
+        //Handle KeyPresses
+        handleKeyPresses();
+
+        //If active usercontrollable doesn't have 100 stamina, foggify the ability button by shading it
+        if (activeCharacter.stamina.value != 100 && justRecentlyDisabledAbilities == false)
+        {
+            justRecentlyDisabledAbilities = true;
+
+            for (int i = 1; i < 5; i++)
+            {
+                if (GameObject.Find("AbSlot" + i + "_Cost").GetComponent<Text>().text == "0")
+                {
+                    continue;
+                }
+                GameObject go = GameObject.Find("AbSlot" + i);
+                Button b = go.GetComponent<Button>();
+                b.interactable = false;
+                //Image img = go.GetComponent<Image>();
+                //img.color = new Color32(200, 200, 200, 255);
+                
+            }
+        } else if (activeCharacter.stamina.value == 100 && justRecentlyDisabledAbilities == true)
+        {
+            justRecentlyDisabledAbilities = false;
+
+            for (int i = 1; i < 5; i++)
+            {
+                GameObject go = GameObject.Find("AbSlot" + i);
+                Button b = go.GetComponent<Button>();
+                b.interactable = true;
+            }
+        }
 
         UserControllable[] uCArr = GameMaster.instance.thePlayer.theParty;
 
@@ -227,6 +268,7 @@ public class BattleScript : MonoBehaviour {
             }
         }
 
+
         for (int i = 0; i < monsters.Length; i++)
         {
             //If the party isn't dead, do the next Monster's AI
@@ -244,6 +286,7 @@ public class BattleScript : MonoBehaviour {
             this.combatOcurring = false;
             GameMaster.instance.switchCamera(8);
         }
+
         bool monstersDied = true;
         foreach(Monster mon in monsters)
         {
@@ -254,12 +297,46 @@ public class BattleScript : MonoBehaviour {
         }
         if(monstersDied)
         {
+            //Go to victory function
+
             this.combatOcurring = false;
+
+            //Delete each monster
+
             monsters = null;
-            GameMaster.instance.switchCamera(7);
+            Monster.id_increment = 1;
+
+            victoryText.SetActive(true);
+
+            //GameMaster.instance.switchCamera(7);
         }
 
     }
+
+    //Handles keypresses in battle, e.g. ability or switching between uC's
+    public void handleKeyPresses()
+    {
+        if (Input.GetKeyDown("q"))
+        {
+            GameObject.Find("AbSlot1").GetComponent<Button>().onClick.Invoke();
+        } else if(Input.GetKeyDown("w"))
+        {
+            GameObject.Find("AbSlot2").GetComponent<Button>().onClick.Invoke();
+        }
+        else if (Input.GetKeyDown("e"))
+        {
+            GameObject.Find("AbSlot3").GetComponent<Button>().onClick.Invoke();
+        }
+        else if (Input.GetKeyDown("r"))
+        {
+            GameObject.Find("AbSlot4").GetComponent<Button>().onClick.Invoke();
+        }
+        else if (Input.GetKeyDown("t"))
+        {
+            GameObject.Find("AbSlot5").GetComponent<Button>().onClick.Invoke();
+        }
+    }
+
 
     // This defines a static instance property that attempts to find the manager object in the scene and
     // returns it to the caller.
