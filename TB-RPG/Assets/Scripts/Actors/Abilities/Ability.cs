@@ -48,7 +48,8 @@ public abstract class Ability {
         fire,
         water,
         ground,
-        lightning
+        lightning,
+        none
     }
 
 

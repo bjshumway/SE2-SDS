@@ -79,14 +79,17 @@ public class Actor {
 
     public Dictionary<string, Stat> stats = new Dictionary<string, Stat>();
 
+    public Ability.damageType weakness;
+
     #endregion
 
     #region Constructor & Methods
 
     //simple constructor, used primarilly by Monsters
-    public Actor(string name, int level, Title title = null, Resource[] resources = null, int[] statArray = null) {
+    public Actor(string name, int level, Title title = null, Resource[] resources = null, int[] statArray = null, Ability.damageType weakness = Ability.damageType.none) {
         _name = name;
         _level = level;
+        this.weakness = weakness;
 
         _isAlive = true;
 
@@ -125,6 +128,8 @@ public class Actor {
         decimal resourceModifier = 10; // no idea if this formula will be good
         health = new Resource(resourceModifier, -1);
         stamina = new Resource(100,-1);
+
+        this.weakness = Ability.damageType.none;
 
         //Debug.Log("max stamina in player is " + stamina.maxValue);
 
@@ -246,25 +251,26 @@ public class Actor {
         hitType ht;
 
         // temporary formula - needs balance testing
-        decimal dodgeRoll = (decimal)(ran.Next(0, 100)) / 100m;
+        decimal dodgeRoll = (ran.Next(0, 100)) / 100m;
+
+        bool isWeak = (weakness == damageType);
 
         //Dodge roll for uC is based on weapon accuracy, for Monster is based on hitAccuracy
         if (damager.isUserControllable)
         {
-            dodgeRoll = dodgeRoll + (decimal)(damager.weapon.accuracy * 0.5m) / 100m;
+            dodgeRoll = dodgeRoll + (damager.weapon.accuracy * 0.5m) / 100m;
         }
         else
         {
             dodgeRoll = dodgeRoll + ((Monster)damager).hitAccuracy * .05m / 100m;
         }
 
-
         if ((stats["cunning"].modifier) < dodgeRoll || statusEffects["pin"]) {
             ht = hitType.hit;
             decimal critRoll = (ran.Next(0, 100) / 100m);
 
             // crit
-            if ((damager.stats["cunning"].modifier * 0.5m) > critRoll) {
+            if (isWeak || (damager.stats["cunning"].modifier * 0.5m) > critRoll) {
                 damageAmount *= 3;
                 ht = hitType.crit;
             }
