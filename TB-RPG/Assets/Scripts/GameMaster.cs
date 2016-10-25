@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 
 public class GameMaster : MonoBehaviour {
@@ -30,6 +31,7 @@ public class GameMaster : MonoBehaviour {
         cursor2 = (Texture2D)Resources.Load("mouse2");
         Cursor.SetCursor(cursor1, new Vector2(0, 0), CursorMode.Auto);
 
+        switchBackground(2);
 
         //Debug.Log("thePlayer Created");
         //disable all cameras but the one one at 0
@@ -47,6 +49,33 @@ public class GameMaster : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.F))
             Screen.fullScreen = !Screen.fullScreen;
     }
+
+    //Switches the background on all camnvases, based on tier.
+    public void switchBackground(int tier) {
+        string nameOfBackground = null;
+        switch(tier)
+        {
+            case 1: nameOfBackground = "forest"; //TODO: get actual name
+                break;
+            case 2: nameOfBackground = "cave background"; //TODO: get actual name
+                break;
+            case 3: nameOfBackground = "graveyard"; //TODO: get actual name
+                break;
+        }
+
+        Debug.Log(tier);
+        Sprite spr = Resources.Load<Sprite>(nameOfBackground);
+
+
+
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("GameBackground");
+        for(int i = 0; i < gos.Length;i++)
+        {
+            //Debug.Log(gos[i]);
+            gos[i].GetComponent<Image>().sprite = spr;
+        }
+
+   }
 
 
     //Switches to the new camera

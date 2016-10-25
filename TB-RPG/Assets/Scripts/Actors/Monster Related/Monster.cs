@@ -36,7 +36,7 @@ public class Monster : Actor {
         id_increment++;
         
 
-        GameObject imagePrefab = Resources.Load(prefabName) as GameObject;
+        GameObject imagePrefab = Resources.Load("Monsters/" + prefabName) as GameObject;
         monsterPrefab = GameObject.Instantiate(imagePrefab, imagePrefab.transform.position, imagePrefab.transform.rotation) as GameObject;
         monsterPrefab.transform.SetParent(GameObject.Find("BattleCanvas").transform, false);
         //Debug.Log(monsterPrefab);

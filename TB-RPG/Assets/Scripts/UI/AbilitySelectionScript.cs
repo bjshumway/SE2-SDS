@@ -44,7 +44,7 @@ public class AbilitySelectionScript : MonoBehaviour
         GameObject cont = GameObject.Find("AbilityApprovalQuestion");
         if (cont == null)
         {
-            cont = Resources.Load("AbilityApprovalPopupContainer") as GameObject;
+            cont = Resources.Load("AbilityRelated/AbilityApprovalPopupContainer") as GameObject;
             cont = GameObject.Instantiate(cont, cont.transform.position, cont.transform.rotation) as GameObject;
             cont.transform.SetParent(GameObject.Find("AbilitySelectCanvas").transform, false);
             GameObject.Find("YesApproveAbility").GetComponent<Button>().onClick.AddListener(delegate { AbilitySelectionScript.acceptLearningAbility();  });
@@ -82,7 +82,7 @@ public class AbilitySelectionScript : MonoBehaviour
     //Loop through all abilities, and set their x,y positions 
     public void initAbilityPositionsAndClickEvents()
     {
-        int xStart = -366;
+        int xStart = -330;
         int xPos = xStart;
         int yPos = 184;
         int xDelta = 183;

@@ -80,14 +80,14 @@ public abstract class Ability {
         isPassive = isPassiveAbility;
 
         //Get the image for this ability's button
-        buttonSprite = Resources.Load<Sprite>(name + " BUTTON SPRITE" );
+        buttonSprite = Resources.Load<Sprite>("AbilityRelated/" + name + " BUTTON SPRITE" );
         if(buttonSprite == null)
         {
-            buttonSprite = Resources.Load<Sprite>("TBD BUTTON SPRITE") as Sprite;
+            buttonSprite = Resources.Load<Sprite>("AbilityRelated/TBD BUTTON SPRITE") as Sprite;
         }
 
         //Set the learnButton's image to this ability's button
-        learnButton = Resources.Load("AbilityLearnButton") as GameObject;
+        learnButton = Resources.Load("AbilityRelated/AbilityLearnButton") as GameObject;
         learnButton = GameObject.Instantiate(learnButton, learnButton.transform.position, learnButton.transform.rotation) as GameObject;
         learnButton.transform.SetParent(GameObject.Find("AbilitySelectCanvas").transform, false);
         learnButton.GetComponent<Image>().sprite = buttonSprite;

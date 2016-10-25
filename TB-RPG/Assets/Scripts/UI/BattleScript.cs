@@ -20,6 +20,7 @@ public class BattleScript : MonoBehaviour {
     public GameObject AbilitiesInBattleFogger;
 
     public GameObject victoryText;
+    public GameObject VictoryPanel;
 
     //This function is used when a class (e.g. ability) wants to intercept all mouse / keyboard input
     //When it is null, mouse/keyboard input does its default thing
@@ -213,104 +214,22 @@ public class BattleScript : MonoBehaviour {
         if (!this.combatOcurring || this.isPaused)
             return;
 
-
         //Handle KeyPresses
         handleKeyPresses();
 
         //If active usercontrollable doesn't have 100 stamina, foggify the ability button by shading it
-        if (activeCharacter.stamina.value != 100 && justRecentlyDisabledAbilities == false)
-        {
-            justRecentlyDisabledAbilities = true;
+        handleFoggifyAbilityButtons();
 
-            for (int i = 1; i < 5; i++)
-            {
-                if (GameObject.Find("AbSlot" + i + "_Cost").GetComponent<Text>().text == "0")
-                {
-                    continue;
-                }
-                GameObject go = GameObject.Find("AbSlot" + i);
-                Button b = go.GetComponent<Button>();
-                b.interactable = false;
-                //Image img = go.GetComponent<Image>();
-                //img.color = new Color32(200, 200, 200, 255);
-                
-            }
-        } else if (activeCharacter.stamina.value == 100 && justRecentlyDisabledAbilities == true)
-        {
-            justRecentlyDisabledAbilities = false;
-
-            for (int i = 1; i < 5; i++)
-            {
-                GameObject go = GameObject.Find("AbSlot" + i);
-                Button b = go.GetComponent<Button>();
-                b.interactable = true;
-            }
-        }
-
-        UserControllable[] uCArr = GameMaster.instance.thePlayer.theParty;
-
-        //update each player's stamina
-        for (int i = 0; i < uCArr.Length; i++) {
-            if(uCArr[i] != null && uCArr[i].isAlive)
-            {
-                Resource stamina = uCArr[i].stamina;
-                stamina.add((decimal)((float)uCArr[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10 ));
-            }
-        }
+        updateUserControllablesStamina();
 
         //update each monster's stamina
-        for(int i = 0; i < monsters.Length;i++)
-        {
-            if (monsters[i] != null && monsters[i].isAlive)
-            {
-                Resource stamina = monsters[i].stamina;
-                stamina.add((decimal)((float)monsters[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10));
-            }
-        }
+        updateMonstersStamina();
 
 
-        for (int i = 0; i < monsters.Length; i++)
-        {
-            //If the party isn't dead, do the next Monster's AI
-            if (GameMaster.instance.thePlayer.partyIsDead == false)
-            {
-                if (monsters[i] != null)
-                {
-                    monsters[i].doBattleAI();
-                }
-            }
-        }
+        doMonstersAI();
 
-        if(GameMaster.instance.thePlayer.partyIsDead == true)
-        {
-            this.combatOcurring = false;
-            GameMaster.instance.switchCamera(8);
-        }
-
-        bool monstersDied = true;
-        foreach(Monster mon in monsters)
-        {
-            if(mon.isAlive)
-            {
-                monstersDied = false;
-            }
-        }
-        if(monstersDied)
-        {
-            //Go to victory function
-
-            this.combatOcurring = false;
-
-            //Delete each monster
-
-            monsters = null;
-            Monster.id_increment = 1;
-
-            victoryText.SetActive(true);
-
-            //GameMaster.instance.switchCamera(7);
-        }
-
+        handleDeadParty();
+        handleVictory();
     }
 
     //Handles keypresses in battle, e.g. ability or switching between uC's
@@ -337,6 +256,119 @@ public class BattleScript : MonoBehaviour {
         }
     }
 
+    //If active usercontrollable doesn't have 100 stamina, foggify the ability button by shading it
+    public void handleFoggifyAbilityButtons()
+    {
+        if (activeCharacter.stamina.value != 100 && justRecentlyDisabledAbilities == false)
+        {
+            justRecentlyDisabledAbilities = true;
+
+            for (int i = 1; i < 5; i++)
+            {
+                if (GameObject.Find("AbSlot" + i + "_Cost").GetComponent<Text>().text == "0")
+                {
+                    continue;
+                }
+                GameObject go = GameObject.Find("AbSlot" + i);
+                Button b = go.GetComponent<Button>();
+                b.interactable = false;
+                //Image img = go.GetComponent<Image>();
+                //img.color = new Color32(200, 200, 200, 255);
+
+            }
+        }
+        else if (activeCharacter.stamina.value == 100 && justRecentlyDisabledAbilities == true)
+        {
+            justRecentlyDisabledAbilities = false;
+
+            for (int i = 1; i < 5; i++)
+            {
+                GameObject go = GameObject.Find("AbSlot" + i);
+                Button b = go.GetComponent<Button>();
+                b.interactable = true;
+            }
+        }
+    }
+
+    public void updateUserControllablesStamina()
+    {
+        UserControllable[] uCArr = GameMaster.instance.thePlayer.theParty;
+
+        //update each player's stamina
+        for (int i = 0; i < uCArr.Length; i++)
+        {
+            if (uCArr[i] != null && uCArr[i].isAlive)
+            {
+                Resource stamina = uCArr[i].stamina;
+                stamina.add((decimal)((float)uCArr[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10));
+            }
+        }
+
+    }
+
+    public void updateMonstersStamina()
+    {
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            if (monsters[i] != null && monsters[i].isAlive)
+            {
+                Resource stamina = monsters[i].stamina;
+                stamina.add((decimal)((float)monsters[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10));
+            }
+        }
+    }
+
+    public void doMonstersAI()
+    {
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            //If the party isn't dead, do the next Monster's AI
+            if (GameMaster.instance.thePlayer.partyIsDead == false)
+            {
+                if (monsters[i] != null)
+                {
+                    monsters[i].doBattleAI();
+                }
+            }
+        }
+    }
+
+    public void handleDeadParty()
+    {
+        if (GameMaster.instance.thePlayer.partyIsDead == true)
+        {
+            this.combatOcurring = false;
+            GameMaster.instance.switchCamera(8);
+        }
+    }
+
+    public void handleVictory()
+    {
+        bool monstersDied = true;
+        foreach (Monster mon in monsters)
+        {
+            if (mon.isAlive)
+            {
+                monstersDied = false;
+            }
+        }
+        if (monstersDied)
+        {
+            //Go to victory function
+
+            this.combatOcurring = false;
+
+            //Delete each monster
+
+            monsters = null;
+            Monster.id_increment = 1;
+
+            VictoryPanel.SetActive(true);
+            //now set victory text to what happened due to the battle
+
+            //GameMaster.instance.switchCamera(7);
+        }
+    }
 
     // This defines a static instance property that attempts to find the manager object in the scene and
     // returns it to the caller.
