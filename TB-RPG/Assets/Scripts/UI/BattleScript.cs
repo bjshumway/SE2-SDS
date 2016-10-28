@@ -338,7 +338,7 @@ public class BattleScript : MonoBehaviour {
         if (GameMaster.instance.thePlayer.partyIsDead == true)
         {
             this.combatOcurring = false;
-            GameMaster.instance.switchCamera(8);
+            GameMaster.instance.switchCamera(7);
         }
     }
 

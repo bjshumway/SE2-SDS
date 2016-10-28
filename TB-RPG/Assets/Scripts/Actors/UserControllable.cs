@@ -96,7 +96,7 @@ public abstract class UserControllable : Actor {
             passiveAbilities.Add(ab);
         }
         Text t = ab.learnButton.GetComponentInChildren<Text>();
-        t.text= ab.name + "\n" + "LEARNED";
+        t.text= ab.name + "\n" + "(LEARNED)";
     }
 
     //This function learns a given ability

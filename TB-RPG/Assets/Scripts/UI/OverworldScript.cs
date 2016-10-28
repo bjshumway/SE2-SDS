@@ -3,8 +3,8 @@ using System.Collections;
 
 public class OverworldScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         Map.tier = 1;
         //Map.generateMapByLevel();
 
@@ -16,8 +16,13 @@ public class OverworldScript : MonoBehaviour {
     {
         Monster[] monsters = Monster.genMonstersByLevel(Map.tier);
         BattleScript.instance.beginCombat(monsters);
-        BattleScript.instance.monsters[0].monsterPrefab.transform.SetParent(GameObject.Find("BattleCanvas").transform, false);
         GameMaster.instance.switchCamera(5);
         //Debug.Log(BattleScript.instance.monsters.Length);
+    }
+
+    //Goes to the menu screen
+    public void goToMenu()
+    {
+        GameMaster.instance.switchCamera(6);
     }
 }
