@@ -8,12 +8,18 @@ public class CharacterCreationMenu : MonoBehaviour {
     public static int currHeadNum;
     public static int currHeadColorNum;
     public static UserControllable currentUC;
-
+    private static bool fighterSelected;
+    private static bool mageSelected;
+    private static bool rogueSelected;
 
     public void Start()
     {
         //Debug.Log("Inside start of CharacterCreationMenu");
         //GameObject.FindWithTag("head").GetComponent<Image>().sprite = Heads[0];
+
+        fighterSelected = false;
+        mageSelected = false;
+        rogueSelected = false;
 
         currHeadColorNum = 0;
         currHeadNum = 0;
@@ -97,7 +103,43 @@ public class CharacterCreationMenu : MonoBehaviour {
 
     public void goToNextScene()
     {
+        Dropdown classSelect = GameObject.Find("ClassSelect").GetComponent<Dropdown>();
+        if (classSelect.value == 0)
+        {
+            //The user hasn't yet selected a class
+            //Todo: put up a message saying you must select a class first
+            return;
+        } else if (fighterSelected == true && classSelect.value == 1 ||
+                   mageSelected == true && classSelect.value  == 2  ||
+                   rogueSelected == true && classSelect.value == 3){
+            //The user selected a class that's already been selected.
+            //Todo: put up a message saying you must select a class first
+            return;
+        }
+
+
+        //Still here? Go ahead and set the userControllable's class, and look
         UserControllable uC = currentUC;
+
+        switch(classSelect.value)
+        {
+            case 1:
+                uC.classType = UserControllable.classTypes.fighter;
+                fighterSelected = true;
+                uC.learnAbility(Ability.fighterAbilities[0]); //Learn Attack by Default
+                break;
+            case 2:
+                uC.classType = UserControllable.classTypes.mage;
+                mageSelected = true;
+                uC.learnAbility(Ability.mageAbilities[0]); //Learn Arcane Destruction by Default
+                break;
+            case 3:
+                uC.classType = UserControllable.classTypes.rogue; //Learn Bow Attack by default
+                rogueSelected = true;
+                uC.learnAbility(Ability.rogueAbilities[0]); //Learn Bow Attack by default
+                break;
+        }
+
         Sprite newHead = UserControllableLookConfig.instance.heads[currHeadNum];
         uC.headType = newHead;
         Color32 newColor = new Color32((byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 0],

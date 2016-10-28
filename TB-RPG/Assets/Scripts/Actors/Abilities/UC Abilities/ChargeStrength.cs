@@ -4,7 +4,7 @@ using System.Collections;
 public class ChargeStrength : Ability {
 
     public ChargeStrength(Actor ownerOfAbility)
-		: base("Charge Strength", "Increase Attack dmg by 50% (stacks up to 4 times)", 25, ownerOfAbility) {
+		: base("Charge Strength", "Increase Attack dmg by 50% (stacks up to 4 times)", 25, false, ownerOfAbility) {
 
     }
 

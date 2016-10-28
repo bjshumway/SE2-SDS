@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
+
 
 public class StatChange : MonoBehaviour {
 
@@ -15,32 +17,32 @@ public class StatChange : MonoBehaviour {
 	void Update () {
 	    if (gameObject.name == "Stats")
         {
-            GetComponent<TextMesh>().text = Convert.ToString(SkillSelectionScript.statTotal);
+            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.statTotal);
         }
 
         if (gameObject.name == "Strength")
         {
-            GetComponent<TextMesh>().text = Convert.ToString(SkillSelectionScript.strength);
+            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.strength);
         }
 
         if (gameObject.name == "Intellect")
         {
-            GetComponent<TextMesh>().text = Convert.ToString(SkillSelectionScript.intellect);
+            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.intellect);
         }
 
         if (gameObject.name == "Dexterity")
         {
-            GetComponent<TextMesh>().text = Convert.ToString(SkillSelectionScript.dexterity);
+            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.dexterity);
         }
 
         if (gameObject.name == "Cunning")
         {
-            GetComponent<TextMesh>().text = Convert.ToString(SkillSelectionScript.cunning);
+            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.cunning);
         }
 
         if (gameObject.name == "Charisma")
         {
-            GetComponent<TextMesh>().text = Convert.ToString(SkillSelectionScript.charisma);
+            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.charisma);
         }
 
     }

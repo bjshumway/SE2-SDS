@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
-
-//Commented this out since it wasn't compiling, Ben Shum
-//using System.Threading.Tasks;
 
 public class Monster : Actor {
 
     public GameObject monsterPrefab;
-    protected static int id_increment = 1;
+    public static int id_increment = 1;
 
     public Ability[] abilities;
 
@@ -31,8 +26,8 @@ public class Monster : Actor {
     }
 
 
-    public Monster(string name, String prefabName, int level, int diffInLevel, int hitAcc, Title title = null, Resource[] resources = null, int[] stats = null)
-        : base(name, level, title, resources, stats) {
+    public Monster(string name, String prefabName, int level, int diffInLevel, int hitAcc, Title title = null, Resource[] resources = null, int[] stats = null, Ability.damageType weakness = Ability.damageType.none)
+        : base(name, level, title, resources, stats, weakness) {
 
         hitAccuracy = hitAcc;
         difficultyInLevel = diffInLevel;
@@ -41,7 +36,7 @@ public class Monster : Actor {
         id_increment++;
         
 
-        GameObject imagePrefab = Resources.Load(prefabName) as GameObject;
+        GameObject imagePrefab = Resources.Load("Monsters/" + prefabName) as GameObject;
         monsterPrefab = GameObject.Instantiate(imagePrefab, imagePrefab.transform.position, imagePrefab.transform.rotation) as GameObject;
         monsterPrefab.transform.SetParent(GameObject.Find("BattleCanvas").transform, false);
         //Debug.Log(monsterPrefab);

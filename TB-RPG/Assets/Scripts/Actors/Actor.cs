@@ -21,6 +21,8 @@ public class Actor {
     public int id; //unique across all monsters and actors
     public bool isUserControllable;
 
+    public Dictionary<string, bool> statusEffects = new Dictionary<string, bool>();
+
     public Slider battleHealthBar;
     public Slider battleStaminaBar;
 
@@ -77,14 +79,17 @@ public class Actor {
 
     public Dictionary<string, Stat> stats = new Dictionary<string, Stat>();
 
+    public Ability.damageType weakness;
+
     #endregion
 
     #region Constructor & Methods
 
     //simple constructor, used primarilly by Monsters
-    public Actor(string name, int level, Title title = null, Resource[] resources = null, int[] statArray = null) {
+    public Actor(string name, int level, Title title = null, Resource[] resources = null, int[] statArray = null, Ability.damageType weakness = Ability.damageType.none) {
         _name = name;
         _level = level;
+        this.weakness = weakness;
 
         _isAlive = true;
 
@@ -113,6 +118,9 @@ public class Actor {
         if (statArray != null) { // stats specified
             setStatLevels(statArray);
         }
+
+        initStatusEffects();
+
     }
 
     // Simple constructor (used primarilly by userControllables)
@@ -120,6 +128,8 @@ public class Actor {
         decimal resourceModifier = 10; // no idea if this formula will be good
         health = new Resource(resourceModifier, -1);
         stamina = new Resource(100,-1);
+
+        this.weakness = Ability.damageType.none;
 
         //Debug.Log("max stamina in player is " + stamina.maxValue);
 
@@ -132,6 +142,19 @@ public class Actor {
         stats.Add("cunning",   new Stat(1, 0));
         stats.Add("charisma",  new Stat(1, 0));
 
+        initStatusEffects();
+    }
+
+    //Initializes the dictionary of status effects, sets them all to False
+    public void initStatusEffects()
+    {
+        statusEffects.Add("pin", false);
+        statusEffects.Add("shield", false);
+        statusEffects.Add("regen", false);
+        statusEffects.Add("confuse", false);
+        statusEffects.Add("slow", false);
+        statusEffects.Add("poison", false);
+        statusEffects.Add("float", false);
     }
 
     /// <summary>
@@ -197,9 +220,13 @@ public class Actor {
 
     //Shows the animation for the monster / player dying
     //Todo: make _isAlive false After the animation is finished
+
     public void showDeathAnimation()
     {
-
+        if (!this.isUserControllable)
+        {
+            Object.Destroy(((Monster)this).monsterPrefab);
+        }
     }
 
     /// <summary>
@@ -213,6 +240,8 @@ public class Actor {
         stamina.setValue(0);
 
         showDeathAnimation();
+        
+
 
         _isAlive = false;
     }
@@ -225,26 +254,29 @@ public class Actor {
     /// <returns>hitType.hit, hitType.crit, or hitType.miss</returns>
     public hitType damage(decimal damageAmount, Actor damager,  Ability.damageType damageType) {
         System.Random ran = new System.Random();
+        hitType ht;
 
         // temporary formula - needs balance testing
-        decimal dodgeRoll = (decimal) (ran.Next(0, 100));
+        decimal dodgeRoll = (ran.Next(0, 100)) / 100m;
+
+        bool isWeak = (weakness == damageType);
 
         //Dodge roll for uC is based on weapon accuracy, for Monster is based on hitAccuracy
         if (damager.isUserControllable)
         {
-            dodgeRoll = dodgeRoll + (decimal)(damager.weapon.accuracy * 0.5m) / 100m;
-        } else
+            dodgeRoll = dodgeRoll + (damager.weapon.accuracy * 0.5m) / 100m;
+        }
+        else
         {
             dodgeRoll = dodgeRoll + ((Monster)damager).hitAccuracy * .05m / 100m;
         }
 
-        if ((stats["cunning"].modifier * 0.5m) < dodgeRoll) {
-            hitType ht = hitType.hit;
-
+        if ((stats["cunning"].modifier) < dodgeRoll || statusEffects["pin"]) {
+            ht = hitType.hit;
             decimal critRoll = (ran.Next(0, 100) / 100m);
 
             // crit
-            if ((damager.stats["cunning"].modifier * 0.5m) > critRoll) {
+            if (isWeak || (damager.stats["cunning"].modifier * 0.5m) > critRoll) {
                 damageAmount *= 3;
                 ht = hitType.crit;
             }

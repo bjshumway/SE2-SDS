@@ -75,12 +75,12 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\AbilityBar.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\MonsterAbilities\MonsterAttack.cs" />
-    <Compile Include="Assets\Scripts\Actors\Abilities\SingleTargetDamageAbility.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\SingleTargetAbility.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Attack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ChargeStrength.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\CounterAttack.cs" />
-    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Slam.cs" />
-    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Slash.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\LastChance.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Pin.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SwordFlurry.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Actors\Follower.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Monster.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\genericBenchmarkMonster.cs" />
+    <Compile Include="Assets\Scripts\Actors\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\Actors\Player.cs" />
     <Compile Include="Assets\Scripts\Actors\Resource.cs" />
     <Compile Include="Assets\Scripts\Actors\Stat.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Assets\Scripts\UI\StatChange.cs" />
     <Compile Include="Assets\Scripts\UI\Statincrement.cs" />
     <Compile Include="Assets\Scripts\UI\TitleMenuScript.cs" />
+    <Compile Include="Assets\ScrollbarEnabler.cs" />
     <Compile Include="Assets\ability_test.cs" />
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>

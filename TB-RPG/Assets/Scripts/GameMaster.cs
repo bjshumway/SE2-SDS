@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 
 public class GameMaster : MonoBehaviour {
@@ -10,15 +11,6 @@ public class GameMaster : MonoBehaviour {
 
     // s_Instance is used to cache the instance found in the scene so we don't have to look it up every time.
     private static GameMaster s_Instance = null;
-    
-    public enum playerStates {
-        menuScreen,
-        doingBattle,
-        outsideBattle,
-        characterConfiguration
-    };
-
-    public static playerStates playerState = playerStates.outsideBattle;
 
     public Player thePlayer;
     public Map theMap;
@@ -29,12 +21,8 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         thePlayer = new Player();
-        thePlayer.abilities.abilities[0] = new Attack(thePlayer);
-        thePlayer.abilities.abilities[1] = new ChargeStrength(thePlayer);
-        thePlayer.abilities.abilities[2] = new SwordFlurry(thePlayer);
-        thePlayer.passiveAbilities.Add(new CounterAttack(thePlayer));
 
-
+        //thePlayer.passiveAbilities.Add(new CounterAttack(thePlayer));
         thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
 
 
@@ -43,6 +31,7 @@ public class GameMaster : MonoBehaviour {
         cursor2 = (Texture2D)Resources.Load("mouse2");
         Cursor.SetCursor(cursor1, new Vector2(0, 0), CursorMode.Auto);
 
+        switchBackground(2);
 
         //Debug.Log("thePlayer Created");
         //disable all cameras but the one one at 0
@@ -60,6 +49,33 @@ public class GameMaster : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.F))
             Screen.fullScreen = !Screen.fullScreen;
     }
+
+    //Switches the background on all camnvases, based on tier.
+    public void switchBackground(int tier) {
+        string nameOfBackground = null;
+        switch(tier)
+        {
+            case 1: nameOfBackground = "forest"; //TODO: get actual name
+                break;
+            case 2: nameOfBackground = "cave background"; //TODO: get actual name
+                break;
+            case 3: nameOfBackground = "graveyard"; //TODO: get actual name
+                break;
+        }
+
+        Debug.Log(tier);
+        Sprite spr = Resources.Load<Sprite>(nameOfBackground);
+
+
+
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("GameBackground");
+        for(int i = 0; i < gos.Length;i++)
+        {
+            //Debug.Log(gos[i]);
+            gos[i].GetComponent<Image>().sprite = spr;
+        }
+
+   }
 
 
     //Switches to the new camera

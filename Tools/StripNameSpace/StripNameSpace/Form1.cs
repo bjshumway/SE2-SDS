@@ -56,8 +56,11 @@ namespace StripNameSpace {
                     for (int x = 0; x < lines.Length; x++) {
                         if (lines[x].Trim().StartsWith("namespace " + nsName)) {
                             lines[x] = OMIT; // mark the NS line for omittance
-                            foundNS  = true;
+                            if (lines[x + 1].Trim().StartsWith("{")) {
+                                lines[x + 1] = lines[x + 1].Remove(lines[x + 1].IndexOf('{'), 1);
+                            }
 
+                            foundNS  = true;
                             break;
                         }
                     }
