@@ -19,7 +19,7 @@ public class ScrollbarEnabler : MonoBehaviour
     }
 
     //Updates the content so that adding items gives us a scrollbar if the size is big enough.
-    void UpdateContentSizeAndScrollbar()
+    void UpdateContentSizeAndScrollbar(int numItems)
     {
         if ( /*place code here to do gameObj Size * height + <distance between go's>*/ 1 < container.rect.height)
         {
