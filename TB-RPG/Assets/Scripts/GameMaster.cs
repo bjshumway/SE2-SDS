@@ -57,9 +57,9 @@ public class GameMaster : MonoBehaviour {
         {
             case 1: nameOfBackground = "forest"; //TODO: get actual name
                 break;
-            case 2: nameOfBackground = "cave background"; //TODO: get actual name
+            case 2: nameOfBackground = "cave background"; 
                 break;
-            case 3: nameOfBackground = "graveyard"; //TODO: get actual name
+            case 3: nameOfBackground = "graveyard";
                 break;
         }
 

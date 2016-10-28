@@ -16,6 +16,8 @@ public abstract class Ability {
     public int xPosSelectionMenu;
     public int yPosSelectionMenu;
 
+    public GameObject currentAbSlot;
+
     public bool isLearned;
 
 
