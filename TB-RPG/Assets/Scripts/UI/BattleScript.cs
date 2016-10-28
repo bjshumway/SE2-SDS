@@ -22,6 +22,8 @@ public class BattleScript : MonoBehaviour {
     public GameObject victoryText;
     public GameObject VictoryPanel;
 
+    public GameObject[] abilityButtons;
+
     //This function is used when a class (e.g. ability) wants to intercept all mouse / keyboard input
     //When it is null, mouse/keyboard input does its default thing
     public Action<string> pipeInputFunc;
