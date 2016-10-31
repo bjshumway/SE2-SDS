@@ -18,9 +18,13 @@ public abstract class SingleTargetAbility : Ability {
         }
     }
 
+    // Not readonly anymore
     public damageType damageTypeS {
         get {
             return _damageTypeS;
+        }
+        set {
+            _damageTypeS = value;
         }
     }
 

@@ -28,12 +28,14 @@ public abstract class Ability {
         new ChargeStrength(null),
         new SwordFlurry(null),
         new Pin(null),
-        new Parry(null)
+        new Parry(null),
+        new LastChance(null)
     };
 
     public static Ability[] mageAbilities = new Ability[]
     {
-
+        new ArcaneDestruction(null),
+        new Heal(null)
     };
 
     public static Ability[] rogueAbilities = new Ability[]
