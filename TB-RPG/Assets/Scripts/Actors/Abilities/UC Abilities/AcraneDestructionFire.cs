@@ -1,4 +1,9 @@
-﻿public class ArcaneDestructionFire : SingleTargetAbility {
+﻿using UnityEngine;
+using UnityEngine.UI;
+
+public class ArcaneDestruction : SingleTargetAbility {
+
+    public GameObject ADSelectionButton = GameObject.Find("ArcaneDestructionSelection");
 
     public override void showAnimation(Monster m) {
         //Program animation here
@@ -6,8 +11,10 @@
         //Also each monster will contain a reference to its image, to make things easier
     }
 
-    public ArcaneDestructionFire(Actor Owner) : base("Arcane Destruction (Fire)", "Deals 100% Fire damage",
+    public ArcaneDestruction(Actor Owner) : base("Arcane Destruction (Fire)", "Deals 100% Fire damage",
         "intellect", 1.0m, 75, false, Owner, damageType.fire) {
-
+        ADSelectionButton.SetActive(false);
+        //value
+        //ADSelectionButton
     }
 }

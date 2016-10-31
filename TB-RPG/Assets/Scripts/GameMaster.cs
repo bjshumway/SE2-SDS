@@ -22,6 +22,7 @@ public class GameMaster : MonoBehaviour {
 	void Start () {
         thePlayer = new Player();
 
+
         //thePlayer.passiveAbilities.Add(new CounterAttack(thePlayer));
         thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
 
@@ -31,7 +32,7 @@ public class GameMaster : MonoBehaviour {
         cursor2 = (Texture2D)Resources.Load("mouse2");
         Cursor.SetCursor(cursor1, new Vector2(0, 0), CursorMode.Auto);
 
-        switchBackground(2);
+        switchBackground(3);
 
         //Debug.Log("thePlayer Created");
         //disable all cameras but the one one at 0
@@ -63,7 +64,7 @@ public class GameMaster : MonoBehaviour {
                 break;
         }
 
-        Debug.Log(tier);
+        //Debug.Log(tier);
         Sprite spr = Resources.Load<Sprite>(nameOfBackground);
 
 
