@@ -4,6 +4,7 @@ public abstract class SingleTargetAbility : Ability {
 
     private decimal _modifier;
     private string _stat;
+    private damageType _damageTypeS;
 
     public decimal modifier {
         get {
@@ -17,11 +18,18 @@ public abstract class SingleTargetAbility : Ability {
         }
     }
 
+    public damageType damageTypeS {
+        get {
+            return _damageTypeS;
+        }
+    }
 
-    public SingleTargetAbility(string name, string toolTip, string stat, decimal modifier, decimal stamina, bool isPassiveAbility, Actor ownerOfAbility)
+
+    public SingleTargetAbility(string name, string toolTip, string stat, decimal modifier, decimal stamina, bool isPassiveAbility, Actor ownerOfAbility, damageType damageType)
 		: base(name, toolTip, stamina, isPassiveAbility, ownerOfAbility) {
             _modifier = modifier;
         _stat = stat;
+        _damageTypeS = damageType;
     }
 
     //arg is a string of the format "typeOfThingClickedOn index"
@@ -86,7 +94,7 @@ public abstract class SingleTargetAbility : Ability {
     /// </summary>
     /// <param name="modifier">for formula (statlevel * weapondamage * modifier)</param>
     public virtual void dealEffect(Monster m) {
-        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier, owner, Ability.damageType.melee);
+        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier, owner, _damageTypeS);
 
         owner.stamina.subtract(stamina);
 
