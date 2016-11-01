@@ -76,10 +76,7 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\AbilityBar.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\MonsterAbilities\MonsterAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\SingleTargetAbility.cs" />
-    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\AcraneDestructionFire.cs" />
-    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\AcraneDestructionWater.cs" />
-    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ArcaneDestructionElectric.cs" />
-    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ArcaneDestructionGround.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\AcraneDestruction.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Attack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ChargeStrength.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\CounterAttack.cs" />
@@ -125,6 +122,7 @@
     <Compile Include="Assets\Scripts\UI\Statincrement.cs" />
     <Compile Include="Assets\Scripts\UI\TitleMenuScript.cs" />
     <Compile Include="Assets\ScrollbarEnabler.cs" />
+    <Compile Include="Assets\ShowTextSortingLayerInEditor.cs" />
     <Compile Include="Assets\ability_test.cs" />
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>

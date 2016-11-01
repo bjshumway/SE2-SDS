@@ -25,6 +25,9 @@ public class Actor {
 
     public Slider battleHealthBar;
     public Slider battleStaminaBar;
+    public GameObject battleDamageText;
+    public GameObject battleStatusEffectText;
+    public GameObject battleStatusEffectBackground;
 
     #endregion
 

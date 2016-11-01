@@ -51,14 +51,36 @@ public abstract class UserControllable : Actor {
         this.id = id_increment;
         id_increment++;
 
-        battleHealthBar = GameObject.Find("Battle UC " + id + " HealthBar").GetComponent<Slider>();
+
+        GameObject battleObj = GameObject.Find("Battle UC " + id);
+
+        //Setup the battleHealtBar
+        GameObject bHB_gameObj = battleObj.transform.FindChild("Battle UC " + id + " HealthBar").gameObject;
+        bHB_gameObj.SetActive(true);
+        battleHealthBar = bHB_gameObj.GetComponent<Slider>();
         battleHealthBar.maxValue = (float)health.maxValue;
         battleHealthBar.value = (float)battleHealthBar.maxValue;
         health.sliders = new Slider[] { battleHealthBar };
 
-        battleStaminaBar = GameObject.Find("Battle UC " + id + " StaminaBar").GetComponent<Slider>();
+        //Setup the battleStamina Bar
+        GameObject bSB_gameObj = battleObj.transform.FindChild("Battle UC " + id + " StaminaBar").gameObject;
+        bSB_gameObj.SetActive(true);
+        battleStaminaBar = bSB_gameObj.GetComponent<Slider>();
         battleStaminaBar.maxValue = (float)stamina.maxValue;
         stamina.sliders = new Slider[] { battleStaminaBar };
+
+        //Setup statusEffectText
+        battleStatusEffectText = battleObj.transform.FindChild("Battle UC " + id + " StatusEffectText").gameObject;
+        battleStatusEffectText.SetActive(true);
+
+        //Setup the background for statusEffectText
+        battleStatusEffectBackground = battleObj.transform.FindChild("Battle UC " + id + " StatusEffectText").gameObject;
+        battleStatusEffectBackground.SetActive(true);
+
+        //Setup damageText
+        battleDamageText = battleObj.transform.FindChild("Battle UC " + id + " BattleDamage").gameObject;
+        battleDamageText.SetActive(true);
+
 
 
         battleHead = GameObject.Find("Battle UC " + this.id + " HeadType").GetComponent<Image>();

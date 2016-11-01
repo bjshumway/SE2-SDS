@@ -42,12 +42,19 @@ public class BattleScript : MonoBehaviour {
 
 
         GameObject.Find("Battle UC 2 HeadType").GetComponent<Image>().enabled = false;
-        GameObject.Find("Battle UC 2 HealthBar").SetActive(false);// = false;
+        GameObject.Find("Battle UC 2 HealthBar").SetActive(false);
         GameObject.Find("Battle UC 2 StaminaBar").SetActive(false);
+        GameObject.Find("Battle UC 2 StatusEffectBackground").SetActive(false);
+        GameObject.Find("Battle UC 2 BattleDamageText").SetActive(false);
+        GameObject.Find("Battle UC 2 StatusEffectText").SetActive(false);
+
 
         GameObject.Find("Battle UC 3 HeadType").GetComponent<Image>().enabled = false;
         GameObject.Find("Battle UC 3 HealthBar").SetActive(false);
         GameObject.Find("Battle UC 3 StaminaBar").SetActive(false);
+        GameObject.Find("Battle UC 3 StatusEffectBackground").SetActive(false);
+        GameObject.Find("Battle UC 3 BattleDamageText").SetActive(false);
+        GameObject.Find("Battle UC 3 StatusEffectText").SetActive(false);
 
     }
 

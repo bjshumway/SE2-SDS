@@ -41,6 +41,10 @@ public class GameMaster : MonoBehaviour {
             theCameras[i].enabled = false;
             theCanvases[i].enabled = false;
         }
+
+        //Switch directly to battle scene to test the layout
+        //switchCamera(5);
+
     }
 	
 	// Update is called once per frame
