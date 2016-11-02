@@ -116,7 +116,7 @@ public class Monster : Actor {
                 switch (monsterIndex)
                 {
                     case 0:
-                        return new genericBenchmarkMonster();
+                        return new Reaper();
                 }
                 break;
         }

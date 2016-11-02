@@ -92,6 +92,9 @@ public class BattleScript : MonoBehaviour {
                 break;
         }
 
+        //Testing stats
+        GameMaster.instance.thePlayer.stats["cunning"].setLevel(100);
+
         //Party members stamina starts at full
         UserControllable[] theParty = GameMaster.instance.thePlayer.theParty;
         for (int i = 0; i < theParty.Length; i++)

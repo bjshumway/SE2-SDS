@@ -21,7 +21,8 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         thePlayer = new Player();
-
+        thePlayer.health.setValue(1);
+        
 
         //thePlayer.passiveAbilities.Add(new CounterAttack(thePlayer));
         thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
