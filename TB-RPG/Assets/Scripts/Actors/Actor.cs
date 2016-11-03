@@ -300,7 +300,7 @@ public class Actor {
             }
 
             // logic for Last Chance
-            if (hasPassive("Last Chance") && (health.value / health.maxValue) <= 0.1m) {
+            if (damager.hasPassive("Last Chance") && (health.value / health.maxValue) <= 0.1m) {
                 damageAmount *= 3;
             }
 
