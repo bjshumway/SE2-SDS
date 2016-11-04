@@ -21,7 +21,7 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         thePlayer = new Player();
-        thePlayer.health.setValue(1);
+        thePlayer.health.setValue(10);
         
 
         //thePlayer.passiveAbilities.Add(new CounterAttack(thePlayer));
