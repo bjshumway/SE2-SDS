@@ -228,7 +228,8 @@ public class Actor {
     {
         if (!this.isUserControllable)
         {
-            Object.Destroy(((Monster)this).monsterPrefab);
+            ((Monster)this).monsterPrefab.GetComponent<Animator>().SetBool("Alive", false); //test monster death
+            //Object.Destroy(((Monster)this).monsterPrefab);
         }
     }
 
