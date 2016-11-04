@@ -42,12 +42,19 @@ public class BattleScript : MonoBehaviour {
 
 
         GameObject.Find("Battle UC 2 HeadType").GetComponent<Image>().enabled = false;
-        GameObject.Find("Battle UC 2 HealthBar").SetActive(false);// = false;
+        GameObject.Find("Battle UC 2 HealthBar").SetActive(false);
         GameObject.Find("Battle UC 2 StaminaBar").SetActive(false);
+        GameObject.Find("Battle UC 2 StatusEffectBackground").SetActive(false);
+        GameObject.Find("Battle UC 2 BattleDamageText").SetActive(false);
+        GameObject.Find("Battle UC 2 StatusEffectText").SetActive(false);
+
 
         GameObject.Find("Battle UC 3 HeadType").GetComponent<Image>().enabled = false;
         GameObject.Find("Battle UC 3 HealthBar").SetActive(false);
         GameObject.Find("Battle UC 3 StaminaBar").SetActive(false);
+        GameObject.Find("Battle UC 3 StatusEffectBackground").SetActive(false);
+        GameObject.Find("Battle UC 3 BattleDamageText").SetActive(false);
+        GameObject.Find("Battle UC 3 StatusEffectText").SetActive(false);
 
     }
 
@@ -85,6 +92,9 @@ public class BattleScript : MonoBehaviour {
                 break;
         }
 
+        //Testing stats
+        //GameMaster.instance.thePlayer.stats["cunning"].setLevel(100);
+
         //Party members stamina starts at full
         UserControllable[] theParty = GameMaster.instance.thePlayer.theParty;
         for (int i = 0; i < theParty.Length; i++)
@@ -94,7 +104,7 @@ public class BattleScript : MonoBehaviour {
                 Resource stamina = theParty[i].stamina;
                 //stamina.setValue(random.Next((int)stamina.value));
                 //theParty[i].battleStaminaBar.value = (float)stamina.value;
-                stamina.setValue(random.Next((int)stamina.value));
+                stamina.setValue(random.Next((int)stamina.maxValue));
             }
         }
 
@@ -104,7 +114,7 @@ public class BattleScript : MonoBehaviour {
             if (monsters[i] != null)
             {
                 Resource stamina = monsters[i].stamina;
-                stamina.setValue(random.Next((int)stamina.value));
+                stamina.setValue(random.Next((int)(stamina.maxValue/2)));
                 monsters[i].battleStaminaBar.value = (float)stamina.value;
 
             }
@@ -124,12 +134,24 @@ public class BattleScript : MonoBehaviour {
             pipeInputFunc(arg);
             return;
         }
+
         int uCNum = int.Parse(arg.Split()[1]);
         UserControllable uC = GameMaster.instance.thePlayer.theParty[uCNum]; 
         if(uC == null)
         {
             return;
         }
+
+
+        //Nullify the current activeCharacter's currentAbSlt for each ability
+        if (activeCharacter != null)
+        {
+            for (int i = 0; i < activeCharacter.abilities.abilities.Length; i++)
+            {
+                activeCharacter.abilities.abilities[i].currentAbSlot = null;
+            }
+        }
+
         activeCharacter = uC;
         //uC.damage(1);
         //uC.battleHealthBar.value = (float) uC.health.value;
@@ -141,6 +163,7 @@ public class BattleScript : MonoBehaviour {
             Ability ab = abs.abilities[i];
             if (ab != null)
             {
+                ab.currentAbSlot = abilityButtons[i];
                 GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = ab.name;
                 GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "" + ab.stamina;
             }

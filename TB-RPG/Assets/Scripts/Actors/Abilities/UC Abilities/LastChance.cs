@@ -1,15 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿public class LastChance : Ability {
 
-public class LastChance : MonoBehaviour {
+    public void showAttackAnimation(Monster m) {
+        //Program animation here
+        //We might have a static class of generic animations that this can refer to
+        //Also each monster will contain a reference to its image, to make things easier
+    }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public LastChance(Actor Owner) : base("Last Chance", "Deal 3x damage when you have under 10 percent HP", -1, true, Owner)
+    {
+
+    }
 }

@@ -88,7 +88,7 @@ public class Resource {
         foreach(Slider s in _sliders)
         {
             s.value = (float) _value;
-            s.GetComponentInChildren<Text>().text = "" + (int)s.value + "/" + (int)s.maxValue;
+            s.GetComponentInChildren<Text>().text = "" + (int)s.value + ". " + (int)(s.value * 10 % 10) + "/" + (int)s.maxValue;
         }
     }
 

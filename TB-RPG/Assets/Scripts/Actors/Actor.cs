@@ -25,6 +25,9 @@ public class Actor {
 
     public Slider battleHealthBar;
     public Slider battleStaminaBar;
+    public GameObject battleDamageText;
+    public GameObject battleStatusEffectText;
+    public GameObject battleStatusEffectBackground;
 
     #endregion
 
@@ -247,6 +250,21 @@ public class Actor {
     }
 
     /// <summary>
+    /// Checks to see if the Actor has the specified passive ability
+    /// </summary>
+    /// <param name="name">Name of passive ability</param>
+    /// <returns>true if Actor has the passive</returns>
+    public bool hasPassive(string name) {
+        foreach (Ability ab in passiveAbilities) {
+            if (ab.name == name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>
     /// Attempts to damage the actor by the specified amount
     /// </summary>
     /// <param name="damageAmount">amount to damage</param>
@@ -281,6 +299,11 @@ public class Actor {
                 ht = hitType.crit;
             }
 
+            // logic for Last Chance
+            if (damager.hasPassive("Last Chance") && (health.value / health.maxValue) <= 0.1m) {
+                damageAmount *= 3;
+            }
+
             health.subtract(damageAmount); // ouch
 
             if (health.value == 0) {
@@ -288,16 +311,10 @@ public class Actor {
             } else
             {
                 //Logic for counter-attack
-                if (damageType == Ability.damageType.melee)
+                if (damageType == Ability.damageType.melee && hasPassive("Counter Attack"))
                 {
-                    foreach (Ability ab in passiveAbilities)
-                    {
-                        if (ab.name == "Counter Attack")
-                        {
-                            damager.damage(damageAmount * .5m, this, Ability.damageType.melee);
-                            //Todo: show animation for physical attack occurring on the target
-                        }
-                    }
+                    damager.damage(damageAmount * .5m, this, Ability.damageType.melee);
+                    //Todo: show animation for physical attack occurring on the target
                 }
             }
 

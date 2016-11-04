@@ -42,6 +42,7 @@ public class Monster : Actor {
         //Debug.Log(monsterPrefab);
 
 
+        //Setup the healthbar for this monster
         battleHealthBar = GameObject.Find("Monster HealthBar").GetComponent<Slider>();
         battleHealthBar.name = "Monster " + id + " HealthBar";
         battleHealthBar.maxValue = (float)health.maxValue;
@@ -49,12 +50,32 @@ public class Monster : Actor {
         health.sliders = new Slider[] { battleHealthBar };
 
 
+        //Setupe the staminabar for this monster
         battleStaminaBar = GameObject.Find("Monster StaminaBar").GetComponent<Slider>();
         battleStaminaBar.name = "Monster " + id + " StaminaBar";
         battleStaminaBar.maxValue = (float)stamina.maxValue;
         stamina.sliders = new Slider[] { battleStaminaBar };
 
+        //Setup the battleDamageText for this monster
+        battleDamageText = GameObject.Find("Monster BattleDamageText");
+        battleDamageText.name = "Monster " + id + " BattleDamageText";
 
+        //Setup the battleStatusEffectText for this monster
+        battleStatusEffectText = GameObject.Find("Monster StatusEffectText");
+        battleStatusEffectText.name = "Monster " + id + " StatusEffectText";
+
+        //Setup battleStatusEffectBackground
+        battleStatusEffectBackground = GameObject.Find("Monster StatusEffectBackground");
+        battleStatusEffectBackground.SetActive(false);
+
+        //Set battleDamageText to inactive so that it doesn't show up on the screen.
+        //We needed it to be active initially so that we could find it with GameObject.find
+        //(inactive gameobjects can't be found that way)
+        battleDamageText.SetActive(false);
+
+
+        //Setup clicking on the monster
+        //Requires all monsters to have a script called MonsterClick attached to them
         MonsterClick mc = (MonsterClick)monsterPrefab.GetComponent<MonoBehaviour>();
         mc.id = this.id;
         
@@ -95,7 +116,7 @@ public class Monster : Actor {
                 switch (monsterIndex)
                 {
                     case 0:
-                        return new genericBenchmarkMonster();
+                        return new Reaper();
                 }
                 break;
         }

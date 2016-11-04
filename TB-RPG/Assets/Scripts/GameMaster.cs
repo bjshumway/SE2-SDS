@@ -21,6 +21,8 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         thePlayer = new Player();
+        thePlayer.health.setValue(10);
+        
 
         //thePlayer.passiveAbilities.Add(new CounterAttack(thePlayer));
         thePlayer.weapon = new MeleeWeapon("rusty sword", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
@@ -31,7 +33,7 @@ public class GameMaster : MonoBehaviour {
         cursor2 = (Texture2D)Resources.Load("mouse2");
         Cursor.SetCursor(cursor1, new Vector2(0, 0), CursorMode.Auto);
 
-        switchBackground(2);
+        switchBackground(3);
 
         //Debug.Log("thePlayer Created");
         //disable all cameras but the one one at 0
@@ -40,6 +42,10 @@ public class GameMaster : MonoBehaviour {
             theCameras[i].enabled = false;
             theCanvases[i].enabled = false;
         }
+
+        //Switch directly to battle scene to test the layout
+        //switchCamera(5);
+
     }
 	
 	// Update is called once per frame
@@ -57,13 +63,13 @@ public class GameMaster : MonoBehaviour {
         {
             case 1: nameOfBackground = "forest"; //TODO: get actual name
                 break;
-            case 2: nameOfBackground = "cave background"; //TODO: get actual name
+            case 2: nameOfBackground = "cave background"; 
                 break;
-            case 3: nameOfBackground = "graveyard"; //TODO: get actual name
+            case 3: nameOfBackground = "graveyard";
                 break;
         }
 
-        Debug.Log(tier);
+        //Debug.Log(tier);
         Sprite spr = Resources.Load<Sprite>(nameOfBackground);
 
 
