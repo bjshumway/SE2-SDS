@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -90,9 +88,10 @@
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
     <Compile Include="Assets\Scripts\Actors\Debuff.cs" />
     <Compile Include="Assets\Scripts\Actors\Follower.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Monster.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Reaper.cs" />
-    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\Scorpion.cs" />
     <Compile Include="Assets\Scripts\Actors\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\Actors\Player.cs" />
     <Compile Include="Assets\Scripts\Actors\Resource.cs" />
@@ -124,9 +123,9 @@
     <Compile Include="Assets\Scripts\UI\StatChange.cs" />
     <Compile Include="Assets\Scripts\UI\Statincrement.cs" />
     <Compile Include="Assets\Scripts\UI\TitleMenuScript.cs" />
+    <Compile Include="Assets\Scripts\ability_test.cs" />
     <Compile Include="Assets\ScrollbarEnabler.cs" />
     <Compile Include="Assets\ShowTextSortingLayerInEditor.cs" />
-    <Compile Include="Assets\ability_test.cs" />
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>
   <ItemGroup>
