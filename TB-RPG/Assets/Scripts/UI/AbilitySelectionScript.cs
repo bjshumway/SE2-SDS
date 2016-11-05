@@ -184,9 +184,9 @@ public class AbilitySelectionScript : MonoBehaviour
         }
 
         //Deactive all abilities that are not a part of this class
-        for(int i = 0; i < Ability.mageAbilities.Length && abs != Ability.mageAbilities; i++)
+        for(int i = 0; i < Ability.fighterAbilities.Length && abs != Ability.fighterAbilities; i++)
         {
-            Ability.mageAbilities[i].learnButton.SetActive(false);
+            Ability.fighterAbilities[i].learnButton.SetActive(false);
         }
 
         for (int i = 0; i < Ability.mageAbilities.Length && abs != Ability.mageAbilities; i++)
@@ -194,9 +194,9 @@ public class AbilitySelectionScript : MonoBehaviour
             Ability.mageAbilities[i].learnButton.SetActive(false);
         }
 
-        for (int i = 0; i < Ability.mageAbilities.Length && abs != Ability.mageAbilities; i++)
+        for (int i = 0; i < Ability.rogueAbilities.Length && abs != Ability.rogueAbilities; i++)
         {
-            Ability.mageAbilities[i].learnButton.SetActive(false);
+            Ability.rogueAbilities[i].learnButton.SetActive(false);
         }
 
 

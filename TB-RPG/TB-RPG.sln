@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TB-RPG.CSharp.Plugins", "TB-RPG.CSharp.Plugins.csproj", "{5597A59F-B2DA-B8EE-8E7B-02B4E0F67223}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TB-RPG.CSharp", "TB-RPG.CSharp.csproj", "{28DAC7DB-9347-FCF7-66EF-BB82F2F2B965}"
 EndProject
 Global
@@ -9,6 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5597A59F-B2DA-B8EE-8E7B-02B4E0F67223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5597A59F-B2DA-B8EE-8E7B-02B4E0F67223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5597A59F-B2DA-B8EE-8E7B-02B4E0F67223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5597A59F-B2DA-B8EE-8E7B-02B4E0F67223}.Release|Any CPU.Build.0 = Release|Any CPU
 		{28DAC7DB-9347-FCF7-66EF-BB82F2F2B965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{28DAC7DB-9347-FCF7-66EF-BB82F2F2B965}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28DAC7DB-9347-FCF7-66EF-BB82F2F2B965}.Release|Any CPU.ActiveCfg = Release|Any CPU

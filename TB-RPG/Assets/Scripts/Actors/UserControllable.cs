@@ -51,6 +51,10 @@ public abstract class UserControllable : Actor {
         this.id = id_increment;
         id_increment++;
 
+        remainingStatPoints = 10;
+        remainingResourcePoints = 1;
+
+
 
         GameObject battleObj = GameObject.Find("Battle UC " + id);
 
@@ -79,7 +83,7 @@ public abstract class UserControllable : Actor {
 
         //Setup damageText
         battleDamageText = battleObj.transform.FindChild("Battle UC " + id + " BattleDamage").gameObject;
-        battleDamageText.SetActive(true);
+        //battleDamageText.SetActive(true);
 
 
 

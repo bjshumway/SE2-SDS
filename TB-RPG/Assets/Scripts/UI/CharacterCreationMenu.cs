@@ -5,12 +5,19 @@ using UnityEngine.UI;
 
 public class CharacterCreationMenu : MonoBehaviour {
 
-    public static int currHeadNum;
-    public static int currHeadColorNum;
-    public static UserControllable currentUC;
+    private static int currHeadNum;
+    private static int currHeadColorNum;
+    private static UserControllable currentUC;
     private static bool fighterSelected;
     private static bool mageSelected;
     private static bool rogueSelected;
+
+    public GameObject newCharacterHasJoinedPopup;
+    public GameObject alreadySelectedClassPopup;
+
+    // s_Instance is used to cache the instance found in the scene so we don't have to look it up every time.
+    private static CharacterCreationMenu s_Instance = null;
+
 
     public void Start()
     {
@@ -33,39 +40,66 @@ public class CharacterCreationMenu : MonoBehaviour {
 
     //Switches the camera to this scene
     //Populates the Image and Name on the canvas so that we know which uC is here
-    public static void load(UserControllable uC)
+    public static void load(UserControllable uC, bool isFirstChar)
     {
+        GameObject.Find("NamePlayerInput").GetComponent<InputField>().text = uC.name;
         currentUC = uC;
         GameMaster.instance.switchCamera(1);
+
+        if (!isFirstChar)
+        {
+            instance.newCharacterHasJoinedPopup.SetActive(true);
+        }
+
+        //Randomize the character's initial look
+        System.Random r = new System.Random();
+        int headCycles = r.Next(0, 2);
+        int headColorCycles = r.Next(0, 3);
+
+
+        for (int i = 0; i < headCycles; i++)
+        {
+            instance.cycleBodyPart2("head right");
+        }
+        for (int i = 0; i < headColorCycles; i++)
+        {
+            instance.cycleBodyPartColor("head right");
+        }
+
+
     }
 
 
     //Cycles a body part, e.g. head, eyes, hair
+    //Forget about the "2" at the end of this name, it's for backwards compatibility.
     public void cycleBodyPart2(string bodyPartAndDirection)
     {
         string[] bodyPartAndDir = bodyPartAndDirection.Split();
         //Debug.Log(bodyPartAndDir[0]);
         //Debug.Log(bodyPartAndDir[1]);
         //Debug.Log("Inside cycleBodyPart");
+        if (bodyPartAndDir[0] == "head")
+        {
+            if (bodyPartAndDir[1] == "right")
+            {
+                currHeadNum++;
+            }
+            else
+            {
+                currHeadNum--;
+            }
 
-        if(bodyPartAndDir[1] == "right")
-        {
-            currHeadNum++;
-        }
-        else
-        {
-            currHeadNum--;
-        }
+            if (currHeadNum < 0)
+            {
+                currHeadNum = UserControllableLookConfig.instance.heads.Length - 1;
+            }
+            else if (currHeadNum > UserControllableLookConfig.instance.heads.Length - 1)
+            {
+                currHeadNum = 0;
+            }
 
-        if(currHeadNum < 0)
-        {
-            currHeadNum = UserControllableLookConfig.instance.heads.Length - 1;
-        } else if(currHeadNum > UserControllableLookConfig.instance.heads.Length -1)
-        {
-            currHeadNum = 0;
+            GameObject.Find("CharCreationHead").GetComponent<Image>().sprite = UserControllableLookConfig.instance.heads[currHeadNum];
         }
-
-        GameObject.Find("CharCreationHead").GetComponent<Image>().sprite = UserControllableLookConfig.instance.heads[currHeadNum];
     }
 
     //Cycles the color of a particular body part
@@ -75,30 +109,34 @@ public class CharacterCreationMenu : MonoBehaviour {
         //Debug.Log(bodyPartAndDir[0]);
         //Debug.Log(bodyPartAndDir[1]);
         //Debug.Log(UserControllableLookConfig.instance.colors.Length);
-        if (bodyPartAndDir[1] == "right")
+        if (bodyPartAndDir[0] == "head")
         {
-            currHeadColorNum++;
-        }
-        else
-        {
-            currHeadColorNum--;
-        }
 
-        if (currHeadColorNum < 0)
-        {
-            currHeadColorNum = UserControllableLookConfig.instance.colors.Length/4 - 1;
-        }
-        else if (currHeadColorNum > UserControllableLookConfig.instance.colors.Length/4 - 1)
-        {
-            currHeadColorNum = 0;
-        }
+            if (bodyPartAndDir[1] == "right")
+            {
+                currHeadColorNum++;
+            }
+            else
+            {
+                currHeadColorNum--;
+            }
 
-        Color32 newColor = new Color32((byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 0],
-                                                                                 (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 1],
-                                                                                 (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 2],
-                                                                                 (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 3]);
+            if (currHeadColorNum < 0)
+            {
+                currHeadColorNum = UserControllableLookConfig.instance.colors.Length / 4 - 1;
+            }
+            else if (currHeadColorNum > UserControllableLookConfig.instance.colors.Length / 4 - 1)
+            {
+                currHeadColorNum = 0;
+            }
 
-        GameObject.Find("CharCreationHead").GetComponent<Image>().color = newColor;
+            Color32 newColor = new Color32((byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 0],
+                                                                                     (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 1],
+                                                                                     (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 2],
+                                                                                     (byte)UserControllableLookConfig.instance.colors[currHeadColorNum, 3]);
+
+            GameObject.Find("CharCreationHead").GetComponent<Image>().color = newColor;
+        }
     }
 
     public void goToNextScene()
@@ -112,12 +150,10 @@ public class CharacterCreationMenu : MonoBehaviour {
         } else if (fighterSelected == true && classSelect.value == 1 ||
                    mageSelected == true && classSelect.value  == 2  ||
                    rogueSelected == true && classSelect.value == 3){
-            //The user selected a class that's already been selected.
-            //Todo: put up a message saying you must select a class first
+           (alreadySelectedClassPopup.GetComponent<DisableAfterShortWhile>()).showParentTemporarily(3);
             return;
         }
-
-
+        
         //Still here? Go ahead and set the userControllable's class, and look
         UserControllable uC = currentUC;
 
@@ -127,16 +163,22 @@ public class CharacterCreationMenu : MonoBehaviour {
                 uC.classType = UserControllable.classTypes.fighter;
                 fighterSelected = true;
                 uC.learnAbility(Ability.fighterAbilities[0]); //Learn Attack by Default
+                //Default weapon
+                uC.weapon = new MeleeWeapon("Rusty Sword", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
                 break;
             case 2:
                 uC.classType = UserControllable.classTypes.mage;
                 mageSelected = true;
                 uC.learnAbility(Ability.mageAbilities[0]); //Learn Arcane Destruction by Default
+                //Default mage weapon
+                uC.weapon = new MagicWeapon("Flimsy Wand", 10, false, 1, 1, Weapon.weaponClass.Magic, Weapon.weaponType.balanced, "Could break any day now.");
                 break;
             case 3:
                 uC.classType = UserControllable.classTypes.rogue; //Learn Bow Attack by default
                 rogueSelected = true;
                 uC.learnAbility(Ability.rogueAbilities[0]); //Learn Bow Attack by default
+                //Default rogue weapon
+                uC.weapon = new RangedWeapon("Weak Bow", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "Gets the job done.");
                 break;
         }
 
@@ -165,6 +207,43 @@ public class CharacterCreationMenu : MonoBehaviour {
         AbilitySelectionScript.load(uC);
 
 
+    }
+
+    //Handles clicking of "New Character has joined!"
+    public void disappearNewCharacterHasJoinedPopup()
+    {
+        instance.newCharacterHasJoinedPopup.SetActive(false);
+    }
+
+    // This defines a static instance property that attempts to find the manager object in the scene and
+    // returns it to the caller.
+    public static CharacterCreationMenu instance
+    {
+        get
+        {
+            if (s_Instance == null)
+            {
+                // This is where the magic happens.
+                //  FindObjectOfType(...) returns the first GameMaster object in the scene.
+                s_Instance = FindObjectOfType(typeof(CharacterCreationMenu)) as CharacterCreationMenu;
+            }
+
+            // If it is still null, create a new instance
+            if (s_Instance == null)
+            {
+                GameObject obj = new GameObject("GameMaster");
+                s_Instance = obj.AddComponent(typeof(CharacterCreationMenu)) as CharacterCreationMenu;
+                Debug.Log("Could not locate an GameMaster object. GameMaster was Generated Automaticly.");
+            }
+
+            return s_Instance;
+        }
+    }
+
+    // Ensure that the instance is destroyed when the game is stopped in the editor.
+    void OnApplicationQuit()
+    {
+        s_Instance = null;
     }
 
 }

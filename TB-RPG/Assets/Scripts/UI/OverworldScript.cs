@@ -25,4 +25,11 @@ public class OverworldScript : MonoBehaviour {
     {
         GameMaster.instance.switchCamera(6);
     }
+    
+    //Used to test a new part member joining
+    //Calls thePlayer.addPartyMember
+    public void testNewPartyMemberJoining()
+    {
+        GameMaster.instance.thePlayer.addPartyMember();
+    }
 }

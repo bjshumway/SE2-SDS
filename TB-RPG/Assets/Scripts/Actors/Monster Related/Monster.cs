@@ -64,9 +64,6 @@ public class Monster : Actor {
         battleStatusEffectText = GameObject.Find("Monster StatusEffectText");
         battleStatusEffectText.name = "Monster " + id + " StatusEffectText";
 
-        //Setup battleStatusEffectBackground
-        battleStatusEffectBackground = GameObject.Find("Monster StatusEffectBackground");
-        battleStatusEffectBackground.SetActive(false);
 
         //Set battleDamageText to inactive so that it doesn't show up on the screen.
         //We needed it to be active initially so that we could find it with GameObject.find
@@ -116,7 +113,7 @@ public class Monster : Actor {
                 switch (monsterIndex)
                 {
                     case 0:
-                        return new Reaper();
+                        return new DemonSkull();
                 }
                 break;
         }

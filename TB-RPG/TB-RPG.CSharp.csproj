@@ -63,12 +63,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="TB-RPG.CSharp.Plugins.csproj">
+      <Project>{5597A59F-B2DA-B8EE-8E7B-02B4E0F67223}</Project>
+      <Name>TB-RPG.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
     <Compile Include="Assets\BattleSummary.cs" />
     <Compile Include="Assets\Combat.cs" />
+    <Compile Include="Assets\DamageFloatUpward.cs" />
+    <Compile Include="Assets\DisableAfterShortWhile.cs" />
     <Compile Include="Assets\EnemyHP.cs" />
     <Compile Include="Assets\GameOverScript.cs" />
     <Compile Include="Assets\HeathControl.cs" />
+    <Compile Include="Assets\HughShift.cs" />
     <Compile Include="Assets\MenuScript.cs" />
     <Compile Include="Assets\MonsterClick.cs" />
     <Compile Include="Assets\SaveScriptsOnStartup.cs" />

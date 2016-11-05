@@ -12,11 +12,12 @@ public class DemonSkull : Monster {
                0,        //hit accuracy
                null,     //title
                 new Resource[] {
-                    new Resource(15), //health
-                    new Resource(100) //stamina
+                    new Resource(15, 1), //health
+                    new Resource(100, 1) //stamina
                 },
                 new int[] { 0, 0, 1, 0, 0 }) //charisma, cunning, dexterity, intelligence, strength
     {
+
         //Setup
         abilities = new Ability[] { new MonsterAttack(this) };
 

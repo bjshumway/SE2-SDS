@@ -29,6 +29,9 @@ public class Actor {
     public GameObject battleStatusEffectText;
     public GameObject battleStatusEffectBackground;
 
+    private System.Random rand = new System.Random();
+
+
     #endregion
 
     #region Public Vars
@@ -107,9 +110,11 @@ public class Actor {
             stamina = resources[1];
         } else { // h/m/s not specified - go by this formula
             int resourceModifier = 10 * level; // no idea if this formula will be good
-            health  = new Resource(resourceModifier);
-            stamina = new Resource(100); //Stamina should alway max out at 100.
+            health  = new Resource(resourceModifier, 0);
+            stamina = new Resource(100, level * 2); //Stamina should alway max out at 100.
         }
+        health.owner = this;
+        stamina.owner = this;
 
         // setting up the default stats
         stats.Add("strength",  new Stat(1, 0));
@@ -129,8 +134,10 @@ public class Actor {
     // Simple constructor (used primarilly by userControllables)
     public Actor() {
         decimal resourceModifier = 10; // no idea if this formula will be good
-        health = new Resource(resourceModifier, -1);
-        stamina = new Resource(100,-1);
+        health = new Resource(resourceModifier, 0);
+        stamina = new Resource(100, 1);
+        health.owner = this;
+        stamina.owner = this;
 
         this.weakness = Ability.damageType.none;
 
@@ -305,6 +312,7 @@ public class Actor {
                 damageAmount *= 3;
             }
 
+            showHitResult(damageAmount, ht);
             health.subtract(damageAmount); // ouch
 
             if (health.value == 0) {
@@ -322,7 +330,35 @@ public class Actor {
             return ht;
         }
 
+        showHitResult(-1, hitType.miss);
         return hitType.miss; // dodged
+    }
+
+    //Shows how much health was lost after taking damage
+    public void showHitResult(decimal damageAmount, hitType ht)
+    {
+        GameObject dmgText = (GameObject) GameObject.Instantiate(battleDamageText, battleDamageText.transform, true);
+
+        if (ht == hitType.miss)
+        {
+            dmgText.GetComponent<Text>().text = "MISS!";
+        }
+        else if(ht == hitType.crit)
+        {
+            dmgText.GetComponent<Text>().text = "" + damageAmount +  " CRIT!";
+        } else
+        {
+            dmgText.GetComponent<Text>().text = "" + damageAmount;
+        }
+
+        dmgText.name = "BattleDamage " + rand.Next();
+        dmgText.transform.SetParent(GameObject.Find("BattleCanvas").transform);
+        DamageFloatUpward d = dmgText.GetComponent<DamageFloatUpward>();
+        
+
+        if (d != null) {
+            d.floatUpThenDisappear(dmgText.name);
+        }
     }
 
     /// <summary>

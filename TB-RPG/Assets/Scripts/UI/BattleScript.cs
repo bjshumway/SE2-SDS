@@ -15,9 +15,9 @@ public class BattleScript : MonoBehaviour {
 
     public System.Random random;
 
-    public bool justRecentlyDisabledAbilities;
 
-    public GameObject AbilitiesInBattleFogger;
+    public GameObject ActiveUCFrame;
+
 
     public GameObject victoryText;
     public GameObject VictoryPanel;
@@ -44,7 +44,6 @@ public class BattleScript : MonoBehaviour {
         GameObject.Find("Battle UC 2 HeadType").GetComponent<Image>().enabled = false;
         GameObject.Find("Battle UC 2 HealthBar").SetActive(false);
         GameObject.Find("Battle UC 2 StaminaBar").SetActive(false);
-        GameObject.Find("Battle UC 2 StatusEffectBackground").SetActive(false);
         GameObject.Find("Battle UC 2 BattleDamageText").SetActive(false);
         GameObject.Find("Battle UC 2 StatusEffectText").SetActive(false);
 
@@ -52,7 +51,6 @@ public class BattleScript : MonoBehaviour {
         GameObject.Find("Battle UC 3 HeadType").GetComponent<Image>().enabled = false;
         GameObject.Find("Battle UC 3 HealthBar").SetActive(false);
         GameObject.Find("Battle UC 3 StaminaBar").SetActive(false);
-        GameObject.Find("Battle UC 3 StatusEffectBackground").SetActive(false);
         GameObject.Find("Battle UC 3 BattleDamageText").SetActive(false);
         GameObject.Find("Battle UC 3 StatusEffectText").SetActive(false);
 
@@ -148,7 +146,11 @@ public class BattleScript : MonoBehaviour {
         {
             for (int i = 0; i < activeCharacter.abilities.abilities.Length; i++)
             {
-                activeCharacter.abilities.abilities[i].currentAbSlot = null;
+                Ability ab = activeCharacter.abilities.abilities[i];
+                if (ab != null)
+                {
+                    ab.currentAbSlot = null;
+                }
             }
         }
 
@@ -166,8 +168,15 @@ public class BattleScript : MonoBehaviour {
                 ab.currentAbSlot = abilityButtons[i];
                 GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = ab.name;
                 GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "" + ab.stamina;
+            } else
+            {
+                GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = "EmptySlot";
+                GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "";
             }
         }
+
+        //Place the ActiveUCFrame behind this guy's image
+        ActiveUCFrame.transform.localPosition = activeCharacter.battleHead.transform.localPosition;
 
     }
 
@@ -186,7 +195,7 @@ public class BattleScript : MonoBehaviour {
 
         int abNum = int.Parse(arg.Split()[1]);
         Ability ab = activeCharacter.abilities.abilities[abNum];
-        if(ab != null && (activeCharacter.stamina.value == 100) || (ab.stamina == 0))
+        if(ab != null && ((activeCharacter.stamina.value == 100) || (ab.stamina == 0)))
         {
             ab.cast();
         }
@@ -282,30 +291,27 @@ public class BattleScript : MonoBehaviour {
     }
 
     //If active usercontrollable doesn't have 100 stamina, foggify the ability button by shading it
+    //Exception being sword flurry
     public void handleFoggifyAbilityButtons()
     {
-        if (activeCharacter.stamina.value != 100 && justRecentlyDisabledAbilities == false)
+        if (activeCharacter.stamina.value != 100)
         {
-            justRecentlyDisabledAbilities = true;
-
             for (int i = 1; i < 5; i++)
             {
-                if (GameObject.Find("AbSlot" + i + "_Cost").GetComponent<Text>().text == "0")
-                {
-                    continue;
-                }
                 GameObject go = GameObject.Find("AbSlot" + i);
                 Button b = go.GetComponent<Button>();
+
+                if (GameObject.Find("AbSlot" + i + "_Cost").GetComponent<Text>().text == "0")
+                {
+                    b.interactable = true;
+                    continue;
+                }
                 b.interactable = false;
-                //Image img = go.GetComponent<Image>();
-                //img.color = new Color32(200, 200, 200, 255);
 
             }
         }
-        else if (activeCharacter.stamina.value == 100 && justRecentlyDisabledAbilities == true)
+        else if (activeCharacter.stamina.value == 100)
         {
-            justRecentlyDisabledAbilities = false;
-
             for (int i = 1; i < 5; i++)
             {
                 GameObject go = GameObject.Find("AbSlot" + i);
@@ -322,12 +328,21 @@ public class BattleScript : MonoBehaviour {
         //update each player's stamina
         for (int i = 0; i < uCArr.Length; i++)
         {
-            if (uCArr[i] != null && uCArr[i].isAlive)
+            if(uCArr[i] == null) {
+                continue;
+            }
+            if (uCArr[i].isAlive)
             {
                 Resource stamina = uCArr[i].stamina;
                 stamina.add((decimal)((float)uCArr[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10));
             }
+            if (uCArr[i].stamina.value == 100 && activeCharacter.stamina.value != 100)
+            {
+                setActiveUC("UserControllable " + (uCArr[i].id - 1));
+            }
+
         }
+
 
     }
 
