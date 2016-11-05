@@ -13,7 +13,7 @@ public class Pin : SingleTargetAbility
     }
 
     public Pin(Actor Owner) : base("PIN", "Pins The Enemy in Place - No Longer Can Dodge",
-        "strength", 0.0m, 25, false, Owner, damageType.melee)
+        "strength", 0.0m, 100, false, Owner, damageType.melee)
     {
 
     }

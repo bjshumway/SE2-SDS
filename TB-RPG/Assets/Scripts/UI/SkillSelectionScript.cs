@@ -74,19 +74,21 @@ public class SkillSelectionScript : MonoBehaviour {
     {
         if (resourceTotal < resourceMax && health > currentUC.health.maxValue)
         {
-            resourceTotal--;
+            resourceTotal++;
             health--;
             //Debug.Log("statTotal:" + statTotal + "strength" + strength);
+            Debug.Log("healthDecrease");
         }
 
     }
     public void StaminaDec()
     {
-        if (resourceTotal < resourceMax && stamina > currentUC.stamina.maxValue)
+        if (resourceTotal < resourceMax && stamina > currentUC.stamina.refreshSpeed)
         {
-            resourceTotal--;
+            resourceTotal++;
             stamina--;
             //Debug.Log("statTotal:" + statTotal + "strength" + strength);
+            Debug.Log("staminaDecrease");
         }
     }
 

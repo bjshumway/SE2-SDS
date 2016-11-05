@@ -7,7 +7,7 @@
     }
 
     public Heal(Actor Owner) : base("Heal", "Heals based on Intellect",
-        "intellect", 1.0m, 50, false, Owner, damageType.none) {
+        "intellect", 1.0m, 100, false, Owner, damageType.none) {
 
     }
 

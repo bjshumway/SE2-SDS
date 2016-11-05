@@ -8,7 +8,7 @@ public class DemonSkull : Monster {
         : base("DemonSkull", //Name of Monster
                "demonSkull", //Name of Monster's Prefab
                1,        //level
-               2,        //difficulty in level
+               1,        //difficulty in level
                0,        //hit accuracy
                null,     //title
                 new Resource[] {

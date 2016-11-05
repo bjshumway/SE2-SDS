@@ -12,7 +12,7 @@ public class ArcaneDestruction : SingleTargetAbility {
     }
 
     public ArcaneDestruction(Actor Owner) : base("Arcane Destruction", "Deals 100% of the selected damage type",
-        "intellect", 1.0m, 75, false, Owner, damageType.fire) {
+        "intellect", 1.0m, 100, false, Owner, damageType.fire) {
         ADSelectionButton.SetActive(false);
         //value
         //ADSelectionButton

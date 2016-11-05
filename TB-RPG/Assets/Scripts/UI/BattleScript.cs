@@ -44,14 +44,14 @@ public class BattleScript : MonoBehaviour {
         GameObject.Find("Battle UC 2 HeadType").GetComponent<Image>().enabled = false;
         GameObject.Find("Battle UC 2 HealthBar").SetActive(false);
         GameObject.Find("Battle UC 2 StaminaBar").SetActive(false);
-        GameObject.Find("Battle UC 2 BattleDamageText").SetActive(false);
+        GameObject.Find("Battle UC 2 BattleDamage").SetActive(false);
         GameObject.Find("Battle UC 2 StatusEffectText").SetActive(false);
 
 
         GameObject.Find("Battle UC 3 HeadType").GetComponent<Image>().enabled = false;
         GameObject.Find("Battle UC 3 HealthBar").SetActive(false);
         GameObject.Find("Battle UC 3 StaminaBar").SetActive(false);
-        GameObject.Find("Battle UC 3 BattleDamageText").SetActive(false);
+        GameObject.Find("Battle UC 3 BattleDamage").SetActive(false);
         GameObject.Find("Battle UC 3 StatusEffectText").SetActive(false);
 
     }
@@ -353,7 +353,7 @@ public class BattleScript : MonoBehaviour {
             if (monsters[i] != null && monsters[i].isAlive)
             {
                 Resource stamina = monsters[i].stamina;
-                stamina.add((decimal)((float)monsters[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10));
+                stamina.add((decimal)((float)monsters[i].stamina.refreshSpeed * Time.smoothDeltaTime * 10));
             }
         }
     }

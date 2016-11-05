@@ -11,7 +11,7 @@ public class SwordFlurry : SingleTargetAbility
     }
 
     public SwordFlurry(Actor Owner) : base("Sword Flurry", "Deals 5% Damage",
-        "strength", .05m, 0, false, Owner, damageType.melee)
+        "strength", .05m, 5, false, Owner, damageType.melee)
     {
 
     }
