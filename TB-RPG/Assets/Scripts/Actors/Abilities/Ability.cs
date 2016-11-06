@@ -10,6 +10,7 @@ public abstract class Ability {
     private decimal _stamina;
 
     public Actor owner;
+    public Text BattleHints;
 
     public GameObject learnButton;
     public Sprite buttonSprite;
@@ -100,6 +101,8 @@ public abstract class Ability {
         //Set the text for this image to this button's name
         learnButton.GetComponentInChildren<Text>().text = name;
 
+        //Initialize battlehints to its gameComponent
+        BattleHints = GameObject.Find("BattleHints").GetComponentInChildren<Text>();
 
 
 

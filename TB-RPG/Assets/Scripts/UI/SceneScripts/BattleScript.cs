@@ -71,16 +71,16 @@ public class BattleScript : MonoBehaviour {
         switch(monsters.Length)
         {
             case 1:
-                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-1, 180, 0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(0, 180, 0);
                 break;
             case 2:
-                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-128, 180, 0);
+                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-168, 180, 0);
                 monsters[1].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(168, 180, 100);
                 break;
             case 3:
-                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-330, 180, 0);
                 monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(0, 180, 0);
-                monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(330, 180, 0);
+                monsters[1].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(296, 180, 0);
+                monsters[2].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-296, 180, 0);
                 break;
             case 4:
                 monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(-345, 180, 0);

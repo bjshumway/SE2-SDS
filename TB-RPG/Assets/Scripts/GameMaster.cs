@@ -13,7 +13,6 @@ public class GameMaster : MonoBehaviour {
     private static GameMaster s_Instance = null;
 
     public Player thePlayer;
-    public Map theMap;
 
     public Texture2D cursor1;
     public Texture2D cursor2;

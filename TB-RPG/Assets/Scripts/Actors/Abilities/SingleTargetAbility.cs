@@ -40,19 +40,21 @@ public abstract class SingleTargetAbility : Ability {
     //e.g. "Monster 1" or "UserControllable 2" or "AbilityBar 1"
     public void selectEnemy(string arg) {
 
-        Debug.Log("Ran in SelectEnemy, arg: " + arg);
         
         //   check to see what was clicked on is a monster
         //   if it's not a monster do nothing
         string[] args = arg.Split();
 
-        if (args[0] != "Monster") {
+        if (args[0] != "Monster" && args[0] != "UserControllable") {
             return;
         } else {
             BattleScript bs = BattleScript.instance;
             Monster m = bs.monsters[int.Parse(args[1]) -1];
             dealEffect(m);
             bs.pipeInputFunc = null;
+
+            BattleHints.text = "";
+
             //Uncomment below if we want to change the mouse back to regular
             //Cursor.SetCursor(GameMaster.instance.cursor1, new Vector2(0, 0), CursorMode.Auto);
         }
@@ -82,6 +84,9 @@ public abstract class SingleTargetAbility : Ability {
                 //I tried changing the mouse icon, but couldn't find one I liked. - Ben
                 //Cursor.SetCursor(GameMaster.instance.cursor2, new Vector2(0, 0), CursorMode.Auto);
                 bs.pipeInputFunc = this.selectEnemy;
+
+                //Tell the user to select a target
+                BattleHints.text = "Select Target";
                 return;
             } else
             {

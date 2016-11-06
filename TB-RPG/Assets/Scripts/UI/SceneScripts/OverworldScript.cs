@@ -5,8 +5,6 @@ public class OverworldScript : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        Map.tier = 1;
-        //Map.generateMapByLevel();
 
     }
 
@@ -14,7 +12,9 @@ public class OverworldScript : MonoBehaviour {
     //generates Monsters in combat based on the LevelSpecs class
     public void startBattle()
     {
-        Monster[] monsters = Monster.genMonstersByLevel(Map.tier);
+        Monster[] monsters = Monster.genMonstersByLevel(Tier.tier, Tier.difficulty);
+        Tier.numBattlesInTier++;
+
         BattleScript.instance.beginCombat(monsters);
         GameMaster.instance.switchCamera(5);
         //Debug.Log(BattleScript.instance.monsters.Length);

@@ -16,6 +16,13 @@ public class Actor {
     private bool _isAlive = true;
     private int  _level = 1;
 
+    private System.Random rand = new System.Random();
+
+
+    #endregion
+
+    #region Public Vars
+
     public List<Ability> passiveAbilities = new List<Ability>();
 
     public int id; //unique across all monsters and actors
@@ -29,12 +36,6 @@ public class Actor {
     public GameObject battleStatusEffectText;
     public GameObject battleStatusEffectBackground;
 
-    private System.Random rand = new System.Random();
-
-
-    #endregion
-
-    #region Public Vars
 
     public enum hitType {
         hit,
@@ -351,13 +352,12 @@ public class Actor {
             dmgText.GetComponent<Text>().text = "" + damageAmount;
         }
 
-        dmgText.name = "BattleDamage " + rand.Next();
         dmgText.transform.SetParent(GameObject.Find("BattleCanvas").transform);
         DamageFloatUpward d = dmgText.GetComponent<DamageFloatUpward>();
-        
+        dmgText.SetActive(true);
 
         if (d != null) {
-            d.floatUpThenDisappear(dmgText.name);
+            d.floatUpThenDisappear(dmgText);
         }
     }
 

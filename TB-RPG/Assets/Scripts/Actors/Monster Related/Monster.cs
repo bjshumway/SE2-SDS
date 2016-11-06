@@ -126,18 +126,18 @@ public class Monster : Actor {
 
 
 
-    //Randomly creates 1 to 4 Monsters that correspond to the mapLevel
-    //Their combined difficultyInLevel should be 4
-    public static Monster[] genMonstersByLevel(int mapTier)
+    //Randomly creates 1 to 3 Monsters that correspond to the mapLevel
+    //Their combined difficultyInLevel should be equal to numFightsInTier
+    public static Monster[] genMonstersByLevel(int mapTier, int difficulty)
     {
         //Debug.Log("Inside genMonstersByLevel");
         int sumDifficulty = 0;
 
         List<Monster> monsters = new List<Monster>();
-        while (sumDifficulty != 4)
+        while (sumDifficulty != difficulty)
         {
             Monster m = getRandomMonsterByLevel(mapTier);
-            if ((sumDifficulty + m.difficultyInLevel) <= 4)
+            if ((sumDifficulty + m.difficultyInLevel) <= difficulty)
             {
                 sumDifficulty += m.difficultyInLevel;
                 monsters.Add(m);

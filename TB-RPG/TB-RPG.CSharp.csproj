@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -72,15 +74,9 @@
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
     <Compile Include="Assets\BattleSummary.cs" />
     <Compile Include="Assets\Combat.cs" />
-    <Compile Include="Assets\DamageFloatUpward.cs" />
-    <Compile Include="Assets\DisableAfterShortWhile.cs" />
     <Compile Include="Assets\EnemyHP.cs" />
-    <Compile Include="Assets\GameOverScript.cs" />
     <Compile Include="Assets\HeathControl.cs" />
     <Compile Include="Assets\HughShift.cs" />
-    <Compile Include="Assets\MenuScript.cs" />
-    <Compile Include="Assets\MonsterClick.cs" />
-    <Compile Include="Assets\SaveScriptsOnStartup.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\AbilityBar.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\MonsterAbilities\MonsterAttack.cs" />
@@ -118,23 +114,23 @@
     <Compile Include="Assets\Scripts\Items\MeleeWeapon.cs" />
     <Compile Include="Assets\Scripts\Items\RangedWeapon.cs" />
     <Compile Include="Assets\Scripts\Items\Weapon.cs" />
-    <Compile Include="Assets\Scripts\Rooms and Map\BattleRoom.cs" />
-    <Compile Include="Assets\Scripts\Rooms and Map\LevelSpecs.cs" />
-    <Compile Include="Assets\Scripts\Rooms and Map\Map.cs" />
-    <Compile Include="Assets\Scripts\Rooms and Map\Room.cs" />
-    <Compile Include="Assets\Scripts\UI\AbilitySelectionScript.cs" />
+    <Compile Include="Assets\Scripts\Map\Teir.cs" />
     <Compile Include="Assets\Scripts\UI\AbilityTextScript.cs" />
-    <Compile Include="Assets\Scripts\UI\BattleScript.cs" />
-    <Compile Include="Assets\Scripts\UI\CharacterCreationMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\OverworldScript.cs" />
+    <Compile Include="Assets\Scripts\UI\DamageFloatUpward.cs" />
+    <Compile Include="Assets\Scripts\UI\DisableAfterShortWhile.cs" />
+    <Compile Include="Assets\Scripts\UI\GameOverScript.cs" />
+    <Compile Include="Assets\Scripts\UI\MonsterClick.cs" />
     <Compile Include="Assets\Scripts\UI\ResourceChange.cs" />
-    <Compile Include="Assets\Scripts\UI\SkillSelectionScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\AbilitySelectionScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\BattleScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\CharacterCreationMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\OverworldScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\SkillSelectionScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\TitleMenuScript.cs" />
+    <Compile Include="Assets\Scripts\UI\ScrollbarEnabler.cs" />
     <Compile Include="Assets\Scripts\UI\StatChange.cs" />
     <Compile Include="Assets\Scripts\UI\Statincrement.cs" />
-    <Compile Include="Assets\Scripts\UI\TitleMenuScript.cs" />
     <Compile Include="Assets\Scripts\ability_test.cs" />
-    <Compile Include="Assets\ScrollbarEnabler.cs" />
-    <Compile Include="Assets\ShowTextSortingLayerInEditor.cs" />
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -17,7 +17,7 @@ public class MonsterClick : MonoBehaviour {
 
     void OnMouseDown()
     {
-        Debug.Log("Mouse down for monster with id " + id);
+        //Debug.Log("Mouse down for monster with id " + id);
         BattleScript.instance.monsterClick("Monster " + id);
     }
 }
