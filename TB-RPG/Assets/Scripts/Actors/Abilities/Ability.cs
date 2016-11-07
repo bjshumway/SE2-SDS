@@ -36,7 +36,10 @@ public abstract class Ability {
     public static Ability[] mageAbilities = new Ability[]
     {
         new ArcaneDestruction(null),
-        new Heal(null)
+        new Heal(null),
+        new Regen(null),
+        new Wither(null),
+        new Poison(null)
     };
 
     public static Ability[] rogueAbilities = new Ability[]

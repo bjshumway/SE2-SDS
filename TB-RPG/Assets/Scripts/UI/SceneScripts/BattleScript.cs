@@ -333,6 +333,10 @@ public class BattleScript : MonoBehaviour {
         for (int i = 0; i < monsters.Length; i++) {
             if (monsters[i] != null && monsters[i].isAlive && monsters[i].statusEffects["poison"]) {
                 monsters[i].health.subtract(monsters[i].health.maxValue * (decimal)Time.smoothDeltaTime * 0.01m);
+
+                if (monsters[i].health.value <= 0) {
+                    monsters[i].kill();
+                }
             }
         }
     }
