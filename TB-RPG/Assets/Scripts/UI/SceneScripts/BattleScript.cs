@@ -92,6 +92,8 @@ public class BattleScript : MonoBehaviour {
 
         //Testing stats
         //GameMaster.instance.thePlayer.stats["cunning"].setLevel(100);
+        //GameMaster.instance.thePlayer.abilities.setAbility(new Regen(GameMaster.instance.thePlayer), 0);
+
 
         //Party members stamina starts at full
         UserControllable[] theParty = GameMaster.instance.thePlayer.theParty;
@@ -256,6 +258,9 @@ public class BattleScript : MonoBehaviour {
 
         updateUserControllablesStamina();
 
+        // logic for Regen ability
+        regen();
+
         //update each monster's stamina
         updateMonstersStamina();
 
@@ -317,6 +322,20 @@ public class BattleScript : MonoBehaviour {
                 GameObject go = GameObject.Find("AbSlot" + i);
                 Button b = go.GetComponent<Button>();
                 b.interactable = true;
+            }
+        }
+    }
+
+    public void regen() {
+        UserControllable[] uCArr = GameMaster.instance.thePlayer.theParty;
+
+        for (int i = 0; i < uCArr.Length; i++) {
+            if (uCArr[i] == null) {
+                continue;
+            }
+
+            if (uCArr[i].hasPassive("Regen") && uCArr[i].isAlive) {
+                uCArr[i].health.add(uCArr[i].health.maxValue * (decimal)Time.smoothDeltaTime * 0.01m);
             }
         }
     }
