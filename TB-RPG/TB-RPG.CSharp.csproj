@@ -97,8 +97,10 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Heal.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\LastChance.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Pin.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Poison.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Regen.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SwordFlurry.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Wither.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
     <Compile Include="Assets\Scripts\Actors\Debuff.cs" />

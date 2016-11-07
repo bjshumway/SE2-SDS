@@ -163,7 +163,7 @@ public class Actor {
         statusEffects.Add("shield", false);
         statusEffects.Add("regen", false);
         statusEffects.Add("confuse", false);
-        statusEffects.Add("slow", false);
+        statusEffects.Add("wither", false);
         statusEffects.Add("poison", false);
         statusEffects.Add("float", false);
     }

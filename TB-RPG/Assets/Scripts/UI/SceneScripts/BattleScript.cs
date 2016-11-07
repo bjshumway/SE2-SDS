@@ -261,6 +261,9 @@ public class BattleScript : MonoBehaviour {
         // logic for Regen ability
         regen();
 
+        // logic for poisoning poisoned monsters
+        poison();
+
         //update each monster's stamina
         updateMonstersStamina();
 
@@ -326,6 +329,14 @@ public class BattleScript : MonoBehaviour {
         }
     }
 
+    public void poison() {
+        for (int i = 0; i < monsters.Length; i++) {
+            if (monsters[i] != null && monsters[i].isAlive && monsters[i].statusEffects["poison"]) {
+                monsters[i].health.subtract(monsters[i].health.maxValue * (decimal)Time.smoothDeltaTime * 0.01m);
+            }
+        }
+    }
+
     public void regen() {
         UserControllable[] uCArr = GameMaster.instance.thePlayer.theParty;
 
@@ -372,7 +383,10 @@ public class BattleScript : MonoBehaviour {
             if (monsters[i] != null && monsters[i].isAlive)
             {
                 Resource stamina = monsters[i].stamina;
-                stamina.add((decimal)((float)monsters[i].stamina.refreshSpeed * Time.smoothDeltaTime * 10));
+                
+                // If they have wither, we don't want to regen as much stamina
+                int valToAdd = (monsters[i].statusEffects["wither"]) ? 7 : 10;
+                stamina.add((decimal)((float)monsters[i].stamina.refreshSpeed * Time.smoothDeltaTime * valToAdd));
             }
         }
     }
