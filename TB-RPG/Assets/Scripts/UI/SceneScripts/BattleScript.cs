@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using System;
 
+
+
 public class BattleScript : MonoBehaviour {
     public bool combatOcurring;
     public bool isPaused;
@@ -170,7 +172,8 @@ public class BattleScript : MonoBehaviour {
                 ab.currentAbSlot = abilityButtons[i];
                 GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = ab.name;
                 GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "" + ab.stamina;
-            } else
+		ab.onLoad();            
+	    } else
             {
                 GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = "EmptySlot";
                 GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "";
@@ -247,11 +250,19 @@ public class BattleScript : MonoBehaviour {
     // Update is called once per frame
     //TODO: simplify update by placing each block of code into it's own function, and call them from update. 
     void Update () {
-        if (!this.combatOcurring || this.isPaused)
+
+        if (!this.combatOcurring)
             return;
 
-        //Handle KeyPresses
+        //Handle KeyPresses - we still want to take input because BowAttack pauses the game during aiming
+        //We need the keypress to tell when the user attempts to take the shot.
         handleKeyPresses();
+
+        //Do nothing if the game is paused
+        if (this.isPaused)
+            return; 
+
+
 
         //If active usercontrollable doesn't have 100 stamina, foggify the ability button by shading it
         handleFoggifyAbilityButtons();
@@ -277,7 +288,15 @@ public class BattleScript : MonoBehaviour {
     //Handles keypresses in battle, e.g. ability or switching between uC's
     public void handleKeyPresses()
     {
-        if (Input.GetKeyDown("q"))
+  	    if(pipeInputFunc != null && Input.GetKeyDown("q"))
+        {
+            pipeInputFunc("Keypress q");
+        }
+        else if(isPaused)
+        {
+            //Do nothing
+        }
+        else if (Input.GetKeyDown("q"))
         {
             GameObject.Find("AbSlot1").GetComponent<Button>().onClick.Invoke();
         } else if(Input.GetKeyDown("w"))
@@ -370,7 +389,10 @@ public class BattleScript : MonoBehaviour {
                 Resource stamina = uCArr[i].stamina;
                 stamina.add((decimal)((float)uCArr[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10));
             }
-            if (uCArr[i].stamina.value == 100 && activeCharacter.stamina.value != 100)
+
+            //Switch to this character if it's the only one that can do anything
+            //AND pipeIntoFunc isn't being used (i.e. no ability is in the middle of its shenanigans)
+            if (uCArr[i].stamina.value == 100 && activeCharacter.stamina.value != 100 && pipeInputFunc == null)
             {
                 setActiveUC("UserControllable " + (uCArr[i].id - 1));
             }

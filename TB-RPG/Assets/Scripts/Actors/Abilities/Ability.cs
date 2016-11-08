@@ -44,7 +44,7 @@ public abstract class Ability {
 
     public static Ability[] rogueAbilities = new Ability[]
     {
-
+	new BowAttack(null)
     };
 
     public bool isPassive;
@@ -125,4 +125,19 @@ public abstract class Ability {
     {
 
     }
+
+    //Called in BattleScript when this ability is loaded into the abilitySlot
+    //Meant to be overridden by any child ability that wants to do anything meaningfully with it.
+    public virtual void onLoad()
+    {
+
+    }
+
+    //Called in BattleScript when this ability is unloaded
+    //Meant to be overridden by any child ability that wants to do anything meaningfully with it.
+    public virtual void onUnload()
+    {
+
+    }
+
 }

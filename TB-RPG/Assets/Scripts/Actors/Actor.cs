@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -279,7 +280,8 @@ public class Actor {
     /// <param name="damageAmount">amount to damage</param>
     /// <param name="damager">Actor who is dealing the damage</param>
     /// <returns>hitType.hit, hitType.crit, or hitType.miss</returns>
-    public hitType damage(decimal damageAmount, Actor damager,  Ability.damageType damageType) {
+    /// autoHit always hits if its set to true (used in bowAttack)
+    public hitType damage(decimal damageAmount, Actor damager,  Ability.damageType damageType, bool autoHit = false) {
         System.Random ran = new System.Random();
         hitType ht;
 
@@ -298,7 +300,7 @@ public class Actor {
             dodgeRoll = dodgeRoll + ((Monster)damager).hitAccuracy * .05m / 100m;
         }
 
-        if ((stats["cunning"].modifier) < dodgeRoll || statusEffects["pin"]) {
+        if ((stats["cunning"].modifier) < dodgeRoll || statusEffects["pin"] || autoHit) {
             ht = hitType.hit;
             decimal critRoll = (ran.Next(0, 100) / 100m);
 
@@ -339,6 +341,8 @@ public class Actor {
     public void showHitResult(decimal damageAmount, hitType ht)
     {
         GameObject dmgText = (GameObject) GameObject.Instantiate(battleDamageText, battleDamageText.transform, true);
+        
+        string formattedDmg = damageAmount.ToString("######.##");
 
         if (ht == hitType.miss)
         {
@@ -346,10 +350,10 @@ public class Actor {
         }
         else if(ht == hitType.crit)
         {
-            dmgText.GetComponent<Text>().text = "" + damageAmount +  " CRIT!";
+            dmgText.GetComponent<Text>().text = "" + formattedDmg +  " CRIT!";
         } else
         {
-            dmgText.GetComponent<Text>().text = "" + damageAmount;
+            dmgText.GetComponent<Text>().text = "" + formattedDmg;
         }
 
         dmgText.transform.SetParent(GameObject.Find("BattleCanvas").transform);
