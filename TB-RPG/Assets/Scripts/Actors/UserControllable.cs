@@ -54,7 +54,7 @@ public abstract class UserControllable : Actor {
         remainingStatPoints = 10;
         remainingResourcePoints = 1;
 
-
+        learnAbility(new ItemAbility(this));
 
         GameObject battleObj = GameObject.Find("Battle UC " + id);
 
@@ -106,7 +106,11 @@ public abstract class UserControllable : Actor {
         ab.owner = this;
         ab.isLearned = true;
 
-        if (!ab.isPassive)
+        if(ab.name == "ITEM")
+        {
+            abilities.itemAbility = ab;
+        }
+        else if (!ab.isPassive)
         {
             Ability[] abs = this.abilities.abilities;
             for (int i = 0; i < abs.Length; i++)
@@ -120,6 +124,10 @@ public abstract class UserControllable : Actor {
         } else
         {
             passiveAbilities.Add(ab);
+            if(ab.name == "HandyMan")
+            {
+                abilities.itemAbility.stamina = 5;
+            }
         }
         Text t = ab.learnButton.GetComponentInChildren<Text>();
         t.text= ab.name + "\n" + "(LEARNED)";

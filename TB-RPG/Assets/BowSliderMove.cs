@@ -16,7 +16,17 @@ public class BowSliderMove : MonoBehaviour {
 	void Update () {
         if (isActive)
         {
-            gameObject.GetComponent<Slider>().value += Time.deltaTime * (float)sliderSpeed * 10;
+            Slider s = gameObject.GetComponent<Slider>();
+            s.value += Time.deltaTime * (float)sliderSpeed * 10;
+            if(s.value >= 100)
+            {
+                isActive = false;
+                if(BattleScript.instance.pipeInputFunc != null)
+                {
+                    BattleScript.instance.pipeInputFunc("SliderMiss 0");
+                }
+            }
         }
+
 	}
 }

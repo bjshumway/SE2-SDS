@@ -44,7 +44,9 @@ public abstract class Ability {
 
     public static Ability[] rogueAbilities = new Ability[]
     {
-	new BowAttack(null)
+	    new BowAttack(null),
+        new SharpShooter(null),
+        new HandyMan(null)
     };
 
     public bool isPassive;
@@ -76,6 +78,10 @@ public abstract class Ability {
     public decimal stamina {
         get {
             return _stamina;
+        }
+        set
+        {
+            _stamina = value;
         }
     }
 

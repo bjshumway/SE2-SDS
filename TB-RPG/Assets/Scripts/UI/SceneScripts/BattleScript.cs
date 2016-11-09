@@ -172,13 +172,18 @@ public class BattleScript : MonoBehaviour {
                 ab.currentAbSlot = abilityButtons[i];
                 GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = ab.name;
                 GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "" + ab.stamina;
-		ab.onLoad();            
-	    } else
+		        ab.onLoad();            
+	        }
+            else
             {
                 GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = "EmptySlot";
                 GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "";
             }
         }
+
+        //Set the item's cost to the active's character's cost for it
+        GameObject.Find("AbSlot4_Cost").GetComponent<Text>().text =
+            activeCharacter.abilities.itemAbility.stamina.ToString();
 
         //Place the ActiveUCFrame behind this guy's image
         ActiveUCFrame.transform.localPosition = activeCharacter.battleHead.transform.localPosition;

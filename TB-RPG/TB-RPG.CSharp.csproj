@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -71,7 +73,6 @@
   <ItemGroup>
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
     <Compile Include="Assets\BackgroundClick.cs" />
-    <Compile Include="Assets\BattleSummary.cs" />
     <Compile Include="Assets\BowSliderMove.cs" />
     <Compile Include="Assets\Combat.cs" />
     <Compile Include="Assets\EnemyHP.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\HughShift.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\AbilityBar.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\ItemAbility.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\MonsterAbilities\MonsterAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\SingleTargetAbility.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\AcraneDestruction.cs" />
@@ -86,11 +88,13 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\BowAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ChargeStrength.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\CounterAttack.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\HandyMan.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Heal.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\LastChance.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Pin.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Poison.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Regen.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SharpShooter.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SwordFlurry.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Wither.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />

@@ -107,20 +107,20 @@ public class BowAttack : Ability
     public void handleAimInput(string args)
     {
         string[] s = args.Split();
-        if (s[0] == "Keypress" && s[1] == "q")
+        if (s[0] == "Keypress" && s[1] == "q" || (s[0] == "SliderMiss" && s[1] == "0") )
         {
             Debug.Log("handleAimInput, Attackee: " + attackee.name);
             float val = BowAttackSlider.GetComponent<Slider>().value;
+            decimal modifier;
             if (val < 44 || val > 56 )
             {
                 //Deal damage equal to percent distance of closeness to target area
-                decimal modifier = (decimal) (val < 44 ? val / 44 : ((100 - val) * -1) / 44);
+                modifier = (decimal) (val < 44 ? val / 44 : ((100 - val) * -1) / 44);
                 attackee.damage((decimal)owner.stats["dexterity"].effectiveLevel * owner.weapon.damage * modifier, owner, damageType.ranged);
             } else
             {
-                //Deal extra damage for hitting the target
-                //Never miss
-                attackee.damage(owner.stats["dexterity"].effectiveLevel * owner.weapon.damage * 2, owner, damageType.ranged, true);
+                modifier = ((owner.hasPassive("Sharp Shooter")) ? 4 : 2);
+                attackee.damage(owner.stats["dexterity"].effectiveLevel * owner.weapon.damage * modifier, owner, damageType.ranged, true);
             }
 
 
