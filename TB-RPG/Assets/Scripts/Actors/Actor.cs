@@ -311,7 +311,7 @@ public class Actor {
             }
 
             // logic for Last Chance
-            if (damager.hasPassive("Last Chance") && (health.value / health.maxValue) <= 0.1m) {
+            if (damager.hasPassive("Last Chance") && (damager.health.value / damager.health.maxValue) <= 0.1m) {
                 damageAmount *= 3;
             }
 
@@ -343,6 +343,8 @@ public class Actor {
         GameObject dmgText = (GameObject) GameObject.Instantiate(battleDamageText, battleDamageText.transform, true);
         
         string formattedDmg = damageAmount.ToString("######.##");
+
+        ht = hitType.crit;
 
         if (ht == hitType.miss)
         {
