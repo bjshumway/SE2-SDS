@@ -392,7 +392,7 @@ public class BattleScript : MonoBehaviour {
             if (uCArr[i].isAlive)
             {
                 Resource stamina = uCArr[i].stamina;
-                stamina.add((decimal)((float)uCArr[i].stats["dexterity"].effectiveLevel * Time.smoothDeltaTime * 10));
+                stamina.add((decimal)((float)uCArr[i].stamina.refreshSpeed * Time.smoothDeltaTime * 10));
             }
 
             //Switch to this character if it's the only one that can do anything

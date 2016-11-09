@@ -46,7 +46,8 @@ public abstract class Ability {
     {
 	    new BowAttack(null),
         new SharpShooter(null),
-        new HandyMan(null)
+        new HandyMan(null),
+        new DoubleShot(null)
     };
 
     public bool isPassive;
