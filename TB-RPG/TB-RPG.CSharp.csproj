@@ -73,6 +73,7 @@
     <Compile Include="Assets\BackgroundClick.cs" />
     <Compile Include="Assets\BowSliderMove.cs" />
     <Compile Include="Assets\Combat.cs" />
+    <Compile Include="Assets\DifficultyModulator.cs" />
     <Compile Include="Assets\EnemyHP.cs" />
     <Compile Include="Assets\HeathControl.cs" />
     <Compile Include="Assets\HughShift.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\Scripts\Items\MeleeWeapon.cs" />
     <Compile Include="Assets\Scripts\Items\RangedWeapon.cs" />
     <Compile Include="Assets\Scripts\Items\Weapon.cs" />
+    <Compile Include="Assets\Scripts\MLH.cs" />
     <Compile Include="Assets\Scripts\Map\Teir.cs" />
     <Compile Include="Assets\Scripts\UI\AbilityTextScript.cs" />
     <Compile Include="Assets\Scripts\UI\DamageFloatUpward.cs" />
@@ -142,7 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Audio\license.txt" />
-    <None Include="Assets\Plugins\GoogleTranslator\obj\Debug\GoogleTranslator.csproj.FileListAbsolute.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

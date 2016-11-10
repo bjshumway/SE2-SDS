@@ -11,6 +11,7 @@ public static class MLH {
     public const string EN_FILE_PATH = "english";
 
     public static Dictionary<string, string> dict = new Dictionary<string, string>();
+
     public enum ioStatusCode {
         success,
         notFound,
@@ -19,11 +20,13 @@ public static class MLH {
     }
 
     private static bool _initializedDict = false;
+
     public static bool initializedDict { 
         get { return _initializedDict; } 
     }
 
     private static string _language = "none";
+
     public static string language {
         get { return _language; }
     }
@@ -47,7 +50,7 @@ public static class MLH {
         try {
 
             // open both english and other language file for reading
-            using (StreamReader enFile = File.OpenText(EN_FILE_PATH)) {
+            using (StreamReader enFile = File.OpenText(englishFile)) {
                 using (StreamReader otherFile = File.OpenText(languageFile)) {
 
                     // notice we're only dealing with enFile,
@@ -94,7 +97,7 @@ public static class MLH {
     /// false if translating to English
     /// </param>
     /// <returns>The translated string</returns>
-    public static string tr(string textToTr, bool englishToOther) {
+    public static string tr(string textToTr, bool englishToOther = true) {
         if (!initializedDict) {
             return textToTr; // we don't have a dict yet, revert back to source text
         }
