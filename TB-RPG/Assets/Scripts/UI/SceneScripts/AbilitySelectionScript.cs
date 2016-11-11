@@ -54,8 +54,8 @@ public class AbilitySelectionScript : MonoBehaviour
 
         cont.SetActive(true);
 
-        GameObject.Find("AbilityApprovalQuestion").GetComponent<Text>().text = "LEARN " + selectedAbility.name + "?";
-        GameObject.Find("AbilityApprovalDescription").GetComponent<Text>().text = selectedAbility.toolTip;
+        GameObject.Find("AbilityApprovalQuestion").GetComponent<Text>().text = MLH.tr("LEARN ") + MLH.tr(selectedAbility.name) + "?";
+        GameObject.Find("AbilityApprovalDescription").GetComponent<Text>().text = MLH.tr(selectedAbility.toolTip);
     }
 
     public static void removeApprovalPopup()

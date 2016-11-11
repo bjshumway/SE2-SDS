@@ -109,7 +109,7 @@ public abstract class Ability {
         learnButton.SetActive(false);
 
         //Set the text for this image to this button's name
-        learnButton.GetComponentInChildren<Text>().text = name;
+        learnButton.GetComponentInChildren<Text>().text = MLH.tr(name);
 
         //Initialize battlehints to its gameComponent
         BattleHints = GameObject.Find("BattleHints").GetComponentInChildren<Text>();

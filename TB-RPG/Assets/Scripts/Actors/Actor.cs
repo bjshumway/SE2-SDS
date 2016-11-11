@@ -173,6 +173,7 @@ public class Actor {
     /// Sets Actor.title with the specified Title, and applies the title to Actor.fullName
     /// </summary>
     /// <param name="newTitle">Title to apply</param>
+    /// Todo: Delete setTitle
     public void setTitle(Title newTitle) {
         _title = newTitle;
 
@@ -348,11 +349,11 @@ public class Actor {
 
         if (ht == hitType.miss)
         {
-            dmgText.GetComponent<Text>().text = "MISS!";
+            dmgText.GetComponent<Text>().text = MLH.tr("MISS!");
         }
         else if(ht == hitType.crit)
         {
-            dmgText.GetComponent<Text>().text = "" + formattedDmg +  " CRIT!";
+            dmgText.GetComponent<Text>().text = "" + formattedDmg +  MLH.tr(" CRIT!");
         } else
         {
             dmgText.GetComponent<Text>().text = "" + formattedDmg;

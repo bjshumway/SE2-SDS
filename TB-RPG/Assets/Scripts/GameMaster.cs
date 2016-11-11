@@ -50,7 +50,7 @@ public class GameMaster : MonoBehaviour {
         initGameDesignParameters();
 
 
-        if (language != "english") {
+        if (true || language != "english") {
             Debug.Log(MLH.populateDict(language));
             Text[] yourLabels = FindObjectsOfType<Text>();
 

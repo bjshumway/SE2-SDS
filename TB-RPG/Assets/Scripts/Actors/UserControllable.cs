@@ -130,7 +130,7 @@ public abstract class UserControllable : Actor {
             }
         }
         Text t = ab.learnButton.GetComponentInChildren<Text>();
-        t.text= ab.name + "\n" + "(LEARNED)";
+        t.text= MLH.tr(ab.name) + "\n" + MLH.tr("(LEARNED)");
     }
 
     //This function learns a given ability
@@ -157,7 +157,7 @@ public abstract class UserControllable : Actor {
             passiveAbilities.Remove(ab);
         }
 
-        ab.learnButton.GetComponent<Text>().text = ab.name;
+        ab.learnButton.GetComponent<Text>().text = MLH.tr(ab.name);
     }
 
     //Add 3 to remaining stat points

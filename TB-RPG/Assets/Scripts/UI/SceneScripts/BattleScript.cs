@@ -170,13 +170,13 @@ public class BattleScript : MonoBehaviour {
             if (ab != null)
             {
                 ab.currentAbSlot = abilityButtons[i];
-                GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = ab.name;
+                GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = MLH.tr(ab.name);
                 GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "" + ab.stamina;
 		        ab.onLoad();            
 	        }
             else
             {
-                GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = "EmptySlot";
+                GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = MLH.tr("EmptySlot");
                 GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "";
             }
         }

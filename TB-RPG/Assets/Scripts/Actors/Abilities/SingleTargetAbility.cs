@@ -86,7 +86,7 @@ public abstract class SingleTargetAbility : Ability {
                 bs.pipeInputFunc = this.selectEnemy;
 
                 //Tell the user to select a target
-                BattleHints.text = "Select Target";
+                BattleHints.text = MLH.tr("Select Target");
                 return;
             } else
             {

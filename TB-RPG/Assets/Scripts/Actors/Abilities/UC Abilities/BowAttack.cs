@@ -110,7 +110,7 @@ public void showAnimation(Monster m)
                 bs.pipeInputFunc = this.selectEnemy;
 
                 //Tell the user to select a target
-                BattleHints.text = "Select Target";
+                BattleHints.text = MLH.tr("Select Target");
                 return;
             }
             else
@@ -136,7 +136,7 @@ public void showAnimation(Monster m)
             BowSliderMove sm = BowAttackSlider.GetComponent<BowSliderMove>();
             sm.isActive = true;
             sm.sliderSpeed = difficultyToHit;
-            BattleHints.text = "Press Q When The Target Reaches The Center";
+            BattleHints.text = MLH.tr("Press Q When The Target Reaches The Center");
             BowAttackSlider.SetActive(true);
             BowAttackSliderBackground.SetActive(true);
             BattleScript.instance.pipeInputFunc = handleAimInput;
@@ -152,7 +152,7 @@ public void showAnimation(Monster m)
             sm.launchSecondSlider = true;
             sm.secondSliderSpeed = difficultyToHit2;
             sm.secondSliderStartPoint = (decimal) UnityEngine.Random.Range(10,40);
-            BattleHints.text = "Press Q When The Target Reaches The Center";
+            BattleHints.text = MLH.tr("Press Q When The Target Reaches The Center");
 
             BowAttackSlider.SetActive(true);
             BowAttackSliderBackground.SetActive(true);

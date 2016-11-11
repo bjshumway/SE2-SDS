@@ -104,31 +104,30 @@ public static class MLH {
     /// false if translating to English
     /// </param>
     /// <returns>The translated string</returns>
-    public static string tr(string textToTr, bool englishToOther = true) {
-        if (!initializedDict) {
-            return textToTr; // we don't have a dict yet, revert back to source text
+    public static string tr(string textToTr) {
+
+        if (!initializedDict || language == "english") {
+            //return textToTr; // we don't have a dict yet, revert back to source text
         }
 
-        try {
-            if (englishToOther) { // en to other
-                return dict[textToTr];
-            } else { // other to en
-
-                // get key by value
-                return dict.First(x => x.Value == textToTr).Key;
-            }
+        try {  
+            return dict[textToTr];
         } catch { 
-            if(englishToOther)
-            {
-                /*using (StreamWriter sw = File.AppendText("english"))
-                {
-                    sw.WriteLine(textToTr);
-                }*/
-                Debug.Log("!TR: " + textToTr);
-            }
-
+            Debug.Log("!TR: " + textToTr);
             // lookup failed
+            writeUnfoundText(textToTr);
             return textToTr;
+        }
+    }
+
+    public static void writeUnfoundText(string text, bool deleteFirst = false)
+    {
+        if (deleteFirst)
+            File.Delete(EN_FILE_PATH);
+
+        using (StreamWriter file = File.AppendText(EN_FILE_PATH))
+        {
+            file.WriteLine(text);
         }
     }
 
