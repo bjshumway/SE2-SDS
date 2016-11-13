@@ -46,6 +46,8 @@ public class CharacterCreationMenu : MonoBehaviour {
         currentUC = uC;
         GameMaster.instance.switchCamera(1);
 
+        instance.newCharacterHasJoinedPopup.GetComponentInChildren<Text>().text = MLH.tr("A new character has joined!");
+
         if (!isFirstChar)
         {
             instance.newCharacterHasJoinedPopup.SetActive(true);

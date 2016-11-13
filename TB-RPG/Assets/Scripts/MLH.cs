@@ -106,8 +106,14 @@ public static class MLH {
     /// <returns>The translated string</returns>
     public static string tr(string textToTr) {
 
-        if (!initializedDict || language == "english") {
-            return textToTr; // we don't have a dict yet, revert back to source text
+        if (language == "english") {
+            return textToTr;
+        }
+
+        if (!initializedDict) {
+            if (populateDict(GameMaster.instance.language) != ioStatusCode.success) {
+                return textToTr;
+            }
         }
 
         try {  
