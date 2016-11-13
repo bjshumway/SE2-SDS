@@ -107,27 +107,14 @@ public static class MLH {
     public static string tr(string textToTr) {
 
         if (!initializedDict || language == "english") {
-            //return textToTr; // we don't have a dict yet, revert back to source text
+            return textToTr; // we don't have a dict yet, revert back to source text
         }
 
         try {  
             return dict[textToTr];
         } catch { 
-            Debug.Log("!TR: " + textToTr);
             // lookup failed
-            writeUnfoundText(textToTr);
             return textToTr;
-        }
-    }
-
-    public static void writeUnfoundText(string text, bool deleteFirst = false)
-    {
-        if (deleteFirst)
-            File.Delete(EN_FILE_PATH);
-
-        using (StreamWriter file = File.AppendText(EN_FILE_PATH))
-        {
-            file.WriteLine(text);
         }
     }
 

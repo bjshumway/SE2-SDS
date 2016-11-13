@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 using UnityEngine.UI;
 
 
@@ -49,24 +51,47 @@ public class GameMaster : MonoBehaviour {
     void Start() {
         initGameDesignParameters();
 
+        #region Translation
 
-        if (true || language != "english") {
+        if (language != "english") {
             Debug.Log(MLH.populateDict(language));
-            Text[] yourLabels = FindObjectsOfType<Text>();
 
-            foreach (Text someLabel in yourLabels)
+            Text[] labels = FindObjectsOfType<Text>();
+            Dropdown[] dropdowns = FindObjectsOfType<Dropdown>();
+
+            //List<string> lst = new List<string>();
+
+            foreach (Text label in labels)
             {
-                Debug.Log("Before:" + someLabel.text);
-                someLabel.text = MLH.tr(someLabel.text);
-                Debug.Log("After:" + MLH.tr(someLabel.text));
-
+                string text = MLH.tr(label.text);
+                label.text = text;
+                //lst.Add(text);
             }
+
+            foreach (Dropdown dropdown in dropdowns) {
+                foreach (Dropdown.OptionData option in dropdown.options) {
+                    string text = MLH.tr(option.text);
+                    option.text = text;
+                    //lst.Add(text);
+                }
+            }
+
+            // remove all duplicates
+            //lst = lst.Distinct().ToList();
+
+            // write to file
+            //using (StreamWriter file = File.CreateText(MLH.EN_FILE_PATH)) {
+            //    foreach (string word in lst) {
+            //        var tword = word.Trim();
+
+            //        if (tword != "") {
+            //            file.WriteLine(tword);
+            //        }
+            //    }
+            //}
         }
 
-        //Debug.Log(MLH.tr("hello my friend"));
-
-
-
+        #endregion
 
         thePlayer = new Player();
         thePlayer.health.setValue(10);
