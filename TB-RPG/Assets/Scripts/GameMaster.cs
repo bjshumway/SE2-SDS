@@ -76,19 +76,7 @@ public class GameMaster : MonoBehaviour {
                 }
             }
 
-            // remove all duplicates
-            //lst = lst.Distinct().ToList();
-
-            // write to file
-            //using (StreamWriter file = File.CreateText(MLH.EN_FILE_PATH)) {
-            //    foreach (string word in lst) {
-            //        var tword = word.Trim();
-
-            //        if (tword != "") {
-            //            file.WriteLine(tword);
-            //        }
-            //    }
-            //}
+            GameObject.Find("Victory").SetActive(false);
         }
 
         #endregion
