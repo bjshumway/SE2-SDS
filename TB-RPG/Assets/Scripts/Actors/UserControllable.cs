@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 // TODO: add talent system; don't know how to flesh out talentPoints yet
 public abstract class UserControllable : Actor {
@@ -166,6 +167,21 @@ public abstract class UserControllable : Actor {
     {
         remainingStatPoints += 3;
         remainingResourcePoints += 1;
+    }
+
+    //gets the number of alive party members
+    public static List<UserControllable> getAliveMembers()
+    {
+        List<UserControllable> mems = new List<UserControllable>();
+        for (int i = 0; i < GameMaster.instance.thePlayer.theParty.Length; i++)
+        {
+            if(GameMaster.instance.thePlayer.theParty[i] != null && GameMaster.instance.thePlayer.theParty[i].isAlive)
+            {
+                mems.Add(GameMaster.instance.thePlayer.theParty[i]);
+            }
+
+        }
+        return mems;
     }
 
     public override void kill() {

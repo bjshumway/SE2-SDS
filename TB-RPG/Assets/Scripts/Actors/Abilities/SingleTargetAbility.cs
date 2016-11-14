@@ -49,8 +49,12 @@ public abstract class SingleTargetAbility : Ability {
             return;
         } else {
             BattleScript bs = BattleScript.instance;
-            Monster m = bs.monsters[int.Parse(args[1]) -1];
-            dealEffect(m);
+            Actor a = null;
+            if (args[0] == "Monster")
+                a = bs.monsters[int.Parse(args[1]) - 1];
+            else
+                a = GameMaster.instance.thePlayer.theParty[int.Parse(args[1]) - 1];
+            dealEffect(a);
             bs.pipeInputFunc = null;
 
             BattleHints.text = "";
@@ -93,8 +97,8 @@ public abstract class SingleTargetAbility : Ability {
                 dealEffect(aliveMonster);
             }
         } else {
-            Monster m = bs.monsters[0];
-            dealEffect(m);
+            Actor a = bs.monsters[0];
+            dealEffect(a);
         }
     }
 
@@ -102,7 +106,7 @@ public abstract class SingleTargetAbility : Ability {
     /// Deals damage to the selected monster
     /// </summary>
     /// <param name="modifier">for formula (statlevel * weapondamage * modifier)</param>
-    public virtual void dealEffect(Monster m) {
+    public virtual void dealEffect(Actor m) {
         m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier, owner, _damageTypeS);
 
         owner.stamina.subtract(stamina);
