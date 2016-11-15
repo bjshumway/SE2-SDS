@@ -12,6 +12,8 @@ public class Inventory {
     private decimal _weightCap;
     private decimal _weight = 0;
 
+    public decimal gold;
+
     #endregion
 
     #region Public Vars
@@ -61,6 +63,13 @@ public class Inventory {
 
         calcWeight();
     }
+    
+
+    public void addGold(decimal amount)
+    {
+        //TODO: update how much gold is displayed in menu screen
+        gold += amount;
+    }
 
     private void calcWeight() {
         _weight = 0;
@@ -84,6 +93,10 @@ public class Inventory {
         } else { // there's room
             items.Add(item); // add it
             _weight = newWeight; // update weight
+
+            //TODO: Update showing how much weight is used up in menu screen.
+            //TODO: Update showing the item in menu screen.
+
             return true;
         }
     }

@@ -54,9 +54,9 @@ public class SkillSelectionScript : MonoBehaviour {
         health = (int) uC.health.maxValue;
         stamina = (int)uC.stamina.refreshSpeed;
 
-
-
-
+        //TODO: If this is our first time here, the lower button reads "Start The Adventure" 
+        //      If there is another player to level up after this, it should read  "Level up <name>!"
+        //      Otherwise, it should read "Back to The Adventure!"
 
         GameMaster.instance.switchCamera(3);
     }
@@ -67,7 +67,26 @@ public class SkillSelectionScript : MonoBehaviour {
         currentUC.setStatLevels(new int[] { charisma, cunning, dexterity, intellect, strength });
         currentUC.health.maxValue = health;
         currentUC.stamina.refreshSpeed = stamina;
-        GameMaster.instance.switchCamera(4);
+        if (VictoryHandler.instance.state == VictoryHandler.vhState.levelingUCs ||
+            VictoryHandler.instance.state == VictoryHandler.vhState.addingPartyMember)
+        {
+            UserControllable uC = VictoryHandler.instance.getNextUCToLevel();
+            if (uC == null)
+            {
+                //Go to overworld
+                GameMaster.instance.switchCamera(4);
+            }
+            else
+            {
+                AbilitySelectionScript.load(uC);
+            }
+        }
+        else
+        {
+            //Go to overworld
+            GameMaster.instance.switchCamera(4);
+        }
+
     }
 
     public void HealthDec()

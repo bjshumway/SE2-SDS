@@ -5,7 +5,7 @@
 public class Pin : SingleTargetAbility
 {
 
-    public override void showAnimation(Monster m)
+    public override void showAnimation(Actor a)
     {
         //Program animation here
         //We might have a static class of generic animations that this can refer to
@@ -13,16 +13,16 @@ public class Pin : SingleTargetAbility
     }
 
     public Pin(Actor Owner) : base("PIN", "Pins The Enemy in Place - No Longer Can Dodge",
-        "strength", 0.0m, 100, false, Owner, damageType.melee)
+        "strength", 0.0m, 25, false, Owner, damageType.melee)
     {
 
     }
 
     //Pins the damagee
-    public override void dealEffect(Monster m)
+    public override void dealEffect(Actor a)
     {
-        m.statusEffects["pin"] = true;
+        a.statusEffects["pin"] = true;
         owner.stamina.subtract(stamina);
-        showAnimation(m);
+        showAnimation(a);
     }
 }

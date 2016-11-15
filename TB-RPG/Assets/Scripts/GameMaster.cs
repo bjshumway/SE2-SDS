@@ -76,8 +76,8 @@ public class GameMaster : MonoBehaviour {
                 }
             }
 
-            GameObject.Find("Victory").SetActive(false);
         }
+        GameObject.Find("Victory").SetActive(false);
 
         #endregion
 

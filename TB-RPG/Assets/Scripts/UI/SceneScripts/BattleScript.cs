@@ -34,7 +34,6 @@ public class BattleScript : MonoBehaviour {
     public KeyCode attack;
     public KeyCode item;
 
-    //Combat.cs is a singleton (static class). Use Combat.instance to get access to it.
     private static BattleScript s_Instance = null;
 
     // Use this for initialization
@@ -458,19 +457,8 @@ public class BattleScript : MonoBehaviour {
         }
         if (monstersDied)
         {
-            //Go to victory function
-
             this.combatOcurring = false;
-
-            //Delete each monster
-
-            monsters = null;
-            Monster.id_increment = 1;
-
-            VictoryPanel.SetActive(true);
-            //now set victory text to what happened due to the battle
-
-            //GameMaster.instance.switchCamera(7);
+            VictoryHandler.instance.beginVictory(monsters, VictoryPanel);
         }
     }
 

@@ -8,6 +8,8 @@ public class Monster : Actor {
     public GameObject monsterPrefab;
     public static int id_increment = 1;
 
+    public bool isBoss;
+
     public Ability[] abilities;
 
     private Item _drop;
@@ -19,16 +21,27 @@ public class Monster : Actor {
 
     public decimal hitAccuracy;
 
-    public Item drop {
+    public Item itemDrop {
         get {
             return _drop;
         }
+        set
+        {
+            _drop = value;
+        }
     }
 
+    //How much gold is dropped. Defined in the overrided kill function.
+    public decimal goldDrop;
 
-    public Monster(string name, String prefabName, int level, int diffInLevel, int hitAcc, Title title = null, Resource[] resources = null, int[] stats = null, Ability.damageType weakness = Ability.damageType.none)
+    //Whether this monster has been stolen from. False by default.
+    public bool stolenFrom;
+
+    public Monster(string name, String prefabName, int level, int diffInLevel, int hitAcc, bool isBoss, Title title = null, Resource[] resources = null, int[] stats = null, Ability.damageType weakness = Ability.damageType.none)
         : base(name, level, title, resources, stats, weakness) {
 
+        this.isBoss = isBoss;
+        stolenFrom = false;
         hitAccuracy = hitAcc;
         difficultyInLevel = diffInLevel;
         this.id = id_increment;
@@ -150,5 +163,6 @@ public class Monster : Actor {
     public override void kill() {
         base.kill();
         _drop = Gen.drop(level);
+        goldDrop = 10 * level * difficultyInLevel;
     }
 }

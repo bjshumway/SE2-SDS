@@ -64,7 +64,7 @@ public abstract class SingleTargetAbility : Ability {
         }
     }
 
-    public virtual void showAnimation(Monster m) {
+    public virtual void showAnimation(Actor a) {
 
     }
 

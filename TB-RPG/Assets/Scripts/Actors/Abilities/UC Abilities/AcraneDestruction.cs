@@ -5,7 +5,7 @@ public class ArcaneDestruction : SingleTargetAbility {
 
     public GameObject ADSelectionButton = GameObject.Find("ArcaneDestructionSelection");
 
-    public override void showAnimation(Monster m) {
+    public override void showAnimation(Actor m) {
         //Program animation here
         //We might have a static class of generic animations that this can refer to
         //Also each monster will contain a reference to its image, to make things easier
