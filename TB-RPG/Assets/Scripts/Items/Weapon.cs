@@ -1,6 +1,8 @@
 
 // parent class for ranged, melee, and magic weapons
 // TODO: add.. sprite?
+using UnityEngine;
+
 public class Weapon : Gear {
     private weaponClass _class;
     private decimal _damage;
@@ -61,6 +63,16 @@ public class Weapon : Gear {
             _type    = type;
             _special = level * 0.1m;
             calcStats();
+
+
+        invObject = Resources.Load("InventoryWeapon") as GameObject;
+        invObject = GameObject.Instantiate(invObject, invObject.transform.position, invObject.transform.rotation) as GameObject;
+        GameObject scrollView = ShopInventoryScript.instance.WeaponsBuyScrollView;
+        Transform tr = scrollView.transform;
+        GameObject content = tr.FindChild("Viewport").FindChild("Content").gameObject;
+        invObject.transform.SetParent(content.transform, false);
+
+
     }
 
     private void calcStats() { // formula not final of course

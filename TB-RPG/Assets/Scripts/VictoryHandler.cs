@@ -222,7 +222,7 @@ public class VictoryHandler : MonoBehaviour {
             {
                 GameObject obj = new GameObject("VictoryHandler");
                 s_Instance = obj.AddComponent(typeof(VictoryHandler)) as VictoryHandler;
-                //Debug.Log("Could not locate an BattleScript object. BattleScript was Generated Automaticly.");
+                //Debug.Log("Could not locate an VictoryHandler object. VictoryHandler was Generated Automaticly.");
             }
 
             return s_Instance;

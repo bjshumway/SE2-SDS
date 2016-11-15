@@ -1,7 +1,6 @@
 
-// base class for all inventory objects in the game
-// TODO: add image field
-public class Item {
+public class Item : InventoryObject
+{
     private string _name;
     private string _toolTip;
     private decimal _weight;

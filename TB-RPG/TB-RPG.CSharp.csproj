@@ -120,6 +120,7 @@
     <Compile Include="Assets\Scripts\Items\Gear.cs" />
     <Compile Include="Assets\Scripts\Items\Gen.cs" />
     <Compile Include="Assets\Scripts\Items\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Items\InventoryObject.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Items\MagicWeapon.cs" />
     <Compile Include="Assets\Scripts\Items\MeleeWeapon.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Assets\Scripts\UI\Statincrement.cs" />
     <Compile Include="Assets\Scripts\VictoryHandler.cs" />
     <Compile Include="Assets\Scripts\ability_test.cs" />
+    <Compile Include="Assets\ShopInventoryScript.cs" />
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>
   <ItemGroup>
