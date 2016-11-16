@@ -204,7 +204,7 @@ public void showAnimation(Monster m)
             }
             else
             {
-                modifier = ((owner.hasPassive("Sharp Shooter")) ? 4 : 2);
+                modifier = ((owner.hasPassive("Sharp Shooter")) ? 2 : 1);
                 whichAttackee.damage(owner.stats["dexterity"].effectiveLevel * owner.weapon.damage * modifier, owner, damageType.ranged, true);
             }
 
