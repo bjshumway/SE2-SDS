@@ -19,6 +19,9 @@ public abstract class UserControllable : Actor {
 
     public Image battleHead;
 
+    public GameObject shopInventoryGameObj;
+    public GameObject shopInventoryInfo;
+
     public enum classTypes {
         fighter,
         mage,
@@ -44,6 +47,8 @@ public abstract class UserControllable : Actor {
         get; set;
     }
 
+
+
     public UserControllable() : base()
     {
 
@@ -58,6 +63,9 @@ public abstract class UserControllable : Actor {
         learnAbility(new ItemAbility(this));
 
         GameObject battleObj = GameObject.Find("Battle UC " + id);
+        shopInventoryGameObj = GameObject.Find("ShopInventory UC " + id);
+        shopInventoryInfo = shopInventoryGameObj.transform.FindChild("Information").gameObject;
+        shopInventoryInfo.SetActive(true);
 
         //Setup the battleHealtBar
         GameObject bHB_gameObj = battleObj.transform.FindChild("Battle UC " + id + " HealthBar").gameObject;
@@ -159,6 +167,54 @@ public abstract class UserControllable : Actor {
         }
 
         ab.learnButton.GetComponent<Text>().text = MLH.tr(ab.name);
+    }
+
+    //Equip
+    public void equipWeapon(Weapon wpn)
+    {
+
+        //First make sure the weapon is in the inventory, if it isn't add it to the inventory
+        bool foundItem = false;
+        List<Item> items = GameMaster.instance.thePlayer.inventory.items;
+        for (int i = 0; i < items.Count; i++)
+        {
+            if(items[i] == wpn)
+            {
+                foundItem = true;
+                break;
+            }
+        }
+
+        if(!foundItem)
+        {
+           bool success = GameMaster.instance.thePlayer.inventory.addItem(wpn);
+            if(!success)
+            {
+                //Item was too heavy to add to inventory - can't equip
+                Debug.Log("Error Equipping Item - too heavy");
+                return;
+            }
+        }
+
+        //Do we currently have something equipped? The unequip it.
+        if (weapon != null)
+        {
+            weapon.invObject.SetActive(true);
+            weapon.isEquipped = false;
+        }
+        //Now that it's in the inventory, we want to equip it..
+        //so remove it from the scrollview simply by disabling it
+        weapon = wpn;
+
+        weapon.invObject.SetActive(false);
+        weapon.isEquipped = true;
+
+
+        //Next set the name of our current equip to what we are equipping
+        shopInventoryInfo.transform.FindChild("Weapon").gameObject
+            .GetComponentInChildren<Text>().text = weapon.name;
+
+        return;
     }
 
     //Add 3 to remaining stat points

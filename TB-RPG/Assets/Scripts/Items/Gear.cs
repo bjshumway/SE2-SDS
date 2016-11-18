@@ -10,8 +10,8 @@ public abstract class Gear : Item {
         }
     }
 
-    public Gear(string name, decimal weight, bool tradable, decimal value, int level, string toolTip = "")
-        : base(name, weight, tradable, value, toolTip) {
+    public Gear(string name, decimal weight, bool tradable, decimal value, int level, Item.itemTypes itemType, string toolTip = "")
+        : base(name, weight, tradable, itemType, value, toolTip) {
 
         _level = level;
     }

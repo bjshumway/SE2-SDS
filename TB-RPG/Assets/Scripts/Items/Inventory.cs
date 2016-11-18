@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-
+using UnityEngine;
+using UnityEngine.UI;
 
 // holds Items
 // TODO: add image field
@@ -94,13 +95,106 @@ public class Inventory {
             items.Add(item); // add it
             _weight = newWeight; // update weight
 
+
             //TODO: Update showing how much weight is used up in menu screen.
-            //TODO: Update showing the item in menu screen.
+
+
+
+            GameObject scrollView = null;
+
+            //Figure out which scrollview we want to add the item to
+            if (_name == "shop")
+            {
+                switch(item.itemType)
+                {
+                    case Item.itemTypes.weapon:
+                        scrollView = ShopInventoryScript.instance.WeaponsBuyScrollView;
+                        break;
+                    case Item.itemTypes.loot:
+                        Debug.Log("Error: Trying to add loot to shop.");
+                        break;
+                    case Item.itemTypes.abilityItem:
+                        scrollView = ShopInventoryScript.instance.ItemBuyScrollView;
+                        break;
+                }
+            }
+            else
+            {
+                switch (item.itemType)
+                {
+                    case Item.itemTypes.weapon:
+                        scrollView = ShopInventoryScript.instance.WeaponScrollView;
+                        break;
+                    case Item.itemTypes.loot:
+                        scrollView = ShopInventoryScript.instance.LootScrollView;
+                        break;
+                    case Item.itemTypes.abilityItem:
+                        scrollView = ShopInventoryScript.instance.ItemScrollView;
+                        break;
+                }
+            }
+
+            //Load the gameObject from prefab
+            switch (item.itemType)
+            {
+                case Item.itemTypes.weapon:
+                    item.invObject = Resources.Load("InventoryWeapon") as GameObject;
+                    break;
+                case Item.itemTypes.loot:
+                    item.invObject = Resources.Load("InventoryItem") as GameObject;
+                    break;
+                case Item.itemTypes.abilityItem:
+                    item.invObject = Resources.Load("InventoryItem") as GameObject;
+                    break;
+            }
+
+            //Instantiate the gameObject, and set its position in the scene
+            item.invObject = GameObject.Instantiate(item.invObject, item.invObject.transform.position, item.invObject.transform.rotation) as GameObject;
+            Transform tr = scrollView.transform;
+            GameObject content = tr.FindChild("Viewport").FindChild("Content").gameObject;
+            item.invObject.transform.SetParent(content.transform, false);
+
+            //Set the gameObject's texts to match the item
+            tr = item.invObject.transform;
+            tr.Find("Cost").GetComponent<Text>().text = item.value + "G";
+            tr.Find("Name").GetComponent<Text>().text = item.name;
+            Debug.Log("Item weight: " + item.weight.ToString() + "lbs");
+            tr.Find("Weight").GetComponent<Text>().text = item.weight.ToString("00") + "lbs";
+            //Setup the buysell button
+            GameObject buySell = tr.FindChild("BuySellButton").gameObject;
+            if (_name == "shop")
+            {
+                buySell.GetComponentInChildren<Text>().text = "BUY";
+                buySell.GetComponent<Button>().onClick.AddListener(delegate { ShopInventoryScript.instance.buyItem(item); });
+            }
+            else
+            {
+                buySell.GetComponentInChildren<Text>().text = "SELL";
+                buySell.GetComponent<Button>().onClick.AddListener(delegate { ShopInventoryScript.instance.sellItem(item); });
+            }
+
+            //Setup the equip button
+            if(item.itemType == Item.itemTypes.weapon)
+            {
+                GameObject equip = tr.FindChild("EquipButton").gameObject;
+                if (_name == "shop")
+                {
+                    equip.SetActive(false);
+                }
+                else
+                {
+                    equip.SetActive(true);
+                }
+                equip.GetComponent<Button>().onClick.AddListener(delegate { ShopInventoryScript.instance.equipWeapon((Weapon)(item)); });
+
+            }
+
+
 
             return true;
         }
     }
-
+    
     /// <summary>
     /// Deletes an item from Inventory.items
     /// </summary>

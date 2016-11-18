@@ -146,6 +146,7 @@
     <Compile Include="Assets\Scripts\VictoryHandler.cs" />
     <Compile Include="Assets\Scripts\ability_test.cs" />
     <Compile Include="Assets\ShopInventoryScript.cs" />
+    <Compile Include="Assets\UpdateTimeTracker.cs" />
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>
   <ItemGroup>

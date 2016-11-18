@@ -23,7 +23,7 @@ public class OverworldScript : MonoBehaviour {
     //Goes to the menu screen
     public void goToMenu()
     {
-        GameMaster.instance.switchCamera(6);
+        ShopInventoryScript.instance.load();
     }
     
     //Used to test a new part member joining

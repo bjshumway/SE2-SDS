@@ -345,8 +345,6 @@ public class Actor {
         
         string formattedDmg = damageAmount.ToString("######.##");
 
-        ht = hitType.crit;
-
         if (ht == hitType.miss)
         {
             dmgText.GetComponent<Text>().text = MLH.tr("MISS!");

@@ -18,6 +18,22 @@ public class GameMaster : MonoBehaviour {
     public Texture2D cursor1;
     public Texture2D cursor2;
 
+    //How many battles early boss fights become available
+    public int minFightsBeforeBoss;
+
+    //Avgerage number of seconds each fight takes, across the game
+    public int avgSecPerFight;
+    
+    //How long it will take for the user to beat the fight
+    public int avgMinsToWinGame;
+
+    //How many minutes the user is expected to be playing outside of combat
+    public int avgMinNotFighting;
+
+    //Expected timings for what level the user will be at
+    //The first argument is the leve, the second argument is the minutes played so far
+    public double[,] expectedLevelingTimings;
+
     //Slowest the stamina can grow per second
     public int slowestStaminaPerSec;
 
@@ -68,6 +84,8 @@ public class GameMaster : MonoBehaviour {
         thePlayer = new Player();
         thePlayer.health.setValue(10);
         
+
+
         initGameDesignParameters();
 
 

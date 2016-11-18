@@ -19,16 +19,26 @@ public class ShopInventoryScript : MonoBehaviour {
     public GameObject ItemBuyScrollView;
     public GameObject WeaponsBuyScrollView;
 
+    public Inventory theShop;
+
+    public bool isInShopInventory;
+
     private static ShopInventoryScript s_Instance = null;
 
 
     // Use this for initialization
     void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        theShop = new Inventory(null, "shop", 999999);
+
+
+        
+        //TODO: add stuff like healing potions, etc.
+
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 
@@ -36,7 +46,7 @@ public class ShopInventoryScript : MonoBehaviour {
     //Shows the inventory specified by clicking on a switchView button
     public void switchView(GameObject g)
     {
-        if (g.name.EndsWith("BuyScrollView"))
+        if (g.name.EndsWith("Buy ScrollView"))
         {
             WeaponsBuyScrollView.SetActive(false);
             ItemBuyScrollView.SetActive(false);
@@ -58,7 +68,149 @@ public class ShopInventoryScript : MonoBehaviour {
         g.SetActive(true);
 
         GameObject button = EventSystem.current.currentSelectedGameObject;
-        button.GetComponent<Image>().color = new Color32(0x92, 0xFB, 0x60, 0xFF); ;
+        button.GetComponent<Image>().color = new Color32(0x92, 0xFB, 0x60, 0xFF);
+    }
+
+
+    
+    public void sellItem(Item item)
+    {
+        GameObject scrollView = null;
+        switch(item.itemType)
+        {
+            case Item.itemTypes.weapon:
+                //Make sure the weapon is not equipped
+                if (((Weapon)item).isEquipped)
+                    return;
+                else
+                {
+                    scrollView = ShopInventoryScript.instance.WeaponsBuyScrollView;
+                    GameObject equip = item.invObject.transform.FindChild("EquipButton").gameObject;
+                    equip.SetActive(false);
+                    theShop.items.Add(item);
+                }
+                break;
+            case Item.itemTypes.loot:
+                scrollView = null;
+                break;
+            case Item.itemTypes.abilityItem:
+                scrollView = ShopInventoryScript.instance.ItemBuyScrollView;
+                theShop.items.Add(item);
+                break;
+        }
+
+        GameMaster.instance.thePlayer.inventory.gold += item.value;
+        GameMaster.instance.thePlayer.inventory.items.Remove(item);
+
+
+        if (scrollView == null) //We're selling loot, but there's no scrollview in the shop for loot.
+        {
+            item.invObject.SetActive(false);
+            item.invObject = null;
+        }
+        else
+        {
+            Transform tr = scrollView.transform;
+            GameObject content = tr.FindChild("Viewport").FindChild("Content").gameObject;
+            item.invObject.transform.SetParent(content.transform, false);
+
+            GameObject buySell = item.invObject.transform.FindChild("BuySellButton").gameObject;
+            buySell.GetComponentInChildren<Text>().text = "BUY";
+            buySell.GetComponent<Button>().onClick.RemoveAllListeners();
+            buySell.GetComponent<Button>().onClick.AddListener(delegate { ShopInventoryScript.instance.buyItem(item); });
+
+        }
+
+
+        //TODO: update how much gold the player has (write a helper function for this) 
+    }
+
+    public void buyItem(Item item)
+    {
+        GameObject scrollView = null;
+        switch (item.itemType)
+        {
+            case Item.itemTypes.weapon:
+                //Make sure the weapon is not equipped
+                if (((Weapon)item).isEquipped)
+                    return;
+                else
+                {
+                    scrollView = ShopInventoryScript.instance.WeaponScrollView;
+                    GameObject equip = item.invObject.transform.FindChild("EquipButton").gameObject;
+                    equip.SetActive(true);
+                    GameMaster.instance.thePlayer.inventory.items.Add(item);
+                }
+                break;
+            case Item.itemTypes.abilityItem:
+                scrollView = ShopInventoryScript.instance.ItemScrollView;
+                GameMaster.instance.thePlayer.inventory.items.Add(item);
+                break;
+        }
+
+        theShop.items.Remove(item);
+        GameMaster.instance.thePlayer.inventory.gold -= item.value;
+
+        Transform tr = scrollView.transform;
+        GameObject content = tr.FindChild("Viewport").FindChild("Content").gameObject;
+        item.invObject.transform.SetParent(content.transform, false);
+
+        GameObject buySell = item.invObject.transform.FindChild("BuySellButton").gameObject;
+        buySell.GetComponentInChildren<Text>().text = "SELL";
+        buySell.GetComponent<Button>().onClick.RemoveAllListeners();
+        buySell.GetComponent<Button>().onClick.AddListener(delegate { ShopInventoryScript.instance.sellItem(item); });
+
+
+
+    }
+
+    public void equipWeapon(Weapon wpn)
+    {
+        //Find the UC that corresponds to this item's class, and equip it
+        UserControllable[] party = GameMaster.instance.thePlayer.theParty;
+        for (int i =0; i < party.Length; i++)
+        {
+            if(party[i] != null)
+            {
+                switch(party[i].classType)
+                {
+                    case UserControllable.classTypes.fighter:
+                        if(wpn.classType == Weapon.weaponClass.Melee)
+                        {
+                            party[i].equipWeapon(wpn);
+                            return;
+                        }
+                        break;
+                    case UserControllable.classTypes.mage:
+                        if (wpn.classType == Weapon.weaponClass.Magic)
+                        {
+                            party[i].equipWeapon(wpn);
+                            return;
+                        }
+                        break;
+                    case UserControllable.classTypes.rogue:
+                        if (wpn.classType == Weapon.weaponClass.Ranged)
+                        {
+                            party[i].equipWeapon(wpn);
+                            return;
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    public void goBack()
+    {
+        isInShopInventory = false;
+        GameMaster.instance.switchCamera(4);
+    }
+
+    //Loads the shop/inventory and switches to it
+    public void load()
+    {
+        isInShopInventory = true;
+        GameMaster.instance.switchCamera(6);
     }
 
 

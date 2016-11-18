@@ -133,8 +133,6 @@ public class VictoryHandler : MonoBehaviour {
 
             if (!added)
             {
-                //TODO: destroy the item's gameObject(s)
-                //monsters[i].itemDrop.invGameObject
                 lootTooHeavy = true;
                 tooHeavyString += monsters[i].itemDrop + ", ";
                 monsters[i].itemDrop = null;
@@ -142,6 +140,9 @@ public class VictoryHandler : MonoBehaviour {
             else
             {
                 itemsString += monsters[i].itemDrop + ", ";
+
+                //Place item in the inventory
+                GameMaster.instance.thePlayer.inventory.addItem(monsters[i].itemDrop);
             }
         }
 
@@ -222,7 +223,7 @@ public class VictoryHandler : MonoBehaviour {
             {
                 GameObject obj = new GameObject("VictoryHandler");
                 s_Instance = obj.AddComponent(typeof(VictoryHandler)) as VictoryHandler;
-                //Debug.Log("Could not locate an VictoryHandler object. VictoryHandler was Generated Automaticly.");
+                //Debug.Log("Could not locate an BattleScript object. BattleScript was Generated Automaticly.");
             }
 
             return s_Instance;

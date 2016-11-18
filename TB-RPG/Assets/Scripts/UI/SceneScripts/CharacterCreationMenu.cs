@@ -166,21 +166,40 @@ public class CharacterCreationMenu : MonoBehaviour {
                 fighterSelected = true;
                 uC.learnAbility(Ability.fighterAbilities[0]); //Learn Attack by Default
                 //Default weapon
-                uC.weapon = new MeleeWeapon("Rusty Sword", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield.");
+                uC.equipWeapon(new MeleeWeapon("Rusty Sword", 1, false, 1, 1, Weapon.weaponClass.Melee,Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield."));
+                GameMaster.instance.thePlayer.inventory.addItem(Gen.meleeWeapon(3));
+
+                //Populate some melee weapons in the shop
+                ShopInventoryScript.instance.theShop.addItem(Gen.meleeWeapon(5));
+                ShopInventoryScript.instance.theShop.addItem(Gen.meleeWeapon(10));
+                ShopInventoryScript.instance.theShop.addItem(Gen.meleeWeapon(15));
+
                 break;
             case 2:
                 uC.classType = UserControllable.classTypes.mage;
                 mageSelected = true;
                 uC.learnAbility(Ability.mageAbilities[0]); //Learn Arcane Destruction by Default
                 //Default mage weapon
-                uC.weapon = new MagicWeapon("Flimsy Wand", 10, false, 1, 1, Weapon.weaponClass.Magic, Weapon.weaponType.balanced, "Could break any day now.");
+                uC.equipWeapon(new MagicWeapon("Flimsy Wand", 1, false, 1, 1, Weapon.weaponClass.Magic, Weapon.weaponType.balanced, "Could snap any day now."));
+
+                //Populate some mage weapons in the shop
+                ShopInventoryScript.instance.theShop.addItem(Gen.magicWeapon(5));
+                ShopInventoryScript.instance.theShop.addItem(Gen.magicWeapon(10));
+                ShopInventoryScript.instance.theShop.addItem(Gen.magicWeapon(15));
+
                 break;
             case 3:
                 uC.classType = UserControllable.classTypes.rogue; //Learn Bow Attack by default
                 rogueSelected = true;
                 uC.learnAbility(Ability.rogueAbilities[0]); //Learn Bow Attack by default
                 //Default rogue weapon
-                uC.weapon = new RangedWeapon("Weak Bow", 10, false, 1, 1, Weapon.weaponClass.Melee, Weapon.weaponType.balanced, "Gets the job done.");
+                uC.equipWeapon(new RangedWeapon("Weak Bow", 1, false, 1, 1, Weapon.weaponClass.Ranged, Weapon.weaponType.balanced, "Gets the job done."));
+
+                //Populate some rogue weapons in the shop
+                ShopInventoryScript.instance.theShop.addItem(Gen.rangedWeapon(5));
+                ShopInventoryScript.instance.theShop.addItem(Gen.rangedWeapon(10));
+                ShopInventoryScript.instance.theShop.addItem(Gen.rangedWeapon(15));
+
                 break;
         }
 
@@ -210,7 +229,7 @@ public class CharacterCreationMenu : MonoBehaviour {
 
 
     }
-
+    
     //Handles clicking of "New Character has joined!"
     public void disappearNewCharacterHasJoinedPopup()
     {
