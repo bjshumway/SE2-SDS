@@ -1,0 +1,94 @@
+﻿Merge remote-tracking branch 'origin/master'
+
+# Conflicts:
+#	TB-RPG/.vs/TB-RPG/v14/.suo
+#	TB-RPG/Library/CurrentLayout.dwlt
+#	TB-RPG/Library/CurrentMaximizeLayout.dwlt
+#	TB-RPG/Library/ScriptAssemblies/Assembly-CSharp.dll
+#	TB-RPG/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb
+#	TB-RPG/Library/assetDatabase3
+#	TB-RPG/Library/expandedItems
+#	TB-RPG/Library/metadata/00/00000000000000004000000000000000
+#	TB-RPG/Library/metadata/00/00000000000000006100000000000000
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 1 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   TB-RPG/.vs/TB-RPG/v14/.suo
+#	modified:   TB-RPG/Assets/MainScene.unity
+#	new file:   TB-RPG/Assets/Plugins/GoogleTranslator/bin.meta
+#	new file:   TB-RPG/Assets/Resources/EquipedWeapon.prefab
+#	new file:   TB-RPG/Assets/Resources/EquipedWeapon.prefab.meta
+#	new file:   TB-RPG/Assets/Resources/Image (8).prefab
+#	new file:   TB-RPG/Assets/Resources/Image (8).prefab.meta
+#	modified:   TB-RPG/Assets/Resources/InventoryItem.prefab
+#	modified:   TB-RPG/Assets/Resources/InventoryWeapon.prefab
+#	modified:   TB-RPG/Assets/Scripts/Actors/Abilities/UC Abilities/BowAttack.cs
+#	modified:   TB-RPG/Assets/Scripts/Actors/Abilities/UC Abilities/Heal.cs
+#	modified:   TB-RPG/Assets/Scripts/Actors/Actor.cs
+#	modified:   TB-RPG/Assets/Scripts/Actors/UserControllable.cs
+#	modified:   TB-RPG/Assets/Scripts/GameMaster.cs
+#	modified:   TB-RPG/Assets/Scripts/Items/Gear.cs
+#	modified:   TB-RPG/Assets/Scripts/Items/Gen.cs
+#	modified:   TB-RPG/Assets/Scripts/Items/Inventory.cs
+#	modified:   TB-RPG/Assets/Scripts/Items/Item.cs
+#	modified:   TB-RPG/Assets/Scripts/Items/RangedWeapon.cs
+#	modified:   TB-RPG/Assets/Scripts/Items/Weapon.cs
+#	modified:   TB-RPG/Assets/Scripts/UI/SceneScripts/CharacterCreationMenu.cs
+#	modified:   TB-RPG/Assets/Scripts/UI/SceneScripts/OverworldScript.cs
+#	modified:   TB-RPG/Assets/Scripts/UI/ScrollbarEnabler.cs
+#	modified:   TB-RPG/Assets/Scripts/VictoryHandler.cs
+#	modified:   TB-RPG/Assets/ShopInventoryScript.cs
+#	new file:   TB-RPG/Assets/UpdateTimeTracker.cs
+#	new file:   TB-RPG/Assets/UpdateTimeTracker.cs.meta
+#	modified:   TB-RPG/Library/CurrentLayout.dwlt
+#	modified:   TB-RPG/Library/CurrentMaximizeLayout.dwlt
+#	modified:   TB-RPG/Library/InspectorExpandedItems.asset
+#	modified:   TB-RPG/Library/ScriptAssemblies/Assembly-CSharp.dll
+#	modified:   TB-RPG/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb
+#	modified:   TB-RPG/Library/assetDatabase3
+#	modified:   TB-RPG/Library/expandedItems
+#	modified:   TB-RPG/Library/metadata/00/00000000000000002000000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000003000000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000004000000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000004100000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000005000000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000005100000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000006000000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000006100000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000007000000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000007100000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000008000000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000008100000000000000
+#	modified:   TB-RPG/Library/metadata/00/00000000000000009000000000000000
+#	modified:   TB-RPG/Library/metadata/00/0000000000000000a000000000000000
+#	modified:   TB-RPG/Library/metadata/00/0000000000000000a100000000000000
+#	modified:   TB-RPG/Library/metadata/00/0000000000000000b000000000000000
+#	modified:   TB-RPG/Library/metadata/00/0000000000000000c000000000000000
+#	modified:   TB-RPG/Library/metadata/04/043f4cbf4d3daba479021319ca0f4cbd
+#	modified:   TB-RPG/Library/metadata/2a/2abf3dfa08019c148b59195e322d5887
+#	modified:   TB-RPG/Library/metadata/5c/5cfa824e3c9062c4097c1f94ca494b75
+#	modified:   TB-RPG/Library/metadata/6d/6d872356be25ad3419166520d8e52c9c
+#	modified:   TB-RPG/Library/metadata/8b/8be43d14e818f0c41b9a4eefe9e90f2d
+#	modified:   TB-RPG/Library/metadata/8c/8cae2d2dcda6fc94792b99abc9f36a16
+#	modified:   TB-RPG/Library/metadata/b5/b529ecabf40cefd4a9070bad95243379
+#	modified:   TB-RPG/Library/metadata/be/be4a9accdb6afcd41ac4f2d016425ac6
+#	modified:   TB-RPG/Library/metadata/c7/c7886e3747fa84b4cb895efb8cec340a
+#	modified:   TB-RPG/Library/metadata/cb/cbdc7f21881d36b4f9fa9a90532ae8af
+#	modified:   TB-RPG/Library/metadata/df/df169ca14dd784e409c9e9592d3561bc
+#	modified:   TB-RPG/TB-RPG.CSharp.csproj
+#
+

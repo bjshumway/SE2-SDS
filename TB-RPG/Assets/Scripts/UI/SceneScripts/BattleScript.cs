@@ -152,6 +152,7 @@ public class BattleScript : MonoBehaviour {
                 Ability ab = activeCharacter.abilities.abilities[i];
                 if (ab != null)
                 {
+                    ab.onUnload();
                     ab.currentAbSlot = null;
                 }
             }
@@ -219,6 +220,28 @@ public class BattleScript : MonoBehaviour {
             return;
         }
 
+    }
+
+    public void changeArcaneDestruction(int i)
+    {
+        Debug.Log("changeArcaneDestruction: " + i);
+        switch(i)
+        {
+            case 0:
+                ((SingleTargetAbility)Ability.mageAbilities[0]).damageTypes = Ability.damageType.fire;
+                break;
+            case 1:
+                ((SingleTargetAbility)Ability.mageAbilities[0]).damageTypes = Ability.damageType.water;
+                break;
+            case 2:
+                ((SingleTargetAbility)Ability.mageAbilities[0]).damageTypes = Ability.damageType.ground;
+                break;
+            case 3:
+                ((SingleTargetAbility)Ability.mageAbilities[0]).damageTypes = Ability.damageType.lightning;
+                break;
+
+        }
+        return;
     }
 
     //Calls arg.split()
@@ -354,8 +377,8 @@ public class BattleScript : MonoBehaviour {
 
     public void poison() {
         for (int i = 0; i < monsters.Length; i++) {
-            if (monsters[i] != null && monsters[i].isAlive && monsters[i].statusEffects["poison"]) {
-                monsters[i].health.subtract(monsters[i].health.maxValue * (decimal)Time.smoothDeltaTime * 0.01m);
+            if (monsters[i] != null && monsters[i].isAlive && monsters[i].statusEffects["poison"] != 0) {
+                monsters[i].health.subtract(monsters[i].health.maxValue * (decimal)Time.smoothDeltaTime * 0.01m * (monsters[i].statusEffects["poison"]));
 
                 if (monsters[i].health.value <= 0) {
                     monsters[i].kill();
@@ -415,7 +438,7 @@ public class BattleScript : MonoBehaviour {
                 Resource stamina = monsters[i].stamina;
                 
                 // If they have wither, we don't want to regen as much stamina
-                int valToAdd = (monsters[i].statusEffects["wither"]) ? 7 : 10;
+                int valToAdd = 10 - monsters[i].statusEffects["wither"] * 2;
                 stamina.add((decimal)((float)monsters[i].stamina.refreshSpeed * Time.smoothDeltaTime * valToAdd));
             }
         }

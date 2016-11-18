@@ -29,7 +29,7 @@ public class Actor {
     public int id; //unique across all monsters and actors
     public bool isUserControllable;
 
-    public Dictionary<string, bool> statusEffects = new Dictionary<string, bool>();
+    public Dictionary<string, int> statusEffects = new Dictionary<string, int>();
 
     public Slider battleHealthBar;
     public Slider battleStaminaBar;
@@ -157,16 +157,16 @@ public class Actor {
         initStatusEffects();
     }
 
-    //Initializes the dictionary of status effects, sets them all to False
+    //Initializes the dictionary of status effects, sets them all to 0
     public void initStatusEffects()
     {
-        statusEffects.Add("pin", false);
-        statusEffects.Add("shield", false);
-        statusEffects.Add("regen", false);
-        statusEffects.Add("confuse", false);
-        statusEffects.Add("wither", false);
-        statusEffects.Add("poison", false);
-        statusEffects.Add("float", false);
+        statusEffects.Add("pin", 0);
+        statusEffects.Add("shield", 0);
+        statusEffects.Add("regen", 0);
+        statusEffects.Add("confuse", 0);
+        statusEffects.Add("wither", 0);
+        statusEffects.Add("poison", 0);
+        statusEffects.Add("float", 0);
     }
 
     /// <summary>
@@ -301,7 +301,7 @@ public class Actor {
             dodgeRoll = dodgeRoll + ((Monster)damager).hitAccuracy * .05m / 100m;
         }
 
-        if ((stats["cunning"].modifier) < dodgeRoll || statusEffects["pin"] || autoHit) {
+        if ((stats["cunning"].modifier) < dodgeRoll || statusEffects["pin"] != 0 || autoHit) {
             ht = hitType.hit;
             decimal critRoll = (ran.Next(0, 100) / 100m);
 

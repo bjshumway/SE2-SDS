@@ -21,8 +21,14 @@ public class Pin : SingleTargetAbility
     //Pins the damagee
     public override void dealEffect(Actor a)
     {
-        a.statusEffects["pin"] = true;
-        owner.stamina.subtract(stamina);
-        showAnimation(a);
+        if (a.statusEffects["pin"] == 0)
+        {
+            a.statusEffects["pin"] = 1;
+            owner.stamina.subtract(stamina);
+            showAnimation(a);
+        } else
+        {
+            BattleHints.text = "You cannot pin the same target twice.";
+        }
     }
 }

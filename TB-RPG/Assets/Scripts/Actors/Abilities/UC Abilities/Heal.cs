@@ -45,7 +45,7 @@ public class Heal : SingleTargetAbility {
         // clearing all status effects
         for (int x = 0; x < act.statusEffects.Count; x++)
         {
-            act.statusEffects[act.statusEffects.ElementAt(x).Key] = false;
+            act.statusEffects[act.statusEffects.ElementAt(x).Key] = 0;
         }
 
         owner.stamina.subtract(stamina);
