@@ -5,7 +5,7 @@
 public class Pin : SingleTargetAbility
 {
 
-    public override void showAnimation(Monster m)
+    public override void showAnimation(Actor a)
     {
         //Program animation here
         //We might have a static class of generic animations that this can refer to
@@ -19,10 +19,16 @@ public class Pin : SingleTargetAbility
     }
 
     //Pins the damagee
-    public override void dealEffect(Monster m)
+    public override void dealEffect(Actor a)
     {
-        m.statusEffects["pin"] = true;
-        owner.stamina.subtract(stamina);
-        showAnimation(m);
+        if (a.statusEffects["pin"] == 0)
+        {
+            a.statusEffects["pin"] = 1;
+            owner.stamina.subtract(stamina);
+            showAnimation(a);
+        } else
+        {
+            BattleHints.text = "You cannot pin the same target twice.";
+        }
     }
 }

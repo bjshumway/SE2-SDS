@@ -8,6 +8,8 @@ public class Monster : Actor {
     public GameObject monsterPrefab;
     public static int id_increment = 1;
 
+    public bool isBoss;
+
     public Ability[] abilities;
 
     private Item _drop;
@@ -19,16 +21,27 @@ public class Monster : Actor {
 
     public decimal hitAccuracy;
 
-    public Item drop {
+    public Item itemDrop {
         get {
             return _drop;
         }
+        set
+        {
+            _drop = value;
+        }
     }
 
+    //How much gold is dropped. Defined in the overrided kill function.
+    public decimal goldDrop;
 
-    public Monster(string name, String prefabName, int level, int diffInLevel, int hitAcc, Title title = null, Resource[] resources = null, int[] stats = null, Ability.damageType weakness = Ability.damageType.none)
+    //Whether this monster has been stolen from. False by default.
+    public bool stolenFrom;
+
+    public Monster(string name, String prefabName, int level, int diffInLevel, int hitAcc, bool isBoss, Title title = null, Resource[] resources = null, int[] stats = null, Ability.damageType weakness = Ability.damageType.none)
         : base(name, level, title, resources, stats, weakness) {
 
+        this.isBoss = isBoss;
+        stolenFrom = false;
         hitAccuracy = hitAcc;
         difficultyInLevel = diffInLevel;
         this.id = id_increment;
@@ -64,9 +77,6 @@ public class Monster : Actor {
         battleStatusEffectText = GameObject.Find("Monster StatusEffectText");
         battleStatusEffectText.name = "Monster " + id + " StatusEffectText";
 
-        //Setup battleStatusEffectBackground
-        battleStatusEffectBackground = GameObject.Find("Monster StatusEffectBackground");
-        battleStatusEffectBackground.SetActive(false);
 
         //Set battleDamageText to inactive so that it doesn't show up on the screen.
         //We needed it to be active initially so that we could find it with GameObject.find
@@ -116,7 +126,7 @@ public class Monster : Actor {
                 switch (monsterIndex)
                 {
                     case 0:
-                        return new Reaper();
+                        return new DemonSkull();
                 }
                 break;
         }
@@ -129,18 +139,18 @@ public class Monster : Actor {
 
 
 
-    //Randomly creates 1 to 4 Monsters that correspond to the mapLevel
-    //Their combined difficultyInLevel should be 4
-    public static Monster[] genMonstersByLevel(int mapTier)
+    //Randomly creates 1 to 3 Monsters that correspond to the mapLevel
+    //Their combined difficultyInLevel should be equal to numFightsInTier
+    public static Monster[] genMonstersByLevel(int mapTier, int difficulty)
     {
         //Debug.Log("Inside genMonstersByLevel");
         int sumDifficulty = 0;
 
         List<Monster> monsters = new List<Monster>();
-        while (sumDifficulty != 4)
+        while (sumDifficulty != difficulty)
         {
             Monster m = getRandomMonsterByLevel(mapTier);
-            if ((sumDifficulty + m.difficultyInLevel) <= 4)
+            if ((sumDifficulty + m.difficultyInLevel) <= difficulty)
             {
                 sumDifficulty += m.difficultyInLevel;
                 monsters.Add(m);
@@ -153,5 +163,6 @@ public class Monster : Actor {
     public override void kill() {
         base.kill();
         _drop = Gen.drop(level);
+        goldDrop = 10 * level * difficultyInLevel;
     }
 }

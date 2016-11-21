@@ -1,12 +1,16 @@
 
 // parent class for ranged, melee, and magic weapons
 // TODO: add.. sprite?
+using UnityEngine;
+
 public class Weapon : Gear {
     private weaponClass _class;
     private decimal _damage;
     private decimal _accuracy;
     private decimal _special;
-    private weaponType _type;
+    private weaponType _weaponType;
+
+    public bool isEquipped;
 
     public enum weaponClass {
         Magic,
@@ -50,17 +54,23 @@ public class Weapon : Gear {
 
     public weaponType type {
         get {
-            return _type;
+            return _weaponType;
         }
     }
 
-    public Weapon(string name, decimal weight, bool tradable, decimal value, int level, weaponClass classType, weaponType type, string toolTip = "")
-        : base(name, weight, tradable, value, level, toolTip) {
+    public Weapon(string name, decimal weight, bool tradable, decimal value, int level, weaponClass classType, weaponType weaponType, string toolTip = "")
+        : base(name, weight, tradable, value, level, itemTypes.weapon, toolTip) {
 
             _class   = classType;
-            _type    = type;
+            _weaponType    = weaponType;
+
             _special = level * 0.1m;
+        
+
             calcStats();
+
+
+
     }
 
     private void calcStats() { // formula not final of course

@@ -1,0 +1,102 @@
+Halberd Of Beginner's Luck
+9999G
+99lbs
+SELL
+cost
+<
+EmptySlot
+ITEM
+>
+Select Class
+( T )
+INVENTORY
+LOOT
+Head Color
+0
+Load Game
+Next Menu (Skills & Resources)
+<Name is Here>
+( W )
+hp
+( R )
+ITEM
+SHOP
+<
+Test New Party Member Joining
+Ability Points Remaining:
+MENU / SHOP / INVENTORY
+123
+Head Type
+Charisma
+Start the Adventure!
+Stamina
+>
+SKILLS & RESOURCES
+MENU
+Start Game
+0
+WEAPON
+Cunning
+stamina
+Intellect
+Remaining Skill Points:
+ABILITIES
+Health
+Overworld Placeholder
+Strength
+Name:
+Select Abilities
+Dexterity
+( Click an ability to learn it )
+Remaining Resources Points:
+( Q )
+( E )
+Game Over
+( Try Again ? )
+Fighter
+Mage
+Rogue
+ATTACK
+ATTACK (LEARNED)
+Charge Strength
+Sword Flurry
+PIN
+Counter Attack
+Last Chance
+Arcane Destruction
+Arcane Destruction (LEARNED)
+Heal
+Regen
+Wither
+Poison
+Bow Attack
+Bow Attack (LEARNED)
+Sharp Shooter
+HandyMan
+DoubleShot
+(LEARNED)
+Select Target
+A new character has joined!
+LEARN 
+Deals 100% of the selected damage type
+Deals 100% damage
+Dexterity based damage. Damage is multiplied by how well you hit a target that quickly flies across the screen. Hitting the bullsye does 2x damage
+Increase Attack dmg by 50% (stacks up to 4 times)
+Counter-attack an enemy that dealt melee damage to you. Damages by the amount that the enemy hits you with.
+Upgrade Bow Attack to fire two shots randomly
+Using an item now costs 5 stamina, instead of 100 stamina
+Heals based on Intellect
+Deal 3x damage when you have under 10 percent HP
+Pins The Enemy in Place - No Longer Can Dodge
+Targetted enemy takes damage over time
+Regenerate health over time
+Hitting the bullsye deals 4x damage instead of 2x damage
+Deals 5% Damage
+Targetted enemy regens stamina at a slower rate
+VICTORY!
+  Gold Earned: _
+     Exp Earned: _
+Items Earned:
+Press any key to continue...
+  Game Over
+( Try Again ? )

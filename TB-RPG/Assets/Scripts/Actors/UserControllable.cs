@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 // TODO: add talent system; don't know how to flesh out talentPoints yet
 public abstract class UserControllable : Actor {
@@ -17,6 +18,9 @@ public abstract class UserControllable : Actor {
     public Color32 _headColor;
 
     public Image battleHead;
+
+    public GameObject shopInventoryGameObj;
+    public GameObject shopInventoryInfo;
 
     public enum classTypes {
         fighter,
@@ -43,6 +47,8 @@ public abstract class UserControllable : Actor {
         get; set;
     }
 
+
+
     public UserControllable() : base()
     {
 
@@ -51,8 +57,15 @@ public abstract class UserControllable : Actor {
         this.id = id_increment;
         id_increment++;
 
+        remainingStatPoints = 10;
+        remainingResourcePoints = 1;
+
+        learnAbility(new ItemAbility(this));
 
         GameObject battleObj = GameObject.Find("Battle UC " + id);
+        shopInventoryGameObj = GameObject.Find("ShopInventory UC " + id);
+        shopInventoryInfo = shopInventoryGameObj.transform.FindChild("Information").gameObject;
+        shopInventoryInfo.SetActive(true);
 
         //Setup the battleHealtBar
         GameObject bHB_gameObj = battleObj.transform.FindChild("Battle UC " + id + " HealthBar").gameObject;
@@ -79,7 +92,7 @@ public abstract class UserControllable : Actor {
 
         //Setup damageText
         battleDamageText = battleObj.transform.FindChild("Battle UC " + id + " BattleDamage").gameObject;
-        battleDamageText.SetActive(true);
+        //battleDamageText.SetActive(true);
 
 
 
@@ -102,7 +115,11 @@ public abstract class UserControllable : Actor {
         ab.owner = this;
         ab.isLearned = true;
 
-        if (!ab.isPassive)
+        if(ab.name == "ITEM")
+        {
+            abilities.itemAbility = ab;
+        }
+        else if (!ab.isPassive)
         {
             Ability[] abs = this.abilities.abilities;
             for (int i = 0; i < abs.Length; i++)
@@ -116,9 +133,13 @@ public abstract class UserControllable : Actor {
         } else
         {
             passiveAbilities.Add(ab);
+            if(ab.name == "HandyMan")
+            {
+                abilities.itemAbility.stamina = 5;
+            }
         }
         Text t = ab.learnButton.GetComponentInChildren<Text>();
-        t.text= ab.name + "\n" + "(LEARNED)";
+        t.text= MLH.tr(ab.name) + "\n" + MLH.tr("(LEARNED)");
     }
 
     //This function learns a given ability
@@ -145,7 +166,55 @@ public abstract class UserControllable : Actor {
             passiveAbilities.Remove(ab);
         }
 
-        ab.learnButton.GetComponent<Text>().text = ab.name;
+        ab.learnButton.GetComponent<Text>().text = MLH.tr(ab.name);
+    }
+
+    //Equip
+    public void equipWeapon(Weapon wpn)
+    {
+
+        //First make sure the weapon is in the inventory, if it isn't add it to the inventory
+        bool foundItem = false;
+        List<Item> items = GameMaster.instance.thePlayer.inventory.items;
+        for (int i = 0; i < items.Count; i++)
+        {
+            if(items[i] == wpn)
+            {
+                foundItem = true;
+                break;
+            }
+        }
+
+        if(!foundItem)
+        {
+           bool success = GameMaster.instance.thePlayer.inventory.addItem(wpn);
+            if(!success)
+            {
+                //Item was too heavy to add to inventory - can't equip
+                Debug.Log("Error Equipping Item - too heavy");
+                return;
+            }
+        }
+
+        //Do we currently have something equipped? The unequip it.
+        if (weapon != null)
+        {
+            weapon.invObject.SetActive(true);
+            weapon.isEquipped = false;
+        }
+        //Now that it's in the inventory, we want to equip it..
+        //so remove it from the scrollview simply by disabling it
+        weapon = wpn;
+
+        weapon.invObject.SetActive(false);
+        weapon.isEquipped = true;
+
+
+        //Next set the name of our current equip to what we are equipping
+        shopInventoryInfo.transform.FindChild("Weapon").gameObject
+            .GetComponentInChildren<Text>().text = weapon.name;
+
+        return;
     }
 
     //Add 3 to remaining stat points
@@ -154,6 +223,21 @@ public abstract class UserControllable : Actor {
     {
         remainingStatPoints += 3;
         remainingResourcePoints += 1;
+    }
+
+    //gets the number of alive party members
+    public static List<UserControllable> getAliveMembers()
+    {
+        List<UserControllable> mems = new List<UserControllable>();
+        for (int i = 0; i < GameMaster.instance.thePlayer.theParty.Length; i++)
+        {
+            if(GameMaster.instance.thePlayer.theParty[i] != null && GameMaster.instance.thePlayer.theParty[i].isAlive)
+            {
+                mems.Add(GameMaster.instance.thePlayer.theParty[i]);
+            }
+
+        }
+        return mems;
     }
 
     public override void kill() {

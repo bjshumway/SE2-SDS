@@ -4,7 +4,7 @@ public abstract class SingleTargetAbility : Ability {
 
     private decimal _modifier;
     private string _stat;
-    private damageType _damageTypeS;
+    private damageType _damageTypes;
 
     public decimal modifier {
         get {
@@ -19,12 +19,12 @@ public abstract class SingleTargetAbility : Ability {
     }
 
     // Not readonly anymore
-    public damageType damageTypeS {
+    public damageType damageTypes {
         get {
-            return _damageTypeS;
+            return _damageTypes;
         }
         set {
-            _damageTypeS = value;
+            _damageTypes = value;
         }
     }
 
@@ -33,32 +33,38 @@ public abstract class SingleTargetAbility : Ability {
 		: base(name, toolTip, stamina, isPassiveAbility, ownerOfAbility) {
             _modifier = modifier;
         _stat = stat;
-        _damageTypeS = damageType;
+        _damageTypes = damageType;
     }
 
     //arg is a string of the format "typeOfThingClickedOn index"
     //e.g. "Monster 1" or "UserControllable 2" or "AbilityBar 1"
     public void selectEnemy(string arg) {
 
-        Debug.Log("Ran in SelectEnemy, arg: " + arg);
         
         //   check to see what was clicked on is a monster
         //   if it's not a monster do nothing
         string[] args = arg.Split();
 
-        if (args[0] != "Monster") {
+        if (args[0] != "Monster" && args[0] != "UserControllable") {
             return;
         } else {
             BattleScript bs = BattleScript.instance;
-            Monster m = bs.monsters[int.Parse(args[1]) -1];
-            dealEffect(m);
+            Actor a = null;
+            if (args[0] == "Monster")
+                a = bs.monsters[int.Parse(args[1]) - 1];
+            else
+                a = GameMaster.instance.thePlayer.theParty[int.Parse(args[1]) - 1];
+            dealEffect(a);
             bs.pipeInputFunc = null;
+
+            BattleHints.text = "";
+
             //Uncomment below if we want to change the mouse back to regular
             //Cursor.SetCursor(GameMaster.instance.cursor1, new Vector2(0, 0), CursorMode.Auto);
         }
     }
 
-    public virtual void showAnimation(Monster m) {
+    public virtual void showAnimation(Actor a) {
 
     }
 
@@ -82,14 +88,17 @@ public abstract class SingleTargetAbility : Ability {
                 //I tried changing the mouse icon, but couldn't find one I liked. - Ben
                 //Cursor.SetCursor(GameMaster.instance.cursor2, new Vector2(0, 0), CursorMode.Auto);
                 bs.pipeInputFunc = this.selectEnemy;
+
+                //Tell the user to select a target
+                BattleHints.text = MLH.tr("Select Target");
                 return;
             } else
             {
                 dealEffect(aliveMonster);
             }
         } else {
-            Monster m = bs.monsters[0];
-            dealEffect(m);
+            Actor a = bs.monsters[0];
+            dealEffect(a);
         }
     }
 
@@ -97,8 +106,8 @@ public abstract class SingleTargetAbility : Ability {
     /// Deals damage to the selected monster
     /// </summary>
     /// <param name="modifier">for formula (statlevel * weapondamage * modifier)</param>
-    public virtual void dealEffect(Monster m) {
-        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier, owner, _damageTypeS);
+    public virtual void dealEffect(Actor m) {
+        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier, owner, _damageTypes);
 
         owner.stamina.subtract(stamina);
 

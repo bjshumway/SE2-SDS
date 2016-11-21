@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +17,19 @@ public class Actor {
     private bool _isAlive = true;
     private int  _level = 1;
 
+    private System.Random rand = new System.Random();
+
+
+    #endregion
+
+    #region Public Vars
+
     public List<Ability> passiveAbilities = new List<Ability>();
 
     public int id; //unique across all monsters and actors
     public bool isUserControllable;
 
-    public Dictionary<string, bool> statusEffects = new Dictionary<string, bool>();
+    public Dictionary<string, int> statusEffects = new Dictionary<string, int>();
 
     public Slider battleHealthBar;
     public Slider battleStaminaBar;
@@ -29,9 +37,6 @@ public class Actor {
     public GameObject battleStatusEffectText;
     public GameObject battleStatusEffectBackground;
 
-    #endregion
-
-    #region Public Vars
 
     public enum hitType {
         hit,
@@ -107,9 +112,11 @@ public class Actor {
             stamina = resources[1];
         } else { // h/m/s not specified - go by this formula
             int resourceModifier = 10 * level; // no idea if this formula will be good
-            health  = new Resource(resourceModifier);
-            stamina = new Resource(100); //Stamina should alway max out at 100.
+            health  = new Resource(resourceModifier, 0);
+            stamina = new Resource(100, level * 2); //Stamina should alway max out at 100.
         }
+        health.owner = this;
+        stamina.owner = this;
 
         // setting up the default stats
         stats.Add("strength",  new Stat(1, 0));
@@ -129,8 +136,10 @@ public class Actor {
     // Simple constructor (used primarilly by userControllables)
     public Actor() {
         decimal resourceModifier = 10; // no idea if this formula will be good
-        health = new Resource(resourceModifier, -1);
-        stamina = new Resource(100,-1);
+        health = new Resource(resourceModifier, 0);
+        stamina = new Resource(100, 1);
+        health.owner = this;
+        stamina.owner = this;
 
         this.weakness = Ability.damageType.none;
 
@@ -148,22 +157,23 @@ public class Actor {
         initStatusEffects();
     }
 
-    //Initializes the dictionary of status effects, sets them all to False
+    //Initializes the dictionary of status effects, sets them all to 0
     public void initStatusEffects()
     {
-        statusEffects.Add("pin", false);
-        statusEffects.Add("shield", false);
-        statusEffects.Add("regen", false);
-        statusEffects.Add("confuse", false);
-        statusEffects.Add("slow", false);
-        statusEffects.Add("poison", false);
-        statusEffects.Add("float", false);
+        statusEffects.Add("pin", 0);
+        statusEffects.Add("shield", 0);
+        statusEffects.Add("regen", 0);
+        statusEffects.Add("confuse", 0);
+        statusEffects.Add("wither", 0);
+        statusEffects.Add("poison", 0);
+        statusEffects.Add("float", 0);
     }
 
     /// <summary>
     /// Sets Actor.title with the specified Title, and applies the title to Actor.fullName
     /// </summary>
     /// <param name="newTitle">Title to apply</param>
+    /// Todo: Delete setTitle
     public void setTitle(Title newTitle) {
         _title = newTitle;
 
@@ -228,7 +238,8 @@ public class Actor {
     {
         if (!this.isUserControllable)
         {
-            Object.Destroy(((Monster)this).monsterPrefab);
+            ((Monster)this).monsterPrefab.GetComponent<Animator>().SetBool("Alive", false); //test monster death
+            //Object.Destroy(((Monster)this).monsterPrefab);
         }
     }
 
@@ -270,7 +281,8 @@ public class Actor {
     /// <param name="damageAmount">amount to damage</param>
     /// <param name="damager">Actor who is dealing the damage</param>
     /// <returns>hitType.hit, hitType.crit, or hitType.miss</returns>
-    public hitType damage(decimal damageAmount, Actor damager,  Ability.damageType damageType) {
+    /// autoHit always hits if its set to true (used in bowAttack)
+    public hitType damage(decimal damageAmount, Actor damager,  Ability.damageType damageType, bool autoHit = false) {
         System.Random ran = new System.Random();
         hitType ht;
 
@@ -289,7 +301,7 @@ public class Actor {
             dodgeRoll = dodgeRoll + ((Monster)damager).hitAccuracy * .05m / 100m;
         }
 
-        if ((stats["cunning"].modifier) < dodgeRoll || statusEffects["pin"]) {
+        if ((stats["cunning"].modifier) < dodgeRoll || statusEffects["pin"] != 0 || autoHit) {
             ht = hitType.hit;
             decimal critRoll = (ran.Next(0, 100) / 100m);
 
@@ -300,10 +312,11 @@ public class Actor {
             }
 
             // logic for Last Chance
-            if (damager.hasPassive("Last Chance") && (health.value / health.maxValue) <= 0.1m) {
+            if (damager.hasPassive("Last Chance") && (damager.health.value / damager.health.maxValue) <= 0.1m) {
                 damageAmount *= 3;
             }
 
+            showHitResult(damageAmount, ht);
             health.subtract(damageAmount); // ouch
 
             if (health.value == 0) {
@@ -321,7 +334,36 @@ public class Actor {
             return ht;
         }
 
+        showHitResult(-1, hitType.miss);
         return hitType.miss; // dodged
+    }
+
+    //Shows how much health was lost after taking damage
+    public void showHitResult(decimal damageAmount, hitType ht)
+    {
+        GameObject dmgText = (GameObject) GameObject.Instantiate(battleDamageText, battleDamageText.transform, true);
+        
+        string formattedDmg = damageAmount.ToString("######.##");
+
+        if (ht == hitType.miss)
+        {
+            dmgText.GetComponent<Text>().text = MLH.tr("MISS!");
+        }
+        else if(ht == hitType.crit)
+        {
+            dmgText.GetComponent<Text>().text = "" + formattedDmg +  MLH.tr(" CRIT!");
+        } else
+        {
+            dmgText.GetComponent<Text>().text = "" + formattedDmg;
+        }
+
+        dmgText.transform.SetParent(GameObject.Find("BattleCanvas").transform);
+        DamageFloatUpward d = dmgText.GetComponent<DamageFloatUpward>();
+        dmgText.SetActive(true);
+
+        if (d != null) {
+            d.floatUpThenDisappear(dmgText);
+        }
     }
 
     /// <summary>

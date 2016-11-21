@@ -7,6 +7,10 @@ public class Resource {
     private decimal _maxValue;
     private Slider[] _sliders;
 
+    public decimal refreshSpeed;
+
+    public Actor owner;
+
     public Slider[] sliders
     {
         get
@@ -46,9 +50,10 @@ public class Resource {
     /// <param name="maxValue">The maximum value for the Resource</param>
     /// <param name="value">The current value for the resource (leave at -1 for full)</param>
     /// <param name="value">The sliders associated with this resource</param>
-    public Resource(decimal maxValue, decimal value = -1) {
+    public Resource(decimal maxValue, decimal refSpeed, decimal value = -1) {
         _maxValue = maxValue;
         _value = (value == -1) ? maxValue : value;
+        refreshSpeed = refSpeed;
     }
 
     /// <summary>

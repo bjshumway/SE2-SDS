@@ -63,35 +63,52 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="TB-RPG.CSharp.Plugins.csproj">
+      <Project>{5597A59F-B2DA-B8EE-8E7B-02B4E0F67223}</Project>
+      <Name>TB-RPG.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
-    <Compile Include="Assets\BattleSummary.cs" />
+    <Compile Include="Assets\AudioControl.cs" />
+    <Compile Include="Assets\BackgroundClick.cs" />
+    <Compile Include="Assets\BowSliderMove.cs" />
     <Compile Include="Assets\Combat.cs" />
+    <Compile Include="Assets\DifficultyModulator.cs" />
     <Compile Include="Assets\EnemyHP.cs" />
-    <Compile Include="Assets\GameOverScript.cs" />
     <Compile Include="Assets\HeathControl.cs" />
-    <Compile Include="Assets\MenuScript.cs" />
-    <Compile Include="Assets\MonsterClick.cs" />
-    <Compile Include="Assets\SaveScriptsOnStartup.cs" />
+    <Compile Include="Assets\HughShift.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\AbilityBar.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\ItemAbility.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\MonsterAbilities\MonsterAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\SingleTargetAbility.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\AcraneDestruction.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Attack.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\BowAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ChargeStrength.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\CounterAttack.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\DoubleShot.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\HandyMan.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Heal.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\LastChance.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Pin.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Poison.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Regen.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SharpShooter.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SwordFlurry.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Wither.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
     <Compile Include="Assets\Scripts\Actors\Debuff.cs" />
     <Compile Include="Assets\Scripts\Actors\Follower.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\Bunny.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Monster.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\Orca.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Reaper.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Scorpion.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\TreeMonster.cs" />
     <Compile Include="Assets\Scripts\Actors\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\Actors\Player.cs" />
     <Compile Include="Assets\Scripts\Actors\Resource.cs" />
@@ -104,32 +121,38 @@
     <Compile Include="Assets\Scripts\Items\Gear.cs" />
     <Compile Include="Assets\Scripts\Items\Gen.cs" />
     <Compile Include="Assets\Scripts\Items\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Items\InventoryObject.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Items\MagicWeapon.cs" />
     <Compile Include="Assets\Scripts\Items\MeleeWeapon.cs" />
     <Compile Include="Assets\Scripts\Items\RangedWeapon.cs" />
     <Compile Include="Assets\Scripts\Items\Weapon.cs" />
-    <Compile Include="Assets\Scripts\Rooms and Map\BattleRoom.cs" />
-    <Compile Include="Assets\Scripts\Rooms and Map\LevelSpecs.cs" />
-    <Compile Include="Assets\Scripts\Rooms and Map\Map.cs" />
-    <Compile Include="Assets\Scripts\Rooms and Map\Room.cs" />
-    <Compile Include="Assets\Scripts\UI\AbilitySelectionScript.cs" />
+    <Compile Include="Assets\Scripts\MLH.cs" />
+    <Compile Include="Assets\Scripts\Map\Teir.cs" />
     <Compile Include="Assets\Scripts\UI\AbilityTextScript.cs" />
-    <Compile Include="Assets\Scripts\UI\BattleScript.cs" />
-    <Compile Include="Assets\Scripts\UI\CharacterCreationMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\OverworldScript.cs" />
+    <Compile Include="Assets\Scripts\UI\DamageFloatUpward.cs" />
+    <Compile Include="Assets\Scripts\UI\DisableAfterShortWhile.cs" />
+    <Compile Include="Assets\Scripts\UI\GameOverScript.cs" />
+    <Compile Include="Assets\Scripts\UI\MonsterClick.cs" />
     <Compile Include="Assets\Scripts\UI\ResourceChange.cs" />
-    <Compile Include="Assets\Scripts\UI\SkillSelectionScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\AbilitySelectionScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\BattleScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\CharacterCreationMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\OverworldScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\SkillSelectionScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\TitleMenuScript.cs" />
+    <Compile Include="Assets\Scripts\UI\ScrollbarEnabler.cs" />
     <Compile Include="Assets\Scripts\UI\StatChange.cs" />
     <Compile Include="Assets\Scripts\UI\Statincrement.cs" />
-    <Compile Include="Assets\Scripts\UI\TitleMenuScript.cs" />
+    <Compile Include="Assets\Scripts\VictoryHandler.cs" />
     <Compile Include="Assets\Scripts\ability_test.cs" />
-    <Compile Include="Assets\ScrollbarEnabler.cs" />
-    <Compile Include="Assets\ShowTextSortingLayerInEditor.cs" />
+    <Compile Include="Assets\ShopInventoryScript.cs" />
+    <Compile Include="Assets\UpdateTimeTracker.cs" />
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Audio\license.txt" />
+    <None Include="Assets\Plugins\GoogleTranslator\obj\Debug\GoogleTranslator.csproj.FileListAbsolute.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

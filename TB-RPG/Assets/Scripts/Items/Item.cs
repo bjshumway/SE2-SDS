@@ -1,12 +1,21 @@
 
-// base class for all inventory objects in the game
 // TODO: add image field
-public class Item {
+public class Item :InventoryObject {
     private string _name;
     private string _toolTip;
     private decimal _weight;
     private bool _tradable;
     private decimal _value;
+
+    public enum itemTypes
+    {
+        weapon,
+        abilityItem,
+        loot
+    }
+
+    //The type of item it is: weapon, abilityItem, loot
+    public itemTypes itemType;
 
     public string name {
         get {
@@ -38,12 +47,13 @@ public class Item {
         }
     }
 
-    public Item(string name, decimal weight, bool tradable, decimal value = 1, string toolTip = "") {
+    public Item(string name, decimal weight, bool tradable, itemTypes itemType, decimal value = 1, string toolTip = "") {
         _name     = name;
         _weight   = weight;
         _tradable = tradable;
         _value    = value;
         _toolTip  = toolTip;
+        this.itemType = itemType;
     }
 
     public override string ToString() {

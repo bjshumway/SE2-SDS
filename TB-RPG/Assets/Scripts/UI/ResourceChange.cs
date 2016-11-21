@@ -12,40 +12,23 @@ public class ResourceChange : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GetComponent<Renderer>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.name == "Resources")
+        if(gameObject.name =="Resources")
         {
-            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.statTotal);
+            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.resourceTotal);
         }
-
-        if (gameObject.name == "Strength")
+        else if(gameObject.name == "Stamina")
         {
-            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.strength);
+            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.stamina);
         }
-
-        if (gameObject.name == "Intellect")
+        else if(gameObject.name == "Health")
         {
-            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.intellect);
-        }
-
-        if (gameObject.name == "Dexterity")
-        {
-            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.dexterity);
-        }
-
-        if (gameObject.name == "Cunning")
-        {
-            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.cunning);
-        }
-
-        if (gameObject.name == "Charisma")
-        {
-            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.charisma);
+            GetComponent<Text>().text = Convert.ToString(SkillSelectionScript.health);
         }
 
     }

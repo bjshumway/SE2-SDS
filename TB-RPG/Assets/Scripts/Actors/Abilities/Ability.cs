@@ -10,6 +10,7 @@ public abstract class Ability {
     private decimal _stamina;
 
     public Actor owner;
+    public Text BattleHints;
 
     public GameObject learnButton;
     public Sprite buttonSprite;
@@ -35,12 +36,18 @@ public abstract class Ability {
     public static Ability[] mageAbilities = new Ability[]
     {
         new ArcaneDestruction(null),
-        new Heal(null)
+        new Heal(null),
+        new Regen(null),
+        new Wither(null),
+        new Poison(null)
     };
 
     public static Ability[] rogueAbilities = new Ability[]
     {
-
+	    new BowAttack(null),
+        new SharpShooter(null),
+        new HandyMan(null),
+        new DoubleShot(null)
     };
 
     public bool isPassive;
@@ -73,6 +80,10 @@ public abstract class Ability {
         get {
             return _stamina;
         }
+        set
+        {
+            _stamina = value;
+        }
     }
 
     public Ability(string name, string toolTip, decimal stamina, bool isPassiveAbility, Actor ownerOfAbility) {
@@ -98,8 +109,11 @@ public abstract class Ability {
         learnButton.SetActive(false);
 
         //Set the text for this image to this button's name
-        learnButton.GetComponentInChildren<Text>().text = name;
+        learnButton.GetComponentInChildren<Text>().text = MLH.tr(name);
+        Debug.Log(MLH.tr(name));
 
+        //Initialize battlehints to its gameComponent
+        BattleHints = GameObject.Find("BattleHints").GetComponentInChildren<Text>();
 
 
 
@@ -119,4 +133,19 @@ public abstract class Ability {
     {
 
     }
+
+    //Called in BattleScript when this ability is loaded into the abilitySlot
+    //Meant to be overridden by any child ability that wants to do anything meaningfully with it.
+    public virtual void onLoad()
+    {
+
+    }
+
+    //Called in BattleScript when this ability is unloaded
+    //Meant to be overridden by any child ability that wants to do anything meaningfully with it.
+    public virtual void onUnload()
+    {
+
+    }
+
 }

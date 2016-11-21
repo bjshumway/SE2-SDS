@@ -64,24 +64,24 @@ public static class Gen {
     };
 
     private static Item[] junkItems = {
-        new Item("Bottle of Goo", 2, true, 10, "Slimey substance in a bottle."),
-        new Item("Crumpled Paper", 0.1m, true, 5, "There's nothing written on it."),
-        new Item("Metal Scraps", 10, true, 45, "Scrap metal. Could be valuable."),
-        new Item("Melted Candle", 0.5m, true, 15, "An old candle."),
-        new Item("Dusty Old Lentern", 4, true, 20, "I wonder if it works."),
-        new Item("Slightly Damp Rag", 0.3m, true, 7, "Why did I pick this up?"),
-        new Item("Oily Boot", 1.2m, true, 10, "Only one."),
-        new Item("Bag of Marbles", 5, true, 50, "Something to do, I suppose."),
-        new Item("Small Potted Plant", 4, true, 25, "How lovely.")
+        new Item("Bottle of Goo", 2, true, Item.itemTypes.loot, 10, "Slimey substance in a bottle."),
+        new Item("Crumpled Paper", 0.1m, true,Item.itemTypes.loot, 5, "There's nothing written on it."),
+        new Item("Metal Scraps", 10, true,Item.itemTypes.loot, 45, "Scrap metal. Could be valuable."),
+        new Item("Melted Candle", 0.5m, true,Item.itemTypes.loot, 15, "An old candle."),
+        new Item("Dusty Old Lentern", 4, true,Item.itemTypes.loot, 20, "I wonder if it works."),
+        new Item("Slightly Damp Rag", 0.3m, true,Item.itemTypes.loot, 7, "Why did I pick this up?"),
+        new Item("Oily Boot", 1.2m, true,Item.itemTypes.loot, 10, "Only one."),
+        new Item("Bag of Marbles", 5, true,Item.itemTypes.loot, 50, "Something to do, I suppose."),
+        new Item("Small Potted Plant", 4, true,Item.itemTypes.loot, 25, "How lovely.")
     };
 
     private static Item[] valuableItems = {
-        new Item("Golden Chalice", 4, true, 150, "A heavy gilded cup."),
-        new Item("Ruby", 0.1m, true, 75, "A red gem."),
-        new Item("Emerald", 0.1m, true, 100, "A green gem."),
-        new Item("Diamond", 0.1m, true, 300, "A clear gem."),
-        new Item("Huge Platinum Throne", 50, true, 550, "What a chair! Bloody heavy, though."),
-        new Item("Jeweled Crown", 2.5m, true, 175, "Perhaps it belonged to a king.")
+        new Item("Golden Chalice", 4, true,Item.itemTypes.loot, 150, "A heavy gilded cup."),
+        new Item("Ruby", 0.1m, true,Item.itemTypes.loot, 75, "A red gem."),
+        new Item("Emerald", 0.1m, true,Item.itemTypes.loot, 100, "A green gem."),
+        new Item("Diamond", 0.1m, true,Item.itemTypes.loot, 300, "A clear gem."),
+        new Item("Huge Platinum Throne", 50, true,Item.itemTypes.loot, 550, "What a chair! Bloody heavy, though."),
+        new Item("Jeweled Crown", 2.5m, true,Item.itemTypes.loot, 175, "Perhaps it belonged to a king.")
     };
 
     public static string weakAdjective() {
@@ -130,7 +130,7 @@ public static class Gen {
 
         name += " of " + ((level > 9) ? strongAdjective() : weakAdjective());
 
-        decimal weight = ((decimal)ran.NextDouble() * 10) + 1;
+        decimal weight = Math.Round((decimal)ran.NextDouble() * 10) + 1 + (level-1) * 5;
         bool tradable  = true;
         decimal value  = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
         Weapon.weaponType type = (Weapon.weaponType)ran.Next(3);

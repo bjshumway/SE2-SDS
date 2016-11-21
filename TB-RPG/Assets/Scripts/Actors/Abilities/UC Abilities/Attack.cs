@@ -4,7 +4,7 @@
 //see monsterAttack for when a monster attacks a userControllable
 public class Attack : SingleTargetAbility {
 
-    public override void showAnimation(Monster m)
+    public override void showAnimation(Actor m)
     {
         //Program animation here
         //We might have a static class of generic animations that this can refer to
@@ -12,7 +12,7 @@ public class Attack : SingleTargetAbility {
     }
 
     public Attack(Actor Owner) : base("ATTACK", "Deals 100% damage",
-        "strength", 1.0m, 75, false, Owner, damageType.melee)
+        "strength", 1.0m, 100, false, Owner, damageType.melee)
     {
 
     }
