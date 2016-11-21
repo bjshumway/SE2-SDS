@@ -106,6 +106,7 @@ public class BattleScript : MonoBehaviour {
                 //stamina.setValue(random.Next((int)stamina.value));
                 //theParty[i].battleStaminaBar.value = (float)stamina.value;
                 stamina.setValue(random.Next((int)stamina.maxValue));
+
             }
         }
 

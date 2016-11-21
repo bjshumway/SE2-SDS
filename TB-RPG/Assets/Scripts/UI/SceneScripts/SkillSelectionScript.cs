@@ -51,7 +51,7 @@ public class SkillSelectionScript : MonoBehaviour {
         resourceTotal = uC.remainingResourcePoints;
         resourceMax = uC.remainingResourcePoints;
         
-        health = (int) uC.health.maxValue;
+        health = (int)uC.health.maxValue;
         stamina = (int)uC.stamina.refreshSpeed;
 
         //TODO: If this is our first time here, the lower button reads "Start The Adventure" 
