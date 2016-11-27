@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Poison.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Regen.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SharpShooter.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\StealGold.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SwordFlurry.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Wither.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
