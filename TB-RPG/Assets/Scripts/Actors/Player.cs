@@ -18,7 +18,6 @@ public class Player : UserControllable {
         //Debug.Log("stamina: " + this.stamina.maxValue + ", " + this.stamina.value);
 
         inventory = new Inventory(this, "Inventory", 10);
-
     }
 
     //Adds a party member to the party!

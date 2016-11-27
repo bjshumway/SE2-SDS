@@ -1,9 +1,11 @@
-using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
+using UnityEngine.UI;
 
-// TODO: add talent system; don't know how to flesh out talentPoints yet
+[Serializable]
 public abstract class UserControllable : Actor {
     private int _talentPoints;
 
@@ -255,5 +257,39 @@ public abstract class UserControllable : Actor {
         {
             GameMaster.instance.thePlayer.partyIsDead = true;
         }
+    }
+
+    /// <summary>
+    /// Serializes the UserControllable into the specified binary file
+    /// </summary>
+    /// <param name="fileName">File to save to</param>
+    public void save(string fileName) {
+        using (var writer = File.Create(fileName)) {
+            var serializer = new BinaryFormatter();
+
+            // write all of the UC's attribute values to a file in binary format
+            serializer.Serialize(writer, this);
+        }
+    }
+
+    /// <summary>
+    /// Creates a UserControllable based on a binary file
+    /// </summary>
+    /// <param name="fileName">File to read from</param>
+    /// <returns>a UserControllable if the file can be parsed, otherwise null</returns>
+    public static UserControllable load(string fileName) {
+        if (File.Exists(fileName)) {
+            try {
+                using (var writer = File.Open(fileName, FileMode.Open)) {
+                    var serializer = new BinaryFormatter();
+                    return (UserControllable)serializer.Deserialize(writer);
+                }
+
+            } catch (Exception ex) {
+                Debug.Log("In UserControllable.load: " + ex.Message);
+            }
+        }
+
+        return null;
     }
 }
