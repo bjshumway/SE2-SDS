@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ChargeStrength.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\CounterAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\DoubleShot.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Flee.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\HandyMan.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Heal.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\LastChance.cs" />
