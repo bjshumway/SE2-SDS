@@ -101,6 +101,7 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Flee.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\HandyMan.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Heal.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\IronSkin.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\LastChance.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Pin.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Poison.cs" />

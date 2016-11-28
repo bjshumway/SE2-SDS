@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class ChargeStrength : Ability {
+﻿public class ChargeStrength : Ability {
 
     public ChargeStrength(Actor ownerOfAbility)
 		: base("Charge Strength", "Increase Attack dmg by 50% (stacks up to 4 times)", 25, false, ownerOfAbility) {
@@ -18,6 +15,7 @@ public class ChargeStrength : Ability {
         if(owner.stats["strength"].countBuff("ChargedStrength") >= 4)
         {
             //do nothing;
+            BattleHints.text = "Charge Strength only stacks 4 times.";
             return;
         }
 

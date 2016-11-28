@@ -146,8 +146,19 @@ public class VictoryHandler : MonoBehaviour {
             }
         }
 
+        // remove Iron Skin if it's there
+        foreach (var partyMember in GameMaster.instance.thePlayer.theParty) {
+            if (partyMember != null) {
+                for (int x = partyMember.passiveAbilities.Count - 1; x > -1; x--) {
+                    if (partyMember.passiveAbilities[x].name == "Iron Skin") {
+                        partyMember.passiveAbilities.RemoveAt(x);
+                    }
+                }
+            }
+        }
+
         //Update the tier
-        if(foughtBoss)
+        if (foughtBoss)
         {
             Tier.tier++;
         }

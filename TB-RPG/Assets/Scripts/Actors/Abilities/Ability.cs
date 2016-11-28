@@ -39,7 +39,8 @@ public abstract class Ability {
         new Heal(null),
         new Regen(null),
         new Wither(null),
-        new Poison(null)
+        new Poison(null),
+        new IronSkin(null)
     };
 
     public static Ability[] rogueAbilities = new Ability[]
