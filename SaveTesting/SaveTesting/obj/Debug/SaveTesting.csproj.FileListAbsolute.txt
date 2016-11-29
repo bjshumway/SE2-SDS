@@ -1,0 +1,6 @@
+E:\School2016.2\Prog\SaveTesting\SaveTesting\bin\Debug\SaveTesting.exe.config
+E:\School2016.2\Prog\SaveTesting\SaveTesting\bin\Debug\SaveTesting.exe
+E:\School2016.2\Prog\SaveTesting\SaveTesting\bin\Debug\SaveTesting.pdb
+E:\School2016.2\Prog\SaveTesting\SaveTesting\obj\Debug\SaveTesting.csprojResolveAssemblyReference.cache
+E:\School2016.2\Prog\SaveTesting\SaveTesting\obj\Debug\SaveTesting.exe
+E:\School2016.2\Prog\SaveTesting\SaveTesting\obj\Debug\SaveTesting.pdb

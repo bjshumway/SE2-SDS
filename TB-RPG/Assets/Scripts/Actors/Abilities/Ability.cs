@@ -39,15 +39,18 @@ public abstract class Ability {
         new Heal(null),
         new Regen(null),
         new Wither(null),
-        new Poison(null)
+        new Poison(null),
+        new IronSkin(null)
     };
 
     public static Ability[] rogueAbilities = new Ability[]
     {
-	    new BowAttack(null),
+        new BowAttack(null),
         new SharpShooter(null),
         new HandyMan(null),
-        new DoubleShot(null)
+        new DoubleShot(null),
+        new StealGold(null),
+        new Flee(null)
     };
 
     public bool isPassive;

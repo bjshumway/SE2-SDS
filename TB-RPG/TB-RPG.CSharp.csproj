@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
     <Compile Include="Assets\AudioControl.cs" />
+    <Compile Include="Assets\BGM.cs" />
     <Compile Include="Assets\BackgroundClick.cs" />
     <Compile Include="Assets\BowSliderMove.cs" />
     <Compile Include="Assets\Combat.cs" />
@@ -89,13 +90,16 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ChargeStrength.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\CounterAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\DoubleShot.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Flee.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\HandyMan.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Heal.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\IronSkin.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\LastChance.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Pin.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Poison.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Regen.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SharpShooter.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\StealGold.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SwordFlurry.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Wither.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
@@ -151,8 +155,8 @@
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Audio\license.txt" />
     <None Include="Assets\Plugins\GoogleTranslator\obj\Debug\GoogleTranslator.csproj.FileListAbsolute.txt" />
+    <None Include="Assets\Resources\Audio\license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

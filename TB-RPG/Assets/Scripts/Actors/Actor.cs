@@ -316,6 +316,11 @@ public class Actor {
                 damageAmount *= 3;
             }
 
+            // logic for Iron Skin
+            if (hasPassive("Iron Skin")) {
+                damageAmount -= damageAmount * 0.2m;
+            }
+
             showHitResult(damageAmount, ht);
             health.subtract(damageAmount); // ouch
 

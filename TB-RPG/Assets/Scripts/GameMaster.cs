@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using UnityEngine.UI;
-
+using System.Xml.Serialization;
 
 public class GameMaster : MonoBehaviour {
 
@@ -107,8 +107,7 @@ public class GameMaster : MonoBehaviour {
             theCanvases[i].enabled = false;
         }
 
-
-
+        //thePlayer.save("test.save");
     }
 
     void initGameDesignParameters()
