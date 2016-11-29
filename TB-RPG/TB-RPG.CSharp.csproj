@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
     <Compile Include="Assets\AudioControl.cs" />
+    <Compile Include="Assets\BGM.cs" />
     <Compile Include="Assets\BackgroundClick.cs" />
     <Compile Include="Assets\BowSliderMove.cs" />
     <Compile Include="Assets\Combat.cs" />
