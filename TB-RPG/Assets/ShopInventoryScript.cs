@@ -203,13 +203,14 @@ public class ShopInventoryScript : MonoBehaviour {
     public void goBack()
     {
         isInShopInventory = false;
-        GameMaster.instance.switchCamera(4);
+        OverworldScript.instance.load();
     }
 
     //Loads the shop/inventory and switches to it
     public void load()
     {
         isInShopInventory = true;
+        BGM.instance.setMusic(BGM.SongNames.shop);
         GameMaster.instance.switchCamera(6);
     }
 

@@ -68,8 +68,27 @@ public class BattleScript : MonoBehaviour {
         this.combatOcurring = true;
         this.monsters = monsters;
 
+        //Set the music :)
+        //Is this a boss fight?
+        Boolean isBossFight = false;
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            if(monsters[i].isBoss)
+            {
+                isBossFight = true;
+            }
+        }
+        if(isBossFight)
+        {
+            BGM.instance.setMusic(BGM.SongNames.boss);
+        }
+        else
+        {
+            BGM.instance.setMusic(BGM.SongNames.battle);
+        }
+
         //Make the monsters be located correctly on the battlefield
-        switch(monsters.Length)
+        switch (monsters.Length)
         {
             case 1:
                 monsters[0].monsterPrefab.GetComponent<RectTransform>().localPosition = new Vector3(0, 180, 0);

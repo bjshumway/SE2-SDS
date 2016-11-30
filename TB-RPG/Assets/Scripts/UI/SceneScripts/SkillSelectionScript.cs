@@ -74,7 +74,7 @@ public class SkillSelectionScript : MonoBehaviour {
             if (uC == null)
             {
                 //Go to overworld
-                GameMaster.instance.switchCamera(4);
+                OverworldScript.instance.load();
             }
             else
             {
@@ -84,7 +84,7 @@ public class SkillSelectionScript : MonoBehaviour {
         else
         {
             //Go to overworld
-            GameMaster.instance.switchCamera(4);
+            OverworldScript.instance.load();
         }
 
     }
