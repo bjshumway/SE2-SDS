@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +21,10 @@ public abstract class UserControllable : Actor {
 
     public Image battleHead;
 
+    [XmlIgnore]
     public GameObject shopInventoryGameObj;
+
+    [XmlIgnore]
     public GameObject shopInventoryInfo;
 
     public enum classTypes {
@@ -264,8 +267,22 @@ public abstract class UserControllable : Actor {
     /// </summary>
     /// <param name="fileName">File to save to</param>
     public void save(string fileName) {
+
+        foreach (var uc in GameMaster.instance.thePlayer.theParty)
+        {
+            if (uc != null)
+            {
+                uc.statsArray[0] = uc.stats["strength"];
+                uc.statsArray[1] = uc.stats["intellect"];
+                uc.statsArray[2] = uc.stats["charisma"];
+                uc.statsArray[3] = uc.stats["dexterity"];
+                uc.statsArray[4] = uc.stats["cunning"];
+            }
+        }
+
+
         using (var writer = File.Create(fileName)) {
-            var serializer = new BinaryFormatter();
+            var serializer = new XmlSerializer(typeof(UserControllable));
 
             // write all of the UC's attribute values to a file in binary format
             serializer.Serialize(writer, this);
@@ -281,7 +298,7 @@ public abstract class UserControllable : Actor {
         if (File.Exists(fileName)) {
             try {
                 using (var writer = File.Open(fileName, FileMode.Open)) {
-                    var serializer = new BinaryFormatter();
+                    var serializer = new XmlSerializer(typeof(UserControllable));
                     return (UserControllable)serializer.Deserialize(writer);
                 }
 

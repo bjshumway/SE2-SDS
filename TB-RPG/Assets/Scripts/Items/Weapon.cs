@@ -1,7 +1,5 @@
 
 // parent class for ranged, melee, and magic weapons
-// TODO: add.. sprite?
-using UnityEngine;
 
 public class Weapon : Gear {
     private weaponClass _class;
@@ -58,6 +56,11 @@ public class Weapon : Gear {
         }
     }
 
+    public Weapon() : base()
+    {
+
+    }
+
     public Weapon(string name, decimal weight, bool tradable, decimal value, int level, weaponClass classType, weaponType weaponType, string toolTip = "")
         : base(name, weight, tradable, value, level, itemTypes.weapon, toolTip) {
 
@@ -73,7 +76,7 @@ public class Weapon : Gear {
 
     }
 
-    private void calcStats() { // formula not final of course
+    public void calcStats() { // formula not final of course
         if (type == weaponType.highDamage) {
             _damage   = level * 0.7m;
             _accuracy = level * 0.3m;

@@ -7,6 +7,11 @@ public class RangedWeapon : Weapon {
         }
     }
 
+    public RangedWeapon() : base()
+    {
+
+    }
+
     public RangedWeapon(string name, decimal weight, bool tradable, decimal value, int level, weaponClass classTyp, weaponType type, string toolTip = "")
         : base(name, weight, tradable, value, level, classTyp, type, toolTip) {
 

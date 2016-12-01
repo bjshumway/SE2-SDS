@@ -7,6 +7,10 @@ public class MeleeWeapon : Weapon {
         }
     }
 
+    public MeleeWeapon(): base(){
+
+    }
+
     public MeleeWeapon(string name, decimal weight, bool tradable, decimal value, int level, weaponClass classType, weaponType type, string toolTip = "")
         : base(name, weight, tradable, value, level, classType, type, toolTip) {
 

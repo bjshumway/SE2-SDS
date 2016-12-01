@@ -107,7 +107,7 @@ public class GameMaster : MonoBehaviour {
             theCanvases[i].enabled = false;
         }
 
-        //thePlayer.save("test.save");
+        thePlayer.save("test.xml");
     }
 
     void initGameDesignParameters()

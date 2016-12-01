@@ -1,3 +1,4 @@
+using System.Xml.Serialization;
 using UnityEngine.UI;
 
 // Resource is designed to be a nice way to manage health/mana/stamina
@@ -5,12 +6,15 @@ using UnityEngine.UI;
 public class Resource {
     private decimal _value;
     private decimal _maxValue;
+
+    [XmlIgnore]
     private Slider[] _sliders;
 
     public decimal refreshSpeed;
 
     public Actor owner;
 
+    [XmlIgnore]
     public Slider[] sliders
     {
         get
@@ -44,6 +48,11 @@ public class Resource {
         }
     }
 
+    public Resource()
+    {
+
+    }
+
     /// <summary>
     /// Constructor for Resource
     /// </summary>
@@ -55,6 +64,8 @@ public class Resource {
         _value = (value == -1) ? maxValue : value;
         refreshSpeed = refSpeed;
     }
+
+
 
     /// <summary>
     /// Adds the specified number to Resource.value

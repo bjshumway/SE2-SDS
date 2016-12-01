@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 // Stat is specifically for the 5 stats - strength, intellect, dexterity, cunning, charisma
 // we will likely also need handling here for buffs/debuffs when they expire/are dispelled
@@ -72,15 +73,21 @@ public class Stat {
     }
 
     // list of all active buffs
+    [XmlIgnore]
     public List<Buff> buffs = new List<Buff>();
 
     // list of all active debuffs
+    [XmlIgnore]
     public List<Debuff> debuffs = new List<Debuff>();
 
     #endregion
 
     #region Constructor & Methods
 
+    public Stat()
+    {
+
+    }
     public Stat(int level, int gearlevel) {
         setLevel(level);
         _gearLevel = gearlevel;

@@ -47,6 +47,11 @@ public class Item :InventoryObject {
         }
     }
 
+    public Item() : base()
+    {
+
+    }
+
     public Item(string name, decimal weight, bool tradable, itemTypes itemType, decimal value = 1, string toolTip = "") {
         _name     = name;
         _weight   = weight;

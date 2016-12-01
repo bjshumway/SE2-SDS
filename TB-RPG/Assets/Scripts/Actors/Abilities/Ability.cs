@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,13 +11,14 @@ public abstract class Ability {
     private decimal _stamina;
 
     public Actor owner;
+    [XmlIgnore]
     public Text BattleHints;
-
+    [XmlIgnore]
     public GameObject learnButton;
     public Sprite buttonSprite;
     public int xPosSelectionMenu;
     public int yPosSelectionMenu;
-
+    [XmlIgnore]
     public GameObject currentAbSlot;
 
     public bool isLearned;

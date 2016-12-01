@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,12 +30,17 @@ public class Actor {
     public int id; //unique across all monsters and actors
     public bool isUserControllable;
 
+    [XmlIgnore]
     public Dictionary<string, int> statusEffects = new Dictionary<string, int>();
-
+    [XmlIgnore]
     public Slider battleHealthBar;
+    [XmlIgnore]
     public Slider battleStaminaBar;
+    [XmlIgnore]
     public GameObject battleDamageText;
+    [XmlIgnore]
     public GameObject battleStatusEffectText;
+    [XmlIgnore]
     public GameObject battleStatusEffectBackground;
 
 
@@ -85,7 +91,10 @@ public class Actor {
     public Resource health;
     public Resource stamina;
 
+    [XmlIgnore]
     public Dictionary<string, Stat> stats = new Dictionary<string, Stat>();
+
+    public Stat[] statsArray = new Stat[5];
 
     public Ability.damageType weakness;
 

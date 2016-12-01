@@ -7,6 +7,11 @@ public class MagicWeapon : Weapon {
         }
     }
 
+    public MagicWeapon(): base(){
+
+    }
+
+
     public MagicWeapon(string name, decimal weight, bool tradable, decimal value, int level, weaponClass classType, weaponType type, string toolTip = "")
         : base(name, weight, tradable, value, level, classType, type, toolTip) {
 
