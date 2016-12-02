@@ -200,12 +200,22 @@ public void showAnimation(Monster m)
             {
                 //Deal damage equal to percent distance of closeness to target area
                 modifier = (decimal) (val < 44 ? val / 44 : ((100 - val)) / 44);
-                whichAttackee.damage((decimal)owner.stats["dexterity"].effectiveLevel * owner.weapon.damage * modifier, owner, damageType.ranged);
+
+                Stat st = owner.stats["dexterity"];
+                decimal efLev = st.effectiveLevel;
+                Weapon w = owner.weapon;
+                decimal wDmg = w.damage;
+                whichAttackee.damage(efLev * wDmg * modifier, owner, damageType.ranged);
             }
             else
             {
+                //To test: If we get index out of bounds in this statement, which line broke?
                 modifier = ((owner.hasPassive("Sharp Shooter")) ? 2 : 1);
-                whichAttackee.damage(owner.stats["dexterity"].effectiveLevel * owner.weapon.damage * modifier, owner, damageType.ranged, true);
+                Stat st = owner.stats["dexterity"];
+                decimal efLev = st.effectiveLevel;
+                Weapon w = owner.weapon;
+                decimal wDmg = w.damage;
+                whichAttackee.damage(efLev * wDmg * modifier, owner, damageType.ranged, true);
             }
 
             if (!owner.hasPassive("DoubleShot"))
@@ -234,6 +244,7 @@ public void showAnimation(Monster m)
                             BowAttackSlider2.SetActive(false);
                             BowAttackSlider2.GetComponent<BowSliderMove>().isActive = false;
                             numBowAttacks = 0;
+                            BattleHints.text = "";
                         }
                         return;
                     }
@@ -245,8 +256,9 @@ public void showAnimation(Monster m)
                     BowAttackSliderBackground.SetActive(false);
                     BowAttackSlider.GetComponent<BowSliderMove>().hasLaunchedSecondSlider = false;
                     numBowAttacks = 0;
+                    BattleHints.text = "";
                 }
-                
+
             }
         }
     }

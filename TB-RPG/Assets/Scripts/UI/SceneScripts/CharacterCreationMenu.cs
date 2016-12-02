@@ -12,6 +12,8 @@ public class CharacterCreationMenu : MonoBehaviour {
     private static bool mageSelected;
     private static bool rogueSelected;
 
+    private static bool isFirstChar;
+
     public GameObject newCharacterHasJoinedPopup;
     public GameObject alreadySelectedClassPopup;
 
@@ -40,8 +42,9 @@ public class CharacterCreationMenu : MonoBehaviour {
 
     //Switches the camera to this scene
     //Populates the Image and Name on the canvas so that we know which uC is here
-    public static void load(UserControllable uC, bool isFirstChar)
+    public static void load(UserControllable uC, bool _isFirstChar)
     {
+        isFirstChar = _isFirstChar;
         GameObject.Find("NamePlayerInput").GetComponent<InputField>().text = uC.name;
         currentUC = uC;
         GameMaster.instance.switchCamera(1);
@@ -225,7 +228,13 @@ public class CharacterCreationMenu : MonoBehaviour {
 
 
         //Pass in a reference to the current character, so that it knows which character to load
-        AbilitySelectionScript.load(uC);
+        if (isFirstChar)
+        {
+            AbilitySelectionScript.load(uC);
+        } else
+        {
+            SkillSelectionScript.load(uC);
+        }
 
 
     }

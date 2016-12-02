@@ -24,6 +24,7 @@ public class Pin : SingleTargetAbility
         if (a.statusEffects["pin"] == 0)
         {
             a.statusEffects["pin"] = 1;
+            a.updateStatusEffectBox();
             owner.stamina.subtract(stamina);
             showAnimation(a);
         } else

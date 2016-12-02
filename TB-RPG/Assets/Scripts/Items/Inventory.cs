@@ -29,11 +29,19 @@ public class Inventory {
         get {
             return _weightCap;
         }
+        set
+        {
+            _weightCap = value;
+        }
     }
 
     public decimal weight { // current weight
         get {
             return _weight;
+        }
+        set
+        {
+            _weight = value;
         }
     }
 
@@ -68,7 +76,6 @@ public class Inventory {
 
     public void addGold(decimal amount)
     {
-        //TODO: update how much gold is displayed in menu screen
         gold += amount;
     }
 
@@ -91,13 +98,10 @@ public class Inventory {
 
         if (newWeight > weightCap) { // too heavy
             return false; // don't add it
-        } else { // there's room
+        } else { 
+            // there's room
             items.Add(item); // add it
-            _weight = newWeight; // update weight
-
-
-            //TODO: Update showing how much weight is used up in menu screen.
-
+            calcWeight(); //update weight
 
 
             GameObject scrollView = null;
@@ -188,9 +192,6 @@ public class Inventory {
                 equip.GetComponent<Button>().onClick.AddListener(delegate { ShopInventoryScript.instance.equipWeapon((Weapon)(item)); });
 
             }
-
-
-
             return true;
         }
     }

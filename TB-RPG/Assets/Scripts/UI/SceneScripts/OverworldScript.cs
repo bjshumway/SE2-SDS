@@ -19,6 +19,7 @@ public class OverworldScript : MonoBehaviour {
         } else
         {
             isFirstPass = false;
+            GameMaster.instance.switchCamera(4);
         }
 
     }

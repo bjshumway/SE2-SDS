@@ -206,6 +206,7 @@ public class BattleScript : MonoBehaviour {
             activeCharacter.abilities.itemAbility.stamina.ToString();
 
         //Place the ActiveUCFrame behind this guy's image
+        ActiveUCFrame.SetActive(true);
         ActiveUCFrame.transform.localPosition = activeCharacter.battleHead.transform.localPosition;
 
     }
@@ -228,6 +229,10 @@ public class BattleScript : MonoBehaviour {
         if(ab != null && ((activeCharacter.stamina.value == 100) || (ab.stamina == 0)))
         {
             ab.cast();
+            if (ab.stamina != 0)
+            {
+                ActiveUCFrame.SetActive(false);
+            }
         }
     }
 

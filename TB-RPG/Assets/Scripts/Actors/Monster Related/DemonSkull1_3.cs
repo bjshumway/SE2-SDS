@@ -2,13 +2,13 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DemonSkull : Monster {
+public class DemonSkull1_3 : Monster {
 
-    public DemonSkull()
+    public DemonSkull1_3()
         : base("DemonSkull", //Name of Monster
                "demonSkull", //Name of Monster's Prefab
                1,        //level
-               1,        //difficulty in level
+               3,        //difficulty in level
                0,        //hit accuracy
                false,    //isBoss
                null,     //title

@@ -11,7 +11,13 @@ public abstract class UserControllable : Actor {
 
     //Assigns the id to each UserControllable
     protected static int id_increment = 1;
+    protected static int statPointsPerLevel = 3;
+    protected static int initialStatPoints = 10;
+
+
     public AbilityBar abilities;
+
+
 
     public int remainingStatPoints;
     public int remainingResourcePoints;
@@ -62,8 +68,6 @@ public abstract class UserControllable : Actor {
         this.id = id_increment;
         id_increment++;
 
-        remainingStatPoints = 10;
-        remainingResourcePoints = 1;
 
         learnAbility(new ItemAbility(this));
 
@@ -71,6 +75,7 @@ public abstract class UserControllable : Actor {
         shopInventoryGameObj = GameObject.Find("ShopInventory UC " + id);
         shopInventoryInfo = shopInventoryGameObj.transform.FindChild("Information").gameObject;
         shopInventoryInfo.SetActive(true);
+        shopInventoryGameObj.transform.FindChild("HeadType").gameObject.SetActive(true);
 
         //Setup the battleHealtBar
         GameObject bHB_gameObj = battleObj.transform.FindChild("Battle UC " + id + " HealthBar").gameObject;
@@ -192,16 +197,19 @@ public abstract class UserControllable : Actor {
 
         if(!foundItem)
         {
-           bool success = GameMaster.instance.thePlayer.inventory.addItem(wpn);
+            bool success = GameMaster.instance.thePlayer.inventory.addItem(wpn);
             if(!success)
             {
-                //Item was too heavy to add to inventory - can't equip
-                Debug.Log("Error Equipping Item - too heavy");
+                //Cheat! Make the inventory big enough to equip it since otherwise we get a bug involving
+                //a newly added userControllable not having a weapon.
+                //Thankfully, this is the only case where we have to cheat, and we only add a weapon of weight 1
+                GameMaster.instance.thePlayer.inventory.weightCap += 1;
+                GameMaster.instance.thePlayer.inventory.addItem(wpn);
                 return;
             }
         }
 
-        //Do we currently have something equipped? The unequip it.
+        //Do we currently have something equipped? Then unequip it.
         if (weapon != null)
         {
             weapon.invObject.SetActive(true);
@@ -226,7 +234,7 @@ public abstract class UserControllable : Actor {
     //Add 1 to remaining resource points
     public void levelUp()
     {
-        remainingStatPoints += 3;
+        remainingStatPoints += statPointsPerLevel;
         remainingResourcePoints += 1;
     }
 

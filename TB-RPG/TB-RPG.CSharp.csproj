@@ -107,7 +107,15 @@
     <Compile Include="Assets\Scripts\Actors\Debuff.cs" />
     <Compile Include="Assets\Scripts\Actors\Follower.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Bunny.cs" />
-    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull1_1.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull1_2.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull1_3.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull2_1.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull2_2.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull2_3.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull3_1.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull3_2.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull3_3.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Monster.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Orca.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Reaper.cs" />
@@ -144,6 +152,7 @@
     <Compile Include="Assets\Scripts\UI\SceneScripts\BattleScript.cs" />
     <Compile Include="Assets\Scripts\UI\SceneScripts\CharacterCreationMenu.cs" />
     <Compile Include="Assets\Scripts\UI\SceneScripts\OverworldScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\ShopInventoryScript.cs" />
     <Compile Include="Assets\Scripts\UI\SceneScripts\SkillSelectionScript.cs" />
     <Compile Include="Assets\Scripts\UI\SceneScripts\TitleMenuScript.cs" />
     <Compile Include="Assets\Scripts\UI\ScrollbarEnabler.cs" />
@@ -151,7 +160,6 @@
     <Compile Include="Assets\Scripts\UI\Statincrement.cs" />
     <Compile Include="Assets\Scripts\VictoryHandler.cs" />
     <Compile Include="Assets\Scripts\ability_test.cs" />
-    <Compile Include="Assets\ShopInventoryScript.cs" />
     <Compile Include="Assets\UpdateTimeTracker.cs" />
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>

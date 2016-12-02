@@ -380,6 +380,22 @@ public class Actor {
         }
     }
 
+    //Updates the status effect box so that it reflects the actor's status effects
+    public void updateStatusEffectBox()
+    {
+        string effects = "";
+        effects += (statusEffects["pin"] == 0 ? "" : "pin" + "\n");
+        effects += (statusEffects["shield"] == 0 ? "" : "Shield" + (statusEffects["shield"] == 1 ? "" : " x" + statusEffects["shield"]) + "\n");
+        effects += (statusEffects["wither"] == 0 ? "" : "Slow" + (statusEffects["wither"] == 1 ? "" : " x" + statusEffects["wither"]) + "\n");
+        effects += (statusEffects["regen"] == 0 ? "" : "Regen" + (statusEffects["regen"] == 1 ? "" : " x" + statusEffects["regen"]) + "\n");
+        effects += (statusEffects["confuse"] == 0 ? "" : "Confused" + (statusEffects["confuse"] == 1 ? "" : "x" + statusEffects["confuse"]) + "\n");
+        effects += (statusEffects["poison"] == 0 ? "" : "Poison" + (statusEffects["poison"] == 1 ? "" : "x" + statusEffects["poison"]) + "\n");
+        effects += (statusEffects["float"] == 0 ? "" : "Armor" + (statusEffects["float"] == 1 ? "" : " x" + statusEffects["float"]) + "\n");
+
+        battleStatusEffectText.GetComponent<Text>().text = effects;
+
+    }
+
     /// <summary>
     /// Heals the Actor by the specified amount
     /// </summary>

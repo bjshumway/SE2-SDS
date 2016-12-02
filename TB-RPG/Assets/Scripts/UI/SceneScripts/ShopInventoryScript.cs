@@ -19,6 +19,9 @@ public class ShopInventoryScript : MonoBehaviour {
     public GameObject ItemBuyScrollView;
     public GameObject WeaponsBuyScrollView;
 
+    public GameObject goldText;
+    public GameObject weightText;
+
     public Inventory theShop;
 
     public bool isInShopInventory;
@@ -30,8 +33,9 @@ public class ShopInventoryScript : MonoBehaviour {
     void Start () {
         theShop = new Inventory(null, "shop", 999999);
 
+        goldText = GameObject.Find("Gold");
+        weightText = GameObject.Find("Weight");
 
-        
         //TODO: add stuff like healing potions, etc.
 
 
@@ -101,6 +105,9 @@ public class ShopInventoryScript : MonoBehaviour {
 
         GameMaster.instance.thePlayer.inventory.gold += item.value;
         GameMaster.instance.thePlayer.inventory.items.Remove(item);
+        GameMaster.instance.thePlayer.inventory.weight -= item.weight;
+
+        updateGoldWeightDisplay();
 
 
         if (scrollView == null) //We're selling loot, but there's no scrollview in the shop for loot.
@@ -125,6 +132,7 @@ public class ShopInventoryScript : MonoBehaviour {
         //TODO: update how much gold the player has (write a helper function for this) 
     }
 
+
     public void buyItem(Item item)
     {
         GameObject scrollView = null;
@@ -140,16 +148,20 @@ public class ShopInventoryScript : MonoBehaviour {
                     GameObject equip = item.invObject.transform.FindChild("EquipButton").gameObject;
                     equip.SetActive(true);
                     GameMaster.instance.thePlayer.inventory.items.Add(item);
+                    GameMaster.instance.thePlayer.inventory.weight += item.weight;
                 }
                 break;
             case Item.itemTypes.abilityItem:
                 scrollView = ShopInventoryScript.instance.ItemScrollView;
                 GameMaster.instance.thePlayer.inventory.items.Add(item);
+                GameMaster.instance.thePlayer.inventory.weight += item.weight;
                 break;
         }
 
         theShop.items.Remove(item);
         GameMaster.instance.thePlayer.inventory.gold -= item.value;
+
+        updateGoldWeightDisplay();
 
         Transform tr = scrollView.transform;
         GameObject content = tr.FindChild("Viewport").FindChild("Content").gameObject;
@@ -212,6 +224,35 @@ public class ShopInventoryScript : MonoBehaviour {
         isInShopInventory = true;
         BGM.instance.setMusic(BGM.SongNames.shop);
         GameMaster.instance.switchCamera(6);
+
+        updateGoldWeightDisplay();
+
+
+
+        //Load the images
+        UserControllable[] ucArr = GameMaster.instance.thePlayer.theParty;
+        for (int i = 0; i < ucArr.Length; i++)
+        {
+            if(ucArr[i] != null)
+            {
+                GameObject go = GameObject.Find("ShopInventory UC " + ucArr[i].id);
+                go.transform.FindChild("HeadType").GetComponent<Image>().sprite = ucArr[i].headType;
+                go.transform.FindChild("HeadType").GetComponent<Image>().color = ucArr[i].headColor;
+                GameObject go2 = go.transform.Find("Information").gameObject;
+                GameObject go3 = go2.transform.Find("Level").gameObject;
+                go3.GetComponent<Text>().text = "LEVEL " + ucArr[i].level.ToString();
+                go2.transform.Find("Name").GetComponent<Text>().text = ucArr[i].name;
+            }
+        }
+    }
+
+
+    //helper function to show changes in gold / weight
+    private void updateGoldWeightDisplay()
+    {
+        Inventory inv = GameMaster.instance.thePlayer.inventory;
+        goldText.GetComponent<Text>().text = "Gold: " + inv.gold.ToString();
+        weightText.GetComponent<Text>().text = "Weight: " + inv.weight + " / " + inv.weightCap + "lbs";
     }
 
 

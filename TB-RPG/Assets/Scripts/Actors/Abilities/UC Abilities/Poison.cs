@@ -14,7 +14,9 @@
         if (a.statusEffects["poison"] < 4) {
             base.dealEffect(a);
             a.statusEffects["poison"]++;
-        } else
+            a.updateStatusEffectBox();
+        }
+        else
         {
             BattleHints.text = "Poison only stacks 4 times";
         }

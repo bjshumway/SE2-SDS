@@ -24,6 +24,7 @@ public class SkillSelectionScript : MonoBehaviour {
     public static GameObject headImage;
     public static GameObject nameOfUc;
 
+
     // Use this for initialization
     void Start () {
         headImage = GameObject.Find("HeadSkillSelect");
@@ -67,6 +68,9 @@ public class SkillSelectionScript : MonoBehaviour {
         currentUC.setStatLevels(new int[] { charisma, cunning, dexterity, intellect, strength });
         currentUC.health.maxValue = health;
         currentUC.stamina.refreshSpeed = stamina;
+
+        GameObject.Find("SkillSelectionNextButton").GetComponentInChildren<Text>().text = "NEXT";
+
         if (VictoryHandler.instance.state == VictoryHandler.vhState.levelingUCs ||
             VictoryHandler.instance.state == VictoryHandler.vhState.addingPartyMember)
         {
@@ -86,6 +90,7 @@ public class SkillSelectionScript : MonoBehaviour {
             //Go to overworld
             OverworldScript.instance.load();
         }
+
 
     }
 

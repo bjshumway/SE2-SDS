@@ -15,6 +15,7 @@
         {
             base.dealEffect(a);
             a.statusEffects["wither"]++;
+            a.updateStatusEffectBox();
         }
         else
         {

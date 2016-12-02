@@ -7,12 +7,12 @@ public class Bunny : Monster
     
     
     public Bunny()
-        : base("Orca", //Name of Monster
-               "Orca", //Name of Monster's Prefab
+        : base("Bunny", //Name of Monster
+               "Bunny", //Name of Monster's Prefab
                1,        //level
                2,        //difficulty in level
                0,        //hit accuracy
-               false,    //isBoss
+               true,    //isBoss
                null,     //title
                 new Resource[] {  
                     new Resource(15, 1), //health

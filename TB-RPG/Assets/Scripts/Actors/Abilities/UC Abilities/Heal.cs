@@ -47,6 +47,7 @@ public class Heal : SingleTargetAbility {
         {
             act.statusEffects[act.statusEffects.ElementAt(x).Key] = 0;
         }
+        act.updateStatusEffectBox();
 
         owner.stamina.subtract(stamina);
         showAnimation(act);

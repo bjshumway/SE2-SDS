@@ -18,21 +18,8 @@ public class GameMaster : MonoBehaviour {
     public Texture2D cursor1;
     public Texture2D cursor2;
 
-    //How many battles early boss fights become available
-    public int minFightsBeforeBoss;
 
-    //Avgerage number of seconds each fight takes, across the game
-    public int avgSecPerFight;
-    
-    //How long it will take for the user to beat the fight
-    public int avgMinsToWinGame;
 
-    //How many minutes the user is expected to be playing outside of combat
-    public int avgMinNotFighting;
-
-    //Expected timings for what level the user will be at
-    //The first argument is the leve, the second argument is the minutes played so far
-    public double[,] expectedLevelingTimings;
 
     //Slowest the stamina can grow per second
     public int slowestStaminaPerSec;
@@ -40,16 +27,10 @@ public class GameMaster : MonoBehaviour {
     //Highest stamina by level 15, assume the user went for only stamina, not increasing HP
     public int highestStaminaByLv15;
 
-
-    public int expGainedStart;
-    public int expGainedGrowth;
-
     public string language;
-
 
     // Use this for initialization
     void Start() {
-        initGameDesignParameters();
 
         #region Translation
 
@@ -84,20 +65,13 @@ public class GameMaster : MonoBehaviour {
         thePlayer = new Player();
         thePlayer.health.setValue(10);
         
-
-
-        initGameDesignParameters();
-
-
-
-
         //setup the mice
         cursor1 = (Texture2D)Resources.Load("mouse1");
         cursor2 = (Texture2D)Resources.Load("mouse2");
-        Cursor.SetCursor(cursor1, new Vector2(0, 0), CursorMode.Auto);
+        Cursor.SetCursor(cursor1, new Vector2(2, 2), CursorMode.Auto);
 
         //Set the background by tier
-        switchBackground(3);
+        switchBackground(1);
 
         //Debug.Log("thePlayer Created");
         //disable all cameras but the one one at 0
@@ -107,61 +81,10 @@ public class GameMaster : MonoBehaviour {
             theCanvases[i].enabled = false;
         }
 
-        thePlayer.save("test.xml");
+        //thePlayer.save("test.xml");
     }
 
-    void initGameDesignParameters()
-    {
-        /*
-        int timeSpentInBattle = avgMinsToWinGame - avgMinNotFighting;
 
-        //modulate based on average time to win
-        double mod = avgMinsToWinGame / 67;
-        expectedLevelingTimings = 
-            new double[,] {
-                { 2,  1 * mod},
-                { 3,  2 * mod},
-                { 4,  3 * mod},
-                { 5,  5.5 * mod}, //added 2.5
-                { 6,  8.5 * mod}, //added 3
-                { 7,  12 * mod}, //3.5
-                { 8,  16 * mod}, //4
-                { 9,  20.5 * mod}, //4.5
-                { 10, 25.5 * mod}, //5
-                { 11, 31 * mod}, //5.5
-                { 12, 39 * mod},
-                { 13, 47 * mod },
-                { 14, 56 * mod},
-                { 15, 67 * mod }
-            };
-
-        double[,] battlesFoughtSoFar = new double[15,1];
-        for(int i = 0; i < expectedLevelingTimings.Length; i++)
-        {
-            double minutesPlayed = expectedLevelingTimings[i, 1];
-            double minsOfBattleAtLevel = minutesPlayed * ((avgMinNotFighting - avgMinsToWinGame) / avgMinsToWinGame);
-            battlesFoughtSoFar[i, 0] = i;
-            battlesFoughtSoFar[i, 1] = Mathf.RoundToInt((float) (minsOfBattleAtLevel / (avgSecPerFight * 60)));
-        }
-
-
-        int[,] battlesToNextLevelUp = new double[15, 1];
-        for (int i = 0; i < expectedLevelingTimings.Length -1; i++)
-        {
-            battlesToNextLevelUp[i,1] = Mathf.RoundToInt((float)(battlesFoughtSoFar[i, 1] - battlesFoughtSoFar[i+1, 1]));
-        }
-
-
-        int[,] xpToNextLevel = new int[15, 1];
-        int currXp = expGainedStart;
-        for (int i = 0; i < xpToNextLevel.Length; i++)
-        {
-            xpToNextLevel = 
-            expectedLevelingTimings //how many battles to fight 
-        }
-        */
-
-    }
 
     // Update is called once per frame
     void Update () {
@@ -176,7 +99,7 @@ public class GameMaster : MonoBehaviour {
         string nameOfBackground = null;
         switch(tier)
         {
-            case 1: nameOfBackground = "forest"; //TODO: get actual name
+            case 1: nameOfBackground = "forest";
                 break;
             case 2: nameOfBackground = "cave background"; 
                 break;

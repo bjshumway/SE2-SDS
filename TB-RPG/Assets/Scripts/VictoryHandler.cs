@@ -34,11 +34,17 @@ public class VictoryHandler : MonoBehaviour {
 
     private static VictoryHandler s_Instance = null;
 
-    public List<UserControllable> uCsToLevel = new List<UserControllable>(); 
+    public List<UserControllable> uCsToLevel = new List<UserControllable>();
+
+    GameObject battlesFought;
+    GameObject battlesUntilNextBoss;
 
 	// Use this for initialization
 	void Start () {
         state = vhState.inActive;
+        battlesFought = GameObject.Find("BattlesFought");
+        battlesUntilNextBoss = GameObject.Find("BattlesUntilBoss");
+
     }
 	
 	// Update is called once per frame
@@ -140,9 +146,6 @@ public class VictoryHandler : MonoBehaviour {
             else
             {
                 itemsString += monsters[i].itemDrop + ", ";
-
-                //Place item in the inventory
-                GameMaster.instance.thePlayer.inventory.addItem(monsters[i].itemDrop);
             }
         }
 
@@ -161,11 +164,25 @@ public class VictoryHandler : MonoBehaviour {
         if (foughtBoss)
         {
             Tier.tier++;
+            Tier.difficulty = 1;
+            GameMaster.instance.switchBackground(Tier.tier);
+            string tierName = (Tier.tier == 2 ? "Infested Caves" : "Haunted Graveyard");
+            GameObject[] gArr = GameObject.FindGameObjectsWithTag("TierName");
+            for(int i = 0; i < gArr.Length;i++)
+            {
+                gArr[i].GetComponentInChildren<Text>().text = tierName;
+            }
+            Tier.numBattlesInTier = 0;
         }
         else
         {
             Tier.difficulty++;
+            
         }
+        GameMaster.instance.thePlayer.numBattlesFought += 1;
+        battlesFought.GetComponent<Text>().text = GameMaster.instance.thePlayer.numBattlesFought.ToString();
+
+        battlesUntilNextBoss.GetComponent<Text>().text = (3 - Tier.numBattlesInTier).ToString(); 
 
         //get rid of trailing comma
         itemsString = itemsString.Trim();

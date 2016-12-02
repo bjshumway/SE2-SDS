@@ -7,12 +7,18 @@ public class Player : UserControllable {
     public bool partyIsDead;
     public Inventory inventory;
 
+    public int numBattlesFought;
+
     public Player() : base()
     {
         this.followers = new Follower[2];
         this.theParty = new UserControllable[3];
         this.theParty[0] = this;
         this.partyIsDead = false;
+        this.remainingStatPoints = initialStatPoints;
+        this.remainingResourcePoints = 1;
+        this.numBattlesFought = 0;
+
 
         this.name = "Trifaldo";
         //Debug.Log("stamina: " + this.stamina.maxValue + ", " + this.stamina.value);
