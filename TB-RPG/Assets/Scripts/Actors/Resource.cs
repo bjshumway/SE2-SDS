@@ -4,14 +4,15 @@ using UnityEngine.UI;
 // Resource is designed to be a nice way to manage health/mana/stamina
 // It has methods for safely adding/subtracting as well as a max value
 public class Resource {
-    private decimal _value;
-    private decimal _maxValue;
+    public decimal _value;
+    public decimal _maxValue;
 
     [XmlIgnore]
     private Slider[] _sliders;
 
     public decimal refreshSpeed;
 
+    [XmlIgnore]
     public Actor owner;
 
     [XmlIgnore]

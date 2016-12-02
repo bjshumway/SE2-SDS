@@ -36,6 +36,10 @@ public abstract class SingleTargetAbility : Ability {
         _damageTypes = damageType;
     }
 
+    public SingleTargetAbility():base()
+    {
+    }
+
     //arg is a string of the format "typeOfThingClickedOn index"
     //e.g. "Monster 1" or "UserControllable 2" or "AbilityBar 1"
     public void selectEnemy(string arg) {

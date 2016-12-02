@@ -8,6 +8,8 @@ public class StealGold : SingleTargetAbility {
         //Also each monster will contain a reference to its image, to make things easier
     }
 
+    public StealGold() : base() { }
+
     public StealGold(Actor Owner) : base("Steal Gold", "Steal some gold from a monster based on Dexterity",
         "dexterity", 0.0m, 50, false, Owner, damageType.none) {
 

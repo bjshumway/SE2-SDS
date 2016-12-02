@@ -6,6 +6,8 @@
         //Also each monster will contain a reference to its image, to make things easier
     }
 
+    public Poison() : base() { }
+
     public Poison(Actor Owner) : base("Poison", "Targetted enemy takes damage over time. Poison stacks 4 times.",
         "intellect", 0.0m, 25, false, Owner, damageType.none) {
     }

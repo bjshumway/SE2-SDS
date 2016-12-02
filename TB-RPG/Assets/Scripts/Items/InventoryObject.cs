@@ -7,7 +7,7 @@ public class InventoryObject  {
     public GameObject invObject;
 
     //Objects are either in shop, or player's inventory
-    bool isInShop;
+    public bool isInShop;
     
     public InventoryObject()
     {

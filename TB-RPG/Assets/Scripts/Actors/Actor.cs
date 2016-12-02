@@ -13,18 +13,20 @@ public class Actor {
 
     private string _name;
     private string _fullName;
+    [XmlIgnore]
     private Title  _title;
 
     private bool _isAlive = true;
     private int  _level = 1;
 
+    [XmlIgnore]
     private System.Random rand = new System.Random();
 
 
     #endregion
 
     #region Public Vars
-
+    
     public List<Ability> passiveAbilities = new List<Ability>();
 
     public int id; //unique across all monsters and actors
@@ -42,7 +44,6 @@ public class Actor {
     public GameObject battleStatusEffectText;
     [XmlIgnore]
     public GameObject battleStatusEffectBackground;
-
 
     public enum hitType {
         hit,
@@ -68,6 +69,7 @@ public class Actor {
     }
 
     // just added this in for fun, see Title.cs (Title as in Dr. or President or .. THE UNKILLABLE)
+    [XmlIgnore]
     public Title title {
         get {
             return _title;
@@ -89,6 +91,7 @@ public class Actor {
     public Weapon weapon;
 
     public Resource health;
+
     public Resource stamina;
 
     [XmlIgnore]

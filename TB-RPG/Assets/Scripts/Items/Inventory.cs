@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class Inventory {
 
     #region Private Vars
 
+    [XmlIgnore]
     private Player _player;
     private string _name;
     private decimal _weightCap;
@@ -45,6 +47,7 @@ public class Inventory {
         }
     }
 
+    [XmlIgnore]
     public Player player {
         get {
             return _player;
@@ -57,6 +60,8 @@ public class Inventory {
     #endregion
 
     #region Constructors & Methods
+
+    public Inventory() { }
 
     public Inventory(Player player, string name, decimal weightCap) {
         _player = player;

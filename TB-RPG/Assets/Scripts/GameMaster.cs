@@ -80,8 +80,6 @@ public class GameMaster : MonoBehaviour {
             theCameras[i].enabled = false;
             theCanvases[i].enabled = false;
         }
-
-        //thePlayer.save("test.xml");
     }
 
 

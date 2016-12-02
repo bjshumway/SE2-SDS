@@ -7,7 +7,7 @@ public class Stat {
 
     #region Private Vars
 
-    private int _level;
+    public int _level;
     private int _effectiveLevel;
     private int _gearLevel;
     private int _buffLevel;

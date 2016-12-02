@@ -13,6 +13,8 @@ public class Parry : Ability
         //Also each monster will contain a reference to its image, to make things easier
     }
 
+    public Parry() : base() { }
+
     public Parry(Actor Owner) : base("Counter Attack", "Counter-attack an enemy that dealt melee damage to you. Damages by the amount that the enemy hits you with.", -1, true, Owner)
     {
 

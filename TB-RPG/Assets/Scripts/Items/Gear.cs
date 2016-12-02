@@ -1,7 +1,7 @@
 
 // any Item that can be equipped 
 public abstract class Gear : Item {
-    private int _level;
+    public int _level;
 
     // item level (not for an equip constraint, just as a way to show how good the item is)
     public int level {

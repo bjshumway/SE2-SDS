@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Xml.Serialization;
 
 public class BowAttack : Ability
 {
-
+    [XmlIgnore]
     public GameObject BowAttackSlider = GameObject.Find("BowAttackSlider");
-
+    [XmlIgnore]
     public GameObject BowAttackSlider2 = GameObject.Find("BowAttackSlider2");
-
+    [XmlIgnore]
     public GameObject BowAttackSliderBackground = GameObject.Find("BowAttackSliderBackground");
     
     public Actor attackee;
@@ -17,6 +18,7 @@ public class BowAttack : Ability
     private System.Random rand;
     int numBowAttacks = 0;
 
+    public BowAttack() : base() { }
 
     public BowAttack(Actor Owner) : base("Bow Attack", "Dexterity based damage. Damage is multiplied by how well you hit a target that quickly flies across the screen. Hitting the bullsye does 2x damage", 100, false, Owner)
     {

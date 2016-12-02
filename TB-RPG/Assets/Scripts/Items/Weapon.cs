@@ -2,11 +2,11 @@
 // parent class for ranged, melee, and magic weapons
 
 public class Weapon : Gear {
-    private weaponClass _class;
-    private decimal _damage;
-    private decimal _accuracy;
-    private decimal _special;
-    private weaponType _weaponType;
+    public weaponClass _class;
+    public decimal _damage;
+    public decimal _accuracy;
+    public decimal _special;
+    public weaponType _weaponType;
 
     public bool isEquipped;
 

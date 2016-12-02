@@ -75,6 +75,13 @@ public class OverworldScript : MonoBehaviour {
         }
     }
 
+    //Saves the game, called by savegamebutton
+    public void saveGameButton()
+    {
+        GameMaster.instance.thePlayer.save("test.xml");
+    }
+
+
     // Ensure that the instance is destroyed when the game is stopped in the editor.
     void OnApplicationQuit()
     {

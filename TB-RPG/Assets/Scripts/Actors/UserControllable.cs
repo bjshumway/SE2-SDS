@@ -22,9 +22,11 @@ public abstract class UserControllable : Actor {
     public int remainingStatPoints;
     public int remainingResourcePoints;
 
+    [XmlIgnore]
     public Sprite _headType;
     public Color32 _headColor;
 
+    [XmlIgnore]
     public Image battleHead;
 
     [XmlIgnore]
@@ -48,6 +50,7 @@ public abstract class UserControllable : Actor {
         }
     }
 
+    [XmlIgnore]
     public Sprite headType
     {
         get; set;
@@ -268,53 +271,5 @@ public abstract class UserControllable : Actor {
         {
             GameMaster.instance.thePlayer.partyIsDead = true;
         }
-    }
-
-    /// <summary>
-    /// Serializes the UserControllable into the specified binary file
-    /// </summary>
-    /// <param name="fileName">File to save to</param>
-    public void save(string fileName) {
-
-        foreach (var uc in GameMaster.instance.thePlayer.theParty)
-        {
-            if (uc != null)
-            {
-                uc.statsArray[0] = uc.stats["strength"];
-                uc.statsArray[1] = uc.stats["intellect"];
-                uc.statsArray[2] = uc.stats["charisma"];
-                uc.statsArray[3] = uc.stats["dexterity"];
-                uc.statsArray[4] = uc.stats["cunning"];
-            }
-        }
-
-
-        using (var writer = File.Create(fileName)) {
-            var serializer = new XmlSerializer(typeof(UserControllable));
-
-            // write all of the UC's attribute values to a file in binary format
-            serializer.Serialize(writer, this);
-        }
-    }
-
-    /// <summary>
-    /// Creates a UserControllable based on a binary file
-    /// </summary>
-    /// <param name="fileName">File to read from</param>
-    /// <returns>a UserControllable if the file can be parsed, otherwise null</returns>
-    public static UserControllable load(string fileName) {
-        if (File.Exists(fileName)) {
-            try {
-                using (var writer = File.Open(fileName, FileMode.Open)) {
-                    var serializer = new XmlSerializer(typeof(UserControllable));
-                    return (UserControllable)serializer.Deserialize(writer);
-                }
-
-            } catch (Exception ex) {
-                Debug.Log("In UserControllable.load: " + ex.Message);
-            }
-        }
-
-        return null;
     }
 }

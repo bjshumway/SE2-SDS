@@ -1,5 +1,7 @@
 ﻿public class Flee : Ability {
 
+    public Flee() : base() { }
+
     public Flee(Actor Owner) : base("Flee", "Run from the battle", 100, false, Owner) {
 
     }

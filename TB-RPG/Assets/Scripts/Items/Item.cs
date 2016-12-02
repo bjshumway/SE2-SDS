@@ -1,11 +1,11 @@
 
 // TODO: add image field
 public class Item :InventoryObject {
-    private string _name;
-    private string _toolTip;
-    private decimal _weight;
-    private bool _tradable;
-    private decimal _value;
+    public string _name;
+    public string _toolTip;
+    public decimal _weight;
+    public bool _tradable;
+    public decimal _value;
 
     public enum itemTypes
     {

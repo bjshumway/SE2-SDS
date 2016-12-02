@@ -9,6 +9,8 @@ public class Heal : SingleTargetAbility {
         //Also each monster will contain a reference to its image, to make things easier
     }
 
+    public Heal() : base() { }
+
     public Heal(Actor Owner) : base("Heal", "Heals 1 third of HP and removes all status effects",
         "intellect", 1.0m, 100, false, Owner, damageType.none) {
 

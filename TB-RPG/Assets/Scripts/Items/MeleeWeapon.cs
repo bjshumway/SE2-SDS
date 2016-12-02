@@ -1,5 +1,5 @@
 public class MeleeWeapon : Weapon {
-    private decimal _parryChance;
+    public decimal _parryChance;
 
     public decimal parryChance {
         get {

@@ -10,11 +10,13 @@ public abstract class Ability {
     private string _toolTip;
     private decimal _stamina;
 
+    [XmlIgnore]
     public Actor owner;
     [XmlIgnore]
     public Text BattleHints;
     [XmlIgnore]
     public GameObject learnButton;
+    [XmlIgnore]
     public Sprite buttonSprite;
     public int xPosSelectionMenu;
     public int yPosSelectionMenu;
@@ -123,6 +125,10 @@ public abstract class Ability {
 
 
 
+    }
+
+    public Ability()
+    {
     }
 
 

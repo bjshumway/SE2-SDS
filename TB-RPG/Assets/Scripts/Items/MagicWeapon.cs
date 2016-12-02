@@ -1,5 +1,5 @@
 public class MagicWeapon : Weapon {
-    private decimal _critModifier;
+    public decimal _critModifier;
 
     public decimal critModifier {
         get {

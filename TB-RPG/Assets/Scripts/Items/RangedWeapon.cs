@@ -1,5 +1,5 @@
 public class RangedWeapon : Weapon {
-    private decimal _firstShotModifier;
+    public decimal _firstShotModifier;
 
     public decimal firstShotModifier {
         get {
