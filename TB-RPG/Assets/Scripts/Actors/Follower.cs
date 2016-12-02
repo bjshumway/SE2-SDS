@@ -11,12 +11,12 @@ public class Follower : UserControllable {
         {
             case 2:
                 name = "Monet";
-                remainingStatPoints = initialStatPoints + statPointsPerLevel * 5;
+                remainingStatPoints = initialStatPoints;
                 remainingResourcePoints = 1;
                 break;
             case 3:
                 name = "Ashton";
-                remainingStatPoints = initialStatPoints + statPointsPerLevel * 10;
+                remainingStatPoints = initialStatPoints + 10;
                 remainingResourcePoints = 1;
                 break;
         }
