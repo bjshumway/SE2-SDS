@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -90,13 +88,13 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Attack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\BowAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ChargeStrength.cs" />
-    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Parry.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\DoubleShot.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Flee.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\HandyMan.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Heal.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\IronSkin.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\LastChance.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Parry.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Pin.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Poison.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Regen.cs" />
@@ -166,6 +164,7 @@
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Plugins\GoogleTranslator\obj\Debug\GoogleTranslator.csproj.FileListAbsolute.txt" />
     <None Include="Assets\Resources\Audio\license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

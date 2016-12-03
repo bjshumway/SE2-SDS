@@ -1,122 +1,28 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Player xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <passiveAbilities />
+  <passiveAbilities>
+    <Ability xsi:type="DoubleShot">
+      <xPosSelectionMenu>219</xPosSelectionMenu>
+      <yPosSelectionMenu>184</yPosSelectionMenu>
+      <isLearned>true</isLearned>
+      <isPassive>true</isPassive>
+      <stamina>-1</stamina>
+    </Ability>
+    <Ability xsi:type="SharpShooter">
+      <xPosSelectionMenu>-147</xPosSelectionMenu>
+      <yPosSelectionMenu>184</yPosSelectionMenu>
+      <isLearned>true</isLearned>
+      <isPassive>true</isPassive>
+      <stamina>-1</stamina>
+    </Ability>
+  </passiveAbilities>
   <id>1</id>
   <isUserControllable>true</isUserControllable>
-  <weapon xsi:type="MeleeWeapon">
+  <weapon xsi:type="RangedWeapon">
     <isInShop>false</isInShop>
-    <_name>Rusty Sword</_name>
-    <_toolTip>You found this sword on a long-forgotten battlefield.</_toolTip>
+    <_name>Weak Bow</_name>
+    <_toolTip>Gets the job done.</_toolTip>
     <_weight>1</_weight>
     <_tradable>false</_tradable>
     <_value>1</_value>
-    <itemType>weapon</itemType>
-    <_level>1</_level>
-    <_class>Melee</_class>
-    <_damage>0.5</_damage>
-    <_accuracy>0.5</_accuracy>
-    <_special>0.1</_special>
-    <_weaponType>balanced</_weaponType>
-    <isEquipped>true</isEquipped>
-    <_parryChance>0.1</_parryChance>
-  </weapon>
-  <health>
-    <_value>10</_value>
-    <_maxValue>10</_maxValue>
-    <refreshSpeed>0</refreshSpeed>
-    <value>10</value>
-    <maxValue>10</maxValue>
-  </health>
-  <stamina>
-    <_value>100</_value>
-    <_maxValue>100</_maxValue>
-    <refreshSpeed>1</refreshSpeed>
-    <value>100</value>
-    <maxValue>100</maxValue>
-  </stamina>
-  <statsArray>
-    <Stat>
-      <_level>3</_level>
-    </Stat>
-    <Stat>
-      <_level>1</_level>
-    </Stat>
-    <Stat>
-      <_level>1</_level>
-    </Stat>
-    <Stat>
-      <_level>1</_level>
-    </Stat>
-    <Stat>
-      <_level>1</_level>
-    </Stat>
-  </statsArray>
-  <weakness>none</weakness>
-  <name>Trifaldo</name>
-  <abilities>
-    <abilities>
-      <Ability xsi:type="Attack">
-        <xPosSelectionMenu>-330</xPosSelectionMenu>
-        <yPosSelectionMenu>184</yPosSelectionMenu>
-        <isLearned>true</isLearned>
-        <isPassive>false</isPassive>
-        <stamina>100</stamina>
-        <damageTypes>melee</damageTypes>
-      </Ability>
-      <Ability xsi:type="ChargeStrength">
-        <xPosSelectionMenu>-147</xPosSelectionMenu>
-        <yPosSelectionMenu>184</yPosSelectionMenu>
-        <isLearned>true</isLearned>
-        <isPassive>false</isPassive>
-        <stamina>25</stamina>
-      </Ability>
-      <Ability xsi:nil="true" />
-    </abilities>
-  </abilities>
-  <remainingStatPoints>10</remainingStatPoints>
-  <remainingResourcePoints>1</remainingResourcePoints>
-  <_headColor>
-    <r>0</r>
-    <g>0</g>
-    <b>0</b>
-    <a>0</a>
-  </_headColor>
-  <classType>fighter</classType>
-  <headColor>
-    <r>75</r>
-    <g>75</g>
-    <b>10</b>
-    <a>255</a>
-  </headColor>
-  <gold>0</gold>
-  <followers>
-    <Follower xsi:nil="true" />
-    <Follower xsi:nil="true" />
-  </followers>
-  <partyIsDead>false</partyIsDead>
-  <inventory>
-    <gold>0</gold>
-    <items>
-      <Item xsi:type="MeleeWeapon">
-        <isInShop>false</isInShop>
-        <_name>Rusty Sword</_name>
-        <_toolTip>You found this sword on a long-forgotten battlefield.</_toolTip>
-        <_weight>1</_weight>
-        <_tradable>false</_tradable>
-        <_value>1</_value>
-        <itemType>weapon</itemType>
-        <_level>1</_level>
-        <_class>Melee</_class>
-        <_damage>0.5</_damage>
-        <_accuracy>0.5</_accuracy>
-        <_special>0.1</_special>
-        <_weaponType>balanced</_weaponType>
-        <isEquipped>true</isEquipped>
-        <_parryChance>0.1</_parryChance>
-      </Item>
-    </items>
-    <weightCap>10</weightCap>
-    <weight>1</weight>
-  </inventory>
-  <numBattlesFought>0</numBattlesFought>
-</Player>
+    <itemType>weapon</itemT
