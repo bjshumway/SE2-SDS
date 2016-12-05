@@ -103,10 +103,7 @@ public class ShopInventoryScript : MonoBehaviour {
                 break;
         }
 
-        GameMaster.instance.thePlayer.inventory.gold += item.value;
-        GameMaster.instance.thePlayer.inventory.items.Remove(item);
-        GameMaster.instance.thePlayer.inventory.weight -= item.weight;
-
+        GameMaster.instance.thePlayer.inventory.sellItem(item);
         updateGoldWeightDisplay();
 
 

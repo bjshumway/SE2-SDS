@@ -66,7 +66,7 @@ public class Player : UserControllable {
         this.name = "Trifaldo";
         //Debug.Log("stamina: " + this.stamina.maxValue + ", " + this.stamina.value);
 
-        inventory = new Inventory(this, "Inventory", 10);
+        inventory = new Inventory(this, "Inventory", 150);
     }
 
     //Adds a party member to the party!

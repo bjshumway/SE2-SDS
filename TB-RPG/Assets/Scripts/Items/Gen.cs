@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 // TODO: add more of everything: adjectives, weapontypes, items
 public static class Gen {
@@ -99,10 +100,15 @@ public static class Gen {
         if (roll < 25) { // weapon
             return weapon(level);
         } else if (roll < 90) { // junk
-            return junkItems[ran.Next(valuableItems.Length)];
+            return itemCopy(junkItems[ran.Next(valuableItems.Length)]);
         } else { // valuable
-            return valuableItems[ran.Next(valuableItems.Length)];
+            return itemCopy(valuableItems[ran.Next(valuableItems.Length)]);
         }
+    }
+
+    private static Item itemCopy(Item item)
+    {
+        return new Item(item.name, item.weight, item.tradable, item.itemType, item.value, item.toolTip);
     }
 
     public static Weapon weapon(int level) {

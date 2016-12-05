@@ -160,6 +160,16 @@ public class VictoryHandler : MonoBehaviour {
             }
         }
 
+        //remove buff for charge strenght and set health to full
+        foreach (var partyMember in GameMaster.instance.thePlayer.theParty)
+        {
+            if (partyMember != null) {
+                partyMember.stats["strength"].clearBuffs();
+                partyMember.health.setValue(partyMember.health.maxValue);
+            }
+        }
+
+
         //Update the tier
         if (foughtBoss)
         {
