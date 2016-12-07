@@ -12,7 +12,7 @@ public class Reaper : Monster
                1,        //level
                2,        //difficulty in level
                0,        //hit accuracy
-               false,    //isBoss
+               true,    //isBoss
                null,     //title
                 new Resource[] {  
                     new Resource(15, 1), //health

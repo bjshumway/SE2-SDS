@@ -8,6 +8,9 @@ using System;
 public class BattleScript : MonoBehaviour {
     public bool combatOcurring;
     public bool isPaused;
+    //isUserPaused causes the game to be paused if true. 
+    //isPaused is used for abilities / other non-user stuff to to pause the game.
+    public bool isUserPaused;
 
     public GameObject DemonSkull;
 
@@ -25,6 +28,8 @@ public class BattleScript : MonoBehaviour {
     public GameObject VictoryPanel;
 
     public GameObject[] abilityButtons;
+
+    public GameObject pauseButton;
 
     //This function is used when a class (e.g. ability) wants to intercept all mouse / keyboard input
     //When it is null, mouse/keyboard input does its default thing
@@ -54,6 +59,8 @@ public class BattleScript : MonoBehaviour {
         GameObject.Find("Battle UC 3 StaminaBar").SetActive(false);
         GameObject.Find("Battle UC 3 BattleDamage").SetActive(false);
         GameObject.Find("Battle UC 3 StatusEffectText").SetActive(false);
+
+        pauseButton = GameObject.Find("PauseSlot");
 
     }
 
@@ -192,23 +199,46 @@ public class BattleScript : MonoBehaviour {
                 ab.currentAbSlot = abilityButtons[i];
                 GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = MLH.tr(ab.name);
                 GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "" + ab.stamina;
-		        ab.onLoad();            
-	        }
+		        ab.onLoad();
+                unBlackifySlot(GameObject.Find("AbSlot" + (i+1)));
+            }
             else
             {
                 GameObject.Find("AbSlot" + (i + 1) + "_Name").GetComponent<Text>().text = MLH.tr("EmptySlot");
                 GameObject.Find("AbSlot" + (i + 1) + "_Cost").GetComponent<Text>().text = "";
+                GameObject go = GameObject.Find("AbSlot" + (i + 1));
+                blackifyEmptySlot(go);
             }
         }
 
-        //Set the item's cost to the active's character's cost for it
-        GameObject.Find("AbSlot4_Cost").GetComponent<Text>().text =
+        /*Deprecated - Item is deprecated, it may be used in a later build of the game.
+            //Set the item's cost to the active's character's cost for it
+            GameObject.Find("AbSlot4_Cost").GetComponent<Text>().text =
             activeCharacter.abilities.itemAbility.stamina.ToString();
+        */
 
         //Place the ActiveUCFrame behind this guy's image
         ActiveUCFrame.SetActive(true);
-        ActiveUCFrame.transform.localPosition = activeCharacter.battleHead.transform.localPosition;
+        ActiveUCFrame.transform.localPosition = activeCharacter.battleObj.transform.localPosition;
 
+    }
+
+    public void blackifyEmptySlot(GameObject go)
+    {
+        go.GetComponent<Image>().color = new Color32(0xFF, 0xFF, 0xFF, 0xFF);
+        foreach(var text in go.transform.GetComponentsInChildren<Text>())
+        {
+            text.color = new Color32(0x32,0x32,0x32,0x00);
+        }
+    }
+
+    public void unBlackifySlot(GameObject go)
+    {
+        go.GetComponent<Image>().color = new Color32(0xFF, 0xFF, 0xFF, 0xFF);
+        foreach (var text in go.transform.GetComponentsInChildren<Text>())
+        {
+            text.color = new Color32(0x32, 0x32, 0x32, 0xFF);
+        }
     }
 
     //Calls arg.split()
@@ -218,7 +248,7 @@ public class BattleScript : MonoBehaviour {
     //E.g. "AbilityButton 0" will call the 0th indexed ability in the current active plaer.  
     public void abilityButtonClick(string arg)
     {
-        if(pipeInputFunc != null)
+        if(pipeInputFunc != null && !isUserPaused && !isPaused)
         {
             pipeInputFunc(arg);
             return;
@@ -284,19 +314,19 @@ public class BattleScript : MonoBehaviour {
         //Or will it be like a slot, so it will contain the item chosen for that slot
     }
 
-    //Calls arg.split()
-    //Arg 0 is the type of object clicked on
-    //Arg 1 is the index of the object clicked on
     //Pauses the battle game, and brings up the menu
-    public void menuButtonClick(string arg)
+    public void pauseButtonClick(string arg)
     {
-        if (pipeInputFunc != null)
+        if (isUserPaused)
         {
-            pipeInputFunc(arg);
-            return;
+            isUserPaused = false;
+            pauseButton.GetComponentInChildren<Text>().text = "PAUSE";
         }
-        isPaused = true;
-        //Do menu button stuff
+        else
+        {
+            isUserPaused = true;
+            pauseButton.GetComponentInChildren<Text>().text = "UNPAUSE";
+        }
     }
 
     // Update is called once per frame
@@ -311,7 +341,7 @@ public class BattleScript : MonoBehaviour {
         handleKeyPresses();
 
         //Do nothing if the game is paused
-        if (this.isPaused)
+        if (this.isPaused || this.isUserPaused)
             return; 
 
 
@@ -367,6 +397,11 @@ public class BattleScript : MonoBehaviour {
         {
             GameObject.Find("AbSlot5").GetComponent<Button>().onClick.Invoke();
         }
+        else if (Input.GetKeyDown("y"))
+        {
+            GameObject.Find("AbSlot6").GetComponent<Button>().onClick.Invoke();
+        }
+
     }
 
     //If active usercontrollable doesn't have 100 stamina, foggify the ability button by shading it
@@ -375,7 +410,7 @@ public class BattleScript : MonoBehaviour {
     {
         if (activeCharacter.stamina.value != 100)
         {
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i < 7; i++)
             {
                 GameObject go = GameObject.Find("AbSlot" + i);
                 Button b = go.GetComponent<Button>();
@@ -391,7 +426,7 @@ public class BattleScript : MonoBehaviour {
         }
         else if (activeCharacter.stamina.value == 100)
         {
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i < 7; i++)
             {
                 GameObject go = GameObject.Find("AbSlot" + i);
                 Button b = go.GetComponent<Button>();

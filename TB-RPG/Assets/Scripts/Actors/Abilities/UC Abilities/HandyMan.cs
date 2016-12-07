@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Deprecated - we no longer have items functionality.. for now.
 public class HandyMan : Ability
 {
     public HandyMan() : base() { }

@@ -103,6 +103,8 @@ public class ShopInventoryScript : MonoBehaviour {
                 break;
         }
 
+        AudioControl.playSound("purchase");
+
         GameMaster.instance.thePlayer.inventory.sellItem(item);
         updateGoldWeightDisplay();
 
@@ -124,15 +126,29 @@ public class ShopInventoryScript : MonoBehaviour {
             buySell.GetComponent<Button>().onClick.AddListener(delegate { ShopInventoryScript.instance.buyItem(item); });
 
         }
-
-
-        //TODO: update how much gold the player has (write a helper function for this) 
     }
 
 
     public void buyItem(Item item)
     {
         GameObject scrollView = null;
+        if (GameMaster.instance.thePlayer.inventory.gold > item.value) {
+            GameMaster.instance.thePlayer.inventory.gold -= item.value;
+        } else
+        {
+            //can't afford it
+            return;
+        }
+        if((GameMaster.instance.thePlayer.inventory.weight + item.weight) > GameMaster.instance.thePlayer.inventory.weightCap)
+        {
+            //too heavey
+            return;
+        }
+
+        //still here?
+        AudioControl.playSound("coins1");
+
+
         switch (item.itemType)
         {
             case Item.itemTypes.weapon:
@@ -156,7 +172,6 @@ public class ShopInventoryScript : MonoBehaviour {
         }
 
         theShop.items.Remove(item);
-        GameMaster.instance.thePlayer.inventory.gold -= item.value;
 
         updateGoldWeightDisplay();
 
@@ -184,21 +199,21 @@ public class ShopInventoryScript : MonoBehaviour {
                 switch(party[i].classType)
                 {
                     case UserControllable.classTypes.fighter:
-                        if(wpn.classType == Weapon.weaponClass.Melee)
+                        if(wpn.classType == Weapon.WeaponClass.Melee)
                         {
                             party[i].equipWeapon(wpn);
                             return;
                         }
                         break;
                     case UserControllable.classTypes.mage:
-                        if (wpn.classType == Weapon.weaponClass.Magic)
+                        if (wpn.classType == Weapon.WeaponClass.Magic)
                         {
                             party[i].equipWeapon(wpn);
                             return;
                         }
                         break;
                     case UserControllable.classTypes.rogue:
-                        if (wpn.classType == Weapon.weaponClass.Ranged)
+                        if (wpn.classType == Weapon.WeaponClass.Ranged)
                         {
                             party[i].equipWeapon(wpn);
                             return;
@@ -212,6 +227,8 @@ public class ShopInventoryScript : MonoBehaviour {
     public void goBack()
     {
         isInShopInventory = false;
+        AudioControl.playSound("door_open");
+        BGM.instance.setMusic(BGM.SongNames.victory);
         OverworldScript.instance.load();
     }
 
@@ -224,13 +241,11 @@ public class ShopInventoryScript : MonoBehaviour {
 
         updateGoldWeightDisplay();
 
-
-
         //Load the images
         UserControllable[] ucArr = GameMaster.instance.thePlayer.theParty;
         for (int i = 0; i < ucArr.Length; i++)
         {
-            if(ucArr[i] != null)
+            if (ucArr[i] != null)
             {
                 GameObject go = GameObject.Find("ShopInventory UC " + ucArr[i].id);
                 go.transform.FindChild("HeadType").GetComponent<Image>().sprite = ucArr[i].headType;
@@ -238,6 +253,17 @@ public class ShopInventoryScript : MonoBehaviour {
                 GameObject go2 = go.transform.Find("Information").gameObject;
                 GameObject go3 = go2.transform.Find("Level").gameObject;
                 go3.GetComponent<Text>().text = "LEVEL " + ucArr[i].level.ToString();
+                switch (ucArr[i].classType) {
+                    case UserControllable.classTypes.rogue:
+                        go3.GetComponent<Text>().text += ", ROGUE";
+                        break;
+                    case UserControllable.classTypes.fighter:
+                        go3.GetComponent<Text>().text += ", FIGHTER";
+                        break;
+                    case UserControllable.classTypes.mage:
+                        go3.GetComponent<Text>().text += ", MAGE";
+                        break; 
+                }
                 go2.transform.Find("Name").GetComponent<Text>().text = ucArr[i].name;
             }
         }

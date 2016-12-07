@@ -14,7 +14,7 @@ public class ArcaneDestruction : SingleTargetAbility {
 
     public ArcaneDestruction():base(){}
 
-    public ArcaneDestruction(Actor Owner) : base("Arcane Destruction", "Deals 100% of the selected damage type. Every monster is weak against  one damage type. Try changing the damage type to see what's effective!",
+    public ArcaneDestruction(Actor Owner) : base("Arcane Destruction", "Deals 100% of the selected damage type. White monsters are weak against fire. Blue - Lightning. Red - Water.",
         "intellect", 1.0m, 100, false, Owner, damageType.fire) {
         ADSelectionButton.SetActive(false);
         //value

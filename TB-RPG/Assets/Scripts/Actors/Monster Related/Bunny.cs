@@ -22,6 +22,7 @@ public class Bunny : Monster
                 )
     {
         abilities = new Ability[] { new MonsterAttack(this) };
+        isFinalBoss = true;
 
     }
 

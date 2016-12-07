@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 
 public class AbilityBar {
-    private const int ABILITY_COUNT = 3;
+    private const int ABILITY_COUNT = 6;
 
     [XmlIgnore]
     private UserControllable _actor;

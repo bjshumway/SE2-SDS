@@ -17,9 +17,23 @@ public abstract class UserControllable : Actor {
 
     public AbilityBar abilities;
 
+    public bool mustBeToldOfNewAbilityPointToSpend;
 
 
-    public int remainingStatPoints;
+
+    private int _remainingStatPoints;
+    public int remainingStatPoints
+    {
+        set
+        {
+            this._remainingStatPoints = value;
+        }
+        get
+        {
+            return _remainingStatPoints;
+        }
+    }
+
     public int remainingResourcePoints;
 
     [XmlIgnore]
@@ -28,6 +42,7 @@ public abstract class UserControllable : Actor {
 
     [XmlIgnore]
     public Image battleHead;
+    public GameObject battleObj;
 
     [XmlIgnore]
     public GameObject shopInventoryGameObj;
@@ -42,7 +57,7 @@ public abstract class UserControllable : Actor {
     };
 
     public classTypes classType;
-
+    internal int remainingAbilityPoints;
 
     public int talentPoints {
         get {
@@ -72,9 +87,14 @@ public abstract class UserControllable : Actor {
         id_increment++;
 
 
-        learnAbility(new ItemAbility(this));
+        level = 1;
 
-        GameObject battleObj = GameObject.Find("Battle UC " + id);
+        /* Deprecated - disabled learning the item ability. We may bring it back in a later instance of the game.
+            learnAbility(new ItemAbility(this));
+        */
+
+
+        battleObj = GameObject.Find("Battle UC " + id);
         shopInventoryGameObj = GameObject.Find("ShopInventory UC " + id);
         shopInventoryInfo = shopInventoryGameObj.transform.FindChild("Information").gameObject;
         shopInventoryInfo.SetActive(true);
@@ -235,10 +255,18 @@ public abstract class UserControllable : Actor {
 
     //Add 3 to remaining stat points
     //Add 1 to remaining resource points
+    //Add 1 to remaining ability points, but only if we haven't gained a party member
     public void levelUp()
-    {
+    { 
         remainingStatPoints += statPointsPerLevel;
         remainingResourcePoints += 1;
+
+        if((level + 1) % 3 == 0)
+        {
+            remainingAbilityPoints += 1;
+            mustBeToldOfNewAbilityPointToSpend = true;
+        }
+        level += 1;
     }
 
     //gets the number of alive party members

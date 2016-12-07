@@ -29,8 +29,13 @@ public class VictoryHandler : MonoBehaviour {
     private Text goldEarned;
     private Text itemsEarned;
 
+    private GameObject beatTheGameBox;
+
     //Whether we fought the boss during the fight.
     private bool foughtBoss;
+
+    //Whether we've beaten the game
+    private bool shownBeatTheGameBox;
 
     private static VictoryHandler s_Instance = null;
 
@@ -44,7 +49,8 @@ public class VictoryHandler : MonoBehaviour {
         state = vhState.inActive;
         battlesFought = GameObject.Find("BattlesFought");
         battlesUntilNextBoss = GameObject.Find("BattlesUntilBoss");
-
+        beatTheGameBox = GameObject.Find("BeatTheGame");
+        beatTheGameBox.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -90,6 +96,8 @@ public class VictoryHandler : MonoBehaviour {
             itemsEarned = victoryBox.GetComponentsInChildren<Text>()[1];
         }
         this.state = vhState.waitingForAnimationsToFinish;
+
+        BGM.instance.setMusic(BGM.SongNames.victory);
         
         for(int i = 0; i< GameMaster.instance.thePlayer.theParty.Length; i++)
         {
@@ -132,6 +140,10 @@ public class VictoryHandler : MonoBehaviour {
                 if (monsters[i].isBoss)
                 {
                     foughtBoss = true;
+                    if(monsters[i].isFinalBoss)
+                    {
+                        GameMaster.instance.thePlayer.beatTheGame = true;
+                    }
                 }
             }
 
@@ -171,7 +183,7 @@ public class VictoryHandler : MonoBehaviour {
 
 
         //Update the tier
-        if (foughtBoss)
+        if (foughtBoss && !GameMaster.instance.thePlayer.beatTheGame)
         {
             Tier.tier++;
             Tier.difficulty = 1;
@@ -189,6 +201,7 @@ public class VictoryHandler : MonoBehaviour {
             Tier.difficulty++;
             
         }
+
         GameMaster.instance.thePlayer.numBattlesFought += 1;
         battlesFought.GetComponent<Text>().text = GameMaster.instance.thePlayer.numBattlesFought.ToString();
 
@@ -205,6 +218,9 @@ public class VictoryHandler : MonoBehaviour {
         itemsEarned.text = itemsString;
         itemsEarned.text += (lootTooHeavy ? "\n" + tooHeavyString : "");
 
+        //Give gold to the player
+        GameMaster.instance.thePlayer.inventory.gold += gold;
+
         //Delete the monster's prefabs and monsters
         for (int i = 0; i < monsters.Length; i++)
         {
@@ -215,6 +231,13 @@ public class VictoryHandler : MonoBehaviour {
         monsters = null;
         Monster.id_increment = 1;
 
+        //Show the - you beat the game box!
+        if (GameMaster.instance.thePlayer.beatTheGame && !shownBeatTheGameBox)
+        {
+            shownBeatTheGameBox = true;
+            beatTheGameBox.SetActive(true);
+        }
+
         //Show the victory box
         victoryBox.SetActive(true);
 
@@ -223,12 +246,28 @@ public class VictoryHandler : MonoBehaviour {
 
     }
 
+    public void clickRetire()
+    {
+        Application.Quit();
+    }
+
+    public void clickContinue()
+    {
+        beatTheGameBox.SetActive(false);
+    }
+
     private void handleInput()
     {
         if(Input.anyKey)
         {
+            if(beatTheGameBox.activeSelf)
+            {
+                return;
+            }
+
+            //still here?
             victoryBox.SetActive(false);
-            if (foughtBoss)
+            if (foughtBoss && !GameMaster.instance.thePlayer.beatTheGame)
             {
                 state = vhState.addingPartyMember;
                 GameMaster.instance.thePlayer.addPartyMember();
@@ -236,7 +275,9 @@ public class VictoryHandler : MonoBehaviour {
             else
             {
                 state = vhState.levelingUCs;
-                AbilitySelectionScript.load(getNextUCToLevel());
+                UserControllable uC = getNextUCToLevel();
+                uC.levelUp();
+                AbilitySelectionScript.instance.load(uC);
             }
         }
     }

@@ -123,12 +123,12 @@ public static class Gen {
         }
     }
 
-    private static Weapon initWeapon(int level, Weapon.weaponClass classType) {
+    private static Weapon initWeapon(int level, Weapon.WeaponClass classType) {
         string name = "";
 
-        if (classType == Weapon.weaponClass.Magic) {
+        if (classType == Weapon.WeaponClass.Magic) {
             name = magicWeaponTypes[ran.Next(magicWeaponTypes.Length)] ;
-        } else if (classType == Weapon.weaponClass.Melee) {
+        } else if (classType == Weapon.WeaponClass.Melee) {
             name = meleeWeaponTypes[ran.Next(meleeWeaponTypes.Length)];
         } else {
             name = rangedWeaponTypes[ran.Next(rangedWeaponTypes.Length)];
@@ -139,7 +139,7 @@ public static class Gen {
         decimal weight = Math.Round((decimal)ran.NextDouble() * 10) + 1 + (level-1) * 5;
         bool tradable  = true;
         decimal value  = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
-        Weapon.weaponType type = (Weapon.weaponType)ran.Next(3);
+        Weapon.WeaponType type = (Weapon.WeaponType)ran.Next(3);
 
         return new Weapon(
             name,
@@ -152,7 +152,7 @@ public static class Gen {
 
             /* Tooltip Text */
             name + "\r\n" +
-             Enum.GetName(typeof(Weapon.weaponClass), (int)classType) + " Weapon" + "\r\n" +
+             Enum.GetName(typeof(Weapon.WeaponClass), (int)classType) + " Weapon" + "\r\n" +
             "Weight: "   + weight.ToString() + "\r\n" +
             "Tradable: " + ((tradable) ? "Yes" : "No") + "\r\n" +
             "Value: "    + value.ToString() + "\r\n" +
@@ -161,14 +161,14 @@ public static class Gen {
     }
 
     public static Weapon magicWeapon(int level) {
-        return initWeapon(level, Weapon.weaponClass.Magic);
+        return initWeapon(level, Weapon.WeaponClass.Magic);
     }
 
     public static Weapon meleeWeapon(int level) {
-        return initWeapon(level, Weapon.weaponClass.Melee);
+        return initWeapon(level, Weapon.WeaponClass.Melee);
     }
 
     public static Weapon rangedWeapon(int level) {
-        return initWeapon(level, Weapon.weaponClass.Ranged);
+        return initWeapon(level, Weapon.WeaponClass.Ranged);
     }
 }

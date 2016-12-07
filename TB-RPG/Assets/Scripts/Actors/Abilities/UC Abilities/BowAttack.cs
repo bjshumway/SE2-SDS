@@ -227,7 +227,9 @@ public void showAnimation(Monster m)
                 slider.SetActive(false);
                 BowAttackSliderBackground.SetActive(false);
                 slider.GetComponent<BowSliderMove>().isActive = false;
-            } else
+                BattleHints.text = "";
+            }
+            else
             {
                 slider.SetActive(false);
                 slider.GetComponent<BowSliderMove>().isActive = false;

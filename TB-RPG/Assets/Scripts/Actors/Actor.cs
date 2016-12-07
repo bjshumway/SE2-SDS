@@ -86,6 +86,10 @@ public class Actor {
         get {
             return _level;
         }
+        set
+        {
+            _level = value;
+        }
     }
 
     public Weapon weapon;
@@ -336,6 +340,11 @@ public class Actor {
             showHitResult(damageAmount, ht);
             health.subtract(damageAmount); // ouch
 
+            if(!damager.isUserControllable && isUserControllable)
+            {
+                DrawDamageLine((Monster)damager, (UserControllable) this);
+            }
+
             if (health.value == 0) {
                 kill(); // yo dead
             } else
@@ -348,11 +357,65 @@ public class Actor {
                 }
             }
 
+            playAttackSound(ht, damageType);
+
             return ht;
         }
 
+        playAttackSound(hitType.miss, damageType);
+
         showHitResult(-1, hitType.miss);
         return hitType.miss; // dodged
+    }
+
+    private void playAttackSound(hitType ht, Ability.damageType dt)
+    {
+        if(ht == hitType.hit || ht == hitType.crit)
+        {
+            switch(dt)
+            {
+                case Ability.damageType.fire:
+                    AudioControl.playSound("fire_spell");
+                    break;
+                case Ability.damageType.ground:
+                    AudioControl.playSound("ground_spell");
+                    break;
+                case Ability.damageType.lightning:
+                    AudioControl.playSound("lightning_spell");
+                    break;
+                case Ability.damageType.water:
+                    AudioControl.playSound("water_spell");
+                    break;
+                case Ability.damageType.melee:
+                case Ability.damageType.none:
+                    if(ht == hitType.crit)
+                    {
+                        AudioControl.playSound("melee_2");
+                    }
+                    if(isUserControllable)
+                    {
+                        AudioControl.playSound("melee_1");
+                    }
+                    else
+                    {
+                        AudioControl.playSound("slash_hit");
+                    }
+                    break;
+                case Ability.damageType.ranged:
+                    AudioControl.playSound("arrow_hit");
+                    break;
+            }
+        } else
+        {
+            if(dt == Ability.damageType.melee || dt == Ability.damageType.none)
+            {
+                AudioControl.playSound("slash_miss");
+            }
+            else
+            {
+                AudioControl.playSound("arrow_miss");
+            }
+        }
     }
 
     //Shows how much health was lost after taking damage
@@ -381,6 +444,33 @@ public class Actor {
         if (d != null) {
             d.floatUpThenDisappear(dmgText);
         }
+    }
+
+    //Draws the damage line for when we get damaged.
+    public void DrawDamageLine(Monster damager, UserControllable damagee)
+    {
+        Vector3 pointA = damager.monsterPrefab.transform.localPosition;
+        Vector3 pointB = damagee.battleObj.transform.localPosition;
+
+        GameObject imageRectTransform = Resources.Load("DamageLine") as GameObject;
+        imageRectTransform = GameObject.Instantiate(imageRectTransform, imageRectTransform.transform.position, imageRectTransform.transform.rotation) as GameObject;
+        imageRectTransform.transform.SetParent(GameObject.Find("BattleCanvas").transform, false);
+
+        pointB = new Vector3(pointB.x, pointB.y + 50, pointB.z);
+
+        Vector3 differenceVector = pointB - pointA;
+
+
+        imageRectTransform.gameObject.AddComponent<Image>();
+
+        imageRectTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(differenceVector.magnitude, 1);
+        imageRectTransform.GetComponent<RectTransform>().pivot = new Vector2(0, 0.5f);
+        imageRectTransform.transform.localPosition = pointA;
+        float angle = Mathf.Atan2(differenceVector.y, differenceVector.x) * Mathf.Rad2Deg;
+
+        imageRectTransform.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, angle);
+
+        GameObject.Destroy(imageRectTransform, (float).75);
     }
 
     //Updates the status effect box so that it reflects the actor's status effects

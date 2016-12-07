@@ -4,27 +4,39 @@ using System.Collections;
 
 public class AbilitySelectionScript : MonoBehaviour
 {
-    public static int remainingPoints;
+    public int remainingPoints;
     
-    public static UserControllable currentUC;
-    public static GameObject headImage;
-    public static GameObject nameOfUc;
+    public UserControllable currentUC;
+    public GameObject headImage;
+    public GameObject nameOfUc;
+    public GameObject abilityLearnHelp;
 
-    public static Ability selectedAbility;
+    public GameObject NewAbToSpend;
 
-    
+
+    public Ability selectedAbility;
+
+    private static AbilitySelectionScript s_Instance = null;
+
+
+
     // Use this for initialization
     void Start()
     {
         headImage = GameObject.Find("HeadAbSelect");
         nameOfUc = GameObject.Find("NameAbSelect");
+        abilityLearnHelp = GameObject.Find("AbilityLearnHelp");
 
         initAbilityPositionsAndClickEvents();
-
+        NewAbToSpend = Resources.Load("AbilityRelated/NewAbToSpend") as GameObject;
+        NewAbToSpend = (GameObject) Instantiate(NewAbToSpend, NewAbToSpend.transform.position, NewAbToSpend.transform.rotation);
+        NewAbToSpend.transform.SetParent(GameObject.Find("AbilitySelectCanvas").transform, false);
+        NewAbToSpend.GetComponent<Button>().onClick.AddListener(delegate { AbilitySelectionScript.instance.clickNewAbilityPointEarned(); });
+        NewAbToSpend.SetActive(false);
         selectedAbility = null;
     }
 
-    public static void clickedAbility(Ability ab)
+    public void clickedAbility(Ability ab)
     {
         if(ab.isLearned || remainingPoints == 0)
         {
@@ -39,7 +51,7 @@ public class AbilitySelectionScript : MonoBehaviour
     }
 
     //Shows the popup that asks whether the user wants to learn the ability
-    public static void showApprovalPopup()
+    public void showApprovalPopup()
     {
         GameObject cont = GameObject.Find("AbilityApprovalQuestion");
         if (cont == null)
@@ -47,33 +59,35 @@ public class AbilitySelectionScript : MonoBehaviour
             cont = Resources.Load("AbilityRelated/AbilityApprovalPopupContainer") as GameObject;
             cont = GameObject.Instantiate(cont, cont.transform.position, cont.transform.rotation) as GameObject;
             cont.transform.SetParent(GameObject.Find("AbilitySelectCanvas").transform, false);
-            GameObject.Find("YesApproveAbility").GetComponent<Button>().onClick.AddListener(delegate { AbilitySelectionScript.acceptLearningAbility();  });
-            GameObject.Find("NoApproveAbility").GetComponent<Button>().onClick.AddListener(delegate { AbilitySelectionScript.declineLearningAbility(); });
+            GameObject.Find("YesApproveAbility").GetComponent<Button>().onClick.AddListener(delegate { AbilitySelectionScript.instance.acceptLearningAbility();  });
+            GameObject.Find("NoApproveAbility").GetComponent<Button>().onClick.AddListener(delegate { AbilitySelectionScript.instance.declineLearningAbility(); });
 
         }
 
         cont.SetActive(true);
 
         GameObject.Find("AbilityApprovalQuestion").GetComponent<Text>().text = MLH.tr("LEARN ") + MLH.tr(selectedAbility.name) + "?";
-        GameObject.Find("AbilityApprovalDescription").GetComponent<Text>().text = MLH.tr(selectedAbility.toolTip);
+        //GameObject.Find("AbilityApprovalDescription").GetComponent<Text>().text = MLH.tr(selectedAbility.toolTip);
     }
 
-    public static void removeApprovalPopup()
+    public void removeApprovalPopup()
     {
         GameObject obj = GameObject.Find("AbilityApprovalPopupContainer(Clone)");
         obj.SetActive(false);
     }
 
-    public static void acceptLearningAbility()
+    public void acceptLearningAbility()
     {
         currentUC.learnAbility(selectedAbility);
         selectedAbility = null;
         remainingPoints--;
+        currentUC.remainingAbilityPoints--;
         GameObject.Find("AbilityMenuRemainingPoints").GetComponent<Text>().text = remainingPoints.ToString();
+        AudioControl.playSound("selection");
         removeApprovalPopup();
     }
 
-    public static void declineLearningAbility()
+    public void declineLearningAbility()
     {
         selectedAbility = null;
         removeApprovalPopup();
@@ -101,7 +115,7 @@ public class AbilitySelectionScript : MonoBehaviour
                 ab.yPosSelectionMenu = yPos;
 
                 ab.learnButton.GetComponent<Button>().onClick.AddListener(
-                        delegate { AbilitySelectionScript.clickedAbility(ab); } );
+                        delegate { AbilitySelectionScript.instance.clickedAbility(ab); } );
             }
 
             if (i < Ability.mageAbilities.Length)
@@ -111,7 +125,7 @@ public class AbilitySelectionScript : MonoBehaviour
                 ab.yPosSelectionMenu = yPos;
 
                 ab.learnButton.GetComponent<Button>().onClick.AddListener(
-                        delegate { AbilitySelectionScript.clickedAbility(ab); });
+                        delegate { AbilitySelectionScript.instance.clickedAbility(ab); });
 
 
             }
@@ -123,7 +137,7 @@ public class AbilitySelectionScript : MonoBehaviour
                 ab.yPosSelectionMenu = yPos;
 
                 ab.learnButton.GetComponent<Button>().onClick.AddListener(
-                        delegate { AbilitySelectionScript.clickedAbility(ab); });
+                        delegate { AbilitySelectionScript.instance.clickedAbility(ab); });
 
             }
 
@@ -141,18 +155,22 @@ public class AbilitySelectionScript : MonoBehaviour
     //Switches the camera to this scene
     //Populates the Image and Name on the canvas so that we know which uC is here
     //Todo: the abilities to choose from should be based on the uC's class, and what the uC has already chosen.
-    public static void load(UserControllable uC)
+    public void load(UserControllable uC)
     {
         currentUC = uC;
-        remainingPoints = uC.remainingResourcePoints;
+        remainingPoints = uC.remainingAbilityPoints;
         headImage.GetComponent<Image>().sprite = uC.headType;
         headImage.GetComponent<Image>().color = uC.headColor;
         nameOfUc.GetComponent<Text>().text = uC.name;
 
+        if(uC.mustBeToldOfNewAbilityPointToSpend)
+        {
+
+            uC.mustBeToldOfNewAbilityPointToSpend = false;
+            showNewAbilityPointEarned();
+        }
+
         GameMaster.instance.switchCamera(2);
-
-        remainingPoints = uC.remainingResourcePoints;
-
         GameObject.Find("AbilityMenuRemainingPoints").GetComponent<Text>().text = remainingPoints.ToString();
 
 
@@ -160,13 +178,26 @@ public class AbilitySelectionScript : MonoBehaviour
 
     }
 
+    public void showNewAbilityPointEarned()
+    {
+        AudioControl.playSound("level_up");
+        NewAbToSpend.SetActive(true);
+    }
+
+    public void clickNewAbilityPointEarned()
+    {
+        NewAbToSpend.SetActive(false);
+    }
+
     public void goToNextScene()
     {
+        //Clear the tooltip area
+        GameObject.Find("AbToolTipArea").GetComponent<Text>().text = "";
         SkillSelectionScript.load(currentUC);
     }
 
     //Populates the abilities based on currentUC's class
-    public static void populateAbilities(UserControllable currentUc)
+    public void populateAbilities(UserControllable currentUc)
     {
         Ability[] abs = null;
 
@@ -219,5 +250,35 @@ public class AbilitySelectionScript : MonoBehaviour
     }
 
 
+    // This defines a static instance property that attempts to find the manager object in the scene and
+    // returns it to the caller.
+    public static AbilitySelectionScript instance
+    {
+        get
+        {
+            if (s_Instance == null)
+            {
+                // This is where the magic happens.
+                //  FindObjectOfType(...) returns the first AbilitySelectionScript object in the scene.
+                s_Instance = FindObjectOfType(typeof(AbilitySelectionScript)) as AbilitySelectionScript;
+            }
+
+            // If it is still null, create a new instance
+            if (s_Instance == null)
+            {
+                GameObject obj = new GameObject("AbilitySelectionScript");
+                s_Instance = obj.AddComponent(typeof(AbilitySelectionScript)) as AbilitySelectionScript;
+                Debug.Log("Could not locate an AbilitySelectionScript object. AbilitySelectionScript was Generated Automaticly.");
+            }
+
+            return s_Instance;
+        }
+    }
+
+    // Ensure that the instance is destroyed when the game is stopped in the editor.
+    void OnApplicationQuit()
+    {
+        s_Instance = null;
+    }
 
 }

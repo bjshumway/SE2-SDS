@@ -51,7 +51,8 @@ public abstract class Ability {
     {
         new BowAttack(null),
         new SharpShooter(null),
-        new HandyMan(null),
+        //new HandyMan(null), //HandyMan deprecated
+        new ValueCrafter(null),
         new DoubleShot(null),
         new StealGold(null),
         new Flee(null)
@@ -114,6 +115,10 @@ public abstract class Ability {
         learnButton.transform.SetParent(GameObject.Find("AbilitySelectCanvas").transform, false);
         learnButton.GetComponent<Image>().sprite = buttonSprite;
         learnButton.SetActive(false);
+
+        //Set the learnButton's tooltip
+        learnButton.GetComponent<AbilityToolTipHandler>().toolTipText = toolTip;
+        learnButton.GetComponent<AbilityToolTipHandler>().cost = (int)stamina;
 
         //Set the text for this image to this button's name
         learnButton.GetComponentInChildren<Text>().text = MLH.tr(name);

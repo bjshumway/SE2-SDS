@@ -16,8 +16,9 @@ public class StealGold : SingleTargetAbility {
     }
     
     public override void dealEffect(Actor act) {
-        GameMaster.instance.thePlayer.gold += (act as Monster).level + (owner.stats[stat].effectiveLevel * 0.25m);
-
+        var goldStolen = (act as Monster).level + (owner.stats[stat].effectiveLevel * 0.25m);
+        GameMaster.instance.thePlayer.inventory.gold += goldStolen;
+        BattleHints.text = "Stole " + goldStolen + " Gold";
         Debug.Log("StealGold: Player Current Gold: " + GameMaster.instance.thePlayer.gold);
 
         owner.stamina.subtract(stamina);

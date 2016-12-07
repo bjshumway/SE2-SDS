@@ -69,12 +69,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AbilityToolTipHandler.cs" />
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
     <Compile Include="Assets\AudioControl.cs" />
     <Compile Include="Assets\BGM.cs" />
     <Compile Include="Assets\BackgroundClick.cs" />
     <Compile Include="Assets\BowSliderMove.cs" />
     <Compile Include="Assets\Combat.cs" />
+    <Compile Include="Assets\DamageLine.cs" />
     <Compile Include="Assets\DifficultyModulator.cs" />
     <Compile Include="Assets\EnemyHP.cs" />
     <Compile Include="Assets\HeathControl.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SharpShooter.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\StealGold.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SwordFlurry.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ValueCrafter.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Wither.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
@@ -164,7 +167,6 @@
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Plugins\GoogleTranslator\obj\Debug\GoogleTranslator.csproj.FileListAbsolute.txt" />
     <None Include="Assets\Resources\Audio\license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

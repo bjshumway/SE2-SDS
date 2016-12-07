@@ -20,5 +20,6 @@ public class Follower : UserControllable {
                 remainingResourcePoints = 1;
                 break;
         }
+        remainingAbilityPoints = 0;
     }
 }

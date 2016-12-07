@@ -52,6 +52,8 @@ public class Player : UserControllable {
 
     public Tier tier;
 
+    public bool beatTheGame;
+
     public Player() : base()
     {
         this.followers = new Follower[2];
@@ -60,13 +62,16 @@ public class Player : UserControllable {
         this.partyIsDead = false;
         this.remainingStatPoints = initialStatPoints;
         this.remainingResourcePoints = 1;
+        this.remainingAbilityPoints = 1;
         this.numBattlesFought = 0;
-
+        this.mustBeToldOfNewAbilityPointToSpend = true;
 
         this.name = "Trifaldo";
         //Debug.Log("stamina: " + this.stamina.maxValue + ", " + this.stamina.value);
 
-        inventory = new Inventory(this, "Inventory", 150);
+        this.inventory = new Inventory(this, "Inventory", 150);
+        this.inventory.addItem(new Item("TBD - Not Yet Implemented\r\n(you can buy/sell me though)", 0, false, Item.itemTypes.abilityItem, 0, ""));
+
     }
 
     //Adds a party member to the party!

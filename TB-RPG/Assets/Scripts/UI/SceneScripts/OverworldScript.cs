@@ -13,8 +13,10 @@ public class OverworldScript : MonoBehaviour {
 
     public void load()
     {
-        if(!isFirstPass) { 
-            BGM.instance.setMusic(BGM.SongNames.menu);
+        if(!isFirstPass) {
+            //No overworld music for now.... Delightful D is victory music.
+            //BGM.instance.setMusic(BGM.SongNames.menu);
+
             GameMaster.instance.switchCamera(4);
         } else
         {
@@ -40,6 +42,7 @@ public class OverworldScript : MonoBehaviour {
     //Goes to the menu screen
     public void goToMenu()
     {
+        AudioControl.playSound("door_open");
         ShopInventoryScript.instance.load();
     }
     

@@ -7,10 +7,6 @@ public class TitleMenuScript : MonoBehaviour
 {
     
 
-    public void LoadScene(string cameraNum)
-    {
-        CharacterCreationMenu.load(GameMaster.instance.thePlayer, true);
-    }
 
     public void loadGameButton()
     {
@@ -24,6 +20,12 @@ public class TitleMenuScript : MonoBehaviour
 
         OverworldScript.instance.load();
 
+    }
+
+    public void startGame()
+    {
+        AudioControl.playSound("door_open");
+        CharacterCreationMenu.load(GameMaster.instance.thePlayer, true);
     }
 
 

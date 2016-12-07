@@ -14,8 +14,13 @@ public class SkillSelectionScript : MonoBehaviour {
 
     public static int resourceTotal = 0;
     public static int resourceMax = 0;
-    public static int stamina = 0;
+    public static decimal stamina = 0;
     public static int health = 0;
+
+    public static decimal deltaStamina = (decimal) .3;
+    public static int deltaHealth = 10;
+
+    public static bool gainedNewPartyMember;
 
 
 
@@ -24,17 +29,32 @@ public class SkillSelectionScript : MonoBehaviour {
     public static GameObject headImage;
     public static GameObject nameOfUc;
 
+    public static GameObject StrContainer;
+    public static GameObject DexContainer;
+    public static GameObject CunContainer;
+    public static GameObject IntContainer;
+    public static GameObject ChaContainer;
+
+
 
     // Use this for initialization
     void Start () {
         headImage = GameObject.Find("HeadSkillSelect");
         nameOfUc = GameObject.Find("NameStatSelect");
-	}
+
+        StrContainer = GameObject.Find("StrContainer");
+        DexContainer = GameObject.Find("DexContainer");
+        CunContainer = GameObject.Find("CunContainer");
+        IntContainer = GameObject.Find("IntContainer");
+        ChaContainer = GameObject.Find("ChaContainer");
+
+    }
 
     //Switches the camera to this scene
     //Populates the Image and Name on the canvas so that we know which uC is here
-    public static void load(UserControllable uC)
+    public static void load(UserControllable uC, bool _gainedNewPartyMember = false)
     {
+        gainedNewPartyMember = _gainedNewPartyMember;
         currentUC = uC;
         headImage.GetComponent<Image>().sprite = uC.headType;
         headImage.GetComponent<Image>().color = uC.headColor;
@@ -53,11 +73,27 @@ public class SkillSelectionScript : MonoBehaviour {
         resourceMax = uC.remainingResourcePoints;
         
         health = (int)uC.health.maxValue;
-        stamina = (int)uC.stamina.refreshSpeed;
+        stamina = uC.stamina.refreshSpeed;
 
-        //TODO: If this is our first time here, the lower button reads "Start The Adventure" 
-        //      If there is another player to level up after this, it should read  "Level up <name>!"
-        //      Otherwise, it should read "Back to The Adventure!"
+        IntContainer.SetActive(false);
+        StrContainer.SetActive(false);
+        DexContainer.SetActive(false);
+        ChaContainer.SetActive(false);
+
+        GameObject newStatToShow = null;
+        switch (uC.classType) {
+            case UserControllable.classTypes.rogue:
+                newStatToShow = DexContainer;
+                break;
+            case UserControllable.classTypes.fighter:
+                newStatToShow = StrContainer;
+                break;
+            case UserControllable.classTypes.mage:
+                newStatToShow = IntContainer;
+                break;
+        }
+
+        newStatToShow.SetActive(true);
 
         GameMaster.instance.switchCamera(3);
     }
@@ -66,6 +102,8 @@ public class SkillSelectionScript : MonoBehaviour {
     {
         //Debug.Log("go to next scene in skillselection script");
         currentUC.setStatLevels(new int[] { charisma, cunning, dexterity, intellect, strength });
+        currentUC.remainingResourcePoints = resourceTotal;
+        currentUC.remainingStatPoints = statTotal;
         currentUC.health.maxValue = health;
         currentUC.stamina.refreshSpeed = stamina;
 
@@ -82,7 +120,16 @@ public class SkillSelectionScript : MonoBehaviour {
             }
             else
             {
-                AbilitySelectionScript.load(uC);
+                if (gainedNewPartyMember)
+                {
+                    uC.levelUp();
+                    SkillSelectionScript.load(uC, true);
+                }
+                else
+                {
+                    uC.levelUp();
+                    AbilitySelectionScript.instance.load(uC);
+                }
             }
         }
         else
@@ -99,7 +146,7 @@ public class SkillSelectionScript : MonoBehaviour {
         if (resourceTotal < resourceMax && health > currentUC.health.maxValue)
         {
             resourceTotal++;
-            health--;
+            health -= deltaHealth;
             //Debug.Log("statTotal:" + statTotal + "strength" + strength);
             Debug.Log("healthDecrease");
         }
@@ -110,7 +157,7 @@ public class SkillSelectionScript : MonoBehaviour {
         if (resourceTotal < resourceMax && stamina > currentUC.stamina.refreshSpeed)
         {
             resourceTotal++;
-            stamina--;
+            stamina -= deltaStamina;
             //Debug.Log("statTotal:" + statTotal + "strength" + strength);
             Debug.Log("staminaDecrease");
         }
@@ -213,7 +260,7 @@ public class SkillSelectionScript : MonoBehaviour {
         if (resourceTotal > 0)
         {
             resourceTotal--;
-            health++;
+            health += deltaHealth;
         }
     }
 
@@ -222,7 +269,7 @@ public class SkillSelectionScript : MonoBehaviour {
         if (resourceTotal > 0)
         {
             resourceTotal--;
-            stamina++;
+            stamina += deltaStamina;
         }
     }
 

@@ -21,6 +21,8 @@ public class Monster : Actor {
 
     public decimal hitAccuracy;
 
+    public bool isFinalBoss;
+
     public Item itemDrop {
         get {
             return _drop;
@@ -208,9 +210,32 @@ public class Monster : Actor {
                 monsters.Add(new DemonSkull3_3());
                 break;
             case "3_4":
-                monsters.Add(new DemonSkull3_2());
                 monsters.Add(new Bunny());
+                monsters.Add(new DemonSkull3_2());
                 monsters.Add(new DemonSkull3_3());
+                break;
+            default:
+                //We are here because we fought all the bad guys and won! Now for a challenge....
+                Bunny b = new Bunny();
+                //Scale Factor
+                var scaleFactor = (Math.Pow((1.1), GameMaster.instance.thePlayer.numBattlesFought - 11));
+                b.stats["strength"].setLevel((int)b.stats["strength"].level * (int)scaleFactor);
+                b.stamina.refreshSpeed = b.stamina.refreshSpeed * (int) scaleFactor;
+
+                var d2 = new DemonSkull3_2();
+                d2.stats["strength"].setLevel((int)b.stats["strength"].level * (int)scaleFactor);
+                d2.stamina.refreshSpeed = b.stamina.refreshSpeed * (int)scaleFactor;
+
+                var d3 = new DemonSkull3_3();
+                d3.stats["strength"].setLevel((int)b.stats["strength"].level * (int)scaleFactor);
+                d3.stamina.refreshSpeed = b.stamina.refreshSpeed * (int)scaleFactor;
+
+
+                monsters.Add(b);
+                monsters.Add(d2);
+                monsters.Add(d3);
+
+
                 break;
         }
 

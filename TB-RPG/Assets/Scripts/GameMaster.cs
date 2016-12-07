@@ -64,7 +64,8 @@ public class GameMaster : MonoBehaviour {
 
         thePlayer = new Player();
         thePlayer.health.setValue(10);
-        
+
+
         //setup the mice
         cursor1 = (Texture2D)Resources.Load("mouse1");
         cursor2 = (Texture2D)Resources.Load("mouse2");
@@ -80,6 +81,10 @@ public class GameMaster : MonoBehaviour {
             theCameras[i].enabled = false;
             theCanvases[i].enabled = false;
         }
+
+        //Set it to victory music, since its the same as world music
+        BGM.instance.setMusic(BGM.SongNames.victory);
+
     }
 
 
@@ -99,9 +104,9 @@ public class GameMaster : MonoBehaviour {
         {
             case 1: nameOfBackground = "forest";
                 break;
-            case 2: nameOfBackground = "cave background"; 
+            case 2: nameOfBackground = "graveyard"; 
                 break;
-            case 3: nameOfBackground = "graveyard";
+            case 3: nameOfBackground = "cave background";
                 break;
         }
 
