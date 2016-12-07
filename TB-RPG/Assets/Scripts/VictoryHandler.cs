@@ -188,7 +188,7 @@ public class VictoryHandler : MonoBehaviour {
             Tier.tier++;
             Tier.difficulty = 1;
             GameMaster.instance.switchBackground(Tier.tier);
-            string tierName = (Tier.tier == 2 ? "Infested Caves" : "Haunted Graveyard");
+            string tierName = (Tier.tier == 2 ? "Haunted Graveyard" : "Infested Caves");
             GameObject[] gArr = GameObject.FindGameObjectsWithTag("TierName");
             for(int i = 0; i < gArr.Length;i++)
             {

@@ -25,7 +25,7 @@ public class TitleMenuScript : MonoBehaviour
     public void startGame()
     {
         AudioControl.playSound("door_open");
-        CharacterCreationMenu.load(GameMaster.instance.thePlayer, true);
+        CharacterCreationMenu.instance.load(GameMaster.instance.thePlayer, true);
     }
 
 

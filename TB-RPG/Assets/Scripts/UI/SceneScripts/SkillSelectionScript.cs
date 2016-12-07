@@ -104,7 +104,9 @@ public class SkillSelectionScript : MonoBehaviour {
         currentUC.setStatLevels(new int[] { charisma, cunning, dexterity, intellect, strength });
         currentUC.remainingResourcePoints = resourceTotal;
         currentUC.remainingStatPoints = statTotal;
-        currentUC.health.maxValue = health;
+        currentUC.health.setMaxValue(health, false);
+        currentUC.health.setValue(health);
+
         currentUC.stamina.refreshSpeed = stamina;
 
         GameObject.Find("SkillSelectionNextButton").GetComponentInChildren<Text>().text = "NEXT";

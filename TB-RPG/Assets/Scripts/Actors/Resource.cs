@@ -122,6 +122,7 @@ public class Resource {
             _value = maxValue; // set the current value to the new max
             foreach (Slider s in _sliders)
             {
+                s.maxValue = (float)_maxValue;
                 s.value = (float)_value;
                 s.GetComponentInChildren<Text>().text = "" + (int)s.value + "/" + (int)s.maxValue;
             }

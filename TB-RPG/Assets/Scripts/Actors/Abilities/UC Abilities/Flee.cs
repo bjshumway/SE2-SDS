@@ -8,6 +8,8 @@
 
     public override void cast(Actor act = null) {
 
+        BGM.instance.setMusic(BGM.SongNames.victory);
+
         // heal the caster to full
         owner.heal(owner.health.maxValue);
         owner.battleHealthBar.value = owner.battleHealthBar.maxValue;

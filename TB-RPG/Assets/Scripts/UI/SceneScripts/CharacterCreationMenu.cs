@@ -45,7 +45,7 @@ public class CharacterCreationMenu : MonoBehaviour {
 
     //Switches the camera to this scene
     //Populates the Image and Name on the canvas so that we know which uC is here
-    public static void load(UserControllable uC, bool _isFirstChar)
+    public void load(UserControllable uC, bool _isFirstChar)
     {
         isFirstChar = _isFirstChar;
         GameObject.Find("NamePlayerInput").GetComponent<InputField>().text = uC.name;
@@ -74,6 +74,7 @@ public class CharacterCreationMenu : MonoBehaviour {
             instance.cycleBodyPartColor("head right");
         }
 
+        gotoAbilitySelect.SetActive(false);
 
     }
 
@@ -235,9 +236,9 @@ public class CharacterCreationMenu : MonoBehaviour {
         //} else
         //{
         //    SkillSelectionScript.load(uC, true);
-       // }
+        // }
 
-
+        classSelect.value = 0;
     }
     
     public void showNextButton()
