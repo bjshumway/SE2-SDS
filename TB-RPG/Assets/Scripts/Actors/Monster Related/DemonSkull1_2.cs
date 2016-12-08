@@ -17,7 +17,7 @@ public class DemonSkull1_2 : Monster {
                     new Resource(100, 1) //stamina
                 },
                 new int[] { 0, 0, 1, 0, 0 },  //charisma, cunning, dexterity, intelligence, strength
-                Ability.damageType.fire //Weakness 
+                Ability.damageType.lightning //Weakness 
             ) 
     {
 

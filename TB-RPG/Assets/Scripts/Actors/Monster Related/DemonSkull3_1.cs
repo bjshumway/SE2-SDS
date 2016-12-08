@@ -13,10 +13,10 @@ public class DemonSkull3_1 : Monster {
                false,    //isBoss
                null,     //title
                 new Resource[] {
-                    new Resource(15, 1), //health
-                    new Resource(100, 1) //stamina
+                    new Resource(500, 1), //health
+                    new Resource(100, 3) //stamina
                 },
-                new int[] { 0, 0, 1, 0, 0 },  //charisma, cunning, dexterity, intelligence, strength
+                new int[] { 0, 0, 1, 0, 3 },  //charisma, cunning, dexterity, intelligence, strength
                 Ability.damageType.fire //Weakness 
             ) 
     {
