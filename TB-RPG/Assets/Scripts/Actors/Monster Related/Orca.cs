@@ -12,7 +12,7 @@ public class Orca : Monster
                1,        //level
                2,        //difficulty in level
                0,        //hit accuracy
-               false,
+               true,
                null,     //title
                 new Resource[] {  
                     new Resource(15, 1), //health

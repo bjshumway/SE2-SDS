@@ -12,6 +12,8 @@ public class Pin : SingleTargetAbility
         //Also each monster will contain a reference to its image, to make things easier
     }
 
+    public Pin() : base() { }
+
     public Pin(Actor Owner) : base("PIN", "Pins The Enemy in Place - No Longer Can Dodge",
         "strength", 0.0m, 25, false, Owner, damageType.melee)
     {
@@ -24,6 +26,7 @@ public class Pin : SingleTargetAbility
         if (a.statusEffects["pin"] == 0)
         {
             a.statusEffects["pin"] = 1;
+            a.updateStatusEffectBox();
             owner.stamina.subtract(stamina);
             showAnimation(a);
         } else

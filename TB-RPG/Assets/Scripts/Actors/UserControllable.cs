@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,17 +11,43 @@ public abstract class UserControllable : Actor {
 
     //Assigns the id to each UserControllable
     protected static int id_increment = 1;
+    protected static int statPointsPerLevel = 3;
+    protected static int initialStatPoints = 10;
+
+
     public AbilityBar abilities;
 
-    public int remainingStatPoints;
+    public bool mustBeToldOfNewAbilityPointToSpend;
+
+
+
+    private int _remainingStatPoints;
+    public int remainingStatPoints
+    {
+        set
+        {
+            this._remainingStatPoints = value;
+        }
+        get
+        {
+            return _remainingStatPoints;
+        }
+    }
+
     public int remainingResourcePoints;
 
+    [XmlIgnore]
     public Sprite _headType;
     public Color32 _headColor;
 
+    [XmlIgnore]
     public Image battleHead;
+    public GameObject battleObj;
 
+    [XmlIgnore]
     public GameObject shopInventoryGameObj;
+
+    [XmlIgnore]
     public GameObject shopInventoryInfo;
 
     public enum classTypes {
@@ -31,7 +57,7 @@ public abstract class UserControllable : Actor {
     };
 
     public classTypes classType;
-
+    internal int remainingAbilityPoints;
 
     public int talentPoints {
         get {
@@ -39,6 +65,7 @@ public abstract class UserControllable : Actor {
         }
     }
 
+    [XmlIgnore]
     public Sprite headType
     {
         get; set;
@@ -59,15 +86,19 @@ public abstract class UserControllable : Actor {
         this.id = id_increment;
         id_increment++;
 
-        remainingStatPoints = 10;
-        remainingResourcePoints = 1;
 
-        learnAbility(new ItemAbility(this));
+        level = 1;
 
-        GameObject battleObj = GameObject.Find("Battle UC " + id);
+        /* Deprecated - disabled learning the item ability. We may bring it back in a later instance of the game.
+            learnAbility(new ItemAbility(this));
+        */
+
+
+        battleObj = GameObject.Find("Battle UC " + id);
         shopInventoryGameObj = GameObject.Find("ShopInventory UC " + id);
         shopInventoryInfo = shopInventoryGameObj.transform.FindChild("Information").gameObject;
         shopInventoryInfo.SetActive(true);
+        shopInventoryGameObj.transform.FindChild("HeadType").gameObject.SetActive(true);
 
         //Setup the battleHealtBar
         GameObject bHB_gameObj = battleObj.transform.FindChild("Battle UC " + id + " HealthBar").gameObject;
@@ -189,16 +220,19 @@ public abstract class UserControllable : Actor {
 
         if(!foundItem)
         {
-           bool success = GameMaster.instance.thePlayer.inventory.addItem(wpn);
+            bool success = GameMaster.instance.thePlayer.inventory.addItem(wpn);
             if(!success)
             {
-                //Item was too heavy to add to inventory - can't equip
-                Debug.Log("Error Equipping Item - too heavy");
+                //Cheat! Make the inventory big enough to equip it since otherwise we get a bug involving
+                //a newly added userControllable not having a weapon.
+                //Thankfully, this is the only case where we have to cheat, and we only add a weapon of weight 1
+                GameMaster.instance.thePlayer.inventory.weightCap += 1;
+                GameMaster.instance.thePlayer.inventory.addItem(wpn);
                 return;
             }
         }
 
-        //Do we currently have something equipped? The unequip it.
+        //Do we currently have something equipped? Then unequip it.
         if (weapon != null)
         {
             weapon.invObject.SetActive(true);
@@ -221,10 +255,18 @@ public abstract class UserControllable : Actor {
 
     //Add 3 to remaining stat points
     //Add 1 to remaining resource points
+    //Add 1 to remaining ability points, but only if we haven't gained a party member
     public void levelUp()
-    {
-        remainingStatPoints += 3;
+    { 
+        remainingStatPoints += statPointsPerLevel;
         remainingResourcePoints += 1;
+
+        if((level + 1) % 3 == 0)
+        {
+            remainingAbilityPoints += 1;
+            mustBeToldOfNewAbilityPointToSpend = true;
+        }
+        level += 1;
     }
 
     //gets the number of alive party members
@@ -257,39 +299,5 @@ public abstract class UserControllable : Actor {
         {
             GameMaster.instance.thePlayer.partyIsDead = true;
         }
-    }
-
-    /// <summary>
-    /// Serializes the UserControllable into the specified binary file
-    /// </summary>
-    /// <param name="fileName">File to save to</param>
-    public void save(string fileName) {
-        using (var writer = File.Create(fileName)) {
-            var serializer = new BinaryFormatter();
-
-            // write all of the UC's attribute values to a file in binary format
-            serializer.Serialize(writer, this);
-        }
-    }
-
-    /// <summary>
-    /// Creates a UserControllable based on a binary file
-    /// </summary>
-    /// <param name="fileName">File to read from</param>
-    /// <returns>a UserControllable if the file can be parsed, otherwise null</returns>
-    public static UserControllable load(string fileName) {
-        if (File.Exists(fileName)) {
-            try {
-                using (var writer = File.Open(fileName, FileMode.Open)) {
-                    var serializer = new BinaryFormatter();
-                    return (UserControllable)serializer.Deserialize(writer);
-                }
-
-            } catch (Exception ex) {
-                Debug.Log("In UserControllable.load: " + ex.Message);
-            }
-        }
-
-        return null;
     }
 }

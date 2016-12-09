@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 // TODO: add more of everything: adjectives, weapontypes, items
 public static class Gen {
@@ -68,7 +69,7 @@ public static class Gen {
         new Item("Crumpled Paper", 0.1m, true,Item.itemTypes.loot, 5, "There's nothing written on it."),
         new Item("Metal Scraps", 10, true,Item.itemTypes.loot, 45, "Scrap metal. Could be valuable."),
         new Item("Melted Candle", 0.5m, true,Item.itemTypes.loot, 15, "An old candle."),
-        new Item("Dusty Old Lentern", 4, true,Item.itemTypes.loot, 20, "I wonder if it works."),
+        new Item("Dusty Old Lectern", 10, true,Item.itemTypes.loot, 20, "I wonder if it works."),
         new Item("Slightly Damp Rag", 0.3m, true,Item.itemTypes.loot, 7, "Why did I pick this up?"),
         new Item("Oily Boot", 1.2m, true,Item.itemTypes.loot, 10, "Only one."),
         new Item("Bag of Marbles", 5, true,Item.itemTypes.loot, 50, "Something to do, I suppose."),
@@ -99,10 +100,15 @@ public static class Gen {
         if (roll < 25) { // weapon
             return weapon(level);
         } else if (roll < 90) { // junk
-            return junkItems[ran.Next(valuableItems.Length)];
+            return itemCopy(junkItems[ran.Next(valuableItems.Length)]);
         } else { // valuable
-            return valuableItems[ran.Next(valuableItems.Length)];
+            return itemCopy(valuableItems[ran.Next(valuableItems.Length)]);
         }
+    }
+
+    private static Item itemCopy(Item item)
+    {
+        return new Item(item.name, item.weight, item.tradable, item.itemType, item.value, item.toolTip);
     }
 
     public static Weapon weapon(int level) {
@@ -117,12 +123,12 @@ public static class Gen {
         }
     }
 
-    private static Weapon initWeapon(int level, Weapon.weaponClass classType) {
+    private static Weapon initWeapon(int level, Weapon.WeaponClass classType) {
         string name = "";
 
-        if (classType == Weapon.weaponClass.Magic) {
+        if (classType == Weapon.WeaponClass.Magic) {
             name = magicWeaponTypes[ran.Next(magicWeaponTypes.Length)] ;
-        } else if (classType == Weapon.weaponClass.Melee) {
+        } else if (classType == Weapon.WeaponClass.Melee) {
             name = meleeWeaponTypes[ran.Next(meleeWeaponTypes.Length)];
         } else {
             name = rangedWeaponTypes[ran.Next(rangedWeaponTypes.Length)];
@@ -130,10 +136,10 @@ public static class Gen {
 
         name += " of " + ((level > 9) ? strongAdjective() : weakAdjective());
 
-        decimal weight = Math.Round((decimal)ran.NextDouble() * 10) + 1 + (level-1) * 5;
+        decimal weight = Math.Round((decimal)ran.NextDouble() * 10) + 1;
         bool tradable  = true;
         decimal value  = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
-        Weapon.weaponType type = (Weapon.weaponType)ran.Next(3);
+        Weapon.WeaponType type = (Weapon.WeaponType)ran.Next(3);
 
         return new Weapon(
             name,
@@ -146,7 +152,7 @@ public static class Gen {
 
             /* Tooltip Text */
             name + "\r\n" +
-             Enum.GetName(typeof(Weapon.weaponClass), (int)classType) + " Weapon" + "\r\n" +
+             Enum.GetName(typeof(Weapon.WeaponClass), (int)classType) + " Weapon" + "\r\n" +
             "Weight: "   + weight.ToString() + "\r\n" +
             "Tradable: " + ((tradable) ? "Yes" : "No") + "\r\n" +
             "Value: "    + value.ToString() + "\r\n" +
@@ -155,14 +161,14 @@ public static class Gen {
     }
 
     public static Weapon magicWeapon(int level) {
-        return initWeapon(level, Weapon.weaponClass.Magic);
+        return initWeapon(level, Weapon.WeaponClass.Magic);
     }
 
     public static Weapon meleeWeapon(int level) {
-        return initWeapon(level, Weapon.weaponClass.Melee);
+        return initWeapon(level, Weapon.WeaponClass.Melee);
     }
 
     public static Weapon rangedWeapon(int level) {
-        return initWeapon(level, Weapon.weaponClass.Ranged);
+        return initWeapon(level, Weapon.WeaponClass.Ranged);
     }
 }

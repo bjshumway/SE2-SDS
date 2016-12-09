@@ -6,6 +6,8 @@
         //Also each monster will contain a reference to its image, to make things easier
     }
 
+    public Wither() : base() { }
+
     public Wither(Actor Owner) : base("Wither", "Targetted enemy regens stamina at a slower rate. Stacks up to 4 times.",
         "intellect", 0.0m, 25, false, Owner, damageType.none) {
     }
@@ -15,6 +17,7 @@
         {
             base.dealEffect(a);
             a.statusEffects["wither"]++;
+            a.updateStatusEffectBox();
         }
         else
         {

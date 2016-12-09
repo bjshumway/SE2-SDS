@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,31 +13,37 @@ public class Actor {
 
     private string _name;
     private string _fullName;
+    [XmlIgnore]
     private Title  _title;
 
     private bool _isAlive = true;
     private int  _level = 1;
 
+    [XmlIgnore]
     private System.Random rand = new System.Random();
 
 
     #endregion
 
     #region Public Vars
-
+    
     public List<Ability> passiveAbilities = new List<Ability>();
 
     public int id; //unique across all monsters and actors
     public bool isUserControllable;
 
+    [XmlIgnore]
     public Dictionary<string, int> statusEffects = new Dictionary<string, int>();
-
+    [XmlIgnore]
     public Slider battleHealthBar;
+    [XmlIgnore]
     public Slider battleStaminaBar;
+    [XmlIgnore]
     public GameObject battleDamageText;
+    [XmlIgnore]
     public GameObject battleStatusEffectText;
+    [XmlIgnore]
     public GameObject battleStatusEffectBackground;
-
 
     public enum hitType {
         hit,
@@ -62,6 +69,7 @@ public class Actor {
     }
 
     // just added this in for fun, see Title.cs (Title as in Dr. or President or .. THE UNKILLABLE)
+    [XmlIgnore]
     public Title title {
         get {
             return _title;
@@ -78,14 +86,22 @@ public class Actor {
         get {
             return _level;
         }
+        set
+        {
+            _level = value;
+        }
     }
 
     public Weapon weapon;
 
     public Resource health;
+
     public Resource stamina;
 
+    [XmlIgnore]
     public Dictionary<string, Stat> stats = new Dictionary<string, Stat>();
+
+    public Stat[] statsArray = new Stat[5];
 
     public Ability.damageType weakness;
 
@@ -324,6 +340,11 @@ public class Actor {
             showHitResult(damageAmount, ht);
             health.subtract(damageAmount); // ouch
 
+            if(!damager.isUserControllable && isUserControllable)
+            {
+                DrawDamageLine((Monster)damager, (UserControllable) this);
+            }
+
             if (health.value == 0) {
                 kill(); // yo dead
             } else
@@ -336,11 +357,65 @@ public class Actor {
                 }
             }
 
+            playAttackSound(ht, damageType);
+
             return ht;
         }
 
+        playAttackSound(hitType.miss, damageType);
+
         showHitResult(-1, hitType.miss);
         return hitType.miss; // dodged
+    }
+
+    private void playAttackSound(hitType ht, Ability.damageType dt)
+    {
+        if(ht == hitType.hit || ht == hitType.crit)
+        {
+            switch(dt)
+            {
+                case Ability.damageType.fire:
+                    AudioControl.playSound("fire_spell");
+                    break;
+                case Ability.damageType.ground:
+                    AudioControl.playSound("ground_spell");
+                    break;
+                case Ability.damageType.lightning:
+                    AudioControl.playSound("lightning_spell");
+                    break;
+                case Ability.damageType.water:
+                    AudioControl.playSound("water_spell");
+                    break;
+                case Ability.damageType.melee:
+                case Ability.damageType.none:
+                    if(ht == hitType.crit)
+                    {
+                        AudioControl.playSound("melee_2");
+                    }
+                    if(isUserControllable)
+                    {
+                        AudioControl.playSound("melee_1");
+                    }
+                    else
+                    {
+                        AudioControl.playSound("slash_hit");
+                    }
+                    break;
+                case Ability.damageType.ranged:
+                    AudioControl.playSound("arrow_hit");
+                    break;
+            }
+        } else
+        {
+            if(dt == Ability.damageType.melee || dt == Ability.damageType.none)
+            {
+                AudioControl.playSound("slash_miss");
+            }
+            else
+            {
+                AudioControl.playSound("arrow_miss");
+            }
+        }
     }
 
     //Shows how much health was lost after taking damage
@@ -369,6 +444,49 @@ public class Actor {
         if (d != null) {
             d.floatUpThenDisappear(dmgText);
         }
+    }
+
+    //Draws the damage line for when we get damaged.
+    public void DrawDamageLine(Monster damager, UserControllable damagee)
+    {
+        Vector3 pointA = damager.monsterPrefab.transform.localPosition;
+        Vector3 pointB = damagee.battleObj.transform.localPosition;
+
+        GameObject imageRectTransform = Resources.Load("DamageLine") as GameObject;
+        imageRectTransform = GameObject.Instantiate(imageRectTransform, imageRectTransform.transform.position, imageRectTransform.transform.rotation) as GameObject;
+        imageRectTransform.transform.SetParent(GameObject.Find("BattleCanvas").transform, false);
+
+        pointB = new Vector3(pointB.x, pointB.y + 50, pointB.z);
+
+        Vector3 differenceVector = pointB - pointA;
+
+
+        imageRectTransform.gameObject.AddComponent<Image>();
+
+        imageRectTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(differenceVector.magnitude, 1);
+        imageRectTransform.GetComponent<RectTransform>().pivot = new Vector2(0, 0.5f);
+        imageRectTransform.transform.localPosition = pointA;
+        float angle = Mathf.Atan2(differenceVector.y, differenceVector.x) * Mathf.Rad2Deg;
+
+        imageRectTransform.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, angle);
+
+        GameObject.Destroy(imageRectTransform, (float).75);
+    }
+
+    //Updates the status effect box so that it reflects the actor's status effects
+    public void updateStatusEffectBox()
+    {
+        string effects = "";
+        effects += (statusEffects["pin"] == 0 ? "" : "pin" + "\n");
+        effects += (statusEffects["shield"] == 0 ? "" : "Shield" + (statusEffects["shield"] == 1 ? "" : " x" + statusEffects["shield"]) + "\n");
+        effects += (statusEffects["wither"] == 0 ? "" : "Slow" + (statusEffects["wither"] == 1 ? "" : " x" + statusEffects["wither"]) + "\n");
+        effects += (statusEffects["regen"] == 0 ? "" : "Regen" + (statusEffects["regen"] == 1 ? "" : " x" + statusEffects["regen"]) + "\n");
+        effects += (statusEffects["confuse"] == 0 ? "" : "Confused" + (statusEffects["confuse"] == 1 ? "" : "x" + statusEffects["confuse"]) + "\n");
+        effects += (statusEffects["poison"] == 0 ? "" : "Poison" + (statusEffects["poison"] == 1 ? "" : "x" + statusEffects["poison"]) + "\n");
+        effects += (statusEffects["float"] == 0 ? "" : "Armor" + (statusEffects["float"] == 1 ? "" : " x" + statusEffects["float"]) + "\n");
+
+        battleStatusEffectText.GetComponent<Text>().text = effects;
+
     }
 
     /// <summary>

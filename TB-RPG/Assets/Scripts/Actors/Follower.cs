@@ -11,18 +11,15 @@ public class Follower : UserControllable {
         {
             case 2:
                 name = "Monet";
-                for(int i = 0; i < 5; i++)
-                {
-                    levelUp();
-                }
+                remainingStatPoints = initialStatPoints;
+                remainingResourcePoints = 1;
                 break;
             case 3:
                 name = "Ashton";
-                for (int i = 0; i < 10; i++)
-                {
-                    levelUp();
-                }
+                remainingStatPoints = initialStatPoints + 10;
+                remainingResourcePoints = 1;
                 break;
         }
+        remainingAbilityPoints = 0;
     }
 }

@@ -69,12 +69,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AbilityToolTipHandler.cs" />
     <Compile Include="Assets\Artwork\HealthDisplay.cs" />
     <Compile Include="Assets\AudioControl.cs" />
     <Compile Include="Assets\BGM.cs" />
     <Compile Include="Assets\BackgroundClick.cs" />
     <Compile Include="Assets\BowSliderMove.cs" />
     <Compile Include="Assets\Combat.cs" />
+    <Compile Include="Assets\DamageLine.cs" />
     <Compile Include="Assets\DifficultyModulator.cs" />
     <Compile Include="Assets\EnemyHP.cs" />
     <Compile Include="Assets\HeathControl.cs" />
@@ -88,26 +90,35 @@
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Attack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\BowAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ChargeStrength.cs" />
-    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\CounterAttack.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\DoubleShot.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Flee.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\HandyMan.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Heal.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\IronSkin.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\LastChance.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Parry.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Pin.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Poison.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Regen.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SharpShooter.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\StealGold.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\SwordFlurry.cs" />
+    <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\ValueCrafter.cs" />
     <Compile Include="Assets\Scripts\Actors\Abilities\UC Abilities\Wither.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Buff.cs" />
     <Compile Include="Assets\Scripts\Actors\Debuff.cs" />
     <Compile Include="Assets\Scripts\Actors\Follower.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Bunny.cs" />
-    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull1_1.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull1_2.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull1_3.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull2_1.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull2_2.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull2_3.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull3_1.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull3_2.cs" />
+    <Compile Include="Assets\Scripts\Actors\Monster Related\DemonSkull3_3.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Monster.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Orca.cs" />
     <Compile Include="Assets\Scripts\Actors\Monster Related\Reaper.cs" />
@@ -133,6 +144,7 @@
     <Compile Include="Assets\Scripts\Items\Weapon.cs" />
     <Compile Include="Assets\Scripts\MLH.cs" />
     <Compile Include="Assets\Scripts\Map\Teir.cs" />
+    <Compile Include="Assets\Scripts\Save.cs" />
     <Compile Include="Assets\Scripts\UI\AbilityTextScript.cs" />
     <Compile Include="Assets\Scripts\UI\DamageFloatUpward.cs" />
     <Compile Include="Assets\Scripts\UI\DisableAfterShortWhile.cs" />
@@ -143,6 +155,7 @@
     <Compile Include="Assets\Scripts\UI\SceneScripts\BattleScript.cs" />
     <Compile Include="Assets\Scripts\UI\SceneScripts\CharacterCreationMenu.cs" />
     <Compile Include="Assets\Scripts\UI\SceneScripts\OverworldScript.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneScripts\ShopInventoryScript.cs" />
     <Compile Include="Assets\Scripts\UI\SceneScripts\SkillSelectionScript.cs" />
     <Compile Include="Assets\Scripts\UI\SceneScripts\TitleMenuScript.cs" />
     <Compile Include="Assets\Scripts\UI\ScrollbarEnabler.cs" />
@@ -150,7 +163,6 @@
     <Compile Include="Assets\Scripts\UI\Statincrement.cs" />
     <Compile Include="Assets\Scripts\VictoryHandler.cs" />
     <Compile Include="Assets\Scripts\ability_test.cs" />
-    <Compile Include="Assets\ShopInventoryScript.cs" />
     <Compile Include="Assets\UpdateTimeTracker.cs" />
     <Compile Include="Assets\playerAblTest.cs" />
   </ItemGroup>

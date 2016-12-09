@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Player xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <passiveAbilities>
+    <Ability xsi:type="DoubleShot">
+      <xPosSelectionMenu>219</xPosSelectionMenu>
+      <yPosSelectionMenu>184</yPosSelectionMenu>
+      <isLearned>true</isLearned>
+      <isPassive>true</isPassive>
+      <stamina>-1</stamina>
+    </Ability>
+    <Ability xsi:type="SharpShooter">
+      <xPosSelectionMenu>-147</xPosSelectionMenu>
+      <yPosSelectionMenu>184</yPosSelectionMenu>
+      <isLearned>true</isLearned>
+      <isPassive>true</isPassive>
+      <stamina>-1</stamina>
+    </Ability>
+  </passiveAbilities>
+  <id>1</id>
+  <isUserControllable>true</isUserControllable>
+  <weapon xsi:type="RangedWeapon">
+    <isInShop>false</isInShop>
+    <_name>Weak Bow</_name>
+    <_toolTip>Gets the job done.</_toolTip>
+    <_weight>1</_weight>
+    <_tradable>false</_tradable>
+    <_value>1</_value>
+    <itemType>weapon</itemT

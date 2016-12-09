@@ -1,32 +1,38 @@
 
 // parent class for ranged, melee, and magic weapons
-// TODO: add.. sprite?
-using UnityEngine;
 
 public class Weapon : Gear {
-    private weaponClass _class;
-    private decimal _damage;
-    private decimal _accuracy;
-    private decimal _special;
-    private weaponType _weaponType;
+    public WeaponClass _class;
+    public decimal _damage;
+    public decimal _accuracy;
+    public decimal _special;
+    public WeaponType _weaponType;
+
+    public WeaponClass weaponClass {
+        get {
+            return _class;
+        } set {
+            _class = value;
+        }
+   }
 
     public bool isEquipped;
 
-    public enum weaponClass {
+    public enum WeaponClass {
         Magic,
         Melee,
         Ranged
     };
 
     // this is how weapon damage / accuracy will be calculated
-    public enum weaponType {
+    public enum WeaponType {
         highDamage,
         highAccuracy,
         balanced
     };
 
     // TODO?: change this name to something better?
-    public weaponClass classType {
+    public WeaponClass classType {
         get {
             return _class;
         }
@@ -52,13 +58,18 @@ public class Weapon : Gear {
         }
     }
 
-    public weaponType type {
+    public WeaponType type {
         get {
             return _weaponType;
         }
     }
 
-    public Weapon(string name, decimal weight, bool tradable, decimal value, int level, weaponClass classType, weaponType weaponType, string toolTip = "")
+    public Weapon() : base()
+    {
+
+    }
+
+    public Weapon(string name, decimal weight, bool tradable, decimal value, int level, WeaponClass classType, WeaponType weaponType, string toolTip = "")
         : base(name, weight, tradable, value, level, itemTypes.weapon, toolTip) {
 
             _class   = classType;
@@ -73,14 +84,14 @@ public class Weapon : Gear {
 
     }
 
-    private void calcStats() { // formula not final of course
-        if (type == weaponType.highDamage) {
+    public void calcStats() { // formula not final of course
+        if (type == WeaponType.highDamage) {
             _damage   = level * 0.7m;
             _accuracy = level * 0.3m;
-        } else if (type == weaponType.highAccuracy) {
+        } else if (type == WeaponType.highAccuracy) {
             _damage   = level * 0.3m;
             _accuracy = level * 0.7m;
-        } else if (type == weaponType.balanced) {
+        } else if (type == WeaponType.balanced) {
             _damage   = level * 0.5m;
             _accuracy = level * 0.5m;
         }

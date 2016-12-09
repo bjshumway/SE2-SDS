@@ -1,10 +1,15 @@
-﻿public class AbilityBar {
-    private const int ABILITY_COUNT = 3;
+﻿using System.Xml.Serialization;
 
+public class AbilityBar {
+    private const int ABILITY_COUNT = 6;
+
+    [XmlIgnore]
     private UserControllable _actor;
     private decimal _lowestStamina;
 
+
     public Ability[] abilities = new Ability[ABILITY_COUNT];
+    [XmlIgnore]
     public Ability itemAbility;
 
     public UserControllable actor {
@@ -17,6 +22,10 @@
         get {
             return _lowestStamina;
         }
+    }
+
+    public AbilityBar() {
+
     }
 
     public AbilityBar(UserControllable actor) {

@@ -11,6 +11,8 @@ public class Attack : SingleTargetAbility {
         //Also each monster will contain a reference to its image, to make things easier
     }
 
+    public Attack() : base() { }
+
     public Attack(Actor Owner) : base("ATTACK", "Deals 100% damage",
         "strength", 1.0m, 100, false, Owner, damageType.melee)
     {

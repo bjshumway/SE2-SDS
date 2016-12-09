@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,14 +10,17 @@ public abstract class Ability {
     private string _toolTip;
     private decimal _stamina;
 
+    [XmlIgnore]
     public Actor owner;
+    [XmlIgnore]
     public Text BattleHints;
-
+    [XmlIgnore]
     public GameObject learnButton;
+    [XmlIgnore]
     public Sprite buttonSprite;
     public int xPosSelectionMenu;
     public int yPosSelectionMenu;
-
+    [XmlIgnore]
     public GameObject currentAbSlot;
 
     public bool isLearned;
@@ -47,7 +51,8 @@ public abstract class Ability {
     {
         new BowAttack(null),
         new SharpShooter(null),
-        new HandyMan(null),
+        //new HandyMan(null), //HandyMan deprecated
+        new ValueCrafter(null),
         new DoubleShot(null),
         new StealGold(null),
         new Flee(null)
@@ -111,6 +116,10 @@ public abstract class Ability {
         learnButton.GetComponent<Image>().sprite = buttonSprite;
         learnButton.SetActive(false);
 
+        //Set the learnButton's tooltip
+        learnButton.GetComponent<AbilityToolTipHandler>().toolTipText = toolTip;
+        learnButton.GetComponent<AbilityToolTipHandler>().cost = (int)stamina;
+
         //Set the text for this image to this button's name
         learnButton.GetComponentInChildren<Text>().text = MLH.tr(name);
         Debug.Log(MLH.tr(name));
@@ -121,6 +130,10 @@ public abstract class Ability {
 
 
 
+    }
+
+    public Ability()
+    {
     }
 
 

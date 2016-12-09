@@ -6,6 +6,8 @@
         //Also each monster will contain a reference to its image, to make things easier
     }
 
+    public IronSkin() : base() { }
+
     public IronSkin(Actor Owner) : base("Iron Skin", "All party members take 20% less damage from monsters", 100, false, Owner) {
 
     }

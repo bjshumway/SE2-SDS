@@ -21,6 +21,8 @@ public class Monster : Actor {
 
     public decimal hitAccuracy;
 
+    public bool isFinalBoss;
+
     public Item itemDrop {
         get {
             return _drop;
@@ -55,8 +57,21 @@ public class Monster : Actor {
         //Debug.Log(monsterPrefab);
 
 
+        if (!isBoss)
+        {
+            if (difficultyInLevel == 2)
+            {
+                monsterPrefab.GetComponent<SpriteRenderer>().color = new Color32(0,0,255,255);
+            }
+            else if (difficultyInLevel == 3)
+            {
+                monsterPrefab.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
+            }
+        }
+
+
         //Setup the healthbar for this monster
-        battleHealthBar = GameObject.Find("Monster HealthBar").GetComponent<Slider>();
+        battleHealthBar = monsterPrefab.transform.FindChild("Monster HealthBar").gameObject.GetComponent<Slider>();
         battleHealthBar.name = "Monster " + id + " HealthBar";
         battleHealthBar.maxValue = (float)health.maxValue;
         battleHealthBar.value = battleHealthBar.maxValue;
@@ -64,17 +79,17 @@ public class Monster : Actor {
 
 
         //Setupe the staminabar for this monster
-        battleStaminaBar = GameObject.Find("Monster StaminaBar").GetComponent<Slider>();
+        battleStaminaBar = monsterPrefab.transform.FindChild("Monster StaminaBar").gameObject.GetComponent<Slider>();
         battleStaminaBar.name = "Monster " + id + " StaminaBar";
         battleStaminaBar.maxValue = (float)stamina.maxValue;
         stamina.sliders = new Slider[] { battleStaminaBar };
 
         //Setup the battleDamageText for this monster
-        battleDamageText = GameObject.Find("Monster BattleDamageText");
+        battleDamageText = monsterPrefab.transform.FindChild("Monster BattleDamageText").gameObject;
         battleDamageText.name = "Monster " + id + " BattleDamageText";
 
         //Setup the battleStatusEffectText for this monster
-        battleStatusEffectText = GameObject.Find("Monster StatusEffectText");
+        battleStatusEffectText = monsterPrefab.transform.FindChild("Monster StatusEffectText").gameObject;
         battleStatusEffectText.name = "Monster " + id + " StatusEffectText";
 
 
@@ -126,7 +141,7 @@ public class Monster : Actor {
                 switch (monsterIndex)
                 {
                     case 0:
-                        return new DemonSkull();
+                        return new DemonSkull1_3();
                 }
                 break;
         }
@@ -147,15 +162,83 @@ public class Monster : Actor {
         int sumDifficulty = 0;
 
         List<Monster> monsters = new List<Monster>();
-        while (sumDifficulty != difficulty)
+        string fight = "" + mapTier + "_" + difficulty;
+        
+        switch(fight)
         {
-            Monster m = getRandomMonsterByLevel(mapTier);
-            if ((sumDifficulty + m.difficultyInLevel) <= difficulty)
-            {
-                sumDifficulty += m.difficultyInLevel;
-                monsters.Add(m);
-            }
+            case "1_1":
+                monsters.Add(new DemonSkull1_1());
+                break;
+            case "1_2":
+                monsters.Add(new DemonSkull1_1());
+                monsters.Add(new DemonSkull1_2());
+                break;
+            case "1_3":
+                monsters.Add(new DemonSkull1_1());
+                monsters.Add(new DemonSkull1_2());
+                monsters.Add(new DemonSkull1_3());
+                break;
+            case "1_4":
+                monsters.Add(new Orca());
+                break;
+            case "2_1":
+                monsters.Add(new DemonSkull2_1());
+                break;
+            case "2_2":
+                monsters.Add(new DemonSkull2_1());
+                monsters.Add(new DemonSkull2_2());
+                break;
+            case "2_3":
+                monsters.Add(new DemonSkull2_1());
+                monsters.Add(new DemonSkull2_2());
+                monsters.Add(new DemonSkull2_3());
+                break;
+            case "2_4":
+                monsters.Add(new DemonSkull2_3());
+                monsters.Add(new Reaper());
+                break;
+            case "3_1":
+                monsters.Add(new DemonSkull3_1());
+                break;
+            case "3_2":
+                monsters.Add(new DemonSkull3_1());
+                monsters.Add(new DemonSkull3_2());
+                break;
+            case "3_3":
+                monsters.Add(new DemonSkull3_1());
+                monsters.Add(new DemonSkull3_2());
+                monsters.Add(new DemonSkull3_3());
+                break;
+            case "3_4":
+                monsters.Add(new Bunny());
+                monsters.Add(new DemonSkull3_2());
+                monsters.Add(new DemonSkull3_3());
+                break;
+            default:
+                //We are here because we fought all the bad guys and won! Now for a challenge....
+                Bunny b = new Bunny();
+                //Scale Factor
+                var scaleFactor = (Math.Pow((1.1), GameMaster.instance.thePlayer.numBattlesFought - 11));
+                b.stats["strength"].setLevel((int)b.stats["strength"].level * (int)scaleFactor);
+                b.stamina.refreshSpeed = b.stamina.refreshSpeed * (int) scaleFactor;
+
+                var d2 = new DemonSkull3_2();
+                d2.stats["strength"].setLevel((int)b.stats["strength"].level * (int)scaleFactor);
+                d2.stamina.refreshSpeed = b.stamina.refreshSpeed * (int)scaleFactor;
+
+                var d3 = new DemonSkull3_3();
+                d3.stats["strength"].setLevel((int)b.stats["strength"].level * (int)scaleFactor);
+                d3.stamina.refreshSpeed = b.stamina.refreshSpeed * (int)scaleFactor;
+
+
+                monsters.Add(b);
+                monsters.Add(d2);
+                monsters.Add(d3);
+
+
+                break;
         }
+
 
         return monsters.ToArray();
     }

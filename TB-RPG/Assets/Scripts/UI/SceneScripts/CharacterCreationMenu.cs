@@ -12,8 +12,11 @@ public class CharacterCreationMenu : MonoBehaviour {
     private static bool mageSelected;
     private static bool rogueSelected;
 
+    private static bool isFirstChar;
+
     public GameObject newCharacterHasJoinedPopup;
     public GameObject alreadySelectedClassPopup;
+    public GameObject gotoAbilitySelect;
 
     // s_Instance is used to cache the instance found in the scene so we don't have to look it up every time.
     private static CharacterCreationMenu s_Instance = null;
@@ -23,7 +26,9 @@ public class CharacterCreationMenu : MonoBehaviour {
     {
         //Debug.Log("Inside start of CharacterCreationMenu");
         //GameObject.FindWithTag("head").GetComponent<Image>().sprite = Heads[0];
+        gotoAbilitySelect = GameObject.Find("GotoAbilitySelect");
 
+        gotoAbilitySelect.SetActive(false);
         fighterSelected = false;
         mageSelected = false;
         rogueSelected = false;
@@ -40,8 +45,9 @@ public class CharacterCreationMenu : MonoBehaviour {
 
     //Switches the camera to this scene
     //Populates the Image and Name on the canvas so that we know which uC is here
-    public static void load(UserControllable uC, bool isFirstChar)
+    public void load(UserControllable uC, bool _isFirstChar)
     {
+        isFirstChar = _isFirstChar;
         GameObject.Find("NamePlayerInput").GetComponent<InputField>().text = uC.name;
         currentUC = uC;
         GameMaster.instance.switchCamera(1);
@@ -68,6 +74,7 @@ public class CharacterCreationMenu : MonoBehaviour {
             instance.cycleBodyPartColor("head right");
         }
 
+        gotoAbilitySelect.SetActive(false);
 
     }
 
@@ -144,18 +151,16 @@ public class CharacterCreationMenu : MonoBehaviour {
     public void goToNextScene()
     {
         Dropdown classSelect = GameObject.Find("ClassSelect").GetComponent<Dropdown>();
-        if (classSelect.value == 0)
-        {
-            //The user hasn't yet selected a class
-            //Todo: put up a message saying you must select a class first
-            return;
-        } else if (fighterSelected == true && classSelect.value == 1 ||
+        if (fighterSelected == true && classSelect.value == 1 ||
                    mageSelected == true && classSelect.value  == 2  ||
                    rogueSelected == true && classSelect.value == 3){
            (alreadySelectedClassPopup.GetComponent<DisableAfterShortWhile>()).showParentTemporarily(3);
             return;
         }
-        
+
+        gotoAbilitySelect.SetActive(false);
+
+
         //Still here? Go ahead and set the userControllable's class, and look
         UserControllable uC = currentUC;
 
@@ -166,8 +171,8 @@ public class CharacterCreationMenu : MonoBehaviour {
                 fighterSelected = true;
                 uC.learnAbility(Ability.fighterAbilities[0]); //Learn Attack by Default
                 //Default weapon
-                uC.equipWeapon(new MeleeWeapon("Rusty Sword", 1, false, 1, 1, Weapon.weaponClass.Melee,Weapon.weaponType.balanced, "You found this sword on a long-forgotten battlefield."));
-                GameMaster.instance.thePlayer.inventory.addItem(Gen.meleeWeapon(3));
+                uC.equipWeapon(new MeleeWeapon("Rusty Sword", 1, false, 1, 1, Weapon.WeaponClass.Melee,Weapon.WeaponType.balanced, "You found this sword on a long-forgotten battlefield."));
+                //GameMaster.instance.thePlayer.inventory.addItem(Gen.meleeWeapon(3));
 
                 //Populate some melee weapons in the shop
                 ShopInventoryScript.instance.theShop.addItem(Gen.meleeWeapon(5));
@@ -180,7 +185,7 @@ public class CharacterCreationMenu : MonoBehaviour {
                 mageSelected = true;
                 uC.learnAbility(Ability.mageAbilities[0]); //Learn Arcane Destruction by Default
                 //Default mage weapon
-                uC.equipWeapon(new MagicWeapon("Flimsy Wand", 1, false, 1, 1, Weapon.weaponClass.Magic, Weapon.weaponType.balanced, "Could snap any day now."));
+                uC.equipWeapon(new MagicWeapon("Flimsy Wand", 1, false, 1, 1, Weapon.WeaponClass.Magic, Weapon.WeaponType.balanced, "Could snap any day now."));
 
                 //Populate some mage weapons in the shop
                 ShopInventoryScript.instance.theShop.addItem(Gen.magicWeapon(5));
@@ -193,7 +198,7 @@ public class CharacterCreationMenu : MonoBehaviour {
                 rogueSelected = true;
                 uC.learnAbility(Ability.rogueAbilities[0]); //Learn Bow Attack by default
                 //Default rogue weapon
-                uC.equipWeapon(new RangedWeapon("Weak Bow", 1, false, 1, 1, Weapon.weaponClass.Ranged, Weapon.weaponType.balanced, "Gets the job done."));
+                uC.equipWeapon(new RangedWeapon("Weak Bow", 1, false, 1, 1, Weapon.WeaponClass.Ranged, Weapon.WeaponType.balanced, "Gets the job done."));
 
                 //Populate some rogue weapons in the shop
                 ShopInventoryScript.instance.theShop.addItem(Gen.rangedWeapon(5));
@@ -225,11 +230,22 @@ public class CharacterCreationMenu : MonoBehaviour {
 
 
         //Pass in a reference to the current character, so that it knows which character to load
-        AbilitySelectionScript.load(uC);
+        //if (isFirstChar)
+        // {
+        AbilitySelectionScript.instance.load(uC);
+        //} else
+        //{
+        //    SkillSelectionScript.load(uC, true);
+        // }
 
-
+        classSelect.value = 0;
     }
     
+    public void showNextButton()
+    {
+        gotoAbilitySelect.SetActive(true);
+    }
+
     //Handles clicking of "New Character has joined!"
     public void disappearNewCharacterHasJoinedPopup()
     {

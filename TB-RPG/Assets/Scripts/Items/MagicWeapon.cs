@@ -1,5 +1,5 @@
 public class MagicWeapon : Weapon {
-    private decimal _critModifier;
+    public decimal _critModifier;
 
     public decimal critModifier {
         get {
@@ -7,7 +7,12 @@ public class MagicWeapon : Weapon {
         }
     }
 
-    public MagicWeapon(string name, decimal weight, bool tradable, decimal value, int level, weaponClass classType, weaponType type, string toolTip = "")
+    public MagicWeapon(): base(){
+
+    }
+
+
+    public MagicWeapon(string name, decimal weight, bool tradable, decimal value, int level, WeaponClass classType, WeaponType type, string toolTip = "")
         : base(name, weight, tradable, value, level, classType, type, toolTip) {
 
             _critModifier = level * 0.1m;

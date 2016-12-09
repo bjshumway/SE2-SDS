@@ -3,11 +3,13 @@ using System.Linq;
 
 public class Heal : SingleTargetAbility {
 
-    public void showAnimation(Actor m) {
+    public override void showAnimation(Actor m) {
         //Program animation here
         //We might have a static class of generic animations that this can refer to
         //Also each monster will contain a reference to its image, to make things easier
     }
+
+    public Heal() : base() { }
 
     public Heal(Actor Owner) : base("Heal", "Heals 1 third of HP and removes all status effects",
         "intellect", 1.0m, 100, false, Owner, damageType.none) {
@@ -47,7 +49,8 @@ public class Heal : SingleTargetAbility {
         {
             act.statusEffects[act.statusEffects.ElementAt(x).Key] = 0;
         }
-
+        act.updateStatusEffectBox();
+        AudioControl.playSound("spell_1");
         owner.stamina.subtract(stamina);
         showAnimation(act);
     }

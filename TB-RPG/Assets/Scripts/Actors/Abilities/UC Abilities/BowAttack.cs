@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Xml.Serialization;
 
 public class BowAttack : Ability
 {
-
+    [XmlIgnore]
     public GameObject BowAttackSlider = GameObject.Find("BowAttackSlider");
-
+    [XmlIgnore]
     public GameObject BowAttackSlider2 = GameObject.Find("BowAttackSlider2");
-
+    [XmlIgnore]
     public GameObject BowAttackSliderBackground = GameObject.Find("BowAttackSliderBackground");
     
     public Actor attackee;
@@ -17,6 +18,7 @@ public class BowAttack : Ability
     private System.Random rand;
     int numBowAttacks = 0;
 
+    public BowAttack() : base() { }
 
     public BowAttack(Actor Owner) : base("Bow Attack", "Dexterity based damage. Damage is multiplied by how well you hit a target that quickly flies across the screen. Hitting the bullsye does 2x damage", 100, false, Owner)
     {
@@ -200,12 +202,22 @@ public void showAnimation(Monster m)
             {
                 //Deal damage equal to percent distance of closeness to target area
                 modifier = (decimal) (val < 44 ? val / 44 : ((100 - val)) / 44);
-                whichAttackee.damage((decimal)owner.stats["dexterity"].effectiveLevel * owner.weapon.damage * modifier, owner, damageType.ranged);
+
+                Stat st = owner.stats["dexterity"];
+                decimal efLev = st.effectiveLevel;
+                Weapon w = owner.weapon;
+                decimal wDmg = w.damage;
+                whichAttackee.damage(efLev * wDmg * modifier, owner, damageType.ranged);
             }
             else
             {
+                //To test: If we get index out of bounds in this statement, which line broke?
                 modifier = ((owner.hasPassive("Sharp Shooter")) ? 2 : 1);
-                whichAttackee.damage(owner.stats["dexterity"].effectiveLevel * owner.weapon.damage * modifier, owner, damageType.ranged, true);
+                Stat st = owner.stats["dexterity"];
+                decimal efLev = st.effectiveLevel;
+                Weapon w = owner.weapon;
+                decimal wDmg = w.damage;
+                whichAttackee.damage(efLev * wDmg * modifier, owner, damageType.ranged, true);
             }
 
             if (!owner.hasPassive("DoubleShot"))
@@ -215,7 +227,9 @@ public void showAnimation(Monster m)
                 slider.SetActive(false);
                 BowAttackSliderBackground.SetActive(false);
                 slider.GetComponent<BowSliderMove>().isActive = false;
-            } else
+                BattleHints.text = "";
+            }
+            else
             {
                 slider.SetActive(false);
                 slider.GetComponent<BowSliderMove>().isActive = false;
@@ -234,6 +248,7 @@ public void showAnimation(Monster m)
                             BowAttackSlider2.SetActive(false);
                             BowAttackSlider2.GetComponent<BowSliderMove>().isActive = false;
                             numBowAttacks = 0;
+                            BattleHints.text = "";
                         }
                         return;
                     }
@@ -245,8 +260,9 @@ public void showAnimation(Monster m)
                     BowAttackSliderBackground.SetActive(false);
                     BowAttackSlider.GetComponent<BowSliderMove>().hasLaunchedSecondSlider = false;
                     numBowAttacks = 0;
+                    BattleHints.text = "";
                 }
-                
+
             }
         }
     }

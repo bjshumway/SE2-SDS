@@ -36,6 +36,10 @@ public abstract class SingleTargetAbility : Ability {
         _damageTypes = damageType;
     }
 
+    public SingleTargetAbility():base()
+    {
+    }
+
     //arg is a string of the format "typeOfThingClickedOn index"
     //e.g. "Monster 1" or "UserControllable 2" or "AbilityBar 1"
     public void selectEnemy(string arg) {
@@ -53,7 +57,7 @@ public abstract class SingleTargetAbility : Ability {
             if (args[0] == "Monster")
                 a = bs.monsters[int.Parse(args[1]) - 1];
             else
-                a = GameMaster.instance.thePlayer.theParty[int.Parse(args[1]) - 1];
+                a = GameMaster.instance.thePlayer.theParty[int.Parse(args[1])];
             dealEffect(a);
             bs.pipeInputFunc = null;
 
@@ -107,8 +111,17 @@ public abstract class SingleTargetAbility : Ability {
     /// </summary>
     /// <param name="modifier">for formula (statlevel * weapondamage * modifier)</param>
     public virtual void dealEffect(Actor m) {
-        m.damage(owner.stats[_stat].effectiveLevel * owner.weapon.damage * modifier, owner, _damageTypes);
-
+        try
+        {
+            var stat = owner.stats[_stat];
+            var dmg1 = stat.effectiveLevel;
+            var dmg2 = owner.weapon.damage; 
+            m.damage(dmg1 * dmg2 * modifier, owner, _damageTypes);
+        } catch
+        {
+            Debug.Log("error in dealEffect");
+            //Error, place breakpoint here so you can catch if dealEffect ever breaks.
+        }
         owner.stamina.subtract(stamina);
 
         showAnimation(m);

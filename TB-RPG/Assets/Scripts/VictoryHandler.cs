@@ -29,16 +29,28 @@ public class VictoryHandler : MonoBehaviour {
     private Text goldEarned;
     private Text itemsEarned;
 
+    private GameObject beatTheGameBox;
+
     //Whether we fought the boss during the fight.
     private bool foughtBoss;
 
+    //Whether we've beaten the game
+    private bool shownBeatTheGameBox;
+
     private static VictoryHandler s_Instance = null;
 
-    public List<UserControllable> uCsToLevel = new List<UserControllable>(); 
+    public List<UserControllable> uCsToLevel = new List<UserControllable>();
+
+    GameObject battlesFought;
+    GameObject battlesUntilNextBoss;
 
 	// Use this for initialization
 	void Start () {
         state = vhState.inActive;
+        battlesFought = GameObject.Find("BattlesFought");
+        battlesUntilNextBoss = GameObject.Find("BattlesUntilBoss");
+        beatTheGameBox = GameObject.Find("BeatTheGame");
+        beatTheGameBox.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -84,6 +96,8 @@ public class VictoryHandler : MonoBehaviour {
             itemsEarned = victoryBox.GetComponentsInChildren<Text>()[1];
         }
         this.state = vhState.waitingForAnimationsToFinish;
+
+        BGM.instance.setMusic(BGM.SongNames.victory);
         
         for(int i = 0; i< GameMaster.instance.thePlayer.theParty.Length; i++)
         {
@@ -126,6 +140,10 @@ public class VictoryHandler : MonoBehaviour {
                 if (monsters[i].isBoss)
                 {
                     foughtBoss = true;
+                    if(monsters[i].isFinalBoss)
+                    {
+                        GameMaster.instance.thePlayer.beatTheGame = true;
+                    }
                 }
             }
 
@@ -140,9 +158,6 @@ public class VictoryHandler : MonoBehaviour {
             else
             {
                 itemsString += monsters[i].itemDrop + ", ";
-
-                //Place item in the inventory
-                GameMaster.instance.thePlayer.inventory.addItem(monsters[i].itemDrop);
             }
         }
 
@@ -157,15 +172,40 @@ public class VictoryHandler : MonoBehaviour {
             }
         }
 
+        //remove buff for charge strenght and set health to full
+        foreach (var partyMember in GameMaster.instance.thePlayer.theParty)
+        {
+            if (partyMember != null) {
+                partyMember.stats["strength"].clearBuffs();
+                partyMember.health.setValue(partyMember.health.maxValue);
+            }
+        }
+
+
         //Update the tier
-        if (foughtBoss)
+        if (foughtBoss && !GameMaster.instance.thePlayer.beatTheGame)
         {
             Tier.tier++;
+            Tier.difficulty = 1;
+            GameMaster.instance.switchBackground(Tier.tier);
+            string tierName = (Tier.tier == 2 ? "Haunted Graveyard" : "Infested Caves");
+            GameObject[] gArr = GameObject.FindGameObjectsWithTag("TierName");
+            for(int i = 0; i < gArr.Length;i++)
+            {
+                gArr[i].GetComponentInChildren<Text>().text = tierName;
+            }
+            Tier.numBattlesInTier = 0;
         }
         else
         {
             Tier.difficulty++;
+            
         }
+
+        GameMaster.instance.thePlayer.numBattlesFought += 1;
+        battlesFought.GetComponent<Text>().text = GameMaster.instance.thePlayer.numBattlesFought.ToString();
+
+        battlesUntilNextBoss.GetComponent<Text>().text = (3 - Tier.numBattlesInTier).ToString(); 
 
         //get rid of trailing comma
         itemsString = itemsString.Trim();
@@ -178,6 +218,9 @@ public class VictoryHandler : MonoBehaviour {
         itemsEarned.text = itemsString;
         itemsEarned.text += (lootTooHeavy ? "\n" + tooHeavyString : "");
 
+        //Give gold to the player
+        GameMaster.instance.thePlayer.inventory.gold += gold;
+
         //Delete the monster's prefabs and monsters
         for (int i = 0; i < monsters.Length; i++)
         {
@@ -188,6 +231,13 @@ public class VictoryHandler : MonoBehaviour {
         monsters = null;
         Monster.id_increment = 1;
 
+        //Show the - you beat the game box!
+        if (GameMaster.instance.thePlayer.beatTheGame && !shownBeatTheGameBox)
+        {
+            shownBeatTheGameBox = true;
+            beatTheGameBox.SetActive(true);
+        }
+
         //Show the victory box
         victoryBox.SetActive(true);
 
@@ -196,12 +246,28 @@ public class VictoryHandler : MonoBehaviour {
 
     }
 
+    public void clickRetire()
+    {
+        Application.Quit();
+    }
+
+    public void clickContinue()
+    {
+        beatTheGameBox.SetActive(false);
+    }
+
     private void handleInput()
     {
         if(Input.anyKey)
         {
+            if(beatTheGameBox.activeSelf)
+            {
+                return;
+            }
+
+            //still here?
             victoryBox.SetActive(false);
-            if (foughtBoss)
+            if (foughtBoss && !GameMaster.instance.thePlayer.beatTheGame)
             {
                 state = vhState.addingPartyMember;
                 GameMaster.instance.thePlayer.addPartyMember();
@@ -209,7 +275,9 @@ public class VictoryHandler : MonoBehaviour {
             else
             {
                 state = vhState.levelingUCs;
-                AbilitySelectionScript.load(getNextUCToLevel());
+                UserControllable uC = getNextUCToLevel();
+                uC.levelUp();
+                AbilitySelectionScript.instance.load(uC);
             }
         }
     }

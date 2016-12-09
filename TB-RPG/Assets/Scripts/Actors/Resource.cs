@@ -1,16 +1,21 @@
+using System.Xml.Serialization;
 using UnityEngine.UI;
 
 // Resource is designed to be a nice way to manage health/mana/stamina
 // It has methods for safely adding/subtracting as well as a max value
 public class Resource {
-    private decimal _value;
-    private decimal _maxValue;
+    public decimal _value;
+    public decimal _maxValue;
+
+    [XmlIgnore]
     private Slider[] _sliders;
 
     public decimal refreshSpeed;
 
+    [XmlIgnore]
     public Actor owner;
 
+    [XmlIgnore]
     public Slider[] sliders
     {
         get
@@ -44,6 +49,11 @@ public class Resource {
         }
     }
 
+    public Resource()
+    {
+
+    }
+
     /// <summary>
     /// Constructor for Resource
     /// </summary>
@@ -55,6 +65,8 @@ public class Resource {
         _value = (value == -1) ? maxValue : value;
         refreshSpeed = refSpeed;
     }
+
+
 
     /// <summary>
     /// Adds the specified number to Resource.value
@@ -110,6 +122,7 @@ public class Resource {
             _value = maxValue; // set the current value to the new max
             foreach (Slider s in _sliders)
             {
+                s.maxValue = (float)_maxValue;
                 s.value = (float)_value;
                 s.GetComponentInChildren<Text>().text = "" + (int)s.value + "/" + (int)s.maxValue;
             }

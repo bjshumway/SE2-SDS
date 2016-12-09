@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class Inventory {
 
     #region Private Vars
 
+    [XmlIgnore]
     private Player _player;
     private string _name;
     private decimal _weightCap;
@@ -29,14 +31,23 @@ public class Inventory {
         get {
             return _weightCap;
         }
+        set
+        {
+            _weightCap = value;
+        }
     }
 
     public decimal weight { // current weight
         get {
             return _weight;
         }
+        set
+        {
+            _weight = value;
+        }
     }
 
+    [XmlIgnore]
     public Player player {
         get {
             return _player;
@@ -49,6 +60,8 @@ public class Inventory {
     #endregion
 
     #region Constructors & Methods
+
+    public Inventory() { }
 
     public Inventory(Player player, string name, decimal weightCap) {
         _player = player;
@@ -68,7 +81,6 @@ public class Inventory {
 
     public void addGold(decimal amount)
     {
-        //TODO: update how much gold is displayed in menu screen
         gold += amount;
     }
 
@@ -91,13 +103,10 @@ public class Inventory {
 
         if (newWeight > weightCap) { // too heavy
             return false; // don't add it
-        } else { // there's room
+        } else { 
+            // there's room
             items.Add(item); // add it
-            _weight = newWeight; // update weight
-
-
-            //TODO: Update showing how much weight is used up in menu screen.
-
+            calcWeight(); //update weight
 
 
             GameObject scrollView = null;
@@ -156,10 +165,27 @@ public class Inventory {
 
             //Set the gameObject's texts to match the item
             tr = item.invObject.transform;
-            tr.Find("Cost").GetComponent<Text>().text = item.value + "G";
             tr.Find("Name").GetComponent<Text>().text = item.name;
-            Debug.Log("Item weight: " + item.weight.ToString() + "lbs");
-            tr.Find("Weight").GetComponent<Text>().text = item.weight.ToString("00") + "lbs";
+            var name = item.name;
+            if (item.itemType == Item.itemTypes.weapon) {
+                switch(((Weapon)item).weaponClass)
+                {
+                    case Weapon.WeaponClass.Magic:
+                        name += "\r\n(Mage Weapon)";
+                        break;
+                    case Weapon.WeaponClass.Melee:
+                        name += "\r\n(Fighter Weapon)";
+                        break;
+                    case Weapon.WeaponClass.Ranged:
+                        name += "\r\n(Rogue Weapon)";
+                        break;
+                }
+                tr.Find("Level").GetComponent<Text>().text = ((Weapon)item).level.ToString();
+            }
+
+            tr.Find("Name").GetComponent<Text>().text = name;
+            tr.Find("Cost").GetComponent<Text>().text = item.value.ToString();
+            tr.Find("Weight").GetComponent<Text>().text = item.weight.ToString("00");
             //Setup the buysell button
             GameObject buySell = tr.FindChild("BuySellButton").gameObject;
             if (_name == "shop")
@@ -188,9 +214,6 @@ public class Inventory {
                 equip.GetComponent<Button>().onClick.AddListener(delegate { ShopInventoryScript.instance.equipWeapon((Weapon)(item)); });
 
             }
-
-
-
             return true;
         }
     }
@@ -210,8 +233,22 @@ public class Inventory {
     /// </summary>
     /// <param name="item">Item to sell</param>
     public void sellItem(Item item) {
-        player.gold += item.value;
-        deleteItem(item);
+        //Note: loot items are sold for +200% if you have ValueCrafter
+        foreach(var uC in GameMaster.instance.thePlayer.theParty)
+        {
+            if (uC != null)
+            {
+                if (uC.hasPassive("Value Crafter"))
+                {
+                    player.inventory.gold += item.value * 2;
+                    return;
+                }
+            }
+        }
+        //Still here? Sell it for the regular price.
+        player.inventory.gold += item.value;
+        player.inventory.weight -= item.weight;
+        items.Remove(item);
     }
 
     #endregion
