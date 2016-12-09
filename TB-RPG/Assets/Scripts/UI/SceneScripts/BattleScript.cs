@@ -72,6 +72,11 @@ public class BattleScript : MonoBehaviour {
     //Todo: update this function so that it takes an array of monsters as an argument
     public void beginCombat(Monster[] monsters)
     {
+        isPaused = false;
+        // testing
+
+
+
         this.combatOcurring = true;
         this.monsters = monsters;
 
@@ -528,7 +533,7 @@ public class BattleScript : MonoBehaviour {
         }
     }
 
-    public void handleVictory()
+    public void handleVictory(bool flee = false)
     {
         bool monstersDied = true;
         foreach (Monster mon in monsters)
@@ -538,10 +543,10 @@ public class BattleScript : MonoBehaviour {
                 monstersDied = false;
             }
         }
-        if (monstersDied)
+        if (flee || monstersDied)
         {
             this.combatOcurring = false;
-            VictoryHandler.instance.beginVictory(monsters, VictoryPanel);
+            VictoryHandler.instance.beginVictory(monsters, VictoryPanel, flee);
         }
     }
 
