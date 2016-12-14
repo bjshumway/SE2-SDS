@@ -15,8 +15,9 @@
         owner.battleHealthBar.value = owner.battleHealthBar.maxValue;
         //Todo: copy code used elsewhere for resetting other battle things like status effects... take from heal?
 
-        // go back to overworld
-        OverworldScript.instance.load();
+
+        // 'win' the fight
+        BattleScript.instance.handleVictory(true);
 
 
         owner.stamina.subtract(stamina);

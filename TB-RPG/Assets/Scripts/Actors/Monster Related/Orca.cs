@@ -15,11 +15,13 @@ public class Orca : Monster
                true,
                null,     //title
                 new Resource[] {  
-                    new Resource(15, 1), //health
-                    new Resource(100, 1) //stamina
+                    new Resource(500, 1), //health
+                    new Resource(100, 5) //stamina
                 },
-                new int[] { 0, 0, 1, 0, 0 } //charisma, cunning, dexterity, intelligence, strength
+                new int[] { 0, 0, 1, 0, 1 }, //charisma, cunning, dexterity, intelligence, strength
+                Ability.damageType.lightning
                 )
+                
     {
         abilities = new Ability[] { new MonsterAttack(this) };
 

@@ -69,7 +69,7 @@ public static class Gen {
         new Item("Crumpled Paper", 0.1m, true,Item.itemTypes.loot, 5, "There's nothing written on it."),
         new Item("Metal Scraps", 10, true,Item.itemTypes.loot, 45, "Scrap metal. Could be valuable."),
         new Item("Melted Candle", 0.5m, true,Item.itemTypes.loot, 15, "An old candle."),
-        new Item("Dusty Old Lectern", 10, true,Item.itemTypes.loot, 20, "I wonder if it works."),
+        new Item("Dusty Old Lectern", 10, true,Item.itemTypes.loot, 20, "Good for when I lecture."),
         new Item("Slightly Damp Rag", 0.3m, true,Item.itemTypes.loot, 7, "Why did I pick this up?"),
         new Item("Oily Boot", 1.2m, true,Item.itemTypes.loot, 10, "Only one."),
         new Item("Bag of Marbles", 5, true,Item.itemTypes.loot, 50, "Something to do, I suppose."),
@@ -138,7 +138,7 @@ public static class Gen {
 
         decimal weight = Math.Round((decimal)ran.NextDouble() * 10) + 1;
         bool tradable  = true;
-        decimal value  = (decimal)ran.Next((int)(level * 0.5), (int)(level * 2));
+        decimal value  = ran.Next(level * 5, level * 6) * 4;
         Weapon.WeaponType type = (Weapon.WeaponType)ran.Next(3);
 
         return new Weapon(

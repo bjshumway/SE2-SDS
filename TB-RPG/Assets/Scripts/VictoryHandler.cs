@@ -44,6 +44,8 @@ public class VictoryHandler : MonoBehaviour {
     GameObject battlesFought;
     GameObject battlesUntilNextBoss;
 
+    private bool flee = false;
+
 	// Use this for initialization
 	void Start () {
         state = vhState.inActive;
@@ -80,8 +82,9 @@ public class VictoryHandler : MonoBehaviour {
 	}
 
 
-    public void beginVictory(Monster[] monsters, GameObject victoryBox)
+    public void beginVictory(Monster[] monsters, GameObject victoryBox, bool flee = false)
     {
+        this.flee = flee;
         state = vhState.inActive;
         this.monsters = monsters;
         startTime = Time.realtimeSinceStartup;
@@ -134,6 +137,11 @@ public class VictoryHandler : MonoBehaviour {
         string tooHeavyString = "Too heavy to pickup: ";
         for (int i = 0; i < monsters.Length; i++)
         {
+            if (flee)
+            {
+                break;
+            }
+
             if(monsters[i] != null)
             {
                 gold += monsters[i].goldDrop;
@@ -147,6 +155,7 @@ public class VictoryHandler : MonoBehaviour {
                 }
             }
 
+            
             bool added = GameMaster.instance.thePlayer.inventory.addItem(monsters[i].itemDrop);
 
             if (!added)
@@ -165,7 +174,7 @@ public class VictoryHandler : MonoBehaviour {
         foreach (var partyMember in GameMaster.instance.thePlayer.theParty) {
             if (partyMember != null) {
                 for (int x = partyMember.passiveAbilities.Count - 1; x > -1; x--) {
-                    if (partyMember.passiveAbilities[x].name == "Iron Skin") {
+                    if (partyMember.passiveAbilities[x].name == "Iron Skin" || partyMember.passiveAbilities[x].name == "regen") {
                         partyMember.passiveAbilities.RemoveAt(x);
                     }
                 }
