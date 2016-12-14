@@ -56,7 +56,7 @@ public void showAnimation(Monster m)
             Actor a;
             if(args[0] == "UserControllable")
             {
-                a = GameMaster.instance.thePlayer.theParty[int.Parse(args[1]) - 1];
+                a = GameMaster.instance.thePlayer.theParty[int.Parse(args[1])];
             } else
             {
                 a = bs.monsters[int.Parse(args[1]) - 1];

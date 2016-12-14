@@ -85,7 +85,9 @@ public class Weapon : Gear {
     }
 
     public void calcStats() { // formula not final of course
-        if (type == WeaponType.highDamage) {
+        _damage = level * .7m;
+        _accuracy = level*0.5m;
+        /*if (type == WeaponType.highDamage) {
             _damage   = level * 0.7m;
             _accuracy = level * 0.3m;
         } else if (type == WeaponType.highAccuracy) {
@@ -94,6 +96,6 @@ public class Weapon : Gear {
         } else if (type == WeaponType.balanced) {
             _damage   = level * 0.5m;
             _accuracy = level * 0.5m;
-        }
+        }*/
     }
 }

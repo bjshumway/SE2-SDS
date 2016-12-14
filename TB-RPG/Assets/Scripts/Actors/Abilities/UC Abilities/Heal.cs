@@ -11,7 +11,7 @@ public class Heal : SingleTargetAbility {
 
     public Heal() : base() { }
 
-    public Heal(Actor Owner) : base("Heal", "Heals 1 third of HP and removes all status effects",
+    public Heal(Actor Owner) : base("Heal", "Heals 50% third of max HP, removes all status effects, revives dead characters.",
         "intellect", 1.0m, 100, false, Owner, damageType.none) {
 
     }
@@ -42,13 +42,19 @@ public class Heal : SingleTargetAbility {
 
 
     public override void dealEffect(Actor act) {
-        act.heal(act.health.maxValue / 3.0m);
+        if(!act.isUserControllable)
+        {
+            BattleHints.text = MLH.tr("Select Target Ally");
+            return;
+        }
+        act.heal(act.health.maxValue / 2.0m);
 
         // clearing all status effects
         for (int x = 0; x < act.statusEffects.Count; x++)
         {
             act.statusEffects[act.statusEffects.ElementAt(x).Key] = 0;
         }
+        act.isAlive = true;
         act.updateStatusEffectBox();
         AudioControl.playSound("spell_1");
         owner.stamina.subtract(stamina);

@@ -104,6 +104,7 @@ public class ShopInventoryScript : MonoBehaviour {
         }
 
         AudioControl.playSound("purchase");
+        item.value = (decimal) Mathf.Round((float)item.value / (float) 1.25);
 
         GameMaster.instance.thePlayer.inventory.sellItem(item);
         updateGoldWeightDisplay();
@@ -124,7 +125,7 @@ public class ShopInventoryScript : MonoBehaviour {
             buySell.GetComponentInChildren<Text>().text = "BUY";
             buySell.GetComponent<Button>().onClick.RemoveAllListeners();
             buySell.GetComponent<Button>().onClick.AddListener(delegate { ShopInventoryScript.instance.buyItem(item); });
-
+            item.invObject.transform.FindChild("Cost").GetComponent<Text>().text = item.value.ToString();
         }
     }
 
@@ -147,6 +148,7 @@ public class ShopInventoryScript : MonoBehaviour {
 
         //still here?
         AudioControl.playSound("coins1");
+        item.value = (decimal)Mathf.Round((float)item.value * (float)1.25);
 
 
         switch (item.itemType)
@@ -184,6 +186,7 @@ public class ShopInventoryScript : MonoBehaviour {
         buySell.GetComponent<Button>().onClick.RemoveAllListeners();
         buySell.GetComponent<Button>().onClick.AddListener(delegate { ShopInventoryScript.instance.sellItem(item); });
 
+        item.invObject.transform.FindChild("Cost").GetComponent<Text>().text = item.value.ToString();
 
 
     }

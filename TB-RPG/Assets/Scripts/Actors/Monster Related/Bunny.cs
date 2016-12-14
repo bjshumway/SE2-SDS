@@ -18,7 +18,7 @@ public class Bunny : Monster
                     new Resource(10000, 1), //health
                     new Resource(100, 5) //stamina
                 },
-                new int[] { 0, 0, 1, 0, 10 }, //charisma, cunning, dexterity, intelligence, strength
+                new int[] { 0, 4, 1, 0, 10 }, //charisma, cunning, dexterity, intelligence, strength
                 Ability.damageType.ground
                 )
     {

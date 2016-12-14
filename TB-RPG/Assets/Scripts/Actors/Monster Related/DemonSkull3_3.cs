@@ -16,7 +16,7 @@ public class DemonSkull3_3 : Monster {
                     new Resource(500, 1), //health
                     new Resource(100, 3) //stamina
                 },
-                new int[] { 0, 0, 1, 0, 3 },  //charisma, cunning, dexterity, intelligence, strength
+                new int[] { 0, 4, 1, 0, 3 },  //charisma, cunning, dexterity, intelligence, strength
                 Ability.damageType.water //Weakness 
             ) 
     {

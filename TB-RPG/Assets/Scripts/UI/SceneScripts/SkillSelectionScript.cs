@@ -130,7 +130,10 @@ public class SkillSelectionScript : MonoBehaviour {
                 else
                 {
                     uC.levelUp();
-                    AbilitySelectionScript.instance.load(uC);
+                    if (uC.mustBeToldOfNewAbilityPointToSpend)
+                        AbilitySelectionScript.instance.load(uC);
+                    else
+                        SkillSelectionScript.load(uC, false);
                 }
             }
         }
@@ -141,6 +144,19 @@ public class SkillSelectionScript : MonoBehaviour {
         }
 
 
+    }
+
+    public void backToAbSelect()
+    {
+        currentUC.setStatLevels(new int[] { charisma, cunning, dexterity, intellect, strength });
+        currentUC.remainingResourcePoints = resourceTotal;
+        currentUC.remainingStatPoints = statTotal;
+        currentUC.health.setMaxValue(health, false);
+        currentUC.health.setValue(health);
+
+        currentUC.stamina.refreshSpeed = stamina;
+
+        AbilitySelectionScript.instance.load(currentUC);
     }
 
     public void HealthDec()

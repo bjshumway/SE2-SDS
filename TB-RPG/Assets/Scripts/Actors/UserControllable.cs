@@ -248,7 +248,7 @@ public abstract class UserControllable : Actor {
 
         //Next set the name of our current equip to what we are equipping
         shopInventoryInfo.transform.FindChild("Weapon").gameObject
-            .GetComponentInChildren<Text>().text = weapon.name;
+            .GetComponentInChildren<Text>().text = weapon.name + ", dmg: " + weapon.level;
 
         return;
     }

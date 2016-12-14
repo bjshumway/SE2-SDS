@@ -29,7 +29,7 @@ public class MonsterAttack : Ability {
 
             while (GameMaster.instance.thePlayer.partyIsDead == false)
             {
-                int k = rand.Next(0, party.Length -1);
+                int k = rand.Next(0, party.Length);
                 if (party[k] != null && party[k].isAlive)
                 {
                     act = party[k];

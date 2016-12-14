@@ -45,6 +45,10 @@ public class Item :InventoryObject {
         get {
             return _value;
         }
+        set
+        {
+            _value = value;
+        }
     }
 
     public Item() : base()

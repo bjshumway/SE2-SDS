@@ -7,11 +7,24 @@ public class BGM : MonoBehaviour {
     public AudioSource source;
 
     public AudioClip menuClip;
+    public float menuClipTime = 0;
+
     public AudioClip battleClip;
+    public float battleClipTime = 0;
+
     public AudioClip shopClip;
+    public float shopClipTime = 0;
+
     public AudioClip bossClip;
+    public float bossClipTime = 0;
+
     public AudioClip victoryClip;
+    public float victoryClipTime = 0;
+
     public AudioClip deathClip;
+    public float deathClipTime = 0;
+
+    private SongNames currSong;
 
 
     public enum SongNames
@@ -40,6 +53,28 @@ public class BGM : MonoBehaviour {
     {
         AudioClip toPlay = null;
 
+        switch(currSong)
+        {
+            case SongNames.menu:
+                menuClipTime = source.time - .5f;
+                break;
+            case SongNames.battle:
+                battleClipTime = source.time - .5f;
+                break;
+            case SongNames.boss:
+                bossClipTime = source.time - .5f;
+                break;
+            case SongNames.shop:
+                shopClipTime = source.time - .5f;
+                break;
+            case SongNames.victory:
+                victoryClipTime = source.time - .5f;
+                break;
+            case SongNames.death:
+                deathClipTime = source.time - .5f;
+                break;
+        }
+
         switch (sn)
         {
             case SongNames.menu:
@@ -62,9 +97,62 @@ public class BGM : MonoBehaviour {
                 break;
         }
 
+        currSong = sn;
+
         source.clip = toPlay;
         source.Play();
 
+        try
+        {
+            switch (sn)
+            {
+                case SongNames.menu:
+                    source.time = menuClipTime;
+                    break;
+                case SongNames.battle:
+                    source.time = battleClipTime;
+                    break;
+                case SongNames.boss:
+                    source.time = bossClipTime;
+                    break;
+                case SongNames.shop:
+                    source.time = shopClipTime;
+                    break;
+                case SongNames.victory:
+                    source.time = victoryClipTime;
+                    break;
+                case SongNames.death:
+                    source.time = deathClipTime;
+                    break;
+            }
+        }
+        catch
+        {
+            switch (sn)
+            {
+                case SongNames.menu:
+                    menuClipTime = 0;
+                    break;
+                case SongNames.battle:
+                    battleClipTime = 0;
+                    break;
+                case SongNames.boss:
+                    bossClipTime = 0;
+                    break;
+                case SongNames.shop:
+                    shopClipTime = 0;
+                    break;
+                case SongNames.victory:
+                    victoryClipTime = 0;
+                    break;
+                case SongNames.death:
+                    deathClipTime = 0;
+                    break;
+            }
+            source.time = 0;
+        }
+
+      
     }
 
     // This defines a static instance property that attempts to find the manager object in the scene and

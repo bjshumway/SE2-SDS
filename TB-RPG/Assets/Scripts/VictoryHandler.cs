@@ -88,6 +88,7 @@ public class VictoryHandler : MonoBehaviour {
         state = vhState.inActive;
         this.monsters = monsters;
         startTime = Time.realtimeSinceStartup;
+        GameObject.Find("BattleHints").GetComponentInChildren<Text>().text = "";
 
 
         BattleScript.instance.pipeInputFunc = null;
@@ -187,6 +188,7 @@ public class VictoryHandler : MonoBehaviour {
             if (partyMember != null) {
                 partyMember.stats["strength"].clearBuffs();
                 partyMember.health.setValue(partyMember.health.maxValue);
+                partyMember.isAlive = true;
             }
         }
 
@@ -286,7 +288,13 @@ public class VictoryHandler : MonoBehaviour {
                 state = vhState.levelingUCs;
                 UserControllable uC = getNextUCToLevel();
                 uC.levelUp();
-                AbilitySelectionScript.instance.load(uC);
+                if(uC.mustBeToldOfNewAbilityPointToSpend)
+                {
+                    AbilitySelectionScript.instance.load(uC);
+                } else
+                {
+                    SkillSelectionScript.load(uC, false);
+                }
             }
         }
     }

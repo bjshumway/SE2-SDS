@@ -16,7 +16,7 @@ public class DemonSkull2_2 : Monster {
                     new Resource(150, 1), //health
                     new Resource(100, 2) //stamina
                 },
-                new int[] { 0, 0, 1, 0, 2 },  //charisma, cunning, dexterity, intelligence, strength
+                new int[] { 0, 3, 1, 0, 2 },  //charisma, cunning, dexterity, intelligence, strength
                 Ability.damageType.lightning //Weakness 
             ) 
     {

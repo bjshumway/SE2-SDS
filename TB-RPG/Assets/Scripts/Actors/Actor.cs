@@ -80,6 +80,10 @@ public class Actor {
         get {
             return _isAlive;
         }
+        set
+        {
+            _isAlive = value;
+        }
     }
 
     public int level {
@@ -303,21 +307,23 @@ public class Actor {
         hitType ht;
 
         // temporary formula - needs balance testing
-        decimal dodgeRoll = (ran.Next(0, 100)) / 100m;
+        decimal dodgeRoll = (ran.Next(0, 45));
 
         bool isWeak = (weakness == damageType);
 
         //Dodge roll for uC is based on weapon accuracy, for Monster is based on hitAccuracy
-        if (damager.isUserControllable)
+        /*if (damager.isUserControllable)
         {
-            dodgeRoll = dodgeRoll + (damager.weapon.accuracy * 0.5m) / 100m;
+            dodgeRoll = dodgeRoll + (damager.weapon.accuracy * 0.5m);
+            dodgeRoll = 1000; //Temporary adjustment since we've been missing too much
         }
         else
         {
-            dodgeRoll = dodgeRoll + ((Monster)damager).hitAccuracy * .05m / 100m;
-        }
+            dodgeRoll = dodgeRoll + ((Monster)damager).hitAccuracy * .05m;
+        }*/
+       
 
-        if ((stats["cunning"].modifier) < dodgeRoll || statusEffects["pin"] != 0 || autoHit) {
+        if ((stats["cunning"].level) < dodgeRoll || statusEffects["pin"] != 0 || autoHit) {
             ht = hitType.hit;
             decimal critRoll = (ran.Next(0, 100) / 100m);
 
