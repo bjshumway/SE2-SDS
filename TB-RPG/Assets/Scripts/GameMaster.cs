@@ -65,7 +65,6 @@ public class GameMaster : MonoBehaviour {
         thePlayer = new Player();
         thePlayer.health.setValue(10);
 
-
         //setup the mice
         cursor1 = (Texture2D)Resources.Load("mouse1");
         cursor2 = (Texture2D)Resources.Load("mouse2");
